@@ -11,9 +11,9 @@ ratchet-v2-user-desktop
 
 - Install **grails**
 
-         ```bash
-         $ gvm install grails
-         ```
+       ```bash
+       $ gvm install grails
+       ```
 ## Run
 
        ```bash
