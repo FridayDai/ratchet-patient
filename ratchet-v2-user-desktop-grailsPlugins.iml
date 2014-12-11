@@ -4,8 +4,8 @@
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
-          <root url="file://$MODULE_DIR$/target/work/plugins/jquery-1.11.1/web-app" relative="/" />
           <root url="file://$MODULE_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/views" relative="/" />
+          <root url="file://$MODULE_DIR$/target/work/plugins/resources-1.2.13/web-app" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -34,6 +34,10 @@
     <content url="file://$MODULE_DIR$/target/work/plugins/cdn-asset-pipeline-0.3.5">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/cdn-asset-pipeline-0.3.5/src/groovy" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/target/work/plugins/compass-sass-0.7">
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/compass-sass-0.7/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/compass-sass-0.7/grails-app/i18n" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/database-migration-1.4.0">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/controllers" isTestSource="false" />
@@ -41,16 +45,17 @@
     <content url="file://$MODULE_DIR$/target/work/plugins/hibernate4-4.3.6.1">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/hibernate4-4.3.6.1/src/java" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/target/work/plugins/jquery-1.11.1">
-      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/jquery-1.11.1/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/jquery-1.11.1/grails-app/services" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/jquery-1.11.1/grails-app/taglib" isTestSource="false" />
-    </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/karman-0.5.2">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/karman-0.5.2/src/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/karman-0.5.2/grails-app/controllers" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/karman-aws-0.4.2" />
+    <content url="file://$MODULE_DIR$/target/work/plugins/resources-1.2.13">
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/resources-1.2.13/src/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/resources-1.2.13/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/resources-1.2.13/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/resources-1.2.13/grails-app/taglib" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/rest-client-builder-1.0.3">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/rest-client-builder-1.0.3/src/groovy" isTestSource="false" />
     </content>

@@ -65,11 +65,13 @@ grails.project.dependency.resolution = {
 
         compile ':cdn-asset-pipeline:0.3.5'
         compile ":rest-client-builder:1.0.3"
+        compile ":compass-sass:0.7"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
         runtime ":database-migration:1.4.0"
-        runtime ":jquery:1.11.1"
+//        runtime ":jquery:1.11.1"
+        runtime ":resources:1.2.13"
 
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
