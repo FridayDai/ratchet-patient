@@ -65,8 +65,9 @@ ratchet-v2-user-desktop
     ```
 
 2. config BuildConfig
-   - In BuildConfig.groovy, make the {run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false]} to be annotation. Just like this:
 
+   - In BuildConfig.groovy, make the {run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false]} to be annotation. Just like this:
+   ```
         grails.project.fork = [
             // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
             //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
@@ -80,5 +81,6 @@ ratchet-v2-user-desktop
             // configure settings for the Console UI JVM
             console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
         ]
+    ```
 
 3. synchronize Grails Settings
