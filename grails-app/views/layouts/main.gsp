@@ -12,20 +12,18 @@
 	<link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
 	<link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
 	<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
-
+	<asset:stylesheet src="css/common.css"/>
 	<g:if test="${cssPath}">
-		<asset:stylesheet src="css/${cssPath}"/>
+		<asset:stylesheet src="css/pages/${cssPath}"/>
 	</g:if>
-	<g:else>
-		<asset:stylesheet src="css/common.css"/>
-	</g:else>
 	<g:layoutHead/>
 </head>
 <body>
-<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Ratchet"/></a></div>
+<div id="grailsLogo" role="banner"><a href="http://grails.org"></a></div>
 <g:layoutBody/>
 <div class="footer" role="contentinfo"></div>
 <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+
 <g:if test="${scriptPath}">
 	<asset:javascript src="bundles/${scriptPath}"/>
 </g:if>
