@@ -1,4 +1,5 @@
-/* line 1, ../sass/pages/_home.scss */
-p { font-size: 12px; font-family: "andale mono", "lucida console", monospace; font-weight: 200; }
-/* line 5, ../sass/pages/_home.scss */
-p a { font-weight: 300; font-style: inherit; }
+/* line 1, ../sass/partials/_base.scss */
+a { font-size: 12px; }
+
+/* line 5, ../sass/partials/_base.scss */
+.center { text-align: center; }
