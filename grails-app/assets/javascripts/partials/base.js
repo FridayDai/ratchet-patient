@@ -1,6 +1,7 @@
-; (function ($, undefined) {
+;
+(function ($, undefined) {
     'use strict';
-    var RC = (function (self){
+    var RC = (function (self) {
 
         self.windowWidth = $(window).width();
         self.windowHeight = $(window).height();
@@ -83,5 +84,5 @@
         }
 
         return self;
-    }(RC || {}))
+    })(RC || {})
 })(jQuery);

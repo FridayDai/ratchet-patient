@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse
 
 class AuthenticationService {
 
+    def grailsApplication
+
     /**
      * Authenticate against backend
      *
@@ -15,16 +17,18 @@ class AuthenticationService {
      * @param response
      * @param params
      */
+
     def authenticate(HttpServletRequest request, HttpServletResponse response, params) {
         def username = params.username
         def password = params.password
 
-        if(!(username && password)){
+        if (!(username && password)) {
             log.info("username and password can't be null")
             return false
         }
 
-        def resp = Unirest.post("http://localhost:8090/login")
+        def url = grailsApplication.config.rest.baseurl.default +  grailsApplication.config.rest.login.endpointUrl
+        def resp = Unirest.post(url)
                 .field("username", username)
                 .field("password", password)
                 .asString()
@@ -59,11 +63,12 @@ class AuthenticationService {
         def session = request.session
         def uid = session?.uid
 
-        def resp = Unirest.get("http://localhost:8090/logout")
+        def url = grailsApplication.config.rest.baseurl.default + grailsApplication.config.rest.logout.endpointUrl
+        def resp = Unirest.get(url)
                 .queryString("sessionId", "${uid}")
                 .asString()
 
-        if (!uid || resp.status!=200) {
+        if (!uid || resp.status != 200) {
             log.warn("No user login in the session.")
             return false
         }

@@ -1,4 +1,3 @@
-
 RC.common = (function () {
     var self = {};
 
