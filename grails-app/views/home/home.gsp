@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <h1>login in user desktop</h1>
-    <g:link controller="login" action="index">logout</g:link>
+    <h1>welcome login in user desktop</h1>
+    <g:link controller="authentication" action="logout">logout</g:link>
 
 </body>
 </html>
