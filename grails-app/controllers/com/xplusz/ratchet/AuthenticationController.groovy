@@ -1,14 +1,11 @@
 package com.xplusz.ratchet
-
-import grails.converters.JSON
-
 /**
  * Authentication controller for login/logout
  *
  */
-class AuthenticationController extends AbstractController {
+class AuthenticationController extends BaseController {
 
-    static allowedMethods = [login: ['POST'], logout: ['GET']]
+    static allowedMethods = [login: ['POST', 'GET'], logout: ['GET']]
 
     def beforeInterceptor = [action: this.&auth, except: ['login']]
 
@@ -25,17 +22,15 @@ class AuthenticationController extends AbstractController {
      * Handle login.
      */
     def login() {
-        def resp = authenticationService.authenticate(request, response, params)
-        if (resp) {
-            if (resp.authenticated) {
-                redirect(uri: '/home')
-            } else {
-                def errorMessage = resp.errorMessage
-                render(view: 'login', model: [errorMessage: errorMessage])
-            }
-        } else {
-            render(view: 'login')
+
+        if (request.method == "GET") {
+            render view: "login"
         }
+
+        else if (request.method == "POST") {
+            authenticate()
+        }
+
 
     }
 
@@ -49,6 +44,23 @@ class AuthenticationController extends AbstractController {
             log.warn("logout failed")
         }
         redirect(uri: "/login")
+    }
+
+
+    private def authenticate() {
+
+        def resp = authenticationService.authenticate(request, response, params)
+
+        if (resp) {
+            if (resp.authenticated) {
+                redirect(uri: '/home')
+            } else {
+                def errorMessage = resp.errorMessage
+                render(view: 'login', model: [errorMessage: errorMessage])
+            }
+        } else {
+            render(view: 'login')
+        }
     }
 
 }

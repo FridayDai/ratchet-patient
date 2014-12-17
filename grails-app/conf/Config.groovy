@@ -123,6 +123,7 @@ grails.plugin.cookiesession.hmac.id = "grails-session-hmac"
 grails.plugin.cookiesession.hmac.algorithm = "HmacSHA1"
 grails.plugin.cookiesession.hmac.secret = "ratchetByXplusz".bytes.encodeBase64(false).toString()
 
-rest.baseurl.default = "http://localhost:8090"
-rest.login.endpointUrl = "/login"
-rest.logout.endpointUrl = "/logout"
+ratchetv2.server.base.url = "http://localhost:8090"
+ratchetv2.server.login.url = "${ratchetv2.server.base.url}/login"
+ratchetv2.server.logout.url = "${ratchetv2.server.base.url}/logout"
+ratchetv2.server.validateSessionId.url = "${ratchetv2.server.base.url}/check_token"

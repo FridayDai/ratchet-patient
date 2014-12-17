@@ -27,7 +27,7 @@ class AuthenticationService {
             return false
         }
 
-        def url = grailsApplication.config.rest.baseurl.default +  grailsApplication.config.rest.login.endpointUrl
+        def url = grailsApplication.config.ratchetv2.server.login.url
         def resp = Unirest.post(url)
                 .field("username", username)
                 .field("password", password)
@@ -63,7 +63,7 @@ class AuthenticationService {
         def session = request.session
         def uid = session?.uid
 
-        def url = grailsApplication.config.rest.baseurl.default + grailsApplication.config.rest.logout.endpointUrl
+        def url = grailsApplication.config.ratchetv2.server.logout.url
         def resp = Unirest.get(url)
                 .queryString("sessionId", "${uid}")
                 .asString()
