@@ -2,13 +2,11 @@ class UrlMappings {
 
     static mappings = {
 
-        //"/authenticate"(view: '/authentication/login')
-
-        "/"(controller: "home", action: "index")
+        "/"(controller: "authentication", action: "index")
 
         "/login"(controller: "authentication", action: "login")
 
-//        "/home"(controller: 'home', action: 'index')
+        "/home"(controller: 'home', action: 'index')
 
         "/logout"(controller: "authentication") {
             action = [GET: 'logout']

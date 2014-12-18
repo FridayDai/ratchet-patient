@@ -21,10 +21,16 @@ class AuthenticationService {
     def authenticate(HttpServletRequest request, HttpServletResponse response, params) {
         def username = params.username
         def password = params.password
+        def data
 
         if (!(username && password)) {
             log.info("username and password can't be null")
-            return false
+            def message = "username and password can't be null"
+            data = [
+                    authenticated: false,
+                    errorMessage : message
+            ]
+            return data
         }
 
         def url = grailsApplication.config.ratchetv2.server.login.url
@@ -34,17 +40,19 @@ class AuthenticationService {
                 .asString()
         def result = JSON.parse(resp.body)
 
-        def data
+
         if (resp?.status == 200) {
             request.session.uid = result.sessionId
             request.session.identifier = UUID.randomUUID().toString()
+
             data = [
                     authenticated: true,
             ]
+
         } else {
+
             data = [
                     authenticated: false,
-                    errorId      : result.error.errorId,
                     errorMessage : result.error.errorMessage
             ]
 

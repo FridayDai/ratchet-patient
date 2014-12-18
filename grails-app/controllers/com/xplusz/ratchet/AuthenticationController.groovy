@@ -25,10 +25,8 @@ class AuthenticationController extends BaseController {
 
         if (request.method == "GET") {
             render view: "login"
-        }
-
-        else if (request.method == "POST") {
-            authenticate()
+        } else if (request.method == "POST") {
+            authenticate(request, response, params)
         }
 
 
@@ -47,20 +45,17 @@ class AuthenticationController extends BaseController {
     }
 
 
-    private def authenticate() {
+    private def authenticate(request, response, params) {
 
         def resp = authenticationService.authenticate(request, response, params)
 
-        if (resp) {
-            if (resp.authenticated) {
-                redirect(uri: '/home')
-            } else {
-                def errorMessage = resp.errorMessage
-                render(view: 'login', model: [errorMessage: errorMessage])
-            }
+        if (resp.authenticated) {
+            redirect(uri: '/home')
         } else {
-            render(view: 'login')
+            def errorMessage = resp.errorMessage
+            render(view: 'login', model: [errorMessage: errorMessage])
         }
+
     }
 
 }

@@ -118,11 +118,13 @@ log4j.main = {
 
 grails.plugin.cookiesession.enabled = true
 grails.plugin.cookiesession.id = "ratchet-session"
-grails.plugin.cookiesession.timeout = 60
+grails.plugin.cookiesession.timeout = 15
 grails.plugin.cookiesession.hmac.id = "grails-session-hmac"
 grails.plugin.cookiesession.hmac.algorithm = "HmacSHA1"
 grails.plugin.cookiesession.hmac.secret = "ratchetByXplusz".bytes.encodeBase64(false).toString()
 
+
+//server rest url
 ratchetv2.server.base.url = "http://localhost:8090"
 ratchetv2.server.login.url = "${ratchetv2.server.base.url}/login"
 ratchetv2.server.logout.url = "${ratchetv2.server.base.url}/logout"

@@ -1,6 +1,6 @@
-/**
- * Created by colin on 12/11/14.
- */
-//= require ../../libs/jquery-1.9.0.min
-//= require ../../libs/jquery.validate.min
-//= require ../../libs/underscore
+//= require ../../libs/jquery/jquery
+//= require ../../libs/jquery-ui/ui/jquery-ui
+//= require ../../libs/jquery-validation/dist/jquery.validate
+//= require ../../libs/underscore/underscore
+//= require ../../partials/base
+//= require ../../partials/common
