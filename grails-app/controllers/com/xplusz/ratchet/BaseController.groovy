@@ -34,22 +34,6 @@ class BaseController {
     }
 
     /**
-     *
-     * @param msg
-     * @return
-     */
-
-    protected renderAuthForbiddenResponse(String msg) {
-        response.status = HttpServletResponse.SC_FORBIDDEN
-        Map data = [
-                errorId     : HttpServletResponse.SC_FORBIDDEN,
-                errorMessage: msg
-        ]
-        JSON json = new JSON([response: null, error: data])
-        json.render(response)
-    }
-
-    /**
      * Handle runtimeException and log the error.
      * @param exception
      * @return

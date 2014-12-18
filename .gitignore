@@ -34,4 +34,5 @@
 .project
 /wrapper
 .sass-cache/
+grails-app/assets/stylesheets/css
 grails-app/assets/javascripts/libs
