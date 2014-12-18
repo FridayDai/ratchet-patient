@@ -12,7 +12,7 @@ class BaseController {
     def baseService
 
     /**
-     *  Verify Permissions.
+     *  Verify Permissions. Quick check to see if the current user is logged in. If not, it will redirect to login.
      *
      * @return
      */
@@ -23,8 +23,8 @@ class BaseController {
         }
 
         def sessionId = session.uid
-        def resp = baseService.validateSession(sessionId)
-        if (resp.status == 200) {
+        def isValidated = baseService.validateSession(sessionId)
+        if (isValidated) {
             return true
         } else {
             redirect(uri: "/login")
@@ -32,6 +32,12 @@ class BaseController {
         }
 
     }
+
+    /**
+     *
+     * @param msg
+     * @return
+     */
 
     protected renderAuthForbiddenResponse(String msg) {
         response.status = HttpServletResponse.SC_FORBIDDEN
@@ -42,6 +48,12 @@ class BaseController {
         JSON json = new JSON([response: null, error: data])
         json.render(response)
     }
+
+    /**
+     * Handle runtimeException and log the error.
+     * @param exception
+     * @return
+     */
 
     def handleException(RuntimeException exception) {
         log.error(exception)

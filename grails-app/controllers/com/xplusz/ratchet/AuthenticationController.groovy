@@ -19,7 +19,7 @@ class AuthenticationController extends BaseController {
     }
 
     /**
-     * Handle login.
+     * Handle login and show login page.
      */
     def login() {
 
@@ -44,15 +44,31 @@ class AuthenticationController extends BaseController {
         redirect(uri: "/login")
     }
 
-
+    /**
+     * Authenticate for login, when authentication is passed, it will turn to home page . If not, it should be back to login.
+     * @param request
+     * @param response
+     * @param params
+     * @return
+     */
     private def authenticate(request, response, params) {
+
+        def username = params.username
+        def password = params.password
+
+        if (!(username && password)) {
+            log.info("username and password can't be null")
+            def errorMessage = message(code: "security.errors.login.missParams")
+            render(view: 'login', model: [errorMessage: errorMessage])
+            return
+        }
 
         def resp = authenticationService.authenticate(request, response, params)
 
-        if (resp.authenticated) {
+        if (resp?.authenticated) {
             redirect(uri: '/home')
         } else {
-            def errorMessage = resp.errorMessage
+            def errorMessage = resp?.errorMessage
             render(view: 'login', model: [errorMessage: errorMessage])
         }
 
