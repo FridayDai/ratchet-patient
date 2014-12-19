@@ -18,7 +18,9 @@ ratchet-v2-user-desktop
     ```
 
 ## Compass Optional
-1. Install **compass-sass plugin**
+#### you need to select one of them. 
+
+1. Install **compass-sass plugin** (**option one**)
 
 	- Add plugins in buildConfig.groovy(**Already add**)
 
@@ -70,7 +72,7 @@ ratchet-v2-user-desktop
       # restarted your machine so that the new launchd config would take effect
   	 ```
 
-2. Not Install **compass-sass plugin**
+2. Not Install **compass-sass plugin**(**option two**)
 
 	- remove plugins in buildConfig.groovy
 
