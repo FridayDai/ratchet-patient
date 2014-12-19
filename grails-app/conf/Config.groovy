@@ -124,8 +124,12 @@ grails.plugin.cookiesession.hmac.algorithm = "HmacSHA1"
 grails.plugin.cookiesession.hmac.secret = "ratchetByXplusz".bytes.encodeBase64(false).toString()
 
 
-//server rest url
-ratchetv2.server.base.url = "http://localhost:8090"
-ratchetv2.server.login.url = "${ratchetv2.server.base.url}/login"
-ratchetv2.server.logout.url = "${ratchetv2.server.base.url}/logout"
-ratchetv2.server.validateSessionId.url = "${ratchetv2.server.base.url}/check_token"
+// locations to search for config files that get merged into the main config;
+// config files can be ConfigSlurper scripts, Java properties files, or classes
+// in the classpath in ConfigSlurper format
+String defaultOverrideLocation = "classpath:resources/noredist/override.properties"
+String systemOverrideLocation = System.getProperty("override")
+String overrideLocation = systemOverrideLocation ? "file:${systemOverrideLocation}" : defaultOverrideLocation
+grails.config.locations = [
+        overrideLocation
+]
