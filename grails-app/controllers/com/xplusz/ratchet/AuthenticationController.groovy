@@ -1,4 +1,7 @@
 package com.xplusz.ratchet
+
+import exceptions.AccountValidationException
+
 /**
  * Authentication controller for login/logout
  *
@@ -25,7 +28,8 @@ class AuthenticationController extends BaseController {
         if (request.method == "GET") {
             render view: "login"
         } else if (request.method == "POST") {
-            authenticate(request, response, params)
+            authenticationService.authenticate(request, response, params)
+            redirect(uri: '/home')
         }
     }
 
@@ -41,33 +45,16 @@ class AuthenticationController extends BaseController {
     }
 
     /**
-     * Authenticate for login, when authentication is passed, it will turn to home page . If not, it should be back to login.
+     * handle AccountValidationException, when Exception happened, it should be back to login.
      * @param request
      * @param response
      * @param params
      * @return
      */
-    def authenticate(request, response, params) {
 
-        def username = params.username
-        def password = params.password
-
-        if (!(username && password)) {
-//            throw new ValiationException(eeeegaga)
-            log.info("username and password can't be null")
-            def errorMessage = message(code: "security.errors.login.missParams")
-            render(view: 'login', model: [errorMessage: errorMessage])
-            return
-        }
-
-        def resp = authenticationService.authenticate(request, response, params)
-
-        if (resp?.authenticated) {
-            redirect(uri: '/home')
-        } else {
-            def errorMessage = resp?.errorMessage
-            render(view: 'login', model: [errorMessage: errorMessage])
-        }
+    def handleAccountValidationException(AccountValidationException e) {
+        def msg = e.getMessage()
+        render(view: 'login', model: [errorMessage: msg])
 
     }
 

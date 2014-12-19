@@ -3,7 +3,7 @@ ratchet-v2-user-desktop
 
 ## Dependencies
 
-1. JDK 1.7+
+1. JDK 1.8+
 2. Grails 2.4.4
     - Install **gvm**
              Go to [gvm home page](http://gvmtool.net/) and install

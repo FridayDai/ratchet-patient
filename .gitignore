@@ -32,6 +32,7 @@
 *.iml
 .classpath
 .project
+.DS_Store
 .editorconfig
 /wrapper
 .sass-cache/
