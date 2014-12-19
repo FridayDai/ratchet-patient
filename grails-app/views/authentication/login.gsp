@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: colin
-  Date: 12/12/14
-  Time: 6:04 PM
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <g:set var="scriptPath" value="loginBundle" />
 <g:set var="cssPath" value="login" />

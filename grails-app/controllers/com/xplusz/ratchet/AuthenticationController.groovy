@@ -22,14 +22,11 @@ class AuthenticationController extends BaseController {
      * Handle login and show login page.
      */
     def login() {
-
         if (request.method == "GET") {
             render view: "login"
         } else if (request.method == "POST") {
             authenticate(request, response, params)
         }
-
-
     }
 
     /**
@@ -37,7 +34,6 @@ class AuthenticationController extends BaseController {
      * @return
      */
     def logout() {
-
         if (!authenticationService.logout(request, response)) {
             log.warn("logout failed")
         }
@@ -51,12 +47,13 @@ class AuthenticationController extends BaseController {
      * @param params
      * @return
      */
-    private def authenticate(request, response, params) {
+    def authenticate(request, response, params) {
 
         def username = params.username
         def password = params.password
 
         if (!(username && password)) {
+//            throw new ValiationException(eeeegaga)
             log.info("username and password can't be null")
             def errorMessage = message(code: "security.errors.login.missParams")
             render(view: 'login', model: [errorMessage: errorMessage])

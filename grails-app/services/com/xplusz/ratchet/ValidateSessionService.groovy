@@ -3,7 +3,7 @@ package com.xplusz.ratchet
 import com.mashape.unirest.http.Unirest
 
 
-class BaseService {
+class ValidateSessionService {
 
     /** dependency injection for grailsApplication */
     def grailsApplication

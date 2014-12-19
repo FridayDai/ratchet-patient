@@ -32,6 +32,7 @@
 *.iml
 .classpath
 .project
+.editorconfig
 /wrapper
 .sass-cache/
 grails-app/assets/stylesheets/css

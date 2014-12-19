@@ -1,15 +1,10 @@
 package com.xplusz.ratchet
-
-import grails.converters.JSON
-
-import javax.servlet.http.HttpServletResponse
-
 /**
  * Base Controller.
  */
 class BaseController {
 
-    def baseService
+    def validateSessionService
 
     /**
      *  Verify Permissions. Quick check to see if the current user is logged in. If not, it will redirect to login.
@@ -23,7 +18,7 @@ class BaseController {
         }
 
         def sessionId = session.uid
-        def isValidated = baseService.validateSession(sessionId)
+        def isValidated = validateSessionService.validateSession(sessionId)
         if (isValidated) {
             return true
         } else {
@@ -33,14 +28,22 @@ class BaseController {
 
     }
 
+
+
+
+
     /**
      * Handle runtimeException and log the error.
      * @param exception
      * @return
      */
-
     def handleException(RuntimeException exception) {
+
         log.error(exception)
     }
+
+
+
+
 
 }
