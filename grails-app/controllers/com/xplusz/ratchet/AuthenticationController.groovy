@@ -2,6 +2,8 @@ package com.xplusz.ratchet
 
 import exceptions.AccountValidationException
 
+import javax.servlet.http.HttpServletResponse
+
 /**
  * Authentication controller for login/logout
  *
@@ -40,8 +42,11 @@ class AuthenticationController extends BaseController {
     def logout() {
         if (!authenticationService.logout(request, response)) {
             log.warn("logout failed")
+//            response.sendError HttpServletResponse.SC_METHOD_NOT_ALLOWED // 405
+//            return
         }
         redirect(uri: "/login")
+
     }
 
     /**
