@@ -12,7 +12,7 @@
         <h1 class="center">login in user desktop</h1>
         <g:form controller="authentication" action="login" class="form-center">
             <div class="center">
-            <input type="text" name="username" placeholder="Username"  class="form-input">
+            <input type="text" name="email" placeholder="Email"  class="form-input">
             </div>
 
             <div class="center">
