@@ -13,7 +13,7 @@
 
 <body>
     <h1>welcome login in user desktop</h1>
-    <g:link controller="authentication" action="logout">logout</g:link>
+    <g:link resource="/logout">logout</g:link>
 
 </body>
 </html>

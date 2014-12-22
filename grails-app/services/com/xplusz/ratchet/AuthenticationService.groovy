@@ -28,24 +28,27 @@ class AuthenticationService {
 
     def authenticate(HttpServletRequest request, HttpServletResponse response, params) throws AccountValidationException {
 
-        def username = params.username
+        def email = params.email
         def password = params.password
 
-        if (!(username && password)) {
+        if (!(email && password)) {
             def errorMessage = messageSource.getMessage("security.errors.login.missParams", null, null)
             throw new AccountValidationException(errorMessage)
         }
 
         def url = grailsApplication.config.ratchetv2.server.login.url
+        def clientPlatform = grailsApplication.config.ratchetv2.project.client_platform
+        def clientType = grailsApplication.config.ratchetv2.project.client_type
         def resp = Unirest.post(url)
-                .field("username", username)
+                .field("email", email)
                 .field("password", password)
+                .field("client_platform", clientPlatform)
+                .field("client_type", clientType)
                 .asString()
         def result = JSON.parse(resp.body)
 
         if (resp?.status == 200) {
-            request.session.uid = result.sessionId
-            request.session.identifier = UUID.randomUUID().toString()
+            request.session.token = result.token
             def data = [
                     authenticated: true,
             ]
@@ -68,18 +71,23 @@ class AuthenticationService {
      */
     def logout(request, response) {
         def session = request.session
-        def uid = session?.uid
+        def token = session?.token
+
+        if (!token){
+            log.warn("session may be killed or token in session is null")
+            return false
+        }
 
         def url = grailsApplication.config.ratchetv2.server.logout.url
         def resp = Unirest.get(url)
-                .queryString("sessionId", "${uid}")
+                .header("X-Auth-Token", "${token}")
                 .asString()
-        if (!uid || resp.status != 200) {
+        if (resp.status != 200) {
             log.warn("No user login in the session.")
             return false
         }
 
-        log.info("Logout $uid")
+        log.info("Logout $token")
         session.invalidate()
         return true
     }
