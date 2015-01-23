@@ -1,6 +1,7 @@
-//= require ../../libs/jquery/jquery
-//= require ../../libs/jquery-ui/ui/jquery-ui
-//= require ../../libs/jquery-validation/dist/jquery.validate
-//= require ../../libs/underscore/underscore
+//= require ../../bower_components/jquery/jquery
+//= require ../../bower_components/jquery-ui/ui/jquery-ui
+//= require ../../bower_components/jquery-validation/dist/jquery.validate
+//= require ../../bower_components/underscore/underscore
 //= require ../../partials/base
+//= require ../../partials/constants
 //= require ../../partials/common

@@ -1,0 +1,141 @@
+@import '../partials/variable';
+@import '../partials/base';
+@import '../partials/common';
+
+.header {
+    display: none;
+}
+
+.content {
+    margin: 20px auto 0;
+    padding: 0;
+
+    .subtitle {
+        padding-right: 20px;
+        padding-left: 20px;
+        color: $base-color-medium-blue;
+        font-size: 16px;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .desc {
+        width: 100%;
+        padding: 10px 30px 10px 20px;
+        margin: 30px auto 0;
+        color: $base-color-medium-gray;
+        background-color: $base-color-light-blue;
+        font-size: .9em;
+        line-height: 25px;
+    }
+
+    .phone {
+        position: relative;
+        width: 100%;
+        margin: 20px auto 0;
+        padding: 10px 0 10px 15px;
+
+        p {
+            margin-bottom: 10px;
+            color: $base-color-medium-gray;
+        }
+
+        .info {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        input {
+            width: 280px;
+            height: 38px;
+            font-size: 15px;
+        }
+
+        .tooltip {
+            display: none;
+        }
+
+        .tip {
+            position: absolute;
+            top: 10px;
+            left: 330px;
+            padding: 10px;
+            width: 228px;
+            height: 70px;
+            color: $base-color-white;
+            background-color: $base-color-blue;
+            font-size: 12px;
+            text-align: justify;
+        }
+    }
+
+    .btn-calm {
+        margin-top: 50px;
+        margin-bottom: 70px;
+    }
+}
+
+.footer {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .header {
+        display: block;
+    }
+
+    .content {
+        margin-top: 60px;
+        padding: 15px;
+
+        .subtitle {
+            padding-right: 15px;
+            text-align: center;
+        }
+
+        .desc {
+            width: 90%;
+            margin-top: 50px;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .phone {
+            width: 90%;
+            margin-top: 40px;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .show-tip {
+            >.tooltip {
+                display: block;
+            }
+        }
+
+        .btn-calm {
+            margin-top: 80px;
+        }
+    }
+
+    .footer {
+        display: block;
+        position: fixed;
+        bottom: 0;
+    }
+}
+@media (min-width: 992px) {
+    .content {
+        .desc {
+            width: 80%;
+        }
+
+        .phone {
+            width: 80%;
+        }
+    }
+}
+
+
+

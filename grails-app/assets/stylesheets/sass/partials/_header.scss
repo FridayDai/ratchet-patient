@@ -1,0 +1,21 @@
+.header {
+    min-height: 50px;
+    min-width: 412px;
+    margin-bottom: 20px;
+    background-color: $base-color-lighten-gray;
+}
+
+.nav-info {
+    display: inline-block;
+
+    >img {
+        vertical-align: middle;
+    }
+
+    >p {
+        display: inline-block;
+        padding-left: 25px;
+        color: $base-color-dark-blue;
+        font-weight: 900;
+    }
+}

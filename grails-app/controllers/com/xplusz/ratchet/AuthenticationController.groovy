@@ -63,4 +63,8 @@ class AuthenticationController extends BaseController {
 
     }
 
+    def downloadApp() {
+        render view: "/authentication/download"
+    }
+
 }

@@ -6,11 +6,23 @@ class UrlMappings {
 
         "/login"(controller: "authentication", action: "login")
 
-        "/home"(controller: 'home', action: 'index')
+        "/home"(controller: 'home', action: "index")
 
         "/logout"(controller: "authentication") {
             action = [GET: 'logout']
         }
+
+        "/patient"(controller: "patient", action: "index")
+
+        "/task"(controller: "task", action: "index")
+
+        "/taskContent"(controller: "task", action: "getContent")
+
+        "/resultHasAccount"(controller: "task", action:"getResultWithAccount")
+
+        "/resultNoAccount"(controller: "task", action:"getResultWithoutAccount")
+
+        "/account"(controller: "account", action: "index")
 
         "/$controller/$action?/$id?(.$format)?" {
             constraints {
@@ -18,9 +30,8 @@ class UrlMappings {
             }
         }
 
-//        "/"(view:"/index")
         "403"(view: "/error403")
-        "500"(view: '/error')
+        "500"(view: "/error")
 
     }
 }

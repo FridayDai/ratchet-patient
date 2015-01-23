@@ -1,7 +1,7 @@
 /**
  * Created by colin on 12/12/14.
  */
-;
+
 (function ($, undefined) {
     'use strict';
     var login = RC.pages.login = RC.pages.login || {};

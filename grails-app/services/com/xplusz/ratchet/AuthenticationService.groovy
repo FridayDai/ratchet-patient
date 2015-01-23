@@ -42,8 +42,8 @@ class AuthenticationService {
         def resp = Unirest.post(url)
                 .field("email", email)
                 .field("password", password)
-                .field("client_platform", clientPlatform)
-                .field("client_type", clientType)
+                .field("clientPlatform", clientPlatform)
+                .field("clientType", clientType)
                 .asString()
         def result = JSON.parse(resp.body)
 
