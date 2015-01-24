@@ -12,9 +12,9 @@
     <div class="container col-xs-12 col-sm-10 col-md-8">
         <p>Please rate your ability to do the following activities in the last week.</p>
         <div class="block">
-            <span id="collapse-icon">—</span>
+            <span class="collapse-icon" id="collapse-icon">—</span>
             <span class="case">Symptoms </span>
-            <span id="collapse-arrow" class="caret-top"></span>
+            <span class="collapse-arrow caret-top" id="collapse-arrow"></span>
             <span class="minus">- </span>
             <span class="block-desc">These questions should be answered thinking of your knee symptoms during the last week.</span>
             <a class="more" href="#">Read More</a>

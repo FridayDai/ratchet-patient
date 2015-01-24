@@ -21,20 +21,20 @@
 
         .para1 {
             color: $base-color-green;
-            font-size: 18px;
             font-weight: bold;
+            font-size: 18px;
         }
 
         .para2 {
-            margin-bottom: 0;
             margin-top: 20px;
+            margin-bottom: 0;
             color: $base-color-medium-gray;
         }
 
         .para3 {
             display: inline-block;
-            margin-bottom: 0;
             margin-top: 40px;
+            margin-bottom: 0;
             color: $base-color-dark-gray;
             font-size: 15px;
         }
@@ -59,9 +59,9 @@
 
         .reminder {
             padding: 15px 25px;
-            line-height: 30px;
             color: $base-color-dark-blue;
             font-size: 15px;
+            line-height: 30px;
         }
 
         .btn-calm {
@@ -91,8 +91,8 @@
             display: block;
             width: 100%;
             height: 45px;
-            padding: 15px 10px 5px 35px;
             margin-bottom: 0;
+            padding: 15px 10px 5px 35px;
             border-bottom: 1px solid $base-color-light-gray;
             color: $base-color-blue;
             background-color: $base-color-lightest-gray;
@@ -108,9 +108,9 @@
         }
 
         .left-side {
-            padding: 35px;
             margin-top: 0;
             margin-bottom: 20px;
+            padding: 35px;
             background-color: $base-color-lighter-gray;
             text-align: left;
 
@@ -141,8 +141,8 @@
 
     .footer {
         position: fixed;
-        display: block;
         bottom: 0;
+        display: block;
     }
 }
 

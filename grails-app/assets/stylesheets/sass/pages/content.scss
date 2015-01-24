@@ -8,14 +8,14 @@
 
 .content {
     .container {
-        padding-left: 0;
         padding-right: 0;
+        padding-left: 0;
     }
 
     .subtitle {
         height: 65px;
-        padding: 20px 20px 20px 25px;
         margin-bottom: 10px;
+        padding: 20px 20px 20px 25px;
         color: $base-color-blue;
     }
 
@@ -29,12 +29,12 @@
         margin: 0;
         padding: 15px;
         border-bottom: 1px solid $base-color-light-gray;
-        line-height: 22px;
         color: $base-color-medium-blue;
         background-color: $base-color-lighter-gray;
+        line-height: 22px;
         box-shadow: 1px 1px 1px $base-color-light-gray;
 
-        #collapse-icon {
+        .collapse-icon {
             display: none;
             padding-right: 12px;
         }
@@ -44,10 +44,10 @@
             margin-bottom: 10px;
         }
 
-        #collapse-arrow {
+        .collapse-arrow {
             position: absolute;
-            right: 10px;
             top: 20px;
+            right: 10px;
         }
 
         .minus {
@@ -78,10 +78,10 @@
 
     .question {
         display: table-cell;
-        padding: 20px;
         height: 60px;
-        background-color: $base-color-lighter-gray;
+        padding: 20px;
         color: $base-color-medium-blue;
+        background-color: $base-color-lighter-gray;
 
     }
 
@@ -103,9 +103,9 @@
             display: inline-block;
             width: 1.5em;
             height: 1.5em;
+            margin: 0 .5em;
             border: 1px solid $base-color-gray;
             border-radius: 50%;
-            margin: 0 .5em;
         }
 
         .choice:checked + .radio {
@@ -131,8 +131,8 @@
         .subtitle {
             width: 100%;
             height: 45px;
-            padding: 15px 10px 5px 35px;
             margin-bottom: 0;
+            padding: 15px 10px 5px 35px;
             border-bottom: 1px solid $base-color-light-gray;
             background-color: $base-color-lightest-gray;
             line-height: 20px;
@@ -149,7 +149,7 @@
             margin: 0 15px;
             border-bottom: 0;
 
-            #collapse-icon {
+            .collapse-icon {
                 display: inline-block;
             }
 
@@ -157,7 +157,7 @@
                 margin-bottom: 0;
             }
 
-            #collapse-arrow {
+            .collapse-arrow {
                 display: none;
             }
 
@@ -170,18 +170,18 @@
             }
 
             .more {
-                display: block;
                 position: absolute;
                 top: 45px;
                 right: 20px;
+                display: block;
                 color: $base-color-green;
                 font-size: 12px;
             }
         }
 
         .outcome-list {
-            padding: 20px 20px 30px;
             margin: 15px;
+            padding: 20px 20px 30px;
             background-color: $base-color-lighter-gray;
 
             ul {
@@ -190,6 +190,7 @@
         }
 
         .question {
+            display: block;
             height: 50px;
         }
 
