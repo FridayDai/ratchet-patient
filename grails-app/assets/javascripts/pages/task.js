@@ -46,34 +46,26 @@
      */
     function _collapseList() {
         $("#collapse-icon, #collapse-arrow").on("click", function() {
-            var ele = this;
             var list = $("#collapse-list");
-            if (list.height() === 0) {
-                $("#collapse-list").animate({
-                    height: listHeight,
-                    opacity: 1
-                }, 500, function () {
-                    if (ele.id === "collapse-icon") {
-                        $("#collapse-icon").html("—");
-                    }
-                    if (ele.id === "collapse-arrow") {
-                        $("#collapse-arrow").removeClass("caret-bottom").addClass("caret-top");
-                    }
-                });
+            var parent = $(this).parents().filter(".block");
+
+            if(parent.hasClass("open")) {
+                parent.removeClass("open").addClass("close");
+            } else {
+                parent.removeClass("close").addClass("open");
             }
 
-            if (list.height() > 0) {
-                $("#collapse-list").animate({
+            if(list.height() === 0) {
+                list.animate({
+                    height: listHeight,
+                    opacity: 1
+                }, 500, function() {})
+            }
+            if(list.height() > 0) {
+                list.animate({
                     height: 0,
                     opacity: 0.3
-                }, 500, function () {
-                    if (ele.id === "collapse-icon") {
-                        $("#collapse-icon").html("+");
-                    }
-                    if (ele.id === "collapse-arrow") {
-                        $("#collapse-arrow").removeClass("caret-top").addClass("caret-bottom");
-                    }
-                });
+                }, 500, function() {})
             }
         });
     }

@@ -51,22 +51,10 @@ ul {
     border-bottom: 12px solid transparent;
 }
 
-.caret-top {
+.arrow {
     display: inline-block;
     width: 0;
     height: 0;
-    border-right: 6px solid transparent;
-    border-bottom: 9px solid #355c6f;
-    border-left: 6px solid transparent;
-}
-
-.caret-bottom {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-top: 9px solid #355c6f;
-    border-right: 6px solid transparent;
-    border-left: 6px solid transparent;
 }
 
 .clear {

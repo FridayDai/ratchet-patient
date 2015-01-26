@@ -63,6 +63,22 @@
         }
     }
 
+    .open {
+        .arrow {
+            border-right: 6px solid transparent;
+            border-bottom: 9px solid #355c6f;
+            border-left: 6px solid transparent;
+        }
+    }
+
+    .close {
+        .arrow {
+            border-top: 9px solid #355c6f;
+            border-right: 6px solid transparent;
+            border-left: 6px solid transparent;
+        }
+    }
+
     .outcome-list {
         ul {
             padding-left: 0;
@@ -176,6 +192,23 @@
                 display: block;
                 color: $base-color-green;
                 font-size: 12px;
+            }
+        }
+
+        .open {
+            .icon {
+                width: 16px;
+                height: 6px;
+                background: url("../../../images/minus.png") no-repeat;
+            }
+        }
+
+        .close {
+            .icon {
+                width: 16px;
+                height: 15px;
+                margin-bottom: -3px;
+                background: url("../../../images/plus.png");
             }
         }
 
