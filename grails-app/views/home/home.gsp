@@ -1,14 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: colin
-  Date: 12/12/14
-  Time: 6:04 PM
---%>
-
+<g:set var="scriptPath" value="" />
+<g:set var="cssPath" value="home" />
+<g:applyLayout name="main">
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title></title>
+    <title>Home Page</title>
 </head>
 
 <body>
@@ -17,3 +13,4 @@
 
 </body>
 </html>
+</g:applyLayout>
