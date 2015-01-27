@@ -47,7 +47,7 @@
     function _collapseList() {
         $("#collapse-icon, #collapse-arrow").on("click", function() {
             var list = $("#collapse-list");
-            var parent = $(this).parents().filter(".block");
+            var parent = $(this).parents(".block");
 
             if(parent.hasClass("open")) {
                 parent.removeClass("open").addClass("close");
