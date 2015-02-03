@@ -2,36 +2,15 @@ class UrlMappings {
 
     static mappings = {
 
-        "/"(controller: "authentication", action: "index")
+        "/"(controller: "task", action: "index")
 
-        "/login"(controller: "authentication", action: "login")
+        "/intro"(controller: "task", action: "index")
 
-        "/home"(controller: 'home', action: "index")
+        "/task"(controller: "task", action: "getContent")
 
-        "/logout"(controller: "authentication") {
-            action = [GET: 'logout']
-        }
+        "/task/resultHasAccount"(controller: "task", action:"getResultWithAccount")
 
-        "/patient"(controller: "patient", action: "index")
-
-        "/task"(controller: "task", action: "index")
-
-        "/taskContent"(controller: "task", action: "getContent")
-
-        "/resultHasAccount"(controller: "task", action:"getResultWithAccount")
-
-        "/resultNoAccount"(controller: "task", action:"getResultWithoutAccount")
-
-        "/account"(controller: "account", action: "index")
-
-        "/$controller/$action?/$id?(.$format)?" {
-            constraints {
-                // apply constraints here
-            }
-        }
-
-        "403"(view: "/error403")
-        "500"(view: "/error")
+        "/task/resultNoAccount"(controller: "task", action:"getResultWithoutAccount")
 
     }
 }

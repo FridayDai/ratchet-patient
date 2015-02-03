@@ -22,7 +22,7 @@ class TaskController extends BaseController{
         outcomes.add(outcome_five);
         outcomes.add(outcome_six);
 
-        render (view: '/task/content',model: [contents:outcomes])
+        render (view: '/task/task',model: [contents:outcomes])
     }
 
     def getResultWithAccount() {

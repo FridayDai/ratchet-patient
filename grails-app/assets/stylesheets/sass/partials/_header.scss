@@ -1,21 +1,93 @@
 .header {
+    position: relative;
     min-width: 412px;
     min-height: 50px;
-    margin-bottom: 20px;
-    background-color: $base-color-lighten-gray;
-}
+    padding: 12px 15px 20px;
+    border-bottom: 6px solid $base-color-dark-blue;
 
-.nav-info {
-    display: inline-block;
-
-    >img {
-        vertical-align: middle;
-    }
-
-    >p {
+    .nav-info {
         display: inline-block;
-        padding-left: 25px;
-        color: $base-color-dark-blue;
-        font-weight: 900;
+
+        >img {
+            padding-right: 15px;
+            border-right: 3px solid $base-color-dark-blue;
+            vertical-align: middle;
+        }
+
+        >p {
+            display: inline-block;
+            padding-left: 15px;
+            color: $base-color-dark-blue;
+            font-weight: bold;
+        }
+    }
+
+    .copy-right {
+        position: absolute;
+        display: inline-block;
+        top: 25px;
+        right: 10px;
+        color: $base-color-medium-gray;
+        font-size: 13px;
+
+        .distance {
+            padding-right: 8px;
+        }
+
+        >img {
+            vertical-align: middle;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
     }
 }
+
+.sub-header {
+    min-height: 50px;
+    padding: 5px 15px 16px 20px;
+    border-bottom: 8px solid #14027b;
+
+    p {
+        margin: 12px 0;
+        color: $base-color-light-dark;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .task-time {
+        padding: 5px 0;
+        color: $base-color-dark-blue;
+
+        span {
+            font-weight: bold;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .sub-header {
+        padding-top: 10px;
+        padding-left: 32px;
+        border-bottom: 3px solid #14027b;
+
+        p {
+            color: $base-color-dark-blue;
+            font-weight: normal;
+            font-size: 17px;
+        }
+
+        .task-time {
+            padding: 0;
+            color: $base-color-dark-gray;
+            font-size: 13px;
+
+            span {
+                color: $base-color-black;
+            }
+        }
+    }
+}
+
+
