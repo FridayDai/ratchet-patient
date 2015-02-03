@@ -6,30 +6,6 @@
     var listHeight = $("#collapse-list").height();
 
     /**
-     * Show tips when hover.
-     */
-    function _showTip() {
-        $("#info").hover(
-            function() {
-                $(this).parents().filter(".phone").addClass("show-tip");
-            },
-            function() {
-                $(this).parents().filter(".phone").removeClass("show-tip");
-
-            }
-        );
-    }
-
-    /**
-     * Show tips when click.
-     */
-    function _showDialogTip() {
-        $("#info").click(function() {
-
-        });
-    }
-
-    /**
      * Get the height of question list when resizing window.
      */
     function _dynamicHeight() {
@@ -59,13 +35,13 @@
                 list.animate({
                     height: listHeight,
                     opacity: 1
-                }, 500, function() {})
+                }, 500, function() {});
             }
             if(list.height() > 0) {
                 list.animate({
                     height: 0,
                     opacity: 0.3
-                }, 500, function() {})
+                }, 500, function() {});
             }
         });
     }
@@ -76,7 +52,6 @@
      */
     function _init() {
         _dynamicHeight();
-        _showTip();
         _collapseList();
     }
 

@@ -1,5 +1,3 @@
-@import '../partials/variable';
-@import '../partials/base';
 @import '../partials/common';
 
 .header {
@@ -10,34 +8,32 @@
     margin: 20px auto 0;
     padding: 0;
 
-    .subtitle {
-        padding-right: 20px;
-        padding-left: 20px;
-        color: $base-color-medium-blue;
-        font-weight: 500;
+    .intro {
+        margin: 0 auto;
+        padding: 10px 20px 0;
+        color: $base-color-dark-blue;
+        font-weight: bold;
         font-size: 16px;
         text-align: left;
     }
 
     .desc {
         width: 100%;
-        margin: 30px auto 0;
-        padding: 10px 30px 10px 20px;
-        color: $base-color-medium-gray;
-        background-color: $base-color-light-blue;
-        font-size: .9em;
-        line-height: 25px;
+        margin: 10px auto 0;
+        padding: 0 20px;
+        color: $base-color-light-dark;
+        font-size: 13.5px;
+        line-height: 23px;
     }
 
     .phone {
         position: relative;
         width: 100%;
-        margin: 20px auto 0;
-        padding: 10px 0 10px 15px;
+        margin: 20px auto 45px;
+        padding: 10px 0 10px 20px;
 
         p {
             margin-bottom: 10px;
-            color: $base-color-medium-gray;
         }
 
         .info {
@@ -47,26 +43,36 @@
         }
 
         input {
-            width: 280px;
+            width: 200px;
             height: 38px;
             font-size: 15px;
         }
 
-        .tooltip {
+        .btn-start-task {
+            display: inline-block;
+            padding-left: 10px;
+            color: $base-color-dark-blue;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .caret-left {
             display: none;
         }
 
         .tip {
-            position: absolute;
-            top: 10px;
-            left: 330px;
-            width: 228px;
-            height: 70px;
-            padding: 10px;
-            color: $base-color-white;
-            background-color: $base-color-blue;
-            font-size: 12px;
-            text-align: justify;
+            width: 260px;
+            height: 85px;
+            margin-top: 12px;
+            padding: 15px;
+            color: #fff;
+            background-color: #14027b;
+            font-size: 13px;
+            line-height: 18px;
+        }
+
+        .close-tip {
+            display: none;
         }
     }
 
@@ -74,10 +80,6 @@
         margin-top: 50px;
         margin-bottom: 70px;
     }
-}
-
-.footer {
-    display: none;
 }
 
 @media (min-width: 768px) {
@@ -89,44 +91,63 @@
         margin-top: 60px;
         padding: 15px;
 
-        .subtitle {
-            padding-right: 15px;
-            text-align: center;
+        .intro {
+            width: 90%;
         }
 
         .desc {
             width: 90%;
-            margin-top: 50px;
-            padding: 10px 20px;
+            margin-top: 30px;
             font-size: 14px;
         }
 
         .phone {
+            position: relative;
             width: 90%;
             margin-top: 40px;
-            padding-right: 0;
-            padding-left: 0;
-        }
+            padding-right: 20px;
+            padding-left: 20px;
 
-        .show-tip {
-            >.tooltip {
+            input {
+                width: 280px;
+            }
+
+            .btn-start-task {
+                position: absolute;
+                top: 210px;
+                left: 300px;
+                padding: 12px 55px;
+                border: 1px solid #bbb;
+                color: #bbb;
+                font-weight: normal;
+            }
+
+            .caret-left {
+                display: block;
+            }
+
+            .tip {
+                position: absolute;
+                top: 14px;
+                left: 327px;
+                display: block;
+            }
+
+            .close-tip {
+                position: absolute;
+                top: 2px;
+                left: 240px;
                 display: block;
             }
         }
-
-        .btn-calm {
-            margin-top: 80px;
-        }
-    }
-
-    .footer {
-        position: fixed;
-        bottom: 0;
-        display: block;
     }
 }
 @media (min-width: 992px) {
     .content {
+        .intro {
+            width: 80%;
+        }
+
         .desc {
             width: 80%;
         }

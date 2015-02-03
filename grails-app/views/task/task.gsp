@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <g:set var="scriptPath" value="taskBundle" />
-<g:set var="cssPath" value="content" />
+<g:set var="cssPath" value="task" />
 <g:applyLayout name="main">
 <html>
 <head>
@@ -69,7 +69,7 @@
                 </div>
             </g:each>
         </div>
-        <a class="btn-calm" href="resultNoAccount">I'm done</a>
+        <a class="btn-calm" href="/task/resultNoAccount">I'm done</a>
     </div>
 </div>
 </body>

@@ -21,7 +21,6 @@
 <body>
     <g:render template="/shared/header"></g:render>
     <g:layoutBody/>
-    <g:render template="/shared/footer"></g:render>
     <g:if test="${scriptPath}">
         <asset:javascript src="bundles/${scriptPath}"/>
     </g:if>
