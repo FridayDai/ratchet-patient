@@ -25,11 +25,8 @@ class TaskController extends BaseController{
         render (view: '/task/task',model: [contents:outcomes])
     }
 
-    def getResultWithAccount() {
-        render view: "/task/resultWithAccount"
+    def getResult() {
+        render view: "/task/result"
     }
 
-    def getResultWithoutAccount() {
-        render view: "/task/resultWithoutAccount"
-    }
 }

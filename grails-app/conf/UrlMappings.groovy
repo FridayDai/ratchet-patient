@@ -8,9 +8,6 @@ class UrlMappings {
 
         "/task"(controller: "task", action: "getContent")
 
-        "/task/resultHasAccount"(controller: "task", action:"getResultWithAccount")
-
-        "/task/resultNoAccount"(controller: "task", action:"getResultWithoutAccount")
-
+        "/task/result"(controller: "task", action:"getResult")
     }
 }

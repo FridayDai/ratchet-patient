@@ -65,8 +65,8 @@
             height: 85px;
             margin-top: 12px;
             padding: 15px;
-            color: #fff;
-            background-color: #14027b;
+            color: $base-color-white;
+            background-color: $base-color-dark-blue;
             font-size: 13px;
             line-height: 18px;
         }
@@ -74,11 +74,6 @@
         .close-tip {
             display: none;
         }
-    }
-
-    .btn-calm {
-        margin-top: 50px;
-        margin-bottom: 70px;
     }
 }
 
@@ -109,35 +104,38 @@
             padding-left: 20px;
 
             input {
-                width: 280px;
+                width: 95%;
             }
 
             .btn-start-task {
                 position: absolute;
-                top: 210px;
-                left: 300px;
-                padding: 12px 55px;
-                border: 1px solid #bbb;
-                color: #bbb;
+                top: 230px;
+                left: 19%;
+                width: 320px;
+                margin-bottom: 30px;
+                padding: 14px 55px;
+                border: 1px solid $base-color-gray;
+                color: $base-color-gray;
                 font-weight: normal;
-            }
-
-            .caret-left {
-                display: block;
+                text-align: center;
             }
 
             .tip {
-                position: absolute;
-                top: 14px;
-                left: 327px;
-                display: block;
+                position: relative;
+                width: 95%;
+                height: 75px;
+                margin-top: 18px;
+                padding-top: 20px;
+                padding-right: 45px;
+                padding-left: 25px;
             }
 
             .close-tip {
                 position: absolute;
-                top: 2px;
-                left: 240px;
+                top: 20px;
+                right: 10px;
                 display: block;
+                width: 28px;
             }
         }
     }
@@ -154,6 +152,37 @@
 
         .phone {
             width: 80%;
+
+            input {
+                width: 280px;
+            }
+
+            .btn-start-task {
+                top: 210px;
+                left: 43%;
+                width: 157px;
+                padding: 12px 55px;
+            }
+
+            .caret-left {
+                display: block;
+            }
+
+            .tip {
+                position: absolute;
+                top: 14px;
+                left: 327px;
+                display: block;
+                width: 260px;
+                height: 85px;
+                padding: 15px;
+            }
+
+            .close-tip {
+                top: 2px;
+                left: 238px;
+                width: 25px;
+            }
         }
     }
 }

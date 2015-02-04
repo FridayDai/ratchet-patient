@@ -6,77 +6,21 @@
     display: none;
 }
 
-.content {
+.task-content {
+    background-color: $base-color-lightest-gray;
+
     .container {
         padding-right: 0;
         padding-left: 0;
     }
 
-    .subtitle {
-        height: 65px;
-        margin-bottom: 10px;
-        padding: 20px 20px 20px 25px;
-        color: $base-color-blue;
-    }
-
     p {
-        display: none;
-    }
-
-    .block {
-        position: relative;
-        height: 120px;
-        margin: 0;
-        padding: 15px;
-        border-bottom: 1px solid $base-color-light-gray;
-        color: $base-color-medium-blue;
-        background-color: $base-color-lighter-gray;
-        line-height: 22px;
-        box-shadow: 1px 1px 1px $base-color-light-gray;
-
-        .collapse-icon {
-            display: none;
-            padding-right: 12px;
-        }
-
-        .case {
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .collapse-arrow {
-            position: absolute;
-            top: 20px;
-            right: 10px;
-        }
-
-        .minus {
-            display: none;
-        }
-
-        .block-desc {
-            display: block;
-        }
-
-        .more {
-            display: none;
-        }
-    }
-
-    .open {
-        .arrow {
-            border-right: 6px solid transparent;
-            border-bottom: 9px solid #355c6f;
-            border-left: 6px solid transparent;
-        }
-    }
-
-    .close {
-        .arrow {
-            border-top: 9px solid #355c6f;
-            border-right: 6px solid transparent;
-            border-left: 6px solid transparent;
-        }
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 20px 25px;
+        color: $base-color-light-dark;
+        font-weight: bold;
+        line-height: 19px;
     }
 
     .outcome-list {
@@ -94,17 +38,16 @@
 
     .question {
         display: table-cell;
-        height: 60px;
         padding: 20px;
-        color: $base-color-medium-blue;
-        background-color: $base-color-lighter-gray;
-
+        color: $base-color-dark-blue;
+        background-color: $base-color-white;
     }
 
     .answer {
-        padding: 10px 0 10px 30px;
+        padding: 10px 0 10px 45px;
         border-bottom: 1px solid $base-color-light-gray;
         color: $base-color-medium-gray;
+        font-size: 13px;
 
         label {
             float: left;
@@ -125,14 +68,27 @@
         }
 
         .choice:checked + .radio {
-            background-color: $base-color-yellow;
+            background-color: $base-color-dark-blue;
         }
-
     }
-}
 
-.footer {
-    display: none;
+    .done {
+        padding-top: 50px;
+        padding-bottom: 40px;
+        background-color: $base-color-white;
+
+        .btn-done-task {
+            display: block;
+            width: 50%;
+            margin: 0 auto;
+            padding: 15px;
+            border: 1px solid $base-color-dark-blue;
+            color: $base-color-dark-blue;
+            background-color: $base-color-white;
+            font-size: 18px;
+            text-align: center;
+        }
+    }
 }
 
 @media (min-width: 768px) {
@@ -141,96 +97,35 @@
         display: block;
     }
 
-    .content {
-        margin: -20px auto 0;
-
-        .subtitle {
-            width: 100%;
-            height: 45px;
-            margin-bottom: 0;
-            padding: 15px 10px 5px 35px;
-            border-bottom: 1px solid $base-color-light-gray;
-            background-color: $base-color-lightest-gray;
-            line-height: 20px;
-        }
+    .task-content {
+        margin: 0 auto;
 
         p {
-            display: block;
-            padding: 25px 15px 10px;
-            color: $base-color-medium-gray;
-        }
-
-        .block {
-            height: 70px;
-            margin: 0 15px;
-            border-bottom: 0;
-
-            .collapse-icon {
-                display: inline-block;
-            }
-
-            .case {
-                margin-bottom: 0;
-            }
-
-            .collapse-arrow {
-                display: none;
-            }
-
-            .minus {
-                display: inline;
-            }
-
-            .block-desc {
-                display: inline;
-            }
-
-            .more {
-                position: absolute;
-                top: 45px;
-                right: 20px;
-                display: block;
-                color: $base-color-green;
-                font-size: 12px;
-            }
-        }
-
-        .open {
-            .icon {
-                width: 16px;
-                height: 6px;
-                background: url('../../../images/minus.png') no-repeat;
-            }
-        }
-
-        .close {
-            .icon {
-                width: 16px;
-                height: 15px;
-                margin-bottom: -3px;
-                background: url('../../../images/plus.png');
-            }
+            padding: 40px 15px 35px;
+            text-align: center;
         }
 
         .outcome-list {
-            margin: 15px;
-            padding: 20px 20px 30px;
-            background-color: $base-color-lighter-gray;
+            margin-bottom: 20px;
+            padding: 20px 0 30px;
+            background-color: #fff;
 
             ul {
-                padding-left: 20px;
+                padding-left: 30px;
             }
         }
 
         .question {
             display: block;
-            height: 50px;
+            padding: 0 20px 0 30px;
+            color: #000;
+            font-size: 14.5px;
         }
 
         .answer {
             position: relative;
             display: inline-block;
-            padding: 40px 0 0 40px;
+            padding: 30px 25px 0 5px;
             border-bottom: 0;
 
             span {
@@ -249,15 +144,32 @@
             }
         }
 
-        .btn-calm {
-            margin-top: 25px;
-            margin-bottom: 100px;
-        }
-    }
+        .done {
+            padding-bottom: 80px;
+            background-color: $base-color-lightest-gray;
 
-    .footer {
-        position: fixed;
-        bottom: 0;
-        display: block;
+            .btn-done-task {
+                background-color: $base-color-lightest-gray;
+            }
+        }
+
+    }
+}
+
+@media (min-width: 992px) {
+
+    .task-content {
+
+        .answer {
+
+            >span {
+                display: inline-block;
+            }
+
+            label {
+                display: block;
+                text-align: center;
+            }
+        }
     }
 }

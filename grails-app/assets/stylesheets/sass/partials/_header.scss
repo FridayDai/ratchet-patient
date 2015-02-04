@@ -24,9 +24,9 @@
 
     .copy-right {
         position: absolute;
-        display: inline-block;
         top: 25px;
         right: 10px;
+        display: inline-block;
         color: $base-color-medium-gray;
         font-size: 13px;
 
@@ -47,7 +47,7 @@
 .sub-header {
     min-height: 50px;
     padding: 5px 15px 16px 20px;
-    border-bottom: 8px solid #14027b;
+    border-bottom: 8px solid $base-color-dark-blue;
 
     p {
         margin: 12px 0;
