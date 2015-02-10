@@ -51,7 +51,7 @@ class TaskController extends BaseController {
 
 		def choices = params.choices
 
-//		def result = taskService.submitQuestionnaire(code, choices)
+		def result = taskService.submitQuestionnaire(code, choices)
 
 		if (result) {
 			render view: '/task/result', model: [Task: result]
