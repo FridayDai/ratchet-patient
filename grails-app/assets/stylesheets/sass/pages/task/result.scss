@@ -1,5 +1,5 @@
-@import '../partials/variable';
-@import '../partials/common';
+@import '../../partials/variable';
+@import '../../partials/common';
 
 .header {
     display: none;
@@ -16,7 +16,7 @@
     }
 
     .top {
-        padding-top: 35px;
+        padding: 40px 0;
         border-bottom: 5px solid $base-color-dark-blue;
         background-color: $base-color-lighter-gray;
         text-align: center;
@@ -93,9 +93,8 @@
         .top {
             width: 80%;
             margin: 70px auto 0;
-            padding-bottom: 15px;
             border-bottom: 0;
-            background-color: $base-color-white;
+            background-color: #ffffff;
 
             .para2 {
                 font-size: 16px;

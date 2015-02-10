@@ -1,0 +1,48 @@
+@import '../../../partials/task_content';
+
+.nrs {
+
+    .info {
+        padding-bottom: 15px;
+        text-align: center;
+    }
+
+    .description {
+        width: 600px;
+        margin: auto;
+        padding-bottom: 30px;
+    }
+
+    .question-list {
+        @include breakpoint('tablet') {
+            margin-bottom: 40px;
+        }
+    }
+
+    .question {
+        background-color: #ffffff;
+        color: $base-color-dark-blue;
+
+        @include breakpoint('tablet') {
+            font-size: 18px;
+            margin-bottom: 5px;
+            padding: 30px 40px;
+        }
+    }
+
+    .answer-list {
+        @include breakpoint('tablet') {
+            background-color: #ffffff;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+    }
+
+    @include breakpoint('tablet') {
+        @include answer-vertical-list('lg');
+    }
+
+    @include breakpoint('mobile') {
+        @include answer-vertical-list('small');
+    }
+}

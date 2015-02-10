@@ -1,13 +1,15 @@
 class UrlMappings {
 
     static mappings = {
+        // Email
+        "/patient/email/confirmation/$code"(controller: "email", action: "confirmEmail")
 
-        "/"(controller: "task", action: "index")
-
-        "/intro"(controller: "task", action: "index")
-
-        "/task"(controller: "task", action: "getContent")
-
-        "/task/result"(controller: "task", action:"getResult")
+        // Task
+        "/$patientName/tasks/$taskTitle/$code"(controller: "task") {
+            action = [GET: "index", POST: "start"]
+        }
+        "/$patientName/tasks/$taskTitle/complete"(controller: "task") {
+            action = [POST: "done"]
+        }
     }
 }

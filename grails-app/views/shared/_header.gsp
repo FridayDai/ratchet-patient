@@ -11,6 +11,6 @@
         </span>
 </div>
 <div class="sub-header">
-    <p>The Disabilities of the Arm, Shoulder and Hand (DASH) Score</p>
-    <div class="task-time"><span>DUE:</span> Jan / 31 / 2015, 8:00AM</div>
+    <p>${Task.title}</p>
+    <div class="task-time"><span>DUE:</span> <g:formatDate date="${new java.util.Date(Task.dueTime)}" format="MMM / d / yyyy, h:mm:ssa"></g:formatDate></div>
 </div>

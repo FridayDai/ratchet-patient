@@ -1,0 +1,123 @@
+@import 'common';
+
+@mixin answer-vertical-list($status) {
+    @if $status == 'lg' {
+        .answer {
+            position: relative;
+            display: block;
+            padding-top: 15px;
+            padding-bottom: 15px;
+
+            .text {
+                display: inline-block;
+                margin-left: 100px;
+                min-height: 45px;
+                margin-top: 12px;
+                font-size: 16px;
+                color: $base-color-light-dark;
+            }
+
+            .choice {
+                position: absolute;
+                top: 15px;
+                left: 0;
+                margin-left: 40px;
+                margin-right: 20px;
+            }
+        }
+    } @else {
+
+        .answer {
+            position: relative;
+            display: block;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-top: 1px solid #d9d9d9;
+
+            .text {
+                display: inline-block;
+                margin-left: 60px;
+                min-height: 30px;
+                margin-top: 5px;
+            }
+
+            .choice {
+                position: absolute;
+                top: 10px;
+                left: 0;
+                margin-left: 20px;
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+.task-content {
+    background-color: #f2f2f2;
+
+    .info {
+        color: #333333;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 19px;
+
+        @include breakpoint('tablet') {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        @include breakpoint('mobile') {
+            padding: 30px 20px;
+        }
+    }
+
+    .question-list {
+        @include breakpoint('tablet') {
+            margin-bottom: 20px;
+        }
+    }
+
+    .question {
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 16px;
+
+        @include breakpoint('mobile') {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background-color: #ffffff;
+            color: #14027b;
+        }
+
+        @include breakpoint('tablet') {
+            margin-bottom: 30px;
+        }
+    }
+
+    .answer {
+        color: $base-color-medium-gray;
+        font-size: 14px;
+    }
+}
+
+.task-done-panel {
+    padding-top: 50px;
+    padding-bottom: 150px;
+
+    .task-done-btn {
+        display: block;
+        width: 300px;
+        margin: 0 auto;
+        padding: 15px;
+        border: 1px solid $base-color-dark-blue;
+        color: $base-color-dark-blue;
+        background-color: transparent;
+        font-size: 18px;
+        text-align: center;
+        cursor: pointer;
+
+        @include breakpoint('mobile') {
+            width: 200px;
+        }
+    }
+}

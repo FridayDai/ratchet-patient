@@ -1,0 +1,31 @@
+@import '../../partials/base';
+@import '../../partials/variable';
+
+.email-content {
+    width: 80%;
+    max-width: 600px;
+    margin: 200px auto 0;
+    text-align: center;
+
+    .client-name {
+        border-bottom: 8px solid $base-color-dark-blue;
+        margin-bottom: 30px;
+        padding-bottom: 40px;
+        font-size: 18px;
+        color: $base-color-dark-blue;
+    }
+
+    .message {
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 50px;
+        padding: 15px 80px;
+        border: 1px solid $base-color-dark-blue;
+        background-color: transparent;
+        color: $base-color-dark-blue;
+        font-size: 14px;
+    }
+}
+
