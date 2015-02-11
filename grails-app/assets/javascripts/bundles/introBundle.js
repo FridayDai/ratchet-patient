@@ -9,22 +9,52 @@
         return error;
     }
 
+    function isMobileOrTablet() {
+        return window.innerWidth < 992;
+    }
+
     function errorStatusHandle(el, message) {
-        el.className += ' error';
+        var regex = /\serror($|\s)/;
+        var parentNode = el.parentNode;
+
+        if (regex.test(parentNode.className) || isMobileOrTablet()) {
+            return false;
+        }
+
+        parentNode.className += ' error';
 
         var errorEl = createErrorElement(message);
 
-        el.parentNode.insertBefore(errorEl, el);
+        parentNode.insertBefore(errorEl, el.nextSibling);
     }
 
     function clearErrorStatus(el) {
-        el.className = el.className.replace(' error', '');
+        var parentNode = el.parentNode;
 
-        var error = el.parentNode.querySelector('.rc-error-label');
-        el.parentNode.removeChild(error);
+        parentNode.className = parentNode.className.replace(' error', '');
+
+        var error = parentNode.querySelector('.rc-error-label');
+
+        if (error) {
+            parentNode.removeChild(error);
+        }
     }
 
-    function init() {
+    function showConfirmationPop() {
+        var coverEl = document.getElementById('confirm-cover');
+        var containerEl = document.getElementById('confirm-container');
+        var regexp = /\sshow($|\s)/;
+
+        if (!regexp.test(coverEl.className)) {
+            coverEl.className += ' show';
+        }
+
+        if (!regexp.test(containerEl.className)) {
+            containerEl.className += ' show';
+        }
+    }
+
+    function setForm() {
         var formEl = document.getElementById('intro-form');
 
         formEl.addEventListener('submit', function (event) {
@@ -33,7 +63,11 @@
             var reg = /^\d{4}$/;
 
             if (!reg.test(last4Number.value)) {
-                errorStatusHandle(last4Number, 'Last 4 number should be 4 digit!')
+                errorStatusHandle(last4Number, 'Invalid input.');
+
+                if (isMobileOrTablet()) {
+                    showConfirmationPop();
+                }
 
                 event.returnValue = false;
                 return false;
@@ -42,15 +76,32 @@
 
         var last4NumberEl = formEl.querySelector('[name="last4Number"]');
 
-        last4NumberEl.addEventListener('blur', function (event) {
+        last4NumberEl.addEventListener('blur', function () {
             var reg = /^\d{4}$/;
 
             if (reg.test(this.value)) {
                 clearErrorStatus(this);
             } else {
-                errorStatusHandle(this, 'Last 4 number should be 4 digit!');
+                errorStatusHandle(this, 'Invalid input.');
             }
-        })
+        });
+    }
+
+    function setConfirmation() {
+        var coverEl = document.getElementById('confirm-cover');
+        var containerEl = document.getElementById('confirm-container');
+        var buttonEl = containerEl.querySelector('button');
+
+        buttonEl.addEventListener('click', function () {
+            coverEl.className = coverEl.className.replace(' show', '');
+            containerEl.className = containerEl.className.replace(' show', '');
+        });
+    }
+
+    function init() {
+        setForm();
+
+        setConfirmation();
     }
 
     init();

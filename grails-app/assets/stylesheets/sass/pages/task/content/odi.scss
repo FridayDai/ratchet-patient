@@ -1,63 +1,36 @@
 @import '../../../partials/task_content';
 
 .odi {
-    .question-list {
-        @include breakpoint('tablet') {
-            margin-bottom: 40px;
-        }
-    }
-
-    .question-list.error {
-        .question {
-            background-color: $base-color-error-background-pink;
-        }
-
-        .error-label {
-            @include breakpoint('tablet') {
-                float: right;
-                margin-top: 5px;
-                font-size: 13px;
-                color: $base-color-error-font-red;
-            }
-        }
-
-        .answer-list {
-            @include breakpoint('tablet') {
-                background-color: $base-color-error-background-pink;
-            }
-        }
-
-        .rc-radio {
-            @include breakpoint('tablet') {
-                border-color: $base-color-error-circle-red;
-            }
-        }
-    }
-
-    .question {
-        background-color: #ffffff;
-        color: $base-color-dark-blue;
-
-        @include breakpoint('tablet') {
-            font-size: 18px;
-            margin-bottom: 5px;
-            padding: 30px 40px;
-        }
-    }
-
-    .answer-list {
-        @include breakpoint('tablet') {
-            background-color: #ffffff;
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
-    }
-
     @include breakpoint('tablet') {
         @include answer-vertical-list('lg');
     }
 
     @include breakpoint('mobile') {
         @include answer-vertical-list('small');
+    }
+
+    .question-list {
+        @include breakpoint('tablet') {
+            margin-bottom: 40px;
+        }
+    }
+
+    .question {
+        color: $base-color-dark-blue;
+        background-color: #fff;
+
+        @include breakpoint('tablet') {
+            margin-bottom: 5px;
+            padding: 30px 40px;
+            font-size: 18px;
+        }
+    }
+
+    .answer-list {
+        @include breakpoint('tablet') {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            background-color: #fff;
+        }
     }
 }

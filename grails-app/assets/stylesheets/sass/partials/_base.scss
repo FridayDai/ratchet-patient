@@ -1,4 +1,5 @@
 @import 'variable';
+@import 'compass/css3';
 
 @mixin breakpoint($device) {
     @if $device == 'mobile' {
@@ -21,15 +22,11 @@
 }
 
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    @include box-sizing(border-box);
 
     &:before,
     &:after {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
+        @include box-sizing(border-box);
     }
 }
 
@@ -101,6 +98,7 @@ ul {
     text-align: center;
 }
 
+// grid extension
 .grid {
     white-space: nowrap;
 }
@@ -125,101 +123,15 @@ ul {
     }
 }
 
-.choice-number {
-    .rc-radio {
-        text-align: center;
-    }
-
-    .rc-radio:before {
-        display: inline-block;
-        font-size: 20px;
-        height: 40px;
-        width: 40px;
-        line-height: 40px;
-        border-radius: 50%;
-    }
-
-    .rc-choice-number-hidden:checked + .rc-radio:before {
-        background-color: $base-color-dark-blue;
-        color: #ffffff;
-    }
-}
-
-.choice-number-0 {
-    .rc-radio:before {
-        content: '0';
-    }
-}
-
-.choice-number-1 {
-    .rc-radio:before {
-        content: '1';
-    }
-}
-
-.choice-number-2 {
-    .rc-radio:before {
-        content: '2';
-    }
-}
-
-.choice-number-3 {
-    .rc-radio:before {
-        content: '3';
-    }
-}
-
-.choice-number-4 {
-    .rc-radio:before {
-        content: '4';
-    }
-}
-
-.choice-number-5 {
-    .rc-radio:before {
-        content: '5';
-    }
-}
-
-.choice-number-6 {
-    .rc-radio:before {
-        content: '6';
-    }
-}
-
-.choice-number-7 {
-    .rc-radio:before {
-        content: '7';
-    }
-}
-
-.choice-number-8 {
-    .rc-radio:before {
-        content: '8';
-    }
-}
-
-.choice-number-9 {
-    .rc-radio:before {
-        content: '9';
-    }
-}
-
-.choice-number-10 {
-    .rc-radio:before {
-        content: '10';
-    }
-}
-
 .rc-choice-hidden:checked + .rc-radio:before {
-    display: block;
     position: absolute;
     top: 2px;
     left: 2px;
-    content: '';
-    height: 36px;
+    display: block;
     width: 36px;
+    height: 36px;
     border-radius: 50%;
+    content: '';
     background-color: $base-color-dark-blue;
 
     @include breakpoint('mobile') {
@@ -229,13 +141,8 @@ ul {
 }
 
 .rc-error-label {
-    color: red;
-}
-
-@include breakpoint('mobile') {
-    .header {
-        display: none;
-    }
+    margin-top: 5px;
+    color: $base-color-error-font-red;
 }
 
 @include breakpoint('tablet') {

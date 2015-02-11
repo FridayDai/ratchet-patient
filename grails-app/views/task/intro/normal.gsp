@@ -3,7 +3,7 @@
 <g:applyLayout name="taskLayout">
 	<html>
 	<head>
-		<title>Task Introduction</title>
+		<title>${Task.title}</title>
 	</head>
 
 	<body>
@@ -14,14 +14,32 @@
 
 		<div class="phone">
 			<p>Enter the last 4 digit of your phone #:</p>
+
 			<form id="intro-form" aciton="." method="post">
-				<input type="text" name="last4Number" class="last-4-number" placeholder="Enter last 4 digits"/>
+				<div class="form-control">
+					<input type="text" name="last4Number" class="last-4-number" placeholder="Enter last 4 digits"/>
+				</div>
 				<input type="submit" class="btn btn-start-task" value="Start"/>
 			</form>
 			<span class="caret-left"></span>
 
 			<div class="tip">Sorry for the inconvenience, this is required in order for us to help you protect your data.</div>
+		</div>
+	</div>
 
+	<div class="confirm-cover" id="confirm-cover"></div>
+
+	<div class="confirm-container" id="confirm-container">
+		<div class="confirm">
+			<div class="confirm-header">
+				<div class="confirm-title">Incorrect Password</div>
+
+				<div class="confirm-content">The password you entered is incorrect. Please try again.</div>
+			</div>
+
+			<div class="confirm-footer">
+				<button>OK</button>
+			</div>
 		</div>
 	</div>
 	</body>

@@ -1,14 +1,6 @@
 @import '../../partials/variable';
 @import '../../partials/common';
 
-.header {
-    display: none;
-}
-
-.sub-header {
-    padding-bottom: 50px;
-}
-
 .result-content {
 
     .container {
@@ -17,8 +9,6 @@
 
     .top {
         padding: 40px 0;
-        border-bottom: 5px solid $base-color-dark-blue;
-        background-color: $base-color-lighter-gray;
         text-align: center;
 
         .para1 {
@@ -88,13 +78,14 @@
     .result-content {
         height: 718px;
         margin: 0 auto;
+        padding-top: 180px;
         background-color: $base-color-lightest-gray;
 
         .top {
             width: 80%;
-            margin: 70px auto 0;
+            margin: 30px auto 0;
             border-bottom: 0;
-            background-color: #ffffff;
+            background-color: #fff;
 
             .para2 {
                 font-size: 16px;

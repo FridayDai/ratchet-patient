@@ -1,6 +1,5 @@
 (function (undefined) {
     'use strict';
-    var RC = window.RC = window.RC || {};
 
     /**
      * string format

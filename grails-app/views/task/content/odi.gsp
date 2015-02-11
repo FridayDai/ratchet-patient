@@ -4,7 +4,7 @@
 <g:applyLayout name="taskLayout">
 	<html>
 	<head>
-		<title>Oswestry Disability Index</title>
+		<title>${Task.title}</title>
 	</head>
 
 	<body>

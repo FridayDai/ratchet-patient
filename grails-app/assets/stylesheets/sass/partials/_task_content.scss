@@ -6,47 +6,52 @@
             position: relative;
             display: block;
             padding-top: 15px;
+            padding-right: 15px;
             padding-bottom: 15px;
 
             .text {
                 display: inline-block;
-                margin-left: 100px;
                 min-height: 45px;
                 margin-top: 12px;
-                font-size: 16px;
+                margin-left: 100px;
                 color: $base-color-light-dark;
+                font-size: 16px;
             }
 
             .choice {
                 position: absolute;
                 top: 15px;
                 left: 0;
-                margin-left: 40px;
                 margin-right: 20px;
+                margin-left: 40px;
             }
         }
     } @else {
+        .question {
+            border-bottom: 1px solid #d9d9d9;
+        }
 
         .answer {
             position: relative;
             display: block;
             padding-top: 10px;
+            padding-right: 10px;
             padding-bottom: 10px;
-            border-top: 1px solid #d9d9d9;
+            border-bottom: 1px solid #d9d9d9;
 
             .text {
                 display: inline-block;
-                margin-left: 60px;
                 min-height: 30px;
                 margin-top: 5px;
+                margin-left: 60px;
             }
 
             .choice {
                 position: absolute;
                 top: 10px;
                 left: 0;
-                margin-left: 20px;
                 margin-right: 10px;
+                margin-left: 20px;
             }
         }
     }
@@ -55,10 +60,14 @@
 .task-content {
     background-color: #f2f2f2;
 
+    @include breakpoint('tablet') {
+        padding-top: 180px;
+    }
+
     .info {
-        color: #333333;
-        font-size: 16px;
+        color: #333;
         font-weight: bold;
+        font-size: 16px;
         line-height: 19px;
 
         @include breakpoint('tablet') {
@@ -71,22 +80,16 @@
         }
     }
 
-    .question-list {
-        @include breakpoint('tablet') {
-            margin-bottom: 20px;
-        }
-    }
-
     .question {
-        padding-left: 20px;
         padding-right: 20px;
+        padding-left: 20px;
         font-size: 16px;
 
         @include breakpoint('mobile') {
             padding-top: 20px;
             padding-bottom: 20px;
-            background-color: #ffffff;
             color: #14027b;
+            background-color: #fff;
         }
 
         @include breakpoint('tablet') {
@@ -100,9 +103,47 @@
     }
 }
 
+.question-list {
+    @include breakpoint('tablet') {
+        margin-bottom: 20px;
+    }
+
+    &.error {
+        .question {
+            background-color: $base-color-error-background-pink;
+        }
+
+        .error-label {
+            margin-top: 5px;
+            color: $base-color-error-font-red;
+            font-size: 13px;
+
+            @include breakpoint('mobile') {
+                display: block;
+            }
+
+            @include breakpoint('tablet') {
+                float: right;
+            }
+        }
+
+        .answer-list {
+            background-color: $base-color-error-background-pink;
+        }
+
+        .rc-radio {
+            border-color: $base-color-error-circle-red;
+        }
+    }
+}
+
 .task-done-panel {
     padding-top: 50px;
     padding-bottom: 150px;
+
+    @include breakpoint('mobile') {
+        padding-bottom: 80px;
+    }
 
     .task-done-btn {
         display: block;

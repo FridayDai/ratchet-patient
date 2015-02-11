@@ -4,7 +4,7 @@
 <g:applyLayout name="taskLayout">
 	<html>
 	<head>
-		<title>Outcome</title>
+		<title>The Disabilities of the Arm, Shoulder and Hand (DASH) Score</title>
 	</head>
 
 	<body>

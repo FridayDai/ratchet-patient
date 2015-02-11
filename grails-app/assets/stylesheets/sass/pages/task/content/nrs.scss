@@ -1,48 +1,227 @@
 @import '../../../partials/task_content';
 
 .nrs {
+    @include breakpoint('mobile') {
+        @include answer-vertical-list('small');
+    }
 
     .info {
         padding-bottom: 15px;
-        text-align: center;
+
+        @include breakpoint('tablet') {
+            text-align: center;
+        }
     }
 
     .description {
-        width: 600px;
-        margin: auto;
         padding-bottom: 30px;
-    }
 
-    .question-list {
+        @include breakpoint('mobile') {
+            padding-left: 20px;
+        }
+
         @include breakpoint('tablet') {
-            margin-bottom: 40px;
+            width: 600px;
+            margin: auto;
         }
     }
 
     .question {
-        background-color: #ffffff;
         color: $base-color-dark-blue;
+        background-color: #fff;
 
         @include breakpoint('tablet') {
-            font-size: 18px;
             margin-bottom: 5px;
             padding: 30px 40px;
+            font-size: 18px;
         }
     }
 
     .answer-list {
         @include breakpoint('tablet') {
-            background-color: #ffffff;
             padding-top: 15px;
             padding-bottom: 15px;
+            background-color: #fff;
+        }
+
+        .list {
+            @include breakpoint('tablet') {
+                margin: 10px 0 10px -20px;
+            }
         }
     }
 
-    @include breakpoint('tablet') {
-        @include answer-vertical-list('lg');
+    .answer {
+        @include breakpoint('mobile') {
+            width: 100%;
+        }
+
+        @include breakpoint('tablet') {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 9.0909090909%;
+            min-height: 1px;
+            margin-right: -.35em;
+            padding-left: 20px;
+            text-align: center;
+            vertical-align: top;
+
+            .text {
+                display: none;
+            }
+        }
     }
 
-    @include breakpoint('mobile') {
-        @include answer-vertical-list('small');
+    .no-pain {
+        color: #80b666;
+        font-size: 18px;
+
+        @include breakpoint('mobile') {
+            display: none;
+        }
+
+        @include breakpoint('tablet') {
+            margin-left: 5px;
+        }
+
+        @include breakpoint('lg-desktop') {
+            margin-left: 20px;
+        }
+    }
+
+    .severe-pain {
+        float: right;
+        color: #ea5b53;
+        font-size: 18px;
+
+        @include breakpoint('mobile') {
+            display: none;
+        }
+
+        @include breakpoint('tablet') {
+            margin-right: 5px;
+        }
+
+        @include breakpoint('lg-desktop') {
+            margin-right: 20px;
+        }
+    }
+}
+
+.question-list {
+    @include breakpoint('tablet') {
+        margin-bottom: 40px;
+    }
+
+    &.error {
+        .error-label {
+            display: block;
+            float: none;
+        }
+    }
+}
+
+.choice-number {
+    .rc-radio {
+        text-align: center;
+    }
+
+    .rc-radio:before {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 20px;
+        line-height: 40px;
+
+        @include breakpoint('mobile') {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .rc-choice-hidden:checked + .rc-radio:before {
+        @include breakpoint('tablet') {
+            position: static;
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            background-color: $base-color-dark-blue;
+        }
+    }
+}
+
+
+.choice-number-0 {
+    .rc-radio:before {
+        content: '0' !important;
+    }
+}
+
+.choice-number-1 {
+    .rc-radio:before {
+        content: '1' !important;
+    }
+}
+
+.choice-number-2 {
+    .rc-radio:before {
+        content: '2' !important;
+    }
+}
+
+.choice-number-3 {
+    .rc-radio:before {
+        content: '3' !important;
+    }
+}
+
+.choice-number-4 {
+    .rc-radio:before {
+        content: '4' !important;
+    }
+}
+
+.choice-number-5 {
+    .rc-radio:before {
+        content: '5' !important;
+    }
+}
+
+.choice-number-6 {
+    .rc-radio:before {
+        content: '6' !important;
+    }
+}
+
+.choice-number-7 {
+    .rc-radio:before {
+        content: '7' !important;
+    }
+}
+
+.choice-number-8 {
+    .rc-radio:before {
+        content: '8' !important;
+    }
+}
+
+.choice-number-9 {
+    .rc-radio:before {
+        content: '9' !important;
+    }
+}
+
+.choice-number-10 {
+    .rc-radio:before {
+        content: '10' !important;
+    }
+}
+
+.choice-number[class*="choice-number-"] {
+    .rc-radio:before {
+        @include breakpoint('mobile') {
+            content: '' !important;
+        }
     }
 }

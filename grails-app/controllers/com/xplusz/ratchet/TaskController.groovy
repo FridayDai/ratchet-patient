@@ -1,7 +1,5 @@
 package com.xplusz.ratchet
 
-import grails.converters.JSON
-
 class TaskController extends BaseController {
 	def taskService
 
@@ -11,7 +9,16 @@ class TaskController extends BaseController {
 		def result = taskService.getTask(code)
 
 		if (result) {
-			render view: "/task/intro", model: [Task: result]
+			def introView
+
+			//1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK
+			if (result.type == 4 || result.type == 5) {
+				introView = "/task/intro/nrs"
+			} else {
+				introView = "/task/intro/normal"
+			}
+
+			render view: introView, model: [Task: result]
 		} else {
 			render 'Task not found'
 			// TODO: error handler
@@ -27,11 +34,12 @@ class TaskController extends BaseController {
 		if (questionnaire) {
 			def taskView
 
+			//1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK
 			if (questionnaire.type == 1) {
 				taskView = '/task/content/dash'
-			} else if (questionnaire.type == 2) {
+			} else if (questionnaire.type == 2 || questionnaire.type == 3) {
 				taskView = '/task/content/odi'
-			} else {
+			} else if (questionnaire.type == 4 || questionnaire.type == 5) {
 				taskView = '/task/content/nrs'
 			}
 
@@ -60,7 +68,7 @@ class TaskController extends BaseController {
 		}
 	}
 
-	def getIntro() {
-		render view: "/task/intro"
+	def result() {
+		render view: '/task/result'
 	}
 }

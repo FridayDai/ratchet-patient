@@ -1,14 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<g:set var="scriptPath" value="" />
 <g:set var="cssPath" value="task/result" />
 <g:applyLayout name="taskLayout">
 <html>
 <head>
-    <title></title>
+    <title>${Task.title}</title>
 </head>
 <body>
   <div class="result-content">
-     <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-8 clear">
+     <div class="container clear">
          <div class="top">
              <div class="para1">COMPLETED!</div>
              <div class="para2">Thank you for completing the task!</div>
