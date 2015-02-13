@@ -145,7 +145,8 @@ ratchetv2 {
 
 			// Task
 			task {
-				get = "${ratchetv2.server.url.base}/tests"
+				oneTest = "${ratchetv2.server.url.base}/tests/%s"
+				tests = "${ratchetv2.server.url.base}/tests"
 			}
 		}
 	}

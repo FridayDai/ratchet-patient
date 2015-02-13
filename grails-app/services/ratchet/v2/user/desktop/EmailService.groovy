@@ -24,8 +24,7 @@ class EmailService {
             return true
         } else {
             // TODO: error handle
+            return false
         }
-
-        return false
     }
 }

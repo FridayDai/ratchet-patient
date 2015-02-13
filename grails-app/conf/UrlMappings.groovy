@@ -11,5 +11,8 @@ class UrlMappings {
         "/$patientName/tasks/$taskTitle/complete"(controller: "task") {
             action = [POST: "done"]
         }
+
+        // Errors
+        "404"(view: '/error/404')
     }
 }

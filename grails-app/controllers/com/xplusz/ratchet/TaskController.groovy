@@ -1,27 +1,35 @@
 package com.xplusz.ratchet
 
+import grails.converters.JSON
+
+
 class TaskController extends BaseController {
 	def taskService
+
+	def getIntroByType(type) {
+		def introView
+
+		//1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK
+		if (type == 4 || type == 5) {
+			introView = "/task/intro/nrs"
+		} else {
+			introView = "/task/intro/normal"
+		}
+
+		return introView
+	}
 
 	def index() {
 		def code = params.code
 
 		def result = taskService.getTask(code)
 
-		if (result) {
-			def introView
+		if (!(result instanceof Integer)) {
+			request.session.task = result.toString()
 
-			//1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK
-			if (result.type == 4 || result.type == 5) {
-				introView = "/task/intro/nrs"
-			} else {
-				introView = "/task/intro/normal"
-			}
-
-			render view: introView, model: [Task: result]
+			render view: getIntroByType(result.type), model: [Task: result]
 		} else {
-			render 'Task not found'
-			// TODO: error handler
+			return result
 		}
 	}
 
@@ -29,24 +37,28 @@ class TaskController extends BaseController {
 		def code = params.code
 		def last4Number = params.last4Number
 
-		def questionnaire = taskService.getQuestionnaire(code, last4Number)
+		def result = taskService.getQuestionnaire(code, last4Number)
 
-		if (questionnaire) {
+		if (!(result instanceof Integer)) {
 			def taskView
 
 			//1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK
-			if (questionnaire.type == 1) {
+			if (result.type == 1) {
 				taskView = '/task/content/dash'
-			} else if (questionnaire.type == 2 || questionnaire.type == 3) {
+			} else if (result.type == 2 || result.type == 3) {
 				taskView = '/task/content/odi'
-			} else if (questionnaire.type == 4 || questionnaire.type == 5) {
+			} else if (result.type == 4 || result.type == 5) {
 				taskView = '/task/content/nrs'
 			}
 
-			render view: taskView, model: [Task: questionnaire, code: code]
+			render view: taskView, model: [Task: result, code: code]
+		} else if (result == 404 || !request.session.task) {
+			return 404
 		} else {
-			render "Task not found"
-			// TODO: error handler
+			def task = JSON.parse(request.session.task)
+
+			render view: getIntroByType(task.type),
+					model: [Task: task, errorMsg: RatchetMessage.TASK_INTRO_WRONG_PHONE_NUMBER]
 		}
 	}
 
@@ -61,14 +73,10 @@ class TaskController extends BaseController {
 
 		def result = taskService.submitQuestionnaire(code, choices)
 
-		if (result) {
+		if (!(result instanceof Integer)) {
 			render view: '/task/result', model: [Task: result]
 		} else {
-			// TODO: error handler
+			return 404
 		}
-	}
-
-	def result() {
-		render view: '/task/result'
 	}
 }

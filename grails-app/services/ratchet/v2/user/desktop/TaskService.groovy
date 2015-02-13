@@ -13,20 +13,21 @@ class TaskService {
 	 *
 	 * @param code # temporary code
 	 *
-	 * @return success
+	 * @return task summary object if success, otherwise error status code
 	 */
 	def getTask(code) {
-		def url = grailsApplication.config.ratchetv2.server.url.task.get
+		def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
+
+		url = String.format(url, code)
 
 		def resp = Unirest.get(url)
-				.queryString("code", code)
 				.queryString("summary", true)
 				.asString()
 
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			// TODO: error handler
+			return resp.status
 		}
 	}
 
@@ -36,20 +37,21 @@ class TaskService {
 	 * @param code # temporary code
 	 * @param last4Number # last 4 number of patient phone
 	 *
-	 * @return questionnaire object
+	 * @return questionnaire object if success otherwise error status code
 	 */
 	def getQuestionnaire(code, last4Number) {
-		def url = grailsApplication.config.ratchetv2.server.url.task.get
+		def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
+
+		url = String.format(url, code)
 
 		def resp = Unirest.get(url)
-				.queryString("code", code)
 				.queryString("last4PhoneDigit", last4Number)
 				.asString()
 
 		if (resp.status == 200) {
 			return JSON.parse(resp.body)
 		} else {
-			// TODO: error handler
+			return resp.status
 		}
 	}
 
@@ -62,18 +64,18 @@ class TaskService {
 	 * @return questionnaire result
 	 */
 	def submitQuestionnaire(code, choices) {
-		def url = grailsApplication.config.ratchetv2.server.url.task.get
+		String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
-		def json = JsonOutput.toJson([code: code, choices: choices])
+		url = String.format(url, code)
 
-		def resp = Unirest.post(url)
-				.body(json.toString())
-				.asJson()
+		String json = JsonOutput.toJson([code: code, choices: choices])
+
+		def resp = Unirest.post(url).body(json).asJson()
 
 		if (resp.status == 200) {
 			return JSON.parse(resp.body.toString())
 		} else {
-			// TODO: error handler
+			return resp.status
 		}
 	}
 }

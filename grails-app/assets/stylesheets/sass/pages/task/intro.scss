@@ -1,5 +1,9 @@
 @import '../../partials/common';
 
+.tips {
+    display: none !important;
+}
+
 .content {
     margin: 20px auto 0;
     padding: 0;
@@ -108,7 +112,17 @@
 }
 
 .rc-error-label {
-    display: block;
+    @include breakpoint('mobile') {
+        display: none;
+    }
+
+    @include breakpoint('tablet') {
+        display: none;
+    }
+
+    @include breakpoint('desktop') {
+        display: block;
+    }
 }
 
 // Confirm popup
@@ -125,7 +139,17 @@
 
 .confirm-cover.show,
 .confirm-container.show {
-    display: block;
+    @include breakpoint('mobile') {
+        display: block;
+    }
+
+    @include breakpoint('tablet') {
+        display: block;
+    }
+
+    @include breakpoint('desktop') {
+        display: none;
+    }
 }
 
 .confirm-cover {

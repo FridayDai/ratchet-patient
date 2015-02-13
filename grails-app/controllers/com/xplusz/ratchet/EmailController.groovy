@@ -12,7 +12,7 @@ class EmailController {
 		if (success) {
 			render view: "/email/confirm"
 		} else {
-			render 'Patient Not Found'
+			return 404
 		}
 	}
 }

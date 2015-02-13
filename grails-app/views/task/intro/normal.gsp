@@ -16,8 +16,9 @@
 			<p>Enter the last 4 digit of your phone #:</p>
 
 			<form id="intro-form" aciton="." method="post">
-				<div class="form-control">
-					<input type="text" name="last4Number" class="last-4-number" placeholder="Enter last 4 digits"/>
+				<div class="form-control<g:if test="${errorMsg}"> error</g:if>">
+					<input type="text" name="last4Number" class="last-4-number" placeholder="Enter last 4 digits" maxlength="4"/>
+					<g:if test="${errorMsg}"><span class="rc-error-label">${errorMsg}</span></g:if>
 				</div>
 				<input type="submit" class="btn btn-start-task" value="Start"/>
 			</form>
@@ -27,14 +28,14 @@
 		</div>
 	</div>
 
-	<div class="confirm-cover" id="confirm-cover"></div>
+	<div class="confirm-cover<g:if test="${errorMsg}"> show</g:if>" id="confirm-cover"></div>
 
-	<div class="confirm-container" id="confirm-container">
+	<div class="confirm-container<g:if test="${errorMsg}"> show</g:if>" id="confirm-container">
 		<div class="confirm">
 			<div class="confirm-header">
-				<div class="confirm-title">Incorrect Password</div>
+				<div class="confirm-title">Incorrect Number</div>
 
-				<div class="confirm-content">The password you entered is incorrect. Please try again.</div>
+				<div class="confirm-content">The number you entered is incorrect. Please try again.</div>
 			</div>
 
 			<div class="confirm-footer">
