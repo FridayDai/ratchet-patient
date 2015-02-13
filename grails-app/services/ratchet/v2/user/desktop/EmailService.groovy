@@ -7,14 +7,36 @@ class EmailService {
     def grailsApplication
 
     /**
-     * Confirm email
+     * Confirm patient email
      *
      * @param code # temporary code
      *
      * @return success
      */
-    def confirmEmail(code) {
-        String emailUrl = grailsApplication.config.ratchetv2.server.url.email.confirmation
+    def confirmPatientEmail(code) {
+        String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
+
+        def resp = Unirest.post(emailUrl)
+                .field("code", code)
+                .asString()
+
+        if (resp.status == 200) {
+            return true
+        } else {
+            // TODO: error handle
+            return false
+        }
+    }
+
+    /**
+     * Confirm emergency contact email
+     *
+     * @param code # temporary code
+     *
+     * @return success
+     */
+    def confirmEmergencyContactEmail(code) {
+        String emailUrl = grailsApplication.config.ratchetv2.server.url.email.emergencyContactConfirmation
 
         def resp = Unirest.post(emailUrl)
                 .field("code", code)

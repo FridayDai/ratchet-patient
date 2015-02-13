@@ -4,10 +4,22 @@ class EmailController {
 
 	def emailService
 
-	def confirmEmail() {
+	def confirmPatientEmail() {
 		def code = params.code;
 
-		def success = emailService.confirmEmail(code)
+		def success = emailService.confirmPatientEmail(code)
+
+		if (success) {
+			render view: "/email/confirm"
+		} else {
+			return 404
+		}
+	}
+
+	def confirmEmergencyContactEmail() {
+		def code = params.code;
+
+		def success = emailService.confirmEmergencyContactEmail(code)
 
 		if (success) {
 			render view: "/email/confirm"

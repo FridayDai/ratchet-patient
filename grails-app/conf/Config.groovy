@@ -140,7 +140,8 @@ ratchetv2 {
 
 			// Email
 			email {
-				confirmation = "${ratchetv2.server.url.base}/patient/confirm"
+				patientConfirmation = "${ratchetv2.server.url.base}/patient/confirm"
+				emergencyContactConfirmation = "${ratchetv2.server.url.base}/caregiver/confirm"
 			}
 
 			// Task
