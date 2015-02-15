@@ -140,7 +140,8 @@
         }
     }
 
-    .rc-choice-hidden:checked + .rc-radio:before {
+    .rc-choice-hidden:checked + .rc-radio:before,
+    .rc-radio:hover:before {
         @include breakpoint('tablet') {
             position: static;
             width: 40px;

@@ -6,19 +6,6 @@ import grails.converters.JSON
 class TaskController extends BaseController {
 	def taskService
 
-	def getIntroByType(type) {
-		def introView
-
-		//1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK
-		if (type == 4 || type == 5) {
-			introView = "/task/intro/nrs"
-		} else {
-			introView = "/task/intro/normal"
-		}
-
-		return introView
-	}
-
 	def index() {
 		def code = params.code
 
@@ -27,7 +14,7 @@ class TaskController extends BaseController {
 		if (!(result instanceof Integer)) {
 			request.session.task = result.toString()
 
-			render view: getIntroByType(result.type), model: [Task: result]
+			render view: '/task/intro', model: [Task: result]
 		} else {
 			return result
 		}
@@ -57,7 +44,7 @@ class TaskController extends BaseController {
 		} else {
 			def task = JSON.parse(request.session.task)
 
-			render view: getIntroByType(task.type),
+			render view: '/task/intro',
 					model: [Task: task, errorMsg: RatchetMessage.TASK_INTRO_WRONG_PHONE_NUMBER]
 		}
 	}

@@ -103,6 +103,22 @@ ul {
     white-space: nowrap;
 }
 
+.rc-btn {
+    border: 1px solid $base-color-dark-blue;
+    padding-left: 10px;
+    color: $base-color-dark-blue;
+    background-color: transparent;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+
+    &:hover {
+        color: #fff;
+        background-color: $base-color-dark-blue;
+    }
+}
+
 .rc-choice-hidden,
 .rc-choice-number-hidden {
     display: none;
@@ -123,7 +139,8 @@ ul {
     }
 }
 
-.rc-choice-hidden:checked + .rc-radio:before {
+.rc-choice-hidden:checked + .rc-radio:before,
+.rc-radio:hover:before {
     position: absolute;
     top: 2px;
     left: 2px;

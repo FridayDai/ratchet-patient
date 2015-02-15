@@ -35,9 +35,7 @@
 
     .phone {
         position: relative;
-        width: 100%;
         margin: 20px auto 25px;
-        padding: 10px 0 10px 20px;
 
         p {
             margin-bottom: 10px;
@@ -50,7 +48,6 @@
         }
 
         .last-4-number {
-            width: 200px;
             height: 38px;
             padding-left: 10px;
             border: 1px solid #d6d6d6;
@@ -59,16 +56,12 @@
 
         .btn-start-task {
             display: inline-block;
-            padding-left: 10px;
-            color: $base-color-dark-blue;
-            background-color: transparent;
-            font-weight: bold;
-            font-size: 18px;
-            cursor: pointer;
 
             @include breakpoint('mobile') {
                 border: 0;
                 font-weight: normal;
+                background-color: transparent;
+                color: $base-color-dark-blue;
             }
         }
 
@@ -77,10 +70,8 @@
         }
 
         .tip {
-            width: 260px;
-            height: 85px;
             margin-top: 12px;
-            padding: 15px;
+            padding: 20px;
             color: #fff;
             background-color: $base-color-dark-blue;
             font-size: 13px;
@@ -103,7 +94,7 @@
             @include breakpoint('desktop') {
                 position: absolute;
                 top: 10px;
-                left: 260px;
+                right: 10px;
                 content: 'X';
                 color: $base-color-error-font-red;
             }
@@ -195,6 +186,24 @@
     }
 }
 
+@include breakpoint('mobile') {
+    .phone {
+        width: 320px;
+        padding: 0 15px;
+    }
+
+    .last-4-number {
+        width: 225px;
+    }
+    .btn-start-task {
+        padding: 10px;
+    }
+
+    .tip {
+        width: 100%;
+    }
+}
+
 @media (min-width: 768px) {
     .header {
         display: block;
@@ -219,8 +228,6 @@
             position: relative;
             width: 90%;
             margin-top: 40px;
-            padding-right: 20px;
-            padding-left: 20px;
 
             .last-4-number {
                 width: 95%;
@@ -229,22 +236,20 @@
             .btn-start-task {
                 position: absolute;
                 top: 230px;
-                left: 19%;
+                left: 50%;
                 width: 320px;
                 margin-bottom: 30px;
-                padding: 14px 55px;
-                border: 1px solid $base-color-dark-blue;
+                margin-left: -160px;
+                padding: 15px 55px;
                 font-weight: normal;
-                text-align: center;
             }
 
             .tip {
                 position: relative;
                 width: 95%;
-                height: 75px;
                 margin-top: 18px;
                 padding-top: 20px;
-                padding-right: 45px;
+                padding-right: 25px;
                 padding-left: 25px;
             }
 
@@ -272,30 +277,21 @@
 
         .phone {
             width: 65%;
+            max-width: 450px;
 
             .last-4-number {
-                width: 280px;
+                width: 450px;
             }
 
             .btn-start-task {
-                top: 210px;
-                left: 43%;
-                width: 157px;
+                top: 220px;
+                width: 160px;
+                margin-left: -80px;
                 padding: 12px 55px;
             }
 
-            .caret-left {
-                display: block;
-            }
-
             .tip {
-                position: absolute;
-                top: 14px;
-                left: 327px;
-                display: block;
-                width: 240px;
-                height: 85px;
-                padding: 15px;
+                width: 450px;
             }
 
             .close-tip {

@@ -40,7 +40,15 @@
 											<g:if test="${j >= 7 && j < 11}">Severe Pain</g:if>
 										</div>
 										<label class="choice choice-number choice-number-${j}">
-											<input type="radio" class="rc-choice-hidden" name="choices.${question.id}"
+											<input type="radio" class="rc-choice-hidden"
+												   <g:if test="${Task.type == 4}">
+													   <g:if test="${i == 0}">name="choices.back"</g:if>
+													   <g:if test="${i == 1}">name="choices.leg"</g:if>
+												   </g:if>
+												   <g:if test="${Task.type == 5}">
+													   <g:if test="${i == 0}">name="choices.neck"</g:if>
+													   <g:if test="${i == 1}">name="choices.arm"</g:if>
+												   </g:if>
 												   value="${j}"/>
 											<span class="rc-radio"></span>
 										</label>
@@ -53,7 +61,7 @@
 			</div>
 
 			<div class="task-done-panel">
-				<input type="submit" class="task-done-btn" value="I'm Done" />
+				<input type="submit" class="rc-btn task-done-btn" value="I'm Done" />
 			</div>
 		</form>
 	</div>

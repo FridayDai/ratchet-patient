@@ -41,7 +41,7 @@
 
             .text {
                 display: inline-block;
-                min-height: 30px;
+                min-height: 25px;
                 margin-top: 5px;
                 margin-left: 60px;
             }
@@ -150,12 +150,6 @@
         width: 300px;
         margin: 0 auto;
         padding: 15px;
-        border: 1px solid $base-color-dark-blue;
-        color: $base-color-dark-blue;
-        background-color: transparent;
-        font-size: 18px;
-        text-align: center;
-        cursor: pointer;
 
         @include breakpoint('mobile') {
             width: 200px;

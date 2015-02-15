@@ -37,7 +37,7 @@
 			</div>
 
 			<div class="task-done-panel">
-				<input type="submit" class="task-done-btn" href="/task/result" value="I'm Done">
+				<input type="submit" class="rc-btn task-done-btn" value="I'm Done">
 			</div>
 		</form>
 	</div>

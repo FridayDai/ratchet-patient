@@ -76,14 +76,16 @@
     }
 
     .result-content {
-        height: 718px;
-        margin: 0 auto;
-        padding-top: 180px;
+        position: absolute;
+        top: 170px;
+        right: 0;
+        bottom: 0;
+        left: 0;
         background-color: $base-color-lightest-gray;
 
         .top {
             width: 80%;
-            margin: 30px auto 0;
+            margin: 40px auto 0;
             border-bottom: 0;
             background-color: #fff;
 
