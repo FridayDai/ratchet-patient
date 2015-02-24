@@ -67,7 +67,7 @@ grails.project.dependency.resolution = {
 
         compile ":cdn-asset-pipeline:0.2.2"
         compile ":compass-sass:0.7"
-        compile ":cookie-session:0.1.2"
+        compile ":cookie-session:2.0.16"
 
 
 
