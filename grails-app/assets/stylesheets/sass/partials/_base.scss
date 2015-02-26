@@ -131,6 +131,7 @@ ul {
     width: 40px;
     height: 40px;
     border: 2px solid $base-color-gray;
+    cursor: pointer;
     border-radius: 50%;
 
     @include breakpoint('mobile') {
