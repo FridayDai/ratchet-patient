@@ -13,7 +13,7 @@ class TaskService {
 	 *
 	 * @param code # temporary code
 	 *
-	 * @return task summary object if success, otherwise error status code
+	 * @return response
 	 */
 	def getTask(code) {
 		def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
@@ -24,11 +24,7 @@ class TaskService {
 				.queryString("summary", true)
 				.asString()
 
-		if (resp.status == 200) {
-			return JSON.parse(resp.body)
-		} else {
-			return resp.status
-		}
+		return resp
 	}
 
 	/**
