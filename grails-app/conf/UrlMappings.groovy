@@ -7,9 +7,12 @@ class UrlMappings {
 
         // Task
         "/$patientName/tasks/$taskTitle/$code"(controller: "task") {
-            action = [GET: "index", POST: "start"]
+            action = [GET: "index"]
         }
-        "/$patientName/tasks/$taskTitle/complete"(controller: "task") {
+        "/$patientName/tasks/$taskTitle/$code/start"(controller: "task") {
+            action = [POST: "start"]
+        }
+        "/$patientName/tasks/$taskTitle/$code/complete"(controller: "task") {
             action = [POST: "done"]
         }
 

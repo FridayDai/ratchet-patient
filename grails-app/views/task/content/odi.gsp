@@ -44,7 +44,7 @@
 	<div class="odi task-content">
 		<div class="info container">${Task.description}</div>
 
-		<form action="./complete" method="post">
+		<form action="${request.forwardURI.replaceFirst(/\/start$/, '/complete')}" method="post">
 			<input type="hidden" name="code" value="${code}"/>
 
 			<div class="task-list-wrapper container">

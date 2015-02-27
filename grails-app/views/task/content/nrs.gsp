@@ -54,7 +54,7 @@
 			<p>7-10 = Severe Pain (disabling; unable to perform activities of daily living)</p>
 		</div>
 
-		<form action="./complete" method="post">
+		<form action="${request.forwardURI.replaceFirst(/\/start$/, '/complete')}" method="post">
 			<input type="hidden" name="code" value="${code}"/>
 
 			<div class="task-list-wrapper container">

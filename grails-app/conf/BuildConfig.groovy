@@ -65,9 +65,9 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:1.9.4"
 
-        compile ":cdn-asset-pipeline:0.2.2"
+        compile ":cdn-asset-pipeline:0.4.1"
         compile ":compass-sass:0.7"
-        compile ":cookie-session:2.0.16"
+//        compile ":cookie-session:2.0.16"
         // plugins needed at runtime but not for compilation
 //        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
 //        runtime ":database-migration:1.4.0"
