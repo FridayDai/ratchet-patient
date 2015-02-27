@@ -33,7 +33,7 @@
 		<div class="phone">
 			<p>Enter the last 4 digit of your phone #:</p>
 
-			<form id="intro-form" aciton="." method="post">
+			<form id="intro-form" action="${request.forwardURI}/start" method="post">
 				<div class="form-control<g:if test="${errorMsg}">error</g:if>">
 					<input type="text" name="last4Number" class="last-4-number" placeholder="Enter last 4 digits"
 						   maxlength="4"/>
@@ -47,9 +47,9 @@
 		</div>
 	</div>
 
-	<div class="confirm-cover<g:if test="${errorMsg}">show</g:if>" id="confirm-cover"></div>
+	<div class="confirm-cover<g:if test="${errorMsg}"> show</g:if>" id="confirm-cover"></div>
 
-	<div class="confirm-container<g:if test="${errorMsg}">show</g:if>" id="confirm-container">
+	<div class="confirm-container<g:if test="${errorMsg}"> show</g:if>" id="confirm-container">
 		<div class="confirm">
 			<div class="confirm-header">
 				<div class="confirm-title">Incorrect Number</div>

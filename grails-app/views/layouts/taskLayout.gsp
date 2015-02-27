@@ -25,5 +25,6 @@
 <g:if test="${scriptPath}">
 	<asset:javascript src="bundles/${scriptPath}"/>
 </g:if>
+<g:render template="/shared/googleAnalytics"></g:render>
 </body>
 </html>
