@@ -68,12 +68,9 @@ grails.project.dependency.resolution = {
         compile ":cdn-asset-pipeline:0.2.2"
         compile ":compass-sass:0.7"
         compile ":cookie-session:2.0.16"
-
-
-
         // plugins needed at runtime but not for compilation
 //        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
-        runtime ":database-migration:1.4.0"
+//        runtime ":database-migration:1.4.0"
         runtime ":resources:1.2.13"
 
         // Uncomment these to enable additional asset-pipeline capabilities

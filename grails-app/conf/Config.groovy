@@ -85,6 +85,19 @@ grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
 
+// asset-pipeline
+grails.assets.excludes = [
+		'bower_components/**',
+		'.sass-cache/**',
+		'sass/**',
+		'config.rb',
+		'file1.js',
+		'file2.js',
+		'file3.js',
+		'file4.js',
+		'file5.js'
+]
+
 environments {
 	development {
 		grails.logging.jul.usebridge = true
@@ -134,6 +147,24 @@ String overrideLocation = systemOverrideLocation ? "file:${systemOverrideLocatio
 grails.config.locations = [
 		overrideLocation
 ]
+
+
+def appName = grails.util.Metadata.current.'app.name'
+def appVersion = grails.util.Metadata.current.'app.version'
+
+grails {
+	assets {
+		cdn {
+			provider = 's3' // Karman provider
+			directory = System.getProperty("S3_ASSET_BUCKET")?:'com-xplusz-ratchet-assets-dev'
+			accessKey = System.getProperty("AWS_ACCESS_KEY")?:"AKIAIWTB37MOKO6FLJEA"
+			secretKey = System.getProperty("AWS_SECRET_KEY")?:"h88C9qlpgkmVChb/s7nLaFGzcbRh6qlUOxyhEEtf"
+			storagePath = "assets/${appName}-${appVersion}/" // This is just a prefix example
+			expires = 365
+			gzip = true
+		}
+	}
+}
 
 ratchetv2 {
 	server {

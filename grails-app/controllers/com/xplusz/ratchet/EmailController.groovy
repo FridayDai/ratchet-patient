@@ -7,10 +7,10 @@ class EmailController {
 	def confirmPatientEmail() {
 		def code = params.code;
 
-		def success = emailService.confirmPatientEmail(code)
+		def client = emailService.confirmPatientEmail(code)
 
-		if (success) {
-			render view: "/email/confirm"
+		if (client) {
+			render view: "/email/confirm", model: [client: client]
 		} else {
 			return 404
 		}
@@ -19,10 +19,10 @@ class EmailController {
 	def confirmEmergencyContactEmail() {
 		def code = params.code;
 
-		def success = emailService.confirmEmergencyContactEmail(code)
+		def client = emailService.confirmEmergencyContactEmail(code)
 
-		if (success) {
-			render view: "/email/confirm"
+		if (client) {
+			render view: "/email/confirm", model: [client: client]
 		} else {
 			return 404
 		}

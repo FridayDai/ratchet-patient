@@ -16,7 +16,7 @@
     }
 
     .question {
-        color: $base-color-dark-blue;
+        color: $base-color-primary;
         background-color: #fff;
 
         @include breakpoint('tablet') {

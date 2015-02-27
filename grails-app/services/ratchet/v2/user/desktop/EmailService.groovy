@@ -1,6 +1,7 @@
 package ratchet.v2.user.desktop
 
 import com.mashape.unirest.http.Unirest
+import grails.converters.JSON
 
 class EmailService {
     // dependency injection for grailsApplication
@@ -11,7 +12,7 @@ class EmailService {
      *
      * @param code # temporary code
      *
-     * @return success
+     * @return result
      */
     def confirmPatientEmail(code) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
@@ -21,7 +22,7 @@ class EmailService {
                 .asString()
 
         if (resp.status == 200) {
-            return true
+            return JSON.parse(resp.body)
         } else {
             // TODO: error handle
             return false
@@ -33,17 +34,18 @@ class EmailService {
      *
      * @param code # temporary code
      *
-     * @return success
+     * @return result
      */
     def confirmEmergencyContactEmail(code) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.emergencyContactConfirmation
 
         def resp = Unirest.post(emailUrl)
                 .field("code", code)
+                .field("hasProfile", true)
                 .asString()
 
         if (resp.status == 200) {
-            return true
+            return JSON.parse(resp.body)
         } else {
             // TODO: error handle
             return false

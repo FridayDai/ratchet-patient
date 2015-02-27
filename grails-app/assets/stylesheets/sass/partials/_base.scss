@@ -63,7 +63,7 @@ ul {
     width: 0;
     height: 0;
     border-top: 12px solid transparent;
-    border-right: 18px solid $base-color-dark-blue;
+    border-right: 18px solid $base-color-primary;
     border-bottom: 12px solid transparent;
 }
 
@@ -104,9 +104,9 @@ ul {
 }
 
 .rc-btn {
-    border: 1px solid $base-color-dark-blue;
+    border: 1px solid $base-color-primary;
     padding-left: 10px;
-    color: $base-color-dark-blue;
+    color: $base-color-primary;
     background-color: transparent;
     text-align: center;
     font-weight: bold;
@@ -115,7 +115,7 @@ ul {
 
     &:hover {
         color: #fff;
-        background-color: $base-color-dark-blue;
+        background-color: $base-color-primary;
     }
 }
 
@@ -150,7 +150,7 @@ ul {
     height: 36px;
     border-radius: 50%;
     content: '';
-    background-color: $base-color-dark-blue;
+    background-color: $base-color-primary;
 
     @include breakpoint('mobile') {
         width: 20px;
