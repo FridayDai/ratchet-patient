@@ -5,6 +5,39 @@
 	<html>
 	<head>
 		<title>${Task.title}</title>
+
+		<style type="text/css">
+		@media only screen and (max-width: 767px) {
+			.task-time {
+				color: ${Task.color?:'#0f137d'} !important;
+			}
+		}
+
+		.primary-color {
+			color: ${Task.color?:'#0f137d'} !important;
+		}
+
+		.primary-border-color {
+			border-color: ${Task.color?:'#0f137d'} !important;
+		}
+
+		.primary-background-color {
+			background-color: ${Task.color?:'#0f137d'} !important;
+		}
+
+		.task-done-btn {
+			color: ${Task.color?:'#0f137d'} !important;
+			border-color: ${Task.color?:'#0f137d'} !important;;
+		}
+
+		.task-done-btn:hover {
+			color: #ffffff !important;
+			background-color: ${Task.color?:'#0f137d'} !important;
+		}
+		.rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
+			background-color: ${Task.color?:'#0f137d'} !important;
+		}
+		</style>
 	</head>
 
 	<body>
@@ -13,10 +46,11 @@
 
 		<form action="./complete" method="post">
 			<input type="hidden" name="code" value="${code}"/>
+
 			<div class="task-list-wrapper container">
 				<g:each var="question" in="${Task.questions}" status="i">
 					<div class="question-list" data-optional="${question.optional}">
-						<div class="question">Section ${i + 1}: ${question.title}</div>
+						<div class="question primary-color">Section ${i + 1}: ${question.title}</div>
 
 						<div class="answer-list">
 							<ul class="list">
@@ -26,7 +60,7 @@
 										<label class="choice">
 											<input type="radio" class="rc-choice-hidden" name="choices.${question.id}"
 												   value="${choice.sequence}"/>
-											<span class="rc-radio"></span>
+											<span class="rc-radio primary-radio-color"></span>
 										</label>
 									</li>
 								</g:each>

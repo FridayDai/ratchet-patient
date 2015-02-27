@@ -88,7 +88,7 @@
         @include breakpoint('mobile') {
             padding-top: 20px;
             padding-bottom: 20px;
-            color: #14027b;
+            color: $base-color-primary;
             background-color: #fff;
         }
 
