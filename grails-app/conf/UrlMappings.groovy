@@ -10,10 +10,10 @@ class UrlMappings {
             action = [GET: "index"]
         }
         "/$patientName/tasks/$taskTitle/$code/start"(controller: "task") {
-            action = [POST: "start"]
+            action = [GET:"index", POST: "start"]
         }
         "/$patientName/tasks/$taskTitle/$code/complete"(controller: "task") {
-            action = [POST: "done"]
+            action = [GET: "hasComplete", POST: "done"]
         }
 
         // Errors

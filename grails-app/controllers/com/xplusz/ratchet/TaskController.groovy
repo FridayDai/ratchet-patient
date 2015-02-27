@@ -9,14 +9,20 @@ class TaskController extends BaseController {
 	def index() {
 		def code = params.code
 
-		def result = taskService.getTask(code)
+		def resp = taskService.getTask(code)
 
-		if (!(result instanceof Integer)) {
+		if (resp.status == 200) {
+			def result = JSON.parse(resp.body)
 			request.session.task = result.toString()
 
 			render view: '/task/intro', model: [Task: result]
+		} else if (resp.status == 207) {
+			def result = JSON.parse(resp.body)
+			flash.task = result.toString()
+
+			redirect uri: request.forwardURI.replaceFirst(/\/start$/, '') + '/complete'
 		} else {
-			return result
+			return resp.status
 		}
 	}
 
@@ -46,6 +52,28 @@ class TaskController extends BaseController {
 
 			render view: '/task/intro',
 					model: [Task: task, errorMsg: RatchetMessage.TASK_INTRO_WRONG_PHONE_NUMBER]
+		}
+	}
+
+	def hasComplete () {
+		if (flash.task) {
+			def task = JSON.parse(flash.task)
+
+			render view: '/task/result', model: [Task: task]
+		} else {
+			def code = params.code
+
+			def resp = taskService.getTask(code)
+
+			if (resp.status == 200) {
+				redirect uri: request.forwardURI.replaceFirst(/\/complete$/, '')
+			} else if (resp.status == 207) {
+				def result = JSON.parse(resp.body)
+
+				render view: '/task/result', model: [Task: result]
+			} else {
+				return 404
+			}
 		}
 	}
 
