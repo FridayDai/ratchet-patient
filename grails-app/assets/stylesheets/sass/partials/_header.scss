@@ -49,13 +49,14 @@
             padding-right: 8px;
         }
 
-        > img {
-            vertical-align: middle;
-        }
-
         .bold {
             font-weight: bold;
         }
+    }
+
+    .logo {
+        height: 15px;
+        vertical-align: middle;
     }
 }
 
