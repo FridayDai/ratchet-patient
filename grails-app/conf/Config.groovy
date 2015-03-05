@@ -171,6 +171,11 @@ ratchetv2 {
 		url {
 			base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
 
+			// Client
+			client {
+				subDomain = "${ratchetv2.server.url.base}/clients?subDomain=%s"
+			}
+
 			// Email
 			email {
 				patientConfirmation = "${ratchetv2.server.url.base}/patient/confirm"

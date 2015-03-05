@@ -15,14 +15,14 @@ class TaskController extends BaseController {
 			def result = JSON.parse(resp.body)
 			request.session.task = result.toString()
 
-			render view: '/task/intro', model: [Task: result]
+			render view: '/task/intro', model: [Task: result, client: session.client]
 		} else if (resp.status == 207) {
 			def result = JSON.parse(resp.body)
 			flash.task = result.toString()
 
 			redirect uri: request.forwardURI.replaceFirst(/\/start$/, '') + '/complete'
-		} else {
-			return resp.status
+		} else if (resp.status == 404) {
+			render view: '/error/invalidTask', model: [client: session.client], status: 404
 		}
 	}
 
@@ -44,22 +44,24 @@ class TaskController extends BaseController {
 				taskView = '/task/content/nrs'
 			}
 
-			render view: taskView, model: [Task: result, code: code]
+			render view: taskView, model: [Task: result, code: code, client: session.client]
 		} else if (result == 404 || !request.session.task) {
-			return 404
+			render view: '/error/invalidTask', model: [client: session.client], status: 404
 		} else {
 			def task = JSON.parse(request.session.task)
 
 			render view: '/task/intro',
-					model: [Task: task, errorMsg: RatchetMessage.TASK_INTRO_WRONG_PHONE_NUMBER]
+					model: [client  : session.client,
+							Task    : task,
+							errorMsg: RatchetMessage.TASK_INTRO_WRONG_PHONE_NUMBER]
 		}
 	}
 
-	def hasComplete () {
+	def hasComplete() {
 		if (flash.task) {
 			def task = JSON.parse(flash.task)
 
-			render view: '/task/result', model: [Task: task]
+			render view: '/task/result', model: [Task: task, client: session.client]
 		} else {
 			def code = params.code
 
@@ -70,9 +72,9 @@ class TaskController extends BaseController {
 			} else if (resp.status == 207) {
 				def result = JSON.parse(resp.body)
 
-				render view: '/task/result', model: [Task: result]
+				render view: '/task/result', model: [Task: result, client: session.client]
 			} else {
-				return 404
+				render view: '/error/invalidTask', model: [client: session.client], status: 404
 			}
 		}
 	}
@@ -89,9 +91,9 @@ class TaskController extends BaseController {
 		def result = taskService.submitQuestionnaire(code, choices)
 
 		if (!(result instanceof Integer)) {
-			render view: '/task/result', model: [Task: result]
+			render view: '/task/result', model: [Task: result, client: session.client]
 		} else {
-			return 404
+			render view: '/error/invalidTask', model: [client: session.client], status: 404
 		}
 	}
 }
