@@ -14,11 +14,12 @@ class EmailService {
      *
      * @return result
      */
-    def confirmPatientEmail(code) {
+    def confirmPatientEmail(code, emailUpdate) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
 
         def resp = Unirest.post(emailUrl)
                 .field("code", code)
+                .field("email_update", emailUpdate)
                 .asString()
 
         if (resp.status == 200) {
