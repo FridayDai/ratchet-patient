@@ -12,12 +12,17 @@ class ClientFilters {
 
 					def clientName = hostname.replaceAll(/\.(qa|stable)?\.ratchethealth\.com$/, '')
 
+					log.info(hostname)
+
+					render hostname
+					return false
+
 					def result = clientService.getClient(clientName)
 
 					if (!(result instanceof Integer)) {
 						session.client = result
 					} else {
-						render view: '/error/404'
+						render view: '/error/404', status: 404
 						return false
 					}
 				}
