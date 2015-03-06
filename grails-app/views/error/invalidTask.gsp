@@ -31,7 +31,7 @@
 
 	<div class="body">
 		<div>
-			<img src="${assetPath(src: 'warning.png')}">
+			<span class="warning"></span>
 		</div>
 
 		<p>Sorry, this task no longer exists.</p>

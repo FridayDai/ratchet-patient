@@ -26,6 +26,14 @@ body {
     color: #666;
 }
 
+.warning {
+    display: inline-block;
+    width: 47px;
+    height: 39px;
+    background-image: url("/assets/warning_icon.png");
+    background-position-x: -46px;
+}
+
 .logo {
     height: 15px;
     margin-left: 10px;
