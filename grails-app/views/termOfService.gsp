@@ -2,6 +2,30 @@
 <g:applyLayout name="headerLayout">
 	<head>
 		<title>TERMS OF SERVICE</title>
+		<style type="text/css">
+		.primary-color {
+			color: ${ client.primaryColorHex ?: '#0f137d' } !important;
+		}
+
+		.primary-border-color {
+			border-color: ${ client.primaryColorHex ?: '#0f137d' } !important;
+		}
+
+		.primary-background-color {
+			background-color: ${ client.primaryColorHex ?: '#0f137d' } !important;
+		}
+
+		h1,
+		h2,
+		.title,
+		.circle-list li:before {
+			color: ${ client.primaryColorHex ?: '#0f137d' } !important;
+		}
+
+		.agreement-item-title span {
+			background-color: ${ client.primaryColorHex ?: '#0f137d' } !important;
+		}
+		</style>
 	</head>
 
 	<body>

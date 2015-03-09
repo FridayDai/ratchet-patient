@@ -2,11 +2,28 @@
 <g:applyLayout name="headerLayout">
 	<head>
 		<title>PRIVACY POLICY</title>
+		<style type="text/css">
+		.primary-color {
+			color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+		}
+
+		.primary-border-color {
+			border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+		}
+
+		.primary-background-color {
+			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+		}
+
+		.circle-list li:before {
+			color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+		}
+		</style>
 	</head>
 
 	<body>
 	<div class="main">
-		<h1 class="title container">PRIVACY POLICY</h1>
+		<h1 class="title container primary-color">PRIVACY POLICY</h1>
 
 		<div class="main-desc">
 			<div class="container">
@@ -18,7 +35,7 @@
 		</div>
 		<ul class="agreement-item-list container">
 			<li class="agreement-item">
-				<h2 class="agreement-item-title">YOUR RIGHTS</h2>
+				<h2 class="agreement-item-title primary-color">YOUR RIGHTS</h2>
 
 				<div>
 					<p>
@@ -53,7 +70,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title">YOUR CHOICES</h2>
+				<h2 class="agreement-item-title primary-color">YOUR CHOICES</h2>
 
 				<div>
 					<p>
@@ -82,7 +99,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title">OUR USES AND DISCLOSURES</h2>
+				<h2 class="agreement-item-title primary-color">OUR USES AND DISCLOSURES</h2>
 
 				<div>
 					<p>
@@ -123,7 +140,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title">YOUR RIGHTS</h2>
+				<h2 class="agreement-item-title primary-color">YOUR RIGHTS</h2>
 
 				<div>
 					<p>
@@ -232,7 +249,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title">YOUR CHOICES</h2>
+				<h2 class="agreement-item-title primary-color">YOUR CHOICES</h2>
 
 				<div>
 					<p>
@@ -288,7 +305,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title">OUR USES AND DISCLOSURES</h2>
+				<h2 class="agreement-item-title primary-color">OUR USES AND DISCLOSURES</h2>
 
 				<div>
 					<div class="agreement-item-question">How do we typically use or share your health information?</div>
@@ -447,7 +464,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title">OUR RESPONSIBILITIES</h2>
+				<h2 class="agreement-item-title primary-color">OUR RESPONSIBILITIES</h2>
 
 				<ul class="circle-list">
 					<li>
@@ -474,7 +491,7 @@
 				</p>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title">CHANGES TO THE TERMS OF THIS NOTICE</h2>
+				<h2 class="agreement-item-title primary-color">CHANGES TO THE TERMS OF THIS NOTICE</h2>
 
 				<div>
 					<strong>We can change the terms of this notice, and the changes will apply to all information we have
@@ -482,7 +499,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title">OTHER INFORMATION</h2>
+				<h2 class="agreement-item-title primary-color">OTHER INFORMATION</h2>
 
 				<p><strong>Effective Date: September 1st 2014</strong></p>
 
