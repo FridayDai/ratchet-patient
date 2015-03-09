@@ -1,0 +1,89 @@
+@import '../partials/common';
+
+.main {
+    color: #333;
+    line-height: 20px;
+
+    @include breakpoint('tablet') {
+        padding-top: 10px;
+        margin-top: 85px;
+    }
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+h1, h2 {
+    margin: 30px auto;
+    font-weight: normal;
+    color: $base-color-primary;
+}
+
+h1 {
+    font-size: 26px;
+}
+
+h2 {
+    margin: 25px auto;
+    font-size: 20px;
+}
+
+a {
+    color: blue;
+}
+
+.main-desc {
+    padding: 20px 0;
+    background-color: #f2f2f2;
+}
+
+.agreement-item {
+    margin-top: 60px;
+}
+
+.agreement-item-title span{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 10px;
+    background-color: $base-color-primary;
+    color: #ffffff;
+}
+
+.agreement-item-question {
+    margin: 20px 0 10px;
+    font-weight: bolder;
+}
+
+.agreement-item-desc-header {
+    margin: 30px 0 15px;
+}
+
+.agreement-item-desc-example {
+    padding-left: 20px;
+    font-style: italic;
+}
+
+.time-mark {
+    margin-top: 80px;
+    padding: 50px 0;
+    font-weight: bold;
+    background-color: #f2f2f2;
+}
+
+.circle-list {
+    li {
+        margin: 5px 0 5px 24px;
+    }
+    li:before {
+        content: "• ";
+        margin-right: 10px;
+        margin-left: -23px;
+        color: $base-color-primary;
+    }
+}

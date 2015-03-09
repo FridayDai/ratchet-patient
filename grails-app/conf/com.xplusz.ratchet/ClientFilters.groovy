@@ -5,7 +5,7 @@ class ClientFilters {
 	def clientService
 
 	def filters = {
-		all(controller: 'email|task') {
+		all(controller: 'email|task|agreement') {
 			before = {
 				if (!session.client) {
 					def hostname = request.getServerName()
