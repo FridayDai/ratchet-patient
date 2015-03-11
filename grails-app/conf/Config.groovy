@@ -170,6 +170,10 @@ ratchetv2 {
 	server {
 		url {
 			base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
+			baseUrl = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com"
+
+			// Health check
+			healthCheck = "${ratchetv2.server.url.baseUrl}/healthcheck"
 
 			// Client
 			client {
