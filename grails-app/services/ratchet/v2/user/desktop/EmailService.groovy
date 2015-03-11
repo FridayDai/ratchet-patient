@@ -3,6 +3,9 @@ package ratchet.v2.user.desktop
 import com.mashape.unirest.http.Unirest
 import grails.converters.JSON
 
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+
 class EmailService {
     // dependency injection for grailsApplication
     def grailsApplication
@@ -14,7 +17,7 @@ class EmailService {
      *
      * @return result
      */
-    def confirmPatientEmail(code, emailUpdate) {
+    def confirmPatientEmail(HttpServletRequest request, HttpServletResponse response, code, emailUpdate) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
 
         def resp = Unirest.post(emailUrl)
@@ -23,6 +26,7 @@ class EmailService {
                 .asString()
 
         if (resp.status == 200) {
+            log.info("Confirm patient email success, token: ${request.session.token}")
             return JSON.parse(resp.body)
         } else {
             // TODO: error handle
@@ -37,7 +41,7 @@ class EmailService {
      *
      * @return result
      */
-    def confirmEmergencyContactEmail(code) {
+    def confirmEmergencyContactEmail(HttpServletRequest request, HttpServletResponse response, code) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.emergencyContactConfirmation
 
         def resp = Unirest.post(emailUrl)
@@ -46,6 +50,7 @@ class EmailService {
                 .asString()
 
         if (resp.status == 200) {
+            log.info("Confirm emergency contact email success, token: ${request.session.token}")
             return JSON.parse(resp.body)
         } else {
             // TODO: error handle
