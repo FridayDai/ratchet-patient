@@ -1,6 +1,10 @@
 class UrlMappings {
 
     static mappings = {
+
+        //Health check
+        "/healthcheck"(controller: "healthCheck", action: "index")
+
         // Email
         "/patient/email/confirmation/$code"(controller: "email", action: "confirmPatientEmail")
         "/emergency_contact/email/confirmation/$code"(controller: "email", action: "confirmEmergencyContactEmail")
