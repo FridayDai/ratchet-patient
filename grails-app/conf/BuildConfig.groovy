@@ -53,7 +53,7 @@ grails.project.dependency.resolution = {
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
         compile "com.mashape.unirest:unirest-java:1.3.27"
-
+        runtime 'biz.paluch.logging:logstash-gelf:1.5.4'
     }
 
     plugins {
@@ -67,6 +67,7 @@ grails.project.dependency.resolution = {
 
         compile ":cdn-asset-pipeline:0.4.1"
         compile ":compass-sass:0.7"
+        runtime ":hibernate4:4.3.6.1"
 //        compile ":cookie-session:2.0.16"
         // plugins needed at runtime but not for compilation
 //        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
