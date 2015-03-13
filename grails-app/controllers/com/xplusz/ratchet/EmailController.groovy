@@ -1,6 +1,6 @@
 package com.xplusz.ratchet
 
-class EmailController {
+class EmailController extends BaseController {
 
     def emailService
 
@@ -12,20 +12,16 @@ class EmailController {
 
         if (client) {
             render view: "/email/confirm", model: [client: client]
-        } else {
-            return 404
         }
     }
 
     def confirmEmergencyContactEmail() {
-        def code = params.code;
+        def code = params.code
 
         def client = emailService.confirmEmergencyContactEmail(request, response, code)
 
         if (client) {
             render view: "/email/confirm", model: [client: client]
-        } else {
-            return 404
         }
     }
 }

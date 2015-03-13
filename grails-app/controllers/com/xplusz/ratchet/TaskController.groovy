@@ -21,8 +21,6 @@ class TaskController extends BaseController {
             flash.task = result.toString()
 
             redirect uri: request.forwardURI.replaceFirst(/\/start$/, '') + '/complete'
-        } else if (resp.status == 404) {
-            render view: '/error/invalidTask', model: [client: session.client], status: 404
         }
     }
 
@@ -71,10 +69,7 @@ class TaskController extends BaseController {
                 redirect uri: request.forwardURI.replaceFirst(/\/complete$/, '')
             } else if (resp.status == 207) {
                 def result = JSON.parse(resp.body)
-
                 render view: '/task/result', model: [Task: result, client: session.client]
-            } else {
-                render view: '/error/invalidTask', model: [client: session.client], status: 404
             }
         }
     }
@@ -92,8 +87,6 @@ class TaskController extends BaseController {
 
         if (!(result instanceof Integer)) {
             render view: '/task/result', model: [Task: result, client: session.client]
-        } else {
-            render view: '/error/invalidTask', model: [client: session.client], status: 404
         }
     }
 }

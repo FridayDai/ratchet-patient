@@ -1,4 +1,9 @@
 package com.xplusz.ratchet
+
+import com.xplusz.ratchet.exceptions.ApiAccessException
+import com.xplusz.ratchet.exceptions.ApiReturnException
+import com.xplusz.ratchet.exceptions.InvalidTaskException
+
 /**
  * Base Controller.
  */
@@ -17,6 +22,21 @@ class BaseController {
             return true
         }
 
+    }
+
+    def handleApiAccessException(ApiAccessException e) {
+        log.error("API access exception: ${e.message}, token: ${session.token}.")
+        render view: '/error/404'
+    }
+
+    def handleApiReturnException(ApiReturnException e) {
+        log.error("API return exception: ${e.message}, token: ${session.token}.")
+        render view: '/error/404'
+    }
+
+    def handleInvalidTaskException(InvalidTaskException e) {
+        log.error("Invalid task exception: ${e.message}, token: ${session.token}.")
+        render view: '/error/invalidTask', model: [client: session.client], status: 404
     }
 
 
