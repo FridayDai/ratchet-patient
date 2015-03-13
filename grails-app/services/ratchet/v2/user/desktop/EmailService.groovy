@@ -1,6 +1,9 @@
 package ratchet.v2.user.desktop
 
 import com.mashape.unirest.http.Unirest
+import com.mashape.unirest.http.exceptions.UnirestException
+import com.xplusz.ratchet.exceptions.ApiAccessException
+import com.xplusz.ratchet.exceptions.ApiReturnException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
@@ -17,21 +20,28 @@ class EmailService {
      *
      * @return result
      */
-    def confirmPatientEmail(HttpServletRequest request, HttpServletResponse response, code, emailUpdate) {
+    def confirmPatientEmail(HttpServletRequest request, HttpServletResponse response, code, emailUpdate)
+            throws ApiAccessException, ApiReturnException {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
 
-        def resp = Unirest.post(emailUrl)
-                .field("code", code)
-                .field("email_update", emailUpdate)
-                .asString()
-
-        if (resp.status == 200) {
-            log.info("Confirm patient email success, token: ${request.session.token}")
-            return JSON.parse(resp.body)
-        } else {
-            // TODO: error handle
-            return false
+        try {
+            def resp = Unirest.post(emailUrl)
+                    .field("code", code)
+                    .field("email_update", emailUpdate)
+                    .asString()
+            def result = JSON.parse(resp.body)
+            if (resp.status == 200) {
+                log.info("Confirm patient email success, token: ${request.session.token}")
+                return result
+            } else {
+                def message = result?.error?.errorMessage
+                throw new ApiReturnException(message, resp.status)
+            }
         }
+        catch (UnirestException e) {
+            throw new ApiAccessException(e.message)
+        }
+
     }
 
     /**
@@ -41,20 +51,27 @@ class EmailService {
      *
      * @return result
      */
-    def confirmEmergencyContactEmail(HttpServletRequest request, HttpServletResponse response, code) {
+    def confirmEmergencyContactEmail(HttpServletRequest request, HttpServletResponse response, code)
+            throws ApiAccessException, ApiReturnException {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.emergencyContactConfirmation
 
-        def resp = Unirest.post(emailUrl)
-                .field("code", code)
-                .field("hasProfile", true)
-                .asString()
+        try {
+            def resp = Unirest.post(emailUrl)
+                    .field("code", code)
+                    .field("hasProfile", true)
+                    .asString()
+            def result = JSON.parse(resp.body)
 
-        if (resp.status == 200) {
-            log.info("Confirm emergency contact email success, token: ${request.session.token}")
-            return JSON.parse(resp.body)
-        } else {
-            // TODO: error handle
-            return false
+            if (resp.status == 200) {
+                log.info("Confirm emergency contact email success, token: ${request.session.token}")
+                return result
+            } else {
+                def message = result?.error?.errorMessage
+                throw new ApiReturnException(message, resp.status)
+            }
+        } catch (UnirestException e) {
+            throw new ApiAccessException(e.message)
         }
+
     }
 }
