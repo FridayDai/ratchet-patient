@@ -25,6 +25,6 @@ class UrlMappings {
         "/privacy_policy"(controller: "agreement", action: "privacyPolicy")
 
         // Errors
-        "404"(view: '/error/404')
+//        "404"(view: '/error/404')
     }
 }
