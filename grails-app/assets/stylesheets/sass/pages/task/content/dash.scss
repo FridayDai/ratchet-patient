@@ -13,10 +13,10 @@
 
 
     .section-title {
+        padding: 30px 0;
         color: #333;
         font-weight: bold;
         font-size: 16px;
-        padding: 30px 0;
 
         @include breakpoint('mobile') {
             padding: 20px;

@@ -30,7 +30,7 @@ body {
     display: inline-block;
     width: 47px;
     height: 39px;
-    background-image: url("/assets/warning_icon.png");
+    background-image: url('/assets/warning_icon.png');
     background-position-x: -46px;
 }
 
@@ -41,6 +41,6 @@ body {
 }
 
 .body {
-    background-color: #fff;
     padding: 40px 0;
+    background-color: #fff;
 }

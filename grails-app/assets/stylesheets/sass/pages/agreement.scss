@@ -5,8 +5,8 @@
     line-height: 20px;
 
     @include breakpoint('tablet') {
-        padding-top: 10px;
         margin-top: 85px;
+        padding-top: 10px;
     }
 }
 
@@ -15,10 +15,11 @@
     padding-left: 15px;
 }
 
-h1, h2 {
+h1,
+h2 {
     margin: 30px auto;
-    font-weight: normal;
     color: $base-color-primary;
+    font-weight: normal;
 }
 
 h1 {
@@ -31,7 +32,7 @@ h2 {
 }
 
 a {
-    color: blue;
+    color: #00f;
 }
 
 .main-desc {
@@ -43,16 +44,16 @@ a {
     margin-top: 60px;
 }
 
-.agreement-item-title span{
+.agreement-item-title span {
     display: inline-block;
-    height: 40px;
     width: 40px;
+    height: 40px;
     margin-right: 10px;
+    padding-top: 10px;
+    color: #fff;
+    background-color: $base-color-primary;
     text-align: center;
     vertical-align: middle;
-    padding-top: 10px;
-    background-color: $base-color-primary;
-    color: #ffffff;
 }
 
 .agreement-item-question {
@@ -72,18 +73,19 @@ a {
 .time-mark {
     margin-top: 80px;
     padding: 50px 0;
-    font-weight: bold;
     background-color: #f2f2f2;
+    font-weight: bold;
 }
 
 .circle-list {
     li {
         margin: 5px 0 5px 24px;
     }
+
     li:before {
-        content: "• ";
         margin-right: 10px;
         margin-left: -23px;
+        content: '• ';
         color: $base-color-primary;
     }
 }
