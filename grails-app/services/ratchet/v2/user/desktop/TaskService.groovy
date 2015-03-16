@@ -35,7 +35,9 @@ class TaskService {
                 log.info("Get task success, token: ${request.session.token}")
                 return resp
             } else {
-                throw new InvalidTaskException()
+                def result = JSON.parse(resp.body)
+                def message = result?.error?.errorMessage
+                throw new InvalidTaskException(message)
             }
 
         } catch (UnirestException e) {
@@ -62,11 +64,13 @@ class TaskService {
             def resp = Unirest.get(url)
                     .queryString("last4PhoneDigit", last4Number)
                     .asString()
+            def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
                 log.info("Get questionnaire success, token: ${request.session.token}")
-                return JSON.parse(resp.body)
+                return result
             } else {
+                log.error("Invalid task exception: ${result?.error?.errorMessage}, token: ${request.session.token}.")
                 return resp.status
             }
         } catch (UnirestException e) {
@@ -98,7 +102,9 @@ class TaskService {
                 log.info("Submit questionnaire success, token: ${request.session.token}")
                 return JSON.parse(resp.body.toString())
             } else {
-                throw new InvalidTaskException()
+                def result = JSON.parse(resp.body)
+                def message = result?.error?.errorMessage
+                throw new InvalidTaskException(message)
             }
         } catch (UnirestException e) {
             throw new ApiAccessException(e.message)
