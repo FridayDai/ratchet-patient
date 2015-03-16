@@ -1,3 +1,5 @@
+//= require share/share
+
 (function (undefined) {
     'use strict';
 

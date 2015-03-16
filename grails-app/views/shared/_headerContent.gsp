@@ -1,3 +1,10 @@
+<g:if test="${announcement.status == 'active'}">
+	<div role="banner" class="maintenance ${announcement.background}">
+		<span class="attention">Attention:</span> ${announcement.announcement}
+		<a href="#" id="maintenance-close" class="btn-close"> </a>
+	</div>
+</g:if>
+
 <div class="main-header primary-border-color clear">
     <a class="nav-info" href="/">
         <img src="${client.logo}" alt="" class="primary-border-color"/>
