@@ -104,13 +104,13 @@ ul {
 }
 
 .rc-btn {
-    border: 1px solid $base-color-primary;
     padding-left: 10px;
+    border: 1px solid $base-color-primary;
     color: $base-color-primary;
     background-color: transparent;
-    text-align: center;
     font-weight: bold;
     font-size: 18px;
+    text-align: center;
     cursor: pointer;
 
     &:hover {

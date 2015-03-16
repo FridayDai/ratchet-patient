@@ -2,21 +2,14 @@
 @import '../../partials/variable';
 
 .email-content {
-    width: 80%;
-    max-width: 600px;
-    margin: 200px auto 0;
+    padding: 100px 0 50px;
+    border-bottom: 1px solid $base-color-grey;
+    background: $base-color-dark-white;
     text-align: center;
 
     .client-name {
-        margin-bottom: 30px;
-        padding-bottom: 40px;
-        border-bottom: 8px solid $base-color-primary;
         color: $base-color-primary;
         font-size: 18px;
-    }
-
-    .message {
-        font-size: 16px;
     }
 
     button {
@@ -27,5 +20,29 @@
         background-color: transparent;
         font-size: 14px;
     }
+
+    .distance {
+        color: $base-color-dark-gray;
+    }
+
+    .logo {
+        width: 130px;
+    }
 }
 
+.middle-content {
+    padding: 50px;
+    text-align: center;
+
+    .message {
+        color: $base-color-light-dark;
+        font-size: 16px;
+    }
+}
+
+.bottom-content {
+    height: 500px;
+    min-height: 200px;
+    border-top: 1px solid $base-color-grey;
+    background: $base-color-dark-white;
+}

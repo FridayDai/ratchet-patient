@@ -59,9 +59,9 @@
 
             @include breakpoint('mobile') {
                 border: 0;
-                font-weight: normal;
-                background-color: transparent;
                 color: $base-color-primary;
+                background-color: transparent;
+                font-weight: normal;
             }
         }
 
@@ -195,6 +195,7 @@
     .last-4-number {
         width: 225px;
     }
+
     .btn-start-task {
         padding: 10px;
     }

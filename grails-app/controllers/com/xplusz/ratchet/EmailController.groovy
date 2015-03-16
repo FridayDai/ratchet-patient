@@ -11,7 +11,7 @@ class EmailController extends BaseController {
         def client = emailService.confirmPatientEmail(request, response, code, emailUpdate)
 
         if (client) {
-            render view: "/email/confirm", model: [client: client]
+            render view: "/email/confirm", model: [client: session.client]
         }
     }
 
@@ -21,7 +21,7 @@ class EmailController extends BaseController {
         def client = emailService.confirmEmergencyContactEmail(request, response, code)
 
         if (client) {
-            render view: "/email/confirm", model: [client: client]
+            render view: "/email/confirm", model: [client: session.client]
         }
     }
 }

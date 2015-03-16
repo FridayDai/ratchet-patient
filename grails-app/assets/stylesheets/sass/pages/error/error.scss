@@ -1,20 +1,61 @@
+//.error-body {
+//    margin-top: 100px;
+//    padding: 0;
+//    color: #355d6f;
+//    text-align: center;
+//
+//    .top-content {
+//        font-weight: bold;
+//        font-size: 50px;
+//    }
+//
+//    .middle-content {
+//        font-weight: bolder;
+//        font-size: 100px;
+//    }
+//
+//    .logo {
+//        margin-top: 200px;
+//    }
+//}
+@import '../../partials/base';
+@import '../../partials/variable';
+
 .error-body {
-    margin-top: 100px;
+    margin-top: 138px;
     padding: 0;
-    color: #355d6f;
+    color: $base-logo-color;
     text-align: center;
 
     .top-content {
-        font-weight: bold;
-        font-size: 50px;
+        font-weight: 600;
+        font-size: 45px;
     }
 
     .middle-content {
-        font-weight: bolder;
-        font-size: 100px;
+        font-weight: 600;
+        font-size: 80px;
+    }
+
+    .bottom-content {
+        padding: 50px 0;
+    }
+
+    .text-font {
+        font-weight: 500;
+        font-size: 19px;
+    }
+
+    .btn-home {
+        padding: 10px 34px;
+        font-size: 18px;
     }
 
     .logo {
-        margin-top: 200px;
+        margin-top: 80px;
+
+        &:before {
+            content: url('/assets/ratchet_health_cube.png');
+        }
     }
 }
