@@ -43,4 +43,9 @@
 	</div>
 	</body>
 	</html>
+	<content tag="GA">
+		<script>
+			ga('send', 'event', '${taskTitle}', 'complete', '${taskCode}');
+		</script>
+	</content>
 </g:applyLayout>
