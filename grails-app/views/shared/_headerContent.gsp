@@ -1,4 +1,4 @@
-<g:if test="${announcement.status == 'active'}">
+<g:if test="${announcement?.status == 'active'}">
 	<div role="banner" class="maintenance ${announcement.background}">
 		<span class="attention">Attention:</span> ${announcement.announcement}
 		<a href="#" id="maintenance-close" class="btn-close"> </a>
