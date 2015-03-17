@@ -19,12 +19,13 @@
 </head>
 
 <body>
-<g:render template="/shared/taskHeader"></g:render>
+<g:render template="/shared/taskHeader" />
 
 <g:layoutBody/>
 <g:if test="${scriptPath}">
 	<asset:javascript src="bundles/${scriptPath}"/>
 </g:if>
-<g:render template="/shared/googleAnalytics"></g:render>
+<g:render template="/shared/googleAnalytics" />
+<g:pageProperty name="page.GA" />
 </body>
 </html>

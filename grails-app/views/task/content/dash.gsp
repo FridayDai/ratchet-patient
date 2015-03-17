@@ -49,7 +49,7 @@
 		<div class="info container">${Task.description}</div>
 
 		<form action="${request.forwardURI.replaceFirst(/\/start$/, '/complete')}" method="post">
-			<input type="hidden" name="code" value="${code}"/>
+			<input type="hidden" name="code" value="${taskCode}"/>
 
 			<div class="task-list-wrapper container">
 				<g:each var="section" in="${Task.sections}">
@@ -84,4 +84,10 @@
 	</div>
 	</body>
 	</html>
+
+	<content tag="GA">
+		<script>
+			ga('send', 'event', '${taskTitle}', 'in progress', '${taskCode}');
+		</script>
+	</content>
 </g:applyLayout>
