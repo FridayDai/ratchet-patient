@@ -22,7 +22,7 @@
 			color: ${ client.primaryColorHex ?: '#0f137d' } !important;
 		}
 
-		.agreement-item-title span {
+		.agreement-item-title .number {
 			background-color: ${ client.primaryColorHex ?: '#0f137d' } !important;
 		}
 		</style>
@@ -77,7 +77,7 @@
 		</div>
 		<ul class="agreement-item-list container">
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>1</span> USE OF SERVICES</h2>
+				<h2 class="agreement-item-title"><span class="number">1</span><span class="text">USE OF SERVICES</span></h2>
 
 				<div>
 					<p>
@@ -118,7 +118,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>2</span> REGISTRATION</h2>
+				<h2 class="agreement-item-title"><span class="number">2</span><span class="text">REGISTRATION</span></h2>
 
 				<div>
 					<p>
@@ -128,7 +128,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>3</span> CODE OF CONDUCT</h2>
+				<h2 class="agreement-item-title"><span class="number">3</span><span class="text">CODE OF CONDUCT</span></h2>
 
 				<div>
 					<p>While using the App and the Service, you agree not to:</p>
@@ -190,7 +190,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>4</span> LINKS</h2>
+				<h2 class="agreement-item-title"><span class="number">4</span><span class="text">LINKS</span></h2>
 
 				<div>
 					<p>
@@ -209,7 +209,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>5</span> ACCESS BY MINORS</h2>
+				<h2 class="agreement-item-title"><span class="number">5</span><span class="text">ACCESS BY MINORS</span></h2>
 
 				<div>
 					<p>
@@ -225,7 +225,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>6</span> JURISDICTIONAL ISSUES</h2>
+				<h2 class="agreement-item-title"><span class="number">6</span><span class="text mobile-fix-width">JURISDICTIONAL ISSUES</span></h2>
 
 				<div>
 					<p>
@@ -241,7 +241,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>7</span> TERMINATION</h2>
+				<h2 class="agreement-item-title"><span class="number">7</span><span class="text">TERMINATION</span></h2>
 
 				<div>
 					<p>
@@ -254,7 +254,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>8</span> DISCLAIMERS</h2>
+				<h2 class="agreement-item-title"><span class="number">8</span><span class="text">DISCLAIMERS</span></h2>
 
 				<div>
 					<p>
@@ -290,7 +290,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>9</span> LIMITATION OF LIABILITY</h2>
+				<h2 class="agreement-item-title"><span class="number">9</span><span class="text mobile-fix-width">LIMITATION OF LIABILITY</span></h2>
 
 				<div>
 					<p>
@@ -311,7 +311,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>10</span> INDEMNIFICATION</h2>
+				<h2 class="agreement-item-title"><span class="number">10</span><span class="text">INDEMNIFICATION</span></h2>
 
 				<div>
 					<p>
@@ -325,7 +325,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>11</span> COPYRIGHTS AND OTHER RIGHTS</h2>
+				<h2 class="agreement-item-title"><span class="number">11</span><span class="text mobile-fix-width">COPYRIGHTS AND OTHER RIGHTS</span></h2>
 
 				<div>
 					<p>
@@ -336,7 +336,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>12</span> TRADEMARKS</h2>
+				<h2 class="agreement-item-title"><span class="number">12</span><span class="text">TRADEMARKS</span></h2>
 
 				<div>
 					<p>
@@ -348,7 +348,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>13</span> QUESTIONS</h2>
+				<h2 class="agreement-item-title"><span class="number">13</span><span class="text">QUESTIONS</span></h2>
 
 				<div>
 					<p>
@@ -358,7 +358,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>14</span> NO WAIVER</h2>
+				<h2 class="agreement-item-title"><span class="number">14</span><span class="text">NO WAIVER</span></h2>
 
 				<div>
 					<p>
@@ -371,7 +371,7 @@
 				</div>
 			</li>
 			<li class="agreement-item">
-				<h2 class="agreement-item-title"><span>15</span> MISCELLANEOUS</h2>
+				<h2 class="agreement-item-title"><span class="number">15</span><span class="text">MISCELLANEOUS</span></h2>
 
 				<div>
 					<p>
