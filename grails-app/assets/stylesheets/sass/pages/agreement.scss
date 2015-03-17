@@ -33,6 +33,10 @@ h2 {
 
 a {
     color: #00f;
+
+    @include breakpoint('mobile') {
+        word-break: break-all;
+    }
 }
 
 .main-desc {
@@ -44,16 +48,26 @@ a {
     margin-top: 60px;
 }
 
-.agreement-item-title span {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-    padding-top: 10px;
-    color: #fff;
-    background-color: $base-color-primary;
-    text-align: center;
-    vertical-align: middle;
+.agreement-item-title {
+    .number {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        padding-top: 10px;
+        color: #fff;
+        background-color: $base-color-primary;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .mobile-fix-width {
+        @include breakpoint('mobile') {
+            width: 240px;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+    }
 }
 
 .agreement-item-question {
