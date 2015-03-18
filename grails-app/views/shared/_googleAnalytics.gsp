@@ -4,6 +4,8 @@
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	ga('create', 'UA-59743514-2');
+	ga('create', '${grailsApplication.config.ratchetv2.googleAnalytics.trackingId}', {
+		'cookieDomain': 'ratchethealth.com'
+	});
 	ga('send', 'pageview');
 </script>

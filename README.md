@@ -111,3 +111,9 @@ ratchet-v2-user-desktop
 	bower install
 	grails run-app
 ```
+
+## Configuration Variables
+
+- ELK_TCP_ADDR
+- SERVER_URL
+- GA_TRACKING_ID
