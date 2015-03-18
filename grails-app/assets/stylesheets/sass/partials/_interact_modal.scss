@@ -1,0 +1,58 @@
+.interact-model-container {
+    position: absolute;
+    top: 30%;
+    left: 46%;
+    width: 500px;
+    margin-left: -200px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    color: #4d4d4d;
+
+    @include breakpoint('mobile') {
+        top: 20%;
+        left: 0;
+        width: 300px;
+        margin-left: 10px;
+    }
+}
+
+.interact-modal-header {
+    padding: 20px;
+    background-color: #fff;
+    position: relative;
+    height: 60px;
+
+    .title {
+        font-size: large;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 17px;
+        right: 15px;
+        cursor: pointer;
+
+        @include breakpoint('mobile') {
+           top: 21px;
+        }
+    }
+}
+
+.interact-modal-body {
+    margin-top: 3px;
+    padding: 15px;
+    background-color: #fff;
+    height: 130px;
+
+    @include breakpoint('mobile') {
+        height: 150px;
+    }
+
+    .interact-modal-content {
+        margin-top: 20px;
+    }
+
+    .btn-update {
+        margin-top: 20px;
+    }
+}

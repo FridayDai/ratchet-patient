@@ -43,8 +43,8 @@
     }
 
     function showConfirmationPop() {
-        var coverEl = document.getElementById('confirm-cover');
-        var containerEl = document.getElementById('confirm-container');
+        var coverEl = document.getElementById('mobile-alert-cover');
+        var containerEl = document.getElementById('mobile-alert-container');
         var regexp = /\sshow($|\s)/;
 
         if (!regexp.test(coverEl.className)) {
@@ -90,8 +90,8 @@
     }
 
     function setConfirmation() {
-        var coverEl = document.getElementById('confirm-cover');
-        var containerEl = document.getElementById('confirm-container');
+        var coverEl = document.getElementById('mobile-alert-cover');
+        var containerEl = document.getElementById('mobile-alert-container');
         var buttonEl = containerEl.querySelector('button');
 
         buttonEl.addEventListener('click', function () {

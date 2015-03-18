@@ -1,0 +1,29 @@
+@import 'mobile_alert';
+
+.form-control {
+    position: relative;
+
+    &.error:before {
+        @include breakpoint('desktop') {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            content: 'X';
+            color: $base-color-error-font-red;
+        }
+    }
+}
+
+.rc-error-label {
+    @include breakpoint('mobile') {
+        display: none;
+    }
+
+    @include breakpoint('tablet') {
+        display: none;
+    }
+
+    @include breakpoint('desktop') {
+        display: block;
+    }
+}

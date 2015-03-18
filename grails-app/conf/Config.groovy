@@ -203,12 +203,14 @@ ratchetv2 {
             client {
                 subDomain = "${ratchetv2.server.url.base}/clients?subDomain=%s"
             }
-
-            // Email
-            email {
-                patientConfirmation = "${ratchetv2.server.url.base}/patient/confirm"
-                emergencyContactConfirmation = "${ratchetv2.server.url.base}/caregiver/confirm"
-            }
+            
+			// Email
+			email {
+				patientConfirmation = "${ratchetv2.server.url.base}/patient/confirm"
+				emergencyContactConfirmation = "${ratchetv2.server.url.base}/caregiver/confirm"
+				checkPhoneNumber = "${ratchetv2.server.url.base}/patients/%d/check_phone_number"
+				unsubscribe = "${ratchetv2.server.url.base}/patients/%d/unsubscribe"
+			}
 
             // Task
             task {
