@@ -217,4 +217,8 @@ ratchetv2 {
             }
         }
     }
+
+    googleAnalytics {
+        trackingId = System.getProperty("GA_TRACKING_ID") ?: "UA-60192214-1"
+    }
 }
