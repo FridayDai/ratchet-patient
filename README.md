@@ -115,8 +115,5 @@ ratchet-v2-user-desktop
 ## Configuration Variables
 
 - ELK_TCP_ADDR
-- S3_ASSET_BUCKET
-- AWS_ACCESS_KEY
-- AWS_SECRET_KEY
 - SERVER_URL
 - GA_TRACKING_ID
