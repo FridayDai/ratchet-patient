@@ -1,0 +1,36 @@
+body {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+.main {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    margin-top: -300px;
+}
+
+.header {
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    h1 {
+        font-size: 26px;
+    }
+}
+
+.sub-header {
+    color: #666;
+}
+
+.logo {
+    height: 15px;
+    margin-left: 10px;
+    vertical-align: bottom;
+}
+
+.body {
+    background-color: #fff;
+    padding: 40px 0;
+}

@@ -39,18 +39,31 @@ class BaseController {
 
     def handleApiAccessException(ApiAccessException e) {
         log.error("API access exception: ${e.message}, token: ${session.token}.")
-        render view: '/error/404', status: 404
+
+        if (request.isXhr()) {
+            render status: 400, text: e.message
+        } else {
+            render view: '/error/404', status: 404
+        }
     }
 
     def handleApiReturnException(ApiReturnException e) {
         log.error("API return exception: ${e.message}, token: ${session.token}.")
-        render view: '/error/404', status: 404
+
+        if (request.isXhr()) {
+            render status: 404, text: e.message
+        } else {
+            render view: '/error/404', status: 404
+        }
     }
 
     def handleInvalidTaskException(InvalidTaskException e) {
         log.error("Invalid task exception: ${e.message}, token: ${session.token}.")
-        render view: '/error/invalidTask', model: [client: session.client], status: 404
+
+        if (request.isXhr()) {
+            render status: 404, text: e.message
+        } else {
+            render view: '/error/invalidTask', model: [client: session.client], status: 404
+        }
     }
-
-
 }

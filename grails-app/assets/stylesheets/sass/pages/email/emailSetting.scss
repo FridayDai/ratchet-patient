@@ -1,0 +1,59 @@
+@import '../../partials/base';
+@import '../../partials/variable';
+@import '../../partials/input_error';
+@import '../../partials/interact_modal';
+@import '../../partials/clientContentLayout';
+
+.content {
+    width: 300px;
+}
+
+.desc {
+    text-align: left;
+}
+
+.form-control {
+    margin-top: 5px;
+}
+
+.last-4-number {
+    width: 100%;
+    height: 38px;
+    padding-left: 10px;
+    border: 1px solid #d6d6d6;
+    font-size: 15px;
+}
+
+.rc-error-label {
+    text-align: left;
+}
+
+.check-number-btn {
+    margin-top: 40px;
+    //    padding: 10px 30px;
+    //    font-weight: normal;
+    //    font-size: 13px;
+}
+
+.rc-btn {
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.displaynone {
+    display: none;
+}
+
+.displayblock {
+    display: block;
+}
+
+.btn-disable {
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 13px;
+    background-color: #ccc !important;
+    color: #fff !important;
+    border: none;
+}

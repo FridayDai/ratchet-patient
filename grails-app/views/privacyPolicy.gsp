@@ -1,5 +1,5 @@
 <g:set var="cssPath" value="agreement"/>
-<g:applyLayout name="headerLayout">
+<g:applyLayout name="clientHeaderLayout">
 	<head>
 		<title>PRIVACY POLICY</title>
 		<style type="text/css">

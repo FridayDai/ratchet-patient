@@ -1,4 +1,5 @@
 //= require share/share
+//= require ../share/constant
 
 (function (undefined) {
     'use strict';
@@ -43,8 +44,8 @@
     }
 
     function showConfirmationPop() {
-        var coverEl = document.getElementById('confirm-cover');
-        var containerEl = document.getElementById('confirm-container');
+        var coverEl = document.getElementById('mobile-alert-cover');
+        var containerEl = document.getElementById('mobile-alert-container');
         var regexp = /\sshow($|\s)/;
 
         if (!regexp.test(coverEl.className)) {
@@ -65,7 +66,7 @@
             var reg = /^\d{4}$/;
 
             if (!reg.test(last4Number.value)) {
-                errorStatusHandle(last4Number, 'Invalid input.');
+                errorStatusHandle(last4Number, RC.constants.phoneNumberTypeError);
 
                 if (isMobileOrTablet()) {
                     showConfirmationPop();
@@ -90,8 +91,8 @@
     }
 
     function setConfirmation() {
-        var coverEl = document.getElementById('confirm-cover');
-        var containerEl = document.getElementById('confirm-container');
+        var coverEl = document.getElementById('mobile-alert-cover');
+        var containerEl = document.getElementById('mobile-alert-container');
         var buttonEl = containerEl.querySelector('button');
 
         buttonEl.addEventListener('click', function () {
