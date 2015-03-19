@@ -1,5 +1,7 @@
 package com.xplusz.ratchet
 
+import grails.converters.JSON
+
 class EmailController extends BaseController {
 
     def emailService
@@ -37,7 +39,7 @@ class EmailController extends BaseController {
         def result = emailService.emailCheck(request, id.toInteger(), last4Number.toInteger())
 
         if (result) {
-            render status: 200
+            render result as JSON
         }
     }
 

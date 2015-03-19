@@ -1,4 +1,5 @@
 //= require share/share
+//= require ../share/constant
 
 (function (undefined) {
     'use strict';
@@ -65,7 +66,7 @@
             var reg = /^\d{4}$/;
 
             if (!reg.test(last4Number.value)) {
-                errorStatusHandle(last4Number, 'Invalid input.');
+                errorStatusHandle(last4Number, RC.constants.phoneNumberTypeError);
 
                 if (isMobileOrTablet()) {
                     showConfirmationPop();

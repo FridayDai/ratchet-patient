@@ -6,13 +6,13 @@
         <title>Email Setting</title>
         <style type="text/css">
         .rc-btn {
-            color: ${             client.primaryColorHex?:'#0f137d'             } !important;
-            border-color: ${             client.primaryColorHex?:'#0f137d'             } !important;
+            color: ${                    client.primaryColorHex?:'#0f137d'                    } !important;
+            border-color: ${                    client.primaryColorHex?:'#0f137d'                    } !important;
         }
 
         .rc-btn:hover {
             color: #ffffff !important;
-            background-color: ${             client.primaryColorHex?:'#0f137d'             } !important;
+            background-color: ${                    client.primaryColorHex?:'#0f137d'                    } !important;
         }
         </style>
     </head>
@@ -32,7 +32,9 @@
         </div>
     </div>
 
-    <div class="interact-model-container displaynone" id="interact-model-container">
+    <div class="interact-alert-cover hide" id="interact-alert-cover"></div>
+
+    <div class="interact-model-container hide" id="interact-model-container">
         <div class="interact-modal-header">
             <div class="title">EDIT EMAIL SETTING</div>
             <span class="close-btn" id="close-btn">X</span>
@@ -40,7 +42,7 @@
 
         <div class="interact-modal-body">
             <div class="interact-modal-content">
-                <input type="checkbox" checked id="subscribe"/>
+                <input type="checkbox" id="unSubscribe"/>
                 <span>Remind me if I have pending or overdue task.</span>
             </div>
 
@@ -49,14 +51,14 @@
         </div>
     </div>
 
-    <div class="mobile-alert-cover<g:if test="${errorMsg}">show</g:if>" id="mobile-alert-cover"></div>
+    <div class="mobile-alert-cover" id="mobile-alert-cover"></div>
 
-    <div class="mobile-alert-container<g:if test="${errorMsg}">show</g:if>" id="mobile-alert-container">
+    <div class="mobile-alert-container" id="mobile-alert-container">
         <div class="mobile-alert">
             <div class="mobile-alert-header">
                 <div class="mobile-alert-title">Incorrect Number</div>
 
-                <div class="mobile-alert-content">The number you entered is incorrect. Please try again.</div>
+                <g:if test="${errorMsg}"><div class="mobile-alert-content">${errorMsg}</div></g:if>
             </div>
 
             <div class="mobile-alert-footer">

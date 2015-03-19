@@ -7,6 +7,7 @@
     background-color: rgba(0, 0, 0, 0.2);
     padding: 10px;
     color: #4d4d4d;
+    z-index: 9999;
 
     @include breakpoint('mobile') {
         top: 20%;
@@ -14,6 +15,15 @@
         width: 300px;
         margin-left: 10px;
     }
+}
+
+.interact-alert-cover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .interact-modal-header {
@@ -33,7 +43,7 @@
         cursor: pointer;
 
         @include breakpoint('mobile') {
-           top: 21px;
+            top: 21px;
         }
     }
 }

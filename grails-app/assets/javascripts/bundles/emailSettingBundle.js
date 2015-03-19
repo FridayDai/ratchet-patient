@@ -1,4 +1,5 @@
 //= require ../bower_components/jquery/jquery
+//= require ../share/constant
 
 (function (undefined) {
     'use strict';
@@ -20,18 +21,33 @@
         var regexp = /^\d{4}$/;
 
         removeErrorMsg();
+        removeDialogErrorMsg();
 
         if (!regexp.test(numberInputEl.val())) {
+
             if (isMobileOrTablet()) {
+                setDialogErrorMsg(RC.constants.phoneNumberTypeError);
                 showConfirmationPop();
             } else {
-                setErrorMsg('Invalid input.');
+                setErrorMsg(RC.constants.phoneNumberTypeError);
             }
             return false;
         } else {
             removeErrorMsg();
             return true;
         }
+    }
+
+    function setDialogErrorMsg(msg) {
+        var parentEl = numberInputEl.parents();
+        var mobileAlertTitleEl = parentEl.find(".mobile-alert-title");
+        mobileAlertTitleEl.after('<div class="mobile-alert-content">' + msg + '</div>');
+    }
+
+    function removeDialogErrorMsg() {
+        var parentEl = numberInputEl.parents();
+        var mobileAlertContentEl = parentEl.find(".mobile-alert-content");
+        mobileAlertContentEl.remove();
     }
 
     function setErrorMsg(msg) {
@@ -70,7 +86,13 @@
         var closeBtnEl = $('#close-btn');
 
         closeBtnEl.click(function () {
-            $("#interact-model-container").removeClass('displayblock').addClass('displaynone');
+            $("#interact-model-container")
+                .removeClass('show')
+                .addClass('hide');
+
+            $("#interact-alert-cover")
+                .removeClass('show')
+                .addClass('hide');
         });
     }
 
@@ -82,16 +104,35 @@
                 last4Number: numberInputEl.val()
             }
         }).done(function (data) {
-            $('#check-number-button').prop("disabled", false).removeClass("btn-disable").addClass("rc-btn");
-            $("#interact-model-container").removeClass('displaynone').addClass('displayblock');
+            $("#unSubscribe").prop("checked", data.subscribeStatus | false);
+
+            $('#check-number-button')
+                .prop("disabled", false)
+                .removeClass("btn-disable")
+                .addClass("rc-btn");
+
+            $("#interact-model-container")
+                .removeClass('hide')
+                .addClass('show');
+
+            $("#interact-alert-cover")
+                .removeClass('hide')
+                .addClass('show');
+
             closeDialog();
             initSubscribeButton();
-        }).fail(function (error) {
-            if (isMobileOrTablet) {
+
+        }).fail(function () {
+            if (isMobileOrTablet()) {
+                setDialogErrorMsg(RC.constants.phoneNumberNotCorrect);
                 showConfirmationPop();
             }
-            $('#check-number-button').prop("disabled", false).removeClass("btn-disable").addClass("rc-btn");
-            setErrorMsg('Phone number does not match.');
+            $('#check-number-button')
+                .prop("disabled", false)
+                .removeClass("btn-disable")
+                .addClass("rc-btn");
+
+            setErrorMsg(RC.constants.phoneNumberTypeError);
         });
     }
 
@@ -102,10 +143,8 @@
             var data = $(this).data();
             var patientId = data.patientId;
             var last4Number = numberInputEl.val();
-            var unsubscribe;
-            $("#subscribe").attr("checked") === "checked" ? unsubscribe = false : unsubscribe = true;
 
-            subscribeEmail(patientId, last4Number, unsubscribe);
+            subscribeEmail(patientId, last4Number, $("#unSubscribe").attr("checked") !== "checked");
         });
     }
 
@@ -118,7 +157,13 @@
                 unsubscribe: unsubscribe
             }
         }).done(function (data) {
-            $("#interact-model-container").removeClass('displayblock').addClass('displaynone');
+            $("#interact-model-container")
+                .removeClass('show')
+                .addClass('hide');
+
+            $("#interact-alert-cover")
+                .removeClass('show')
+                .addClass('hide');
         })
     }
 

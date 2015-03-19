@@ -85,12 +85,14 @@ class EmailService {
 					.field("last4PhoneDigit", last4Number)
 					.asString()
 
+			def result = JSON.parse(resp.body)
+
 			if (resp.status == 200) {
 				log.info("Email setting check success, token: ${request.session.token}")
 
-				return true
+				return result
 			} else {
-				def result = JSON.parse(resp.body)
+
 				def message = result?.error?.errorMessage
 
 				throw new ApiReturnException(message, resp.status)
@@ -114,7 +116,6 @@ class EmailService {
 
 			if (resp.status == 200) {
 				log.info("Email setting unsubscribe success, token: ${request.session.token}")
-
 				return true
 			} else {
 				def result = JSON.parse(resp.body)
