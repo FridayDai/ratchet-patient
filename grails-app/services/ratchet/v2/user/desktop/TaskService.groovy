@@ -67,8 +67,9 @@ class TaskService {
 
             if (resp.status == 200) {
                 log.info("Get questionnaire success, token: ${request.session.token}")
-                return result
+                return resp
             } else {
+                def result = JSON.parse(resp.body)
                 log.error("Invalid task exception: ${result?.error?.errorMessage}, token: ${request.session.token}.")
                 return resp.status
             }
