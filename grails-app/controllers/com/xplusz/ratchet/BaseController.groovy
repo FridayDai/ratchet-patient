@@ -39,12 +39,12 @@ class BaseController {
 
     def handleApiAccessException(ApiAccessException e) {
         log.error("API access exception: ${e.message}, token: ${session.token}.")
-        render view: '/error/404'
+        render view: '/error/404', status: 404
     }
 
     def handleApiReturnException(ApiReturnException e) {
         log.error("API return exception: ${e.message}, token: ${session.token}.")
-        render view: '/error/404'
+        render view: '/error/404', status: 404
     }
 
     def handleInvalidTaskException(InvalidTaskException e) {
