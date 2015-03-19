@@ -64,7 +64,6 @@ class TaskService {
             def resp = Unirest.get(url)
                     .queryString("last4PhoneDigit", last4Number)
                     .asString()
-            def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
                 log.info("Get questionnaire success, token: ${request.session.token}")

@@ -23,8 +23,5 @@ class UrlMappings {
         // Agreement
         "/terms_of_service"(controller: "agreement", action: "termOfService")
         "/privacy_policy"(controller: "agreement", action: "privacyPolicy")
-
-        // Errors
-        "404"(view: '/error/404')
     }
 }

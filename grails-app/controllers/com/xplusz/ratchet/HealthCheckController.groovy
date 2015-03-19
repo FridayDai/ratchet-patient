@@ -9,7 +9,7 @@ class HealthCheckController {
         if (resp.status == 200) {
             render status: 200, text: "OK"
         } else {
-            render status: 400
+            render status: 400, text: "400"
         }
     }
 }

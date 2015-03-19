@@ -35,9 +35,10 @@ class TaskController extends BaseController {
         def taskTitle = params.taskTitle
         def last4Number = params.last4Number
 
-        def result = taskService.getQuestionnaire(request, response, code, last4Number)
+        def resp = taskService.getQuestionnaire(request, response, code, last4Number)
 
-        if (!(result instanceof Integer)) {
+        if (resp.status == 200) {
+            def result = JSON.parse(resp.body)
             def taskView
 
             //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK
@@ -55,7 +56,7 @@ class TaskController extends BaseController {
                     client: session.client,
                     taskTitle: taskTitle
             ]
-        } else if (result == 404 || !request.session.task) {
+        } else if (resp.status == 404 || !request.session.task) {
             render view: '/error/invalidTask', model: [client: session.client], status: 404
         } else {
             def task = JSON.parse(request.session.task)
