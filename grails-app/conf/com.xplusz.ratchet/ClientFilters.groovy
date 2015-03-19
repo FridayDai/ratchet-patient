@@ -1,10 +1,5 @@
 package com.xplusz.ratchet
 
-import com.mashape.unirest.http.exceptions.UnirestException
-import com.xplusz.ratchet.exceptions.ApiAccessException
-import com.xplusz.ratchet.exceptions.ApiReturnException
-import org.codehaus.groovy.grails.web.converters.exceptions.ConverterException
-
 class ClientFilters {
 
     def clientService
@@ -12,7 +7,7 @@ class ClientFilters {
     def filters = {
         all(controller: 'email|task|agreement') {
             before = {
-                log.info("${request.requestURI} params: ${params}, session: ${session.token}, ip: ${request.getRemoteAddr()}")
+                log.info("${request.requestURI} params: ${params}, ip: ${request.getRemoteAddr()}")
                 if (!session.client) {
                     def hostname = request.getServerName()
 
@@ -20,11 +15,13 @@ class ClientFilters {
 
                     try {
                         def result = clientService.getClient(request, response, clientName)
-                        if (!(result instanceof Integer)) {
+                        if (result) {
+							log.info("Client found, Server Name: ${request.getServerName()}")
+
                             session.client = result
                         }
-                    } catch (ConverterException | MissingPropertyException e) {
-                        log.error("Client Not Found, token: ${session.token}")
+                    } catch (Exception e) {
+                        log.error("Client not found, Server Name: ${request.getServerName()}")
 
                         if (request.isXhr()) {
                             render status: 404, text: e.message
