@@ -26,6 +26,10 @@ class UrlMappings {
             action = [GET: "hasComplete", POST: "done"]
         }
 
+        // Help
+        "/assist/$patientId"(controller: "assist", action: "index")
+        "/addAssist"(controller: "assist", action: "addAssist")
+
         // Agreement
 //        "/terms_of_service"(controller: "agreement", action: "termOfService")
 //        "/privacy_policy"(controller: "agreement", action: "privacyPolicy")

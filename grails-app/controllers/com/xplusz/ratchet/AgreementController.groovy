@@ -9,4 +9,8 @@ class AgreementController {
 	def privacyPolicy() {
 		render view: '/agreement/privacyPolicy', model: [client: session.client]
 	}
+
+    def index() {
+    	render view: '/assist', model: [client: session.client]
+    }	
 }

@@ -1,0 +1,39 @@
+.form-group {
+    margin-top: 17px;
+    margin-bottom: 17px;
+    text-align: left;
+
+    .lbl-group {
+        display: table-row-group;
+        color: $base-color-medium-black;
+        font-weight: 500;
+        font-size: 14px;
+
+        span {
+            margin-left: 3px;
+            color: $base-color-dark-grey;
+        }
+    }
+
+    .input-group {
+        width: 100%;
+        min-height: 40px;
+        margin-top: 0;
+        padding-left: 6px;
+        border: 1px solid $base-color-lighter-black;
+        color: $base-color-light-dark;
+        font-size: 14px;
+        font-family: inherit;
+        max-width: 500px;
+
+        @include input-placeholder {
+            color: $base-font-grey;
+            opacity: .5;
+            font-size: 14px;
+        }
+    }
+}
+
+textarea {
+    padding-top: 10px;
+}

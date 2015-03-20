@@ -1,0 +1,56 @@
+body .ui-tooltip {
+
+    position: absolute;
+    z-index: 9999;
+    max-width: 300px;
+    height: 20px;
+    padding: 0;
+    border: 0;
+    color: $base-color-red;
+    background: transparent;
+    font-size: 10pt;
+}
+
+.ui-tooltip-content {
+    position: relative;
+    padding: 2px;
+}
+
+.error-msg-right {
+    .ui-tooltip-content {
+        &:after {
+            top: 5px;
+            left: -10px;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent $base-color-error;
+        }
+    }
+}
+
+.error-msg-left {
+    .ui-tooltip-content {
+        &:after {
+            top: 5px;
+            right: -10px;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent $base-color-error;
+        }
+    }
+}
+
+.error-msg-top {
+    .ui-tooltip-content {
+        &:after {
+            bottom: -10px;
+            left: 45%;
+            border-width: 10px 10px 0;
+            border-color: $base-color-error transparent;
+        }
+    }
+}
+
+//.error-msg-bottom {
+//
+//    .ui-tooltip-content {
+//    }
+//}
