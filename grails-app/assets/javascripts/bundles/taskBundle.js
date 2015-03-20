@@ -1,6 +1,7 @@
-//= require share/share
+//= require ../bower_components/headroom.js/dist/headroom
+//= require ../bower_components/headroom.js/dist/jQuery.headroom
 
-(function (undefined) {
+window.onload = function (undefined) {
     'use strict';
 
     var isForm = false;
@@ -162,6 +163,14 @@
     }
 
     function init() {
+        $("#header").headroom({
+            tolerance: {
+                down : 10,
+                up : 20
+            },
+            offset : 205
+        });
+
         setValidation();
 
         setCloseConfirmation();
@@ -170,5 +179,4 @@
     }
 
     init();
-})
-();
+};
