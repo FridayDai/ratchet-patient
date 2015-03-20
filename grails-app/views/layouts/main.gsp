@@ -21,7 +21,7 @@
 <body>
 <g:layoutBody/>
 <g:if test="${scriptPath}">
-	%{--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>--}%
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
 	<asset:javascript src="bundles/${scriptPath}"/>
 </g:if>
 </body>
