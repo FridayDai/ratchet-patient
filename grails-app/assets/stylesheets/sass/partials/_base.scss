@@ -174,6 +174,11 @@ ul {
     color: $base-color-error-font-red;
 }
 
+.client-logo {
+    max-width: 250px;
+    max-height: 38px;
+}
+
 @include breakpoint('tablet') {
     .container {
         width: 750px;

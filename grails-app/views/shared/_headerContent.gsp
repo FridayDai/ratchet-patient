@@ -7,7 +7,7 @@
 
 <div class="main-header primary-border-color clear">
     <a class="nav-info" href="/">
-        <img src="${client.logo}" alt="" class="primary-border-color"/>
+        <img src="${client.logo}" alt="" class="client-logo primary-border-color"/>
 
         <p class="primary-color">${client.portalName}</p>
     </a>
