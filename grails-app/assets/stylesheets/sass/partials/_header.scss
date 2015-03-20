@@ -53,7 +53,7 @@
         display: inline-block;
 
         > img {
-            max-height: 50px;
+            height: 38px;
             padding-right: 15px;
             border-right: 3px solid $base-color-primary;
             vertical-align: middle;
@@ -61,6 +61,8 @@
 
         > p {
             display: inline-block;
+            margin-top: 0;
+            margin-bottom: 0;
             padding-left: 15px;
             color: $base-color-primary;
             font-weight: bold;
@@ -69,8 +71,8 @@
 
     .copy-right {
         position: absolute;
-        top: 30px;
-        right: 10px;
+        top: 24px;
+        right: 15px;
         display: inline-block;
         color: $base-color-medium-gray;
         font-size: 13px;
