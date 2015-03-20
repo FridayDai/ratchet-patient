@@ -120,7 +120,7 @@ log4j.main = {
         appenders {
             console name: 'stdout', layout: pattern(conversionPattern: '%c{2} %m%n')
             appender new biz.paluch.logging.gelf.log4j.GelfLogAppender(name: 'central',
-                    host: System.getProperty("ELK_TCP_ADDR"), port: 12201)
+                    host: System.getProperty("ELK_TCP_ADDR"), port: 12201, additionalFields: "app_type=${System.getProperty('APP_TYPE')}")
         }
 
         root { info "central", "stdout", "stacktrace" }
@@ -215,22 +215,22 @@ grails.cache.config = {
 }
 
 ratchetv2 {
-	server {
-		url {
-			base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
+    server {
+        url {
+            base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
 
             // Client
             client {
                 subDomain = "${ratchetv2.server.url.base}/clients?subDomain=%s"
             }
-            
-			// Email
-			email {
-				patientConfirmation = "${ratchetv2.server.url.base}/patient/confirm"
-				emergencyContactConfirmation = "${ratchetv2.server.url.base}/caregiver/confirm"
-				checkPhoneNumber = "${ratchetv2.server.url.base}/patients/%d/check_phone_number"
-				unsubscribe = "${ratchetv2.server.url.base}/patients/%d/unsubscribe"
-			}
+
+            // Email
+            email {
+                patientConfirmation = "${ratchetv2.server.url.base}/patient/confirm"
+                emergencyContactConfirmation = "${ratchetv2.server.url.base}/caregiver/confirm"
+                checkPhoneNumber = "${ratchetv2.server.url.base}/patients/%d/check_phone_number"
+                unsubscribe = "${ratchetv2.server.url.base}/patients/%d/unsubscribe"
+            }
 
             // Task
             task {
