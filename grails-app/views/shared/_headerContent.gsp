@@ -13,6 +13,6 @@
     </a>
     <span class="copy-right">
         <span class="distance">Powered By</span>
-        <img class="logo" src="${assetPath(src: 'Ratchet_Logo.png')}"/>
+        <img class="logo" src="${assetPath(src: 'Ratchet_Logo_grey.png')}"/>
     </span>
 </div>

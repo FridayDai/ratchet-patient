@@ -16,7 +16,7 @@
 
 			<div class="sub-header">
 				<span>Powered by</span>
-				<img class="logo" src="${assetPath(src: 'Ratchet_Logo.png')}"/>
+				<img class="logo" src="${assetPath(src: 'Ratchet_Logo_grey.png')}"/>
 			</div>
 		</div>
 
