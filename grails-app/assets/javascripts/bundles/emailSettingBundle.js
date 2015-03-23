@@ -1,4 +1,5 @@
 //= require ../share/constant
+//=require ../share/announcement
 
 (function (undefined) {
     'use strict';
@@ -155,7 +156,7 @@
                 last4Number: last4Number,
                 unsubscribe: unsubscribe
             }
-        }).done(function (data) {
+        }).done(function () {
             $("#interact-model-container")
                 .removeClass('show')
                 .addClass('hide');

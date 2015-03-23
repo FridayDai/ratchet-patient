@@ -191,6 +191,26 @@ grails {
     }
 }
 
+grails.cache.enabled = true
+
+grails.cache.config = {
+    cache {
+        name 'announcement'
+    }
+    defaultCache {
+        memoryStoreEvictionPolicy 'LRU'
+    }
+
+    defaults {
+        maxElementsInMemory 10
+        eternal false
+        overflowToDisk false
+        maxElementsOnDisk 0
+        timeToIdleSeconds 600
+        timeToLiveSeconds 600
+    }
+}
+
 ratchetv2 {
 	server {
 		url {
@@ -217,6 +237,9 @@ ratchetv2 {
                 oneTest = "${ratchetv2.server.url.base}/tests/%s"
                 tests = "${ratchetv2.server.url.base}/tests"
             }
+
+            // Announcement
+            announcements = "${ratchetv2.server.url.base}/announcements"
         }
     }
 

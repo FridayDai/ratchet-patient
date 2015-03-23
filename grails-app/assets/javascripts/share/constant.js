@@ -1,4 +1,4 @@
-(function ($, undefined) {
+window.onload = function () {
     'use strict';
     var RC = window.RC = window.RC || {};
     var constants = RC.constants = RC.constants || {};
@@ -11,4 +11,4 @@
         phoneNumberNotCorrect: "The number you entered is incorrect. Please try again."
 
     });
-})(jQuery);
+};

@@ -6,8 +6,11 @@
 	</head>
 
 	<body>
+	<div class="header">
+		<g:render template="/shared/announcement"/>
+	</div>
 	<div class="main">
-		<div class="header">
+		<div class="main-header">
 			<div>
 				<img class="client-logo" src="${client.logo}" alt="${client.portalName}"/>
 			</div>
