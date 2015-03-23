@@ -19,7 +19,7 @@ class AnnouncementService {
 		def result = JSON.parse(resp.body)
 
 		if (resp.status == 200) {
-			log.info("Get client success")
+			log.info("Get announcement success")
 			return result?.items[0];
 		}
 	}
