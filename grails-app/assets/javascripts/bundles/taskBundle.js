@@ -1,5 +1,6 @@
 //= require ../bower_components/headroom.js/dist/headroom
 //= require ../bower_components/headroom.js/dist/jQuery.headroom
+//= require ../share/announcement
 
 window.onload = function (undefined) {
     'use strict';

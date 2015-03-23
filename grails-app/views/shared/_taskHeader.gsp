@@ -1,4 +1,5 @@
 <div class="header" id="header">
+	<g:render template="/shared/announcement" />
 	<g:render template="/shared/headerContent"/>
 	<div class="sub-header primary-border-color">
 		<p class="primary-color">${Task.title}</p>

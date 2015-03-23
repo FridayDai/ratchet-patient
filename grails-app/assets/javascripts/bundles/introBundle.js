@@ -1,5 +1,5 @@
-//= require share/share
 //= require ../share/constant
+//= require ../share/announcement
 
 (function (undefined) {
     'use strict';

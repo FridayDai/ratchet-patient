@@ -1,3 +1,4 @@
+@import "announcement";
 .header {
     @include breakpoint('tablet') {
         position: fixed;
@@ -5,36 +6,6 @@
         z-index: 999;
         width: 100%;
         background-color: #fff;
-    }
-
-    .maintenance {
-        padding: 10px;
-        color: $maintenance-color-text;
-        font-weight: 500;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        &.red {
-            background-color: $maintenance-color-red;
-            .attention {
-                color: $maintenance-color-dark-red;
-            }
-        }
-
-        .btn-close {
-            margin-top: -5px;
-            float:right;
-            &:before {
-                padding-right: 8px;
-                padding-left: 30px;
-                content: '\f404';
-                color: #335d70;
-                font-weight: lighter;
-                font-size: 27px;
-                font-family: ionicons;
-                vertical-align: middle;
-            }
-        }
     }
 }
 
