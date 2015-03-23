@@ -71,7 +71,7 @@ class TaskService {
             } else {
                 def result = JSON.parse(resp.body)
                 log.error("Invalid task exception: ${result?.error?.errorMessage}, token: ${request.session.token}.")
-                return resp.status
+                return resp
             }
         } catch (UnirestException e) {
             throw new ApiAccessException(e.message)
