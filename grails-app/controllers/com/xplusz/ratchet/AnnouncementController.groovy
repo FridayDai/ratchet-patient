@@ -3,7 +3,7 @@ package com.xplusz.ratchet
 class AnnouncementController {
 
 	def close() {
-		session.announcementLastUpdate = params.announcementLastUpdate
+		session.announcementLastUpdated = params.announcementLastUpdated
 
 		render status: 200
 	}
