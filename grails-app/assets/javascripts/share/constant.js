@@ -1,4 +1,4 @@
-window.onload = function () {
+function constantHandle() {
     'use strict';
     var RC = window.RC = window.RC || {};
     var constants = RC.constants = RC.constants || {};
@@ -12,3 +12,8 @@ window.onload = function () {
 
     });
 };
+
+if (window.addEventListener)
+    window.addEventListener("load", constantHandle, false);
+else if (window.attachEvent)
+    window.attachEvent("onload", constantHandle);
