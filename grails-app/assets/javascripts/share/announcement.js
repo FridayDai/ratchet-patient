@@ -1,13 +1,23 @@
-(function () {
+function announcementHandle () {
     'use strict';
 
-    var closeEl = document.getElementById('maintenance-close');
+    var maintenanceEl = $('#maintenance');
+    var closeEl = $('#maintenance-close');
 
     if (closeEl) {
-        closeEl.addEventListener('click', function (e) {
+        closeEl.click(function (e) {
             e.preventDefault();
 
-            document.getElementById('maintenance').remove();
+            var announcementLastUpdate = maintenanceEl.data('announcementLastUpdate');
+
+            $.get('/announcement/close?announcementLastUpdate=' + announcementLastUpdate);
+
+            maintenanceEl.remove();
         });
     }
-})();
+}
+
+if (window.addEventListener)
+    window.addEventListener("load", announcementHandle, false);
+else if (window.attachEvent)
+    window.attachEvent("onload", announcementHandle);

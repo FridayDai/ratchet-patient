@@ -2,7 +2,7 @@
 //= require ../bower_components/headroom.js/dist/jQuery.headroom
 //= require ../share/announcement
 
-window.onload = function (undefined) {
+function taskBundle() {
     'use strict';
 
     var isForm = false;
@@ -166,10 +166,10 @@ window.onload = function (undefined) {
     function init() {
         $("#header").headroom({
             tolerance: {
-                down : 10,
-                up : 20
+                down: 10,
+                up: 20
             },
-            offset : 205
+            offset: 205
         });
 
         setValidation();
@@ -180,4 +180,9 @@ window.onload = function (undefined) {
     }
 
     init();
-};
+}
+
+if (window.addEventListener)
+    window.addEventListener("load", taskBundle, false);
+else if (window.attachEvent)
+    window.attachEvent("onload", taskBundle);
