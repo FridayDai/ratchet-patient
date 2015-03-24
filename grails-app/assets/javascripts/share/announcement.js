@@ -8,9 +8,9 @@ function announcementHandle () {
         closeEl.click(function (e) {
             e.preventDefault();
 
-            var announcementLastUpdate = maintenanceEl.data('announcementLastUpdate');
+            var announcementLastUpdated = maintenanceEl.data('announcementLastUpdated');
 
-            $.get('/announcement/close?announcementLastUpdate=' + announcementLastUpdate);
+            $.get('/announcement/close?announcementLastUpdated=' + announcementLastUpdated);
 
             maintenanceEl.remove();
         });
