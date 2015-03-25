@@ -1,6 +1,5 @@
 //= require ../share/constant
 //=require ../share/announcement
-
 function emailSettingBundle (undefined) {
     'use strict';
 
@@ -74,7 +73,7 @@ function emailSettingBundle (undefined) {
         var regexp = /\sshow($|\s)/;
 
         if (!regexp.test(coverEl.className)) {
-            coverEl.addClass("show");
+            coverEl.addClass("show")
         }
 
         if (!regexp.test(containerEl.className)) {
@@ -88,6 +87,8 @@ function emailSettingBundle (undefined) {
         closeBtnEl.click(function () {
             $("#interact-model-container")
                 .removeClass('show')
+                .removeClass('fade')
+                .removeClass('in')
                 .addClass('hide');
 
             $("#interact-alert-cover")
@@ -113,7 +114,11 @@ function emailSettingBundle (undefined) {
 
             $("#interact-model-container")
                 .removeClass('hide')
-                .addClass('show');
+                .addClass('fade');
+
+                setTimeout(function(){
+                    $("#interact-model-container").addClass("in");
+                },300);
 
             $("#interact-alert-cover")
                 .removeClass('hide')
@@ -159,6 +164,8 @@ function emailSettingBundle (undefined) {
         }).done(function () {
             $("#interact-model-container")
                 .removeClass('show')
+                .removeClass('fade')
+                .removeClass('in')
                 .addClass('hide');
 
             $("#interact-alert-cover")
