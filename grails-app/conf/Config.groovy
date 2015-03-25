@@ -194,6 +194,9 @@ grails {
 grails.cache.enabled = true
 
 grails.cache.config = {
+    provider {
+        name 'ehcache-patient-portal-' + (new Date().format('yyyyMMddHHmmss'))
+    }
     cache {
         name 'announcement'
     }
