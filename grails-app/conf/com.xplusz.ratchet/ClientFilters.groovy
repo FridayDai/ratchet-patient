@@ -23,11 +23,7 @@ class ClientFilters {
                     } catch (Exception e) {
                         log.error("Client not found, Server Name: ${request.getServerName()}")
 
-                        if (request.isXhr()) {
-                            render status: 404, text: e.message
-                        } else {
-                            render view: '/error/404', status: 404
-                        }
+                        forward(controller: 'error', action: 'notFound')
                         return false
                     }
                 }

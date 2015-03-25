@@ -4,19 +4,19 @@
 		<title>PRIVACY POLICY</title>
 		<style type="text/css">
 		.primary-color {
-			color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			color: ${  client?.primaryColorHex?:'#0f137d'  } !important;
 		}
 
 		.primary-border-color {
-			border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			border-color: ${  client?.primaryColorHex?:'#0f137d'  } !important;
 		}
 
 		.primary-background-color {
-			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			background-color: ${  client?.primaryColorHex?:'#0f137d'  } !important;
 		}
 
 		.circle-list li:before {
-			color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			color: ${  client?.primaryColorHex?:'#0f137d'  } !important;
 		}
 		</style>
 	</head>
