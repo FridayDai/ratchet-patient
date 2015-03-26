@@ -117,3 +117,4 @@ ratchet-v2-user-desktop
 - ELK_TCP_ADDR
 - SERVER_URL
 - GA_TRACKING_ID
+- APP_TYPE

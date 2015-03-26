@@ -116,9 +116,9 @@ function emailSettingBundle (undefined) {
                 .removeClass('hide')
                 .addClass('fade');
 
-                setTimeout(function(){
-                    $("#interact-model-container").addClass("in");
-                },300);
+            setTimeout(function () {
+                $("#interact-model-container").addClass("in");
+            }, 300);
 
             $("#interact-alert-cover")
                 .removeClass('hide')
@@ -148,8 +148,7 @@ function emailSettingBundle (undefined) {
             var data = $(this).data();
             var patientId = data.patientId;
             var last4Number = numberInputEl.val();
-
-            subscribeEmail(patientId, last4Number, $("#unSubscribe").attr("checked") !== "checked");
+            subscribeEmail(patientId, last4Number, $("#unSubscribe").prop("checked") !== true);
         });
     }
 
