@@ -27,8 +27,8 @@ class UrlMappings {
         }
 
         // Agreement
-        "/terms_of_service"(controller: "agreement", action: "termOfService")
-        "/privacy_policy"(controller: "agreement", action: "privacyPolicy")
+//        "/terms_of_service"(controller: "agreement", action: "termOfService")
+//        "/privacy_policy"(controller: "agreement", action: "privacyPolicy")
 
         // Announcement
         "/announcement/close"(controller: "announcement", action: "close")
