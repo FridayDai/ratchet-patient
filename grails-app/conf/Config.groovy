@@ -219,9 +219,6 @@ ratchetv2 {
 		url {
 			base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
 
-			// Health check
-			healthCheck = "/healthcheck"
-
             // Client
             client {
                 subDomain = "${ratchetv2.server.url.base}/clients?subDomain=%s"
