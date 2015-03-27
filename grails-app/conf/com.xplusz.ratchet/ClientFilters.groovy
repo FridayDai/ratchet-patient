@@ -7,7 +7,7 @@ class ClientFilters {
     def filters = {
         all(controller: 'email|task|agreement') {
             before = {
-                log.info("${request.requestURI} params: ${params}, ip: ${request.getRemoteAddr()}")
+                log.info("${request.requestURI}, ip: ${request.getRemoteAddr()}")
                 if (!session.client) {
                     def hostname = request.getServerName()
 
