@@ -26,8 +26,8 @@ class ClientService {
                 log.info("Get client success, token: ${request.session.token}")
                 return JSON.parse(resp.body)
             } else {
-                def message = result?.error?.errorMessage
-                throw new ApiReturnException(message, resp.status)
+                log.warn("Get client failed, status: ${resp.status}\n Body: {$resp.body}")
+                throw new ApiReturnException(resp.body, resp.status)
             }
         } catch (UnirestException e) {
             throw new ApiAccessException(e.message)
