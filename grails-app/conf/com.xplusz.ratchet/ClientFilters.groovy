@@ -2,7 +2,7 @@ package com.xplusz.ratchet
 
 class ClientFilters {
 
-	def clientService
+    def clientService
 
     def filters = {
         all(controller: 'email|task|agreement') {
@@ -13,31 +13,32 @@ class ClientFilters {
 
                     def clientName = hostname.replaceAll(/\.(x|qa|stable)?\.ratchethealth\.com$/, '')
 
-					try {
-						def result = clientService.getClient(request, response, clientName)
-						if (result) {
-							log.info("Client found, Server Name: ${request.getServerName()}, Client Domain: ${clientName}")
+                    try {
+                        def result = clientService.getClient(request, response, clientName)
+                        if (result) {
+                            log.info("Client found, Server Name: ${request.getServerName()}, Client Domain: ${clientName}")
 
-							session.client = result
-						}
-					} catch (Exception e) {
-						log.error("Client not found, " +
-								"Server Name: ${request.getServerName()}, " +
-								"Client Domain: ${clientName} \n" +
-								"Exception trace: \n${e.stackTrace}"
-						)
+                            session.client = result
+                        }
+                    } catch (Exception e) {
+                        log.error("Client not found, " +
+                                "Server Name: ${request.getServerName()}, " +
+                                "Client Domain: ${clientName} \n" +
+                                "Message: ${e.message} \n" +
+                                "Exception trace: \n${e.stackTrace}"
+                        )
 
-						forward(controller: 'error', action: 'notFound')
-						return false
-					}
-				}
-			}
-			after = { Map model ->
+                        forward(controller: 'error', action: 'notFound')
+                        return false
+                    }
+                }
+            }
+            after = { Map model ->
 
-			}
-			afterView = { Exception e ->
+            }
+            afterView = { Exception e ->
 
-			}
-		}
-	}
+            }
+        }
+    }
 }
