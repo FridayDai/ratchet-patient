@@ -11,7 +11,7 @@ class ClientFilters {
                 if (!session.client) {
                     def hostname = request.getServerName()
 
-                    def clientName = hostname.replaceAll(/\.(x|qa|stable)?\.ratchethealth\.com$/, '')
+                    def clientName = hostname.replaceAll(/\.?(x|qa|stable)?\.ratchethealth\.com$/, '')
 
                     try {
                         def result = clientService.getClient(request, response, clientName)
