@@ -126,11 +126,11 @@ log4j.main = {
         root { info "central", "stdout", "stacktrace" }
     }
 
-    info 'com.xplusz.ratchet',
+    info 'com.ratchethealth.patient',
             'grails.app.domain',
             'grails.app.services',
             'grails.app.controllers',
-            'grails.app.filters.com.xplusz.ratchet.LoggingFilters'
+            'grails.app.filters.com.ratchethealth.ratchet.LoggingFilters'
 
     error 'org.codehaus.groovy.grails.web.servlet',        // controllers
             'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -146,7 +146,7 @@ log4j.main = {
 
     environments {
         development {
-            debug 'com.xplusz.ratchet',
+            debug 'com.ratchethealth.patient',
                     'grails.app.domain',
                     'grails.app.services',
                     'grails.app.controllers'

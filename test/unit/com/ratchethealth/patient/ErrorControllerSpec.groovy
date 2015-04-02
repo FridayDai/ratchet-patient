@@ -1,4 +1,4 @@
-package com.xplusz.ratchet
+package com.ratchethealth.patient
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

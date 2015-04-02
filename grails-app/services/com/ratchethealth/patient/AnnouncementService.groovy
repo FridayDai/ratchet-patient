@@ -1,4 +1,4 @@
-package ratchet.v2.user.desktop
+package com.ratchethealth.patient
 
 import com.mashape.unirest.http.Unirest
 import grails.converters.JSON

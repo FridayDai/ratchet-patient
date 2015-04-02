@@ -1,4 +1,4 @@
-package com.xplusz.ratchet.exceptions
+package com.ratchethealth.patient.exceptions
 
 class InvalidTaskException extends Exception {
 

@@ -1,8 +1,8 @@
-package com.xplusz.ratchet
+package com.ratchethealth.patient
 
-import com.xplusz.ratchet.exceptions.ApiAccessException
-import com.xplusz.ratchet.exceptions.ApiReturnException
-import com.xplusz.ratchet.exceptions.InvalidTaskException
+import com.ratchethealth.patient.exceptions.ApiAccessException
+import com.ratchethealth.patient.exceptions.ApiReturnException
+import com.ratchethealth.patient.exceptions.InvalidTaskException
 
 /**
  * Base Controller.
