@@ -6,20 +6,20 @@
         <title>${Task.title}</title>
         <style type="text/css">
         .primary-color {
-            color: ${ Task.color?:'#0f137d' } !important;
+            color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .primary-border-color {
-            border-color: ${ Task.color?:'#0f137d' } !important;
+            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .primary-background-color {
-            background-color: ${ Task.color?:'#0f137d' } !important;
+            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .primary-hover-color:hover {
             color: #ffffff !important;
-            background-color: ${ Task.color?:'#0f137d' } !important;
+            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
         </style>
     </head>
@@ -33,7 +33,7 @@
         <div class="phone">
             <p>Enter the last 4 digit of your phone #:</p>
 
-			<form id="intro-form" action="${request.forwardURI.replaceFirst(/\/start$/, '')}/start" method="post">
+			<form id="intro-form" action="" method="post">
 				<div class="form-control <g:if test="${errorMsg}">error</g:if>">
 					<input type="text" name="last4Number" class="last-4-number" placeholder="Enter last 4 digits"
 						   maxlength="4"/>
