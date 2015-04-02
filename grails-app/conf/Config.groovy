@@ -215,9 +215,9 @@ grails.cache.config = {
 }
 
 ratchetv2 {
-    server {
-        url {
-            base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
+	server {
+		url {
+			base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
 
             // Client
             client {
@@ -237,6 +237,8 @@ ratchetv2 {
                 oneTest = "${ratchetv2.server.url.base}/tests/%s"
                 tests = "${ratchetv2.server.url.base}/tests"
             }
+
+			addAssist = "${ratchetv2.server.url.base}/assist"
 
             // Announcement
             announcements = "${ratchetv2.server.url.base}/announcements"

@@ -1,5 +1,6 @@
 @import 'variable';
 @import 'compass/css3';
+@import 'tooltip';
 
 @mixin breakpoint($device) {
     @if $device == 'mobile' {
@@ -192,4 +193,8 @@ ul {
 
 .show {
     display: block;
+}
+
+.error {
+    color: $base-color-red;
 }

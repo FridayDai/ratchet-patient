@@ -1,0 +1,62 @@
+@import '../../partials/common';
+@import '../../partials/form';
+
+.main {
+    color: #333;
+    line-height: 20px;
+
+    @include breakpoint('tablet') {
+        margin-top: 85px;
+        padding-top: 10px;
+    }
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+h1,
+h2 {
+    margin: 48px auto;
+    color: $base-color-primary;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 26px;
+}
+
+h2 {
+    margin: 25px auto;
+    font-size: 20px;
+}
+
+a {
+    color: #00f;
+
+    @include breakpoint('mobile') {
+        word-break: break-all;
+    }
+}
+
+.lbl-req-field {
+    display: block;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+.req-assist-btn {
+    margin-top: 30px;
+    width: 150px;
+    height: 40px;
+}
+
+.success-message {
+
+}
+
+.description {
+    height: 300px;
+}
+
