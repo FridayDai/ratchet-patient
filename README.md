@@ -112,8 +112,17 @@ ratchet-v2-user-desktop
 	grails run-app
 ```
 
+## CDN
+1. The variable CDN_ENABLE should be set as 'true' in env configuration.
+2. The variable S3_ASSET_BUCKET should be set in env configuration, also with variables: AWS_ACCESS_KEY, AWS_SECRET_KEY.
+3. ```grails asset-cdn-push``` should be run before war generation.
+
 ## Configuration Variables
 
 - ELK_TCP_ADDR
 - SERVER_URL
 - GA_TRACKING_ID
+- CDN_ENABLE
+- S3_ASSET_BUCKET
+- AWS_ACCESS_KEY
+- AWS_SECRET_KEY

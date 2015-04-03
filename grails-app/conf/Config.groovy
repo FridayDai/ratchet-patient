@@ -191,6 +191,10 @@ grails {
     }
 }
 
+if (System.getProperty("CDN_ENABLE")?.toBoolean() == true) {
+    grails.assets.url = "https://s3.amazonaws.com/${grails.assets.cdn.directory}/assets/${appName}-${appVersion}/"
+}
+
 grails.cache.enabled = true
 
 grails.cache.config = {
