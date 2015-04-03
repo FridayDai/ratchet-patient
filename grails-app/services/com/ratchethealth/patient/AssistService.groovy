@@ -1,14 +1,13 @@
-package ratchet.v2.user.desktop
+package com.ratchethealth.patient
 
 import com.mashape.unirest.http.Unirest
 import com.mashape.unirest.http.exceptions.UnirestException
-import com.xplusz.ratchet.exceptions.ApiAccessException
-import com.xplusz.ratchet.exceptions.ApiReturnException
+import com.ratchethealth.patient.exceptions.ApiAccessException
+import com.ratchethealth.patient.exceptions.ApiReturnException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import java.text.MessageFormat
 
 
 class AssistService {
