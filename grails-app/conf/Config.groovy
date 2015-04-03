@@ -91,12 +91,10 @@ grails.assets.excludes = [
         '.sass-cache/**',
         'sass/**',
         'config.rb',
-        'file1.js',
-        'file2.js',
-        'file3.js',
-        'file4.js',
-        'file5.js'
+        'share/*.js'
 ]
+
+grails.assets.plugin."resources".excludes =["**"]
 
 environments {
     development {

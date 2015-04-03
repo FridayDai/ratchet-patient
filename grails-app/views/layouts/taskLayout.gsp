@@ -6,7 +6,7 @@
 	</head>
 
 	<body>
-	<g:render template="/shared/header" />
+	<g:render template="/shared/taskHeader" />
 
 	<g:layoutBody/>
 	<g:render template="/shared/googleAnalytics" />
