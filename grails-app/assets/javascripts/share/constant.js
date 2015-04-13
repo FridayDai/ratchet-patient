@@ -1,4 +1,4 @@
-(function($) {
+(function(undefined) {
     var RC = window.RC = window.RC || {};
 
     function constantHandle() {
@@ -19,4 +19,4 @@
         window.addEventListener("load", constantHandle, false);
     else if (window.attachEvent)
         window.attachEvent("onload", constantHandle);
-})(jQuery);
+})();

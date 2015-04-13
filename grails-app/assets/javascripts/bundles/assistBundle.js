@@ -1,7 +1,7 @@
 //= require ../share/constant
 //= require ../share/share
 
-(function($, undefined) {
+function assistBundle(undefined) {
     'use strict';
 
     var opts = {
@@ -58,5 +58,9 @@
     }
 
     _bindAssistEvent();
+}
 
-})(jQuery);
+if (window.addEventListener)
+    window.addEventListener("load", assistBundle, false);
+else if (window.attachEvent)
+    window.attachEvent("onload", assistBundle);
