@@ -91,12 +91,10 @@ grails.assets.excludes = [
         '.sass-cache/**',
         'sass/**',
         'config.rb',
-        'file1.js',
-        'file2.js',
-        'file3.js',
-        'file4.js',
-        'file5.js'
+        'share/*.js'
 ]
+
+grails.assets.plugin."resources".excludes =["**"]
 
 environments {
     development {
@@ -126,11 +124,11 @@ log4j.main = {
         root { info "central", "stdout", "stacktrace" }
     }
 
-    info 'com.xplusz.ratchet',
+    info 'com.ratchethealth.patient',
             'grails.app.domain',
             'grails.app.services',
             'grails.app.controllers',
-            'grails.app.filters.com.xplusz.ratchet.LoggingFilters'
+            'grails.app.filters.com.ratchethealth.ratchet.LoggingFilters'
 
     error 'org.codehaus.groovy.grails.web.servlet',        // controllers
             'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -146,7 +144,7 @@ log4j.main = {
 
     environments {
         development {
-            debug 'com.xplusz.ratchet',
+            debug 'com.ratchethealth.patient',
                     'grails.app.domain',
                     'grails.app.services',
                     'grails.app.controllers'
@@ -173,22 +171,9 @@ grails.config.locations = [
         overrideLocation
 ]
 
-
-def appName = grails.util.Metadata.current.'app.name'
-def appVersion = grails.util.Metadata.current.'app.version'
-
-grails {
-    assets {
-        cdn {
-            provider = 's3' // Karman provider
-            directory = System.getProperty("S3_ASSET_BUCKET") ?: 'com-xplusz-ratchet-assets-dev'
-            accessKey = System.getProperty("AWS_ACCESS_KEY") ?: "AKIAIWTB37MOKO6FLJEA"
-            secretKey = System.getProperty("AWS_SECRET_KEY") ?: "h88C9qlpgkmVChb/s7nLaFGzcbRh6qlUOxyhEEtf"
-            storagePath = "assets/${appName}-${appVersion}/" // This is just a prefix example
-            expires = 365
-            gzip = true
-        }
-    }
+if (System.getProperty("CDN_ENABLE")?.toBoolean() == true) {
+    cdn_domain = System.getProperty("CDN_DOMAIN") ?: "http://d1ziekjz7irzny.cloudfront.net"
+    grails.assets.url = "${cdn_domain}/assets/"
 }
 
 grails.cache.enabled = true
@@ -215,9 +200,9 @@ grails.cache.config = {
 }
 
 ratchetv2 {
-    server {
-        url {
-            base = System.getProperty("SERVER_URL") ?: "http://ratchetv2server-qa.elasticbeanstalk.com/api/v1"
+	server {
+		url {
+			base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
 
             // Client
             client {
@@ -237,6 +222,8 @@ ratchetv2 {
                 oneTest = "${ratchetv2.server.url.base}/tests/%s"
                 tests = "${ratchetv2.server.url.base}/tests"
             }
+
+			addAssist = "${ratchetv2.server.url.base}/assist"
 
             // Announcement
             announcements = "${ratchetv2.server.url.base}/announcements"

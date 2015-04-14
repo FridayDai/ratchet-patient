@@ -8,14 +8,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:xplusz/ratchet-v2-user-desktop.git"
+        "url": "git@github.com:xplusz/ratchet-patient.git"
     },
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/xplusz/ratchet-v2-user-desktop/issues"
+        "url": "https://github.com/xplusz/ratchet-patient/issues"
     },
-    "homepage": "https://github.com/xplusz/ratchet-v2-user-desktop",
+    "homepage": "https://github.com/xplusz/ratchet-patient",
     "devDependencies": {
         "bower": "^1.3.12",
         "gulp": "^3.8.10",

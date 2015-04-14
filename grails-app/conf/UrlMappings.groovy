@@ -16,15 +16,19 @@ class UrlMappings {
         }
 
         // Task
-        "/$patientName/tasks/$taskTitle/$code"(controller: "task") {
-            action = [GET: "index"]
+        name taskIndex: "/$patientName/tasks/$taskTitle/$code"(controller: "task") {
+            action = [GET: "index", POST: "phoneNumberValidate"]
         }
-        "/$patientName/tasks/$taskTitle/$code/start"(controller: "task") {
-            action = [GET:"index", POST: "start"]
+        name taskStart: "/$patientName/tasks/$taskTitle/$code/start"(controller: "task") {
+            action = [GET:"start", POST: "submit"]
         }
-        "/$patientName/tasks/$taskTitle/$code/complete"(controller: "task") {
-            action = [GET: "hasComplete", POST: "done"]
+        name taskComplete: "/$patientName/tasks/$taskTitle/$code/complete"(controller: "task") {
+            action = [GET: "complete"]
         }
+
+        // Help
+        "/assist/$patientId"(controller: "assist", action: "index")
+        "/addAssist"(controller: "assist", action: "addAssist")
 
         // Agreement
 //        "/terms_of_service"(controller: "agreement", action: "termOfService")

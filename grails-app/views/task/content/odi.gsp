@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
 <g:set var="scriptPath" value="taskBundle"/>
 <g:set var="cssPath" value="task/content/odi"/>
 <g:applyLayout name="taskLayout">
@@ -9,33 +8,34 @@
 		<style type="text/css">
 		@media only screen and (max-width: 767px) {
 			.task-time {
-				color: ${Task.color?:'#0f137d'} !important;
+				color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 			}
 		}
 
 		.primary-color {
-			color: ${Task.color?:'#0f137d'} !important;
+			color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 		}
 
 		.primary-border-color {
-			border-color: ${Task.color?:'#0f137d'} !important;
+			border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 		}
 
 		.primary-background-color {
-			background-color: ${Task.color?:'#0f137d'} !important;
+			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 		}
 
 		.task-done-btn {
-			color: ${Task.color?:'#0f137d'} !important;
-			border-color: ${Task.color?:'#0f137d'} !important;;
+			color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;;
 		}
 
 		.task-done-btn:hover {
 			color: #ffffff !important;
-			background-color: ${Task.color?:'#0f137d'} !important;
+			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 		}
+
 		.rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
-			background-color: ${Task.color?:'#0f137d'} !important;
+			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 		}
 		</style>
 	</head>
@@ -44,13 +44,23 @@
 	<div class="odi task-content">
 		<div class="info container">${Task.description}</div>
 
-		<form action="${request.forwardURI.replaceFirst(/\/start$/, '/complete')}" method="post">
+		<form action="" method="post">
 			<input type="hidden" name="code" value="${taskCode}"/>
+			<input type="hidden" name="taskType" value="${Task.type}"/>
 
 			<div class="task-list-wrapper container">
 				<g:each var="question" in="${Task.questions}" status="i">
-					<div class="question-list" data-optional="${question.optional}">
-						<div class="question primary-color">Section ${i + 1}: ${question.title}</div>
+					<div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>"
+						 data-optional="${question.optional}">
+						<input type="hidden" name="optionals.${question.id}"
+							   value="${question.optional ? '0' : '1'}"/>
+
+						<div class="question primary-color">
+							Section ${i + 1}: ${question.title}
+							<g:if test="${errors && errors["${question.id}"]}">
+								<span class="error-label">This question is required.</span>
+							</g:if>
+						</div>
 
 						<div class="answer-list">
 							<ul class="list">
@@ -58,8 +68,11 @@
 									<li class="answer">
 										<div class="text">${choice.content}</div>
 										<label class="choice">
-											<input type="radio" class="rc-choice-hidden" name="choices.${question.id}"
-												   value="${choice.sequence}"/>
+											<input type="radio"
+												   class="rc-choice-hidden"
+												   name="choices.${question.id}"
+												   value="${choice.sequence}"
+												   <g:if test="${choices && choices["${question.id}"] == choice.sequence}">checked</g:if>/>
 											<span class="rc-radio primary-radio-color"></span>
 										</label>
 									</li>

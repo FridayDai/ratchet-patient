@@ -1,41 +1,41 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
 <g:set var="scriptPath" value="taskBundle"/>
 <g:set var="cssPath" value="task/content/nrs"/>
 <g:applyLayout name="taskLayout">
 	<html>
 	<head>
-		<title>Outcome</title>
+		<title>${Task.title}</title>
 
 		<style type="text/css">
 		@media only screen and (max-width: 767px) {
 			.task-time {
-				color: ${Task.color?:'#0f137d'} !important;
+				color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 			}
 		}
 
 		.primary-color {
-			color: ${Task.color?:'#0f137d'} !important;
+			color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 		}
 
 		.primary-border-color {
-			border-color: ${Task.color?:'#0f137d'} !important;
+			border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 		}
 
 		.primary-background-color {
-			background-color: ${Task.color?:'#0f137d'} !important;
+			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 		}
 
 		.task-done-btn {
-			color: ${Task.color?:'#0f137d'} !important;
-			border-color: ${Task.color?:'#0f137d'} !important;;
+			color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;;
 		}
 
 		.task-done-btn:hover {
 			color: #ffffff !important;
-			background-color: ${Task.color?:'#0f137d'} !important;
+			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 		}
+
 		.rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
-			background-color: ${Task.color?:'#0f137d'} !important;
+			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
 		}
 		</style>
 	</head>
@@ -54,13 +54,19 @@
 			<p>7-10 = Severe Pain (disabling; unable to perform activities of daily living)</p>
 		</div>
 
-		<form action="${request.forwardURI.replaceFirst(/\/start$/, '/complete')}" method="post">
+		<form action="" method="post">
 			<input type="hidden" name="code" value="${taskCode}"/>
+			<input type="hidden" name="taskType" value="${Task.type}"/>
 
 			<div class="task-list-wrapper container">
 				<g:each var="question" in="${Task.questions}" status="i">
-					<div class="question-list">
-						<div class="question primary-color">${raw(question.title)}</div>
+					<div class="question-list <g:if test="${errors && errors[i]}">error</g:if>">
+						<div class="question primary-color">
+							${raw(question.title)}
+							<g:if test="${errors && errors[i]}">
+								<span class="error-label">This question is required.</span>
+							</g:if>
+						</div>
 
 						<div class="answer-list">
 							<div class="answer-description">
@@ -82,10 +88,14 @@
 												<g:if test="${Task.type == 4}">
 													<g:if test="${i == 0}">name="choices.back"</g:if>
 													<g:if test="${i == 1}">name="choices.leg"</g:if>
+													<g:if test="${i == 0 && choices?.back == j}">checked</g:if>
+													<g:if test="${i == 1 && choices?.leg == j}">checked</g:if>
 												</g:if>
 												<g:if test="${Task.type == 5}">
 													<g:if test="${i == 0}">name="choices.neck"</g:if>
 													<g:if test="${i == 1}">name="choices.arm"</g:if>
+													<g:if test="${i == 0 && choices?.neck == j.toString()}">checked</g:if>
+													<g:if test="${i == 1 && choices?.arm == j.toString()}">checked</g:if>
 												</g:if>
 												   value="${j}"/>
 											<span class="rc-radio"></span>
