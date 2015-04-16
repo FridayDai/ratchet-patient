@@ -114,8 +114,8 @@ ratchet-v2-user-desktop
 
 ## CDN
 1. The variable CDN_ENABLE should be set as 'true' in env configuration.
-2. The variable S3_ASSET_BUCKET should be set in env configuration, also with variables: AWS_ACCESS_KEY, AWS_SECRET_KEY.
-3. ```grails asset-cdn-push``` should be run before war generation.
+2. Set one custom origin instance of clouldfront.
+3. The variable CDN_ASSET_DOMAIN should be set with clouldfront asset instance domain name.
 
 ## Configuration Variables
 
@@ -123,4 +123,4 @@ ratchet-v2-user-desktop
 - SERVER_URL
 - GA_TRACKING_ID
 - CDN_ENABLE    // true | false | not define
-- CDN_DOMAIN    // just cloudfront url domain like: ```d1gdqclzwn7f9.cloudfront.net```
+- CDN_ASSET_DOMAIN    // just cloudfront url domain like: ```d1gdqclzwn7f9.cloudfront.net```
