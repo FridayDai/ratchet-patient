@@ -43,7 +43,7 @@
         <div class="interact-modal-body">
             <div class="interact-modal-content">
                 <input type="checkbox" id="unSubscribe"/>
-                <span>Remind me if I have pending or overdue task.</span>
+                <span>Remind me if I have a pending or overdue task.</span>
             </div>
 
             <input type="button" class="btn rc-btn btn-update" id="btn-update" data-patient-id="${patientId}"
