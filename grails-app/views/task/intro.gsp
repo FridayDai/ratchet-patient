@@ -6,20 +6,20 @@
         <title>${Task.title}</title>
         <style type="text/css">
         .primary-color {
-            color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+            color: ${      client.primaryColorHex?:'#0f137d'      } !important;
         }
 
         .primary-border-color {
-            border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+            border-color: ${      client.primaryColorHex?:'#0f137d'      } !important;
         }
 
         .primary-background-color {
-            background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+            background-color: ${      client.primaryColorHex?:'#0f137d'      } !important;
         }
 
         .primary-hover-color:hover {
             color: #ffffff !important;
-            background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+            background-color: ${      client.primaryColorHex?:'#0f137d'      } !important;
         }
         </style>
     </head>
@@ -27,6 +27,7 @@
     <body>
     <div class="content container">
         %{--<div class="intro">INTRO</div>--}%
+        <div class="intro">Your phone number is required for security purpose.</div>
 
         %{--<div class="desc">${Task.description}</div>--}%
 
@@ -45,7 +46,8 @@
             </form>
             %{--<span class="caret-left"></span>--}%
 
-            <div class="tip primary-background-color">Your phone number is required for security purposes.</div>
+            <div class="tip primary-background-color">This link is unique to you and we ask for your phone number as added
+            assurance that it is you who is accessing this survey.</div>
         </div>
     </div>
 
