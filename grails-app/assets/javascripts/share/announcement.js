@@ -10,7 +10,7 @@ function announcementHandle () {
 
             var announcementLastUpdated = maintenanceEl.data('announcementLastUpdated');
 
-            //$.get('/announcement/close?announcementLastUpdated=' + announcementLastUpdated);
+            $.get('/announcement/close?announcementLastUpdated=' + announcementLastUpdated);
 
             maintenanceEl.remove();
         });

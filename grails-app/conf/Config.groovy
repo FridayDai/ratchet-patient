@@ -206,7 +206,7 @@ ratchetv2 {
 
             // Client
             client {
-                subDomain = "${ratchetv2.server.url.base}/clients?subDomain=%s"
+                subDomain = "${ratchetv2.server.url.base}/clients/domain?subDomain=%s"
             }
 
             // Email
