@@ -7,3 +7,6 @@
 .headroom--unpinned {
     @include transform(translateY(-68px));
 }
+.headroom--banner--unpinned {
+    @include transform(translateY(-105px));
+}

@@ -169,7 +169,14 @@ function taskBundle() {
                 down: 10,
                 up: 20
             },
-            offset: 205
+            offset: 205,
+            onUnpin: function () {
+                if ($('#maintenance').length) {
+                    this.classes.unpinned = "headroom--banner--unpinned"
+                } else {
+                    this.classes.unpinned = "headroom--unpinned"
+                }
+            }
         });
 
         setValidation();

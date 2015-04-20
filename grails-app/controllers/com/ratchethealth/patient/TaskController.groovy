@@ -67,8 +67,8 @@ class TaskController extends BaseController {
 				def result = JSON.parse(resp.body)
 				def questionnaireView = ''
 
-				//1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK
-				if (result.type == 1) {
+				//1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH
+				if (result.type == 1 || result.type == 6) {
 					questionnaireView = '/task/content/dash'
 				} else if (result.type == 2 || result.type == 3) {
 					questionnaireView = '/task/content/odi'
