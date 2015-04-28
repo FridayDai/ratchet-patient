@@ -1,4 +1,3 @@
-//= require ../bower_components/jquery/jquery
 //= require ../bower_components/jquery-validation/dist/jquery.validate
 
 //= require ../bower_components/jquery-ui/ui/jquery.ui.core
@@ -8,7 +7,7 @@
 
 //= require ../share/constant
 
-(function ($, undefined) {
+function shareBundle(undefined) {
     'use strict';
 
     var common = RC.common = RC.common || {};
@@ -135,5 +134,9 @@
     });
 
     _init();
+}
 
-})(jQuery);
+if (window.addEventListener)
+    window.addEventListener("load", shareBundle, false);
+else if (window.attachEvent)
+    window.attachEvent("onload", shareBundle);

@@ -12,10 +12,10 @@
     .intro {
         margin: 0 auto;
         padding: 10px 20px 0;
-        color: $base-color-primary;
+        color: $base-color-light-dark;
         font-weight: bold;
         font-size: 16px;
-        text-align: left;
+        text-align: center;
     }
 
     .desc,
@@ -98,11 +98,13 @@
     }
 
     .last-4-number {
-        width: 225px;
+        width: 220px;
     }
 
     .btn-start-task {
         padding: 10px;
+        height: 38px;
+        vertical-align: bottom;
     }
 
     .tip {

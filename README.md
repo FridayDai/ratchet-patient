@@ -123,4 +123,4 @@ ratchet-v2-user-desktop
 - SERVER_URL
 - GA_TRACKING_ID
 - CDN_ENABLE    // true | false | not define
-- CDN_ASSET_DOMAIN_PATIENT    // just cloudfront url domain like: ```d1gdqclzwn7f9.cloudfront.net```
+- CDN_ASSET_DOMAIN_PATIENT    // just cloudfront url domain like: ```https://d1gdqclzwn7f9.cloudfront.net```

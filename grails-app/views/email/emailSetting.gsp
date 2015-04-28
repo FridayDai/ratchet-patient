@@ -6,13 +6,13 @@
         <title>Email Setting</title>
         <style type="text/css">
         .rc-btn {
-            color: ${                    client.primaryColorHex?:'#0f137d'                    } !important;
-            border-color: ${                    client.primaryColorHex?:'#0f137d'                    } !important;
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            border-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .rc-btn:hover {
             color: #ffffff !important;
-            background-color: ${                    client.primaryColorHex?:'#0f137d'                    } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
         </style>
     </head>
@@ -22,7 +22,7 @@
         <div class="desc">Enter the last 4 digit of your phone #:</div>
 
         <div id="email-setting-form">
-            <div class="form-control<g:if test="${errorMsg}">error</g:if>">
+            <div class="form-control <g:if test="${errorMsg}">error</g:if>">
                 <input type="text" name="last4Number" class="last-4-number" placeholder="Enter last 4 digits"
                        maxlength="4"/>
                 <g:if test="${errorMsg}"><span class="rc-error-label">${errorMsg}</span></g:if>
@@ -43,7 +43,7 @@
         <div class="interact-modal-body">
             <div class="interact-modal-content">
                 <input type="checkbox" id="unSubscribe"/>
-                <span>Remind me if I have pending or overdue task.</span>
+                <span>Remind me if I have a pending or overdue task.</span>
             </div>
 
             <input type="button" class="btn rc-btn btn-update" id="btn-update" data-patient-id="${patientId}"

@@ -8,34 +8,34 @@
 		<style type="text/css">
 		@media only screen and (max-width: 767px) {
 			.task-time {
-				color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+				color: ${client.primaryColorHex?:'#0f137d'} !important;
 			}
 		}
 
 		.primary-color {
-			color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 
 		.primary-border-color {
-			border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			border-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 
 		.primary-background-color {
-			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 
 		.task-done-btn {
-			color: ${  client.primaryColorHex?:'#0f137d'  } !important;
-			border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;;
+			color: ${client.primaryColorHex?:'#0f137d'} !important;
+			border-color: ${client.primaryColorHex?:'#0f137d'} !important;;
 		}
 
 		.task-done-btn:hover {
 			color: #ffffff !important;
-			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 
 		.rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
-			background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 		</style>
 	</head>
