@@ -172,7 +172,7 @@ grails.config.locations = [
 ]
 
 if (System.getProperty("CDN_ENABLE")?.toBoolean() == true) {
-    cdn_domain = System.getProperty("CDN_ASSET_DOMAIN_PATIENT") ?: "http://d1ziekjz7irzny.cloudfront.net"
+    cdn_domain = System.getProperty("CDN_ASSET_DOMAIN_PATIENT") ?: "https://d1ziekjz7irzny.cloudfront.net"
     grails.assets.url = "${cdn_domain}/assets/"
 }
 
