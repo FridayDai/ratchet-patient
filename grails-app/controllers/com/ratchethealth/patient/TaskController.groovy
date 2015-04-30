@@ -14,31 +14,20 @@ class TaskController extends BaseController {
 
 		if (session["taskComplete${code}"]) {
 			redirectToComplete(patientName, taskTitle, code)
-		} else if (session["task${code}"]) {
-			def result = JSON.parse(session["task${code}"])
-
-			render view: '/task/intro', model: [
-					Task     : result,
-					client   : session.client,
-					taskTitle: taskTitle,
-					taskCode : code
-			]
 		} else {
 			def resp = taskService.getTask(request, response, code)
 
 			if (resp.status == 200) {
 				def result = JSON.parse(resp.body)
-				session["task${code}"] = resp.body
 
 				render view: '/task/intro', model: [
 						Task     : result,
-						client   : session.client,
+						client   : JSON.parse(session.client),
 						taskTitle: taskTitle,
 						taskCode : code
 				]
 			} else if (resp.status == 207) {
 				session["taskComplete${code}"] = true
-				session["task${code}"] = resp.body
 
 				redirectToComplete(patientName, code, taskTitle)
 			}
@@ -51,15 +40,19 @@ class TaskController extends BaseController {
 		def taskTitle = params.taskTitle
 
 		if (!user.validate()) {
-			def task = JSON.parse(session["task${code}"])
+			def resp = taskService.getTask(request, response, code)
 
-			render view: '/task/intro',
-					model: [client   : session.client,
-							Task     : task,
-							taskTitle: taskTitle,
-							taskCode : code,
-							errorMsg : RatchetMessage.TASK_INTRO_INVALID_PHONE_NUMBER
-					]
+			if (resp.status == 200) {
+				def task = JSON.parse(resp.body)
+
+				render view: '/task/intro',
+						model: [client   : JSON.parse(session.client),
+								Task     : task,
+								taskTitle: taskTitle,
+								taskCode : code,
+								errorMsg : RatchetMessage.TASK_INTRO_INVALID_PHONE_NUMBER
+						]
+			}
 		} else {
 			def resp = taskService.getQuestionnaire(request, response, code, user.last4Number)
 
@@ -77,25 +70,29 @@ class TaskController extends BaseController {
 				}
 
 				session["questionnaireView${code}"] = questionnaireView
-				session["questionnaire${code}"] = resp.body
+				session["last4Number${code}"] = user.last4Number
 
 				redirect(mapping: 'taskStart', params: [
 						patientName: patientName,
 						taskTitle  : taskTitle,
 						code       : code,
 				])
-			} else if (resp.status == 404 || !request.session["task${code}"]) {
-				render view: '/error/invalidTask', model: [client: session.client], status: 404
+			} else if (resp.status == 404) {
+				render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
 			} else {
-				def task = JSON.parse(session["task${code}"])
+				def taskResp = taskService.getTask(request, response, code)
 
-				render view: '/task/intro',
-						model: [client   : session.client,
-								Task     : task,
-								taskTitle: taskTitle,
-								taskCode : code,
-								errorMsg : RatchetMessage.TASK_INTRO_WRONG_PHONE_NUMBER
-						]
+				if (taskResp.status == 200) {
+					def task = JSON.parse(taskResp.body)
+
+					render view: '/task/intro',
+							model: [client   : JSON.parse(session.client),
+									Task     : task,
+									taskTitle: taskTitle,
+									taskCode : code,
+									errorMsg : RatchetMessage.TASK_INTRO_WRONG_PHONE_NUMBER
+							]
+				}
 			}
 		}
 	}
@@ -109,15 +106,20 @@ class TaskController extends BaseController {
 			redirectToComplete(patientName, taskTitle, code)
 		} else if (session["questionnaireView${code}"]) {
 			def view = session["questionnaireView${code}"]
-			def questionnaire = JSON.parse(session["questionnaire${code}"])
+			def last4Number = session["last4Number${code}"]
+			def resp = taskService.getQuestionnaire(request, response, code, last4Number)
 
-			render view: view,
-					model: [
-							client   : session.client,
-							Task     : questionnaire,
-							taskTitle: taskTitle,
-							taskCode : code,
-					]
+			if (resp.status == 200) {
+				def result = JSON.parse(resp.body)
+
+				render view: view,
+						model: [
+								client   : JSON.parse(session.client),
+								Task     : result,
+								taskTitle: taskTitle,
+								taskCode : code,
+						]
+			}
 		} else {
 			redirectToIndex(patientName, taskTitle, code)
 		}
@@ -135,17 +137,22 @@ class TaskController extends BaseController {
 
 		if (errors.size() > 0) {
 			def view = session["questionnaireView${code}"]
-			def questionnaire = JSON.parse(session["questionnaire${code}"])
+			def last4Number = session["last4Number${code}"]
+			def resp = taskService.getQuestionnaire(request, response, code, last4Number)
 
-			render view: view,
-					model: [
-							client   : session.client,
-							Task     : questionnaire,
-							taskTitle: taskTitle,
-							taskCode : code,
-							choices  : choices,
-							errors   : errors
-					]
+			if (resp.status == 200) {
+				def result = JSON.parse(resp.body)
+
+				render view: view,
+						model: [
+								client   : JSON.parse(session.client),
+								Task     : result,
+								taskTitle: taskTitle,
+								taskCode : code,
+								choices  : choices,
+								errors   : errors
+						]
+			}
 		} else {
 			taskService.submitQuestionnaire(request, response, code, choices)
 
@@ -161,14 +168,20 @@ class TaskController extends BaseController {
 		def code = params.code
 
 		if (session["taskComplete${code}"]) {
-			def task = JSON.parse(session["task${code}"])
+			def resp = taskService.getTask(request, response, code)
 
-			render view: '/task/result', model: [
-					Task     : task,
-					client   : session.client,
-					taskTitle: taskTitle,
-					taskCode : code
-			]
+			if (resp.status == 207) {
+				def result = JSON.parse(resp.body)
+
+				render view: '/task/result', model: [
+						Task     : result,
+						client   : JSON.parse(session.client),
+						taskTitle: taskTitle,
+						taskCode : code
+				]
+			} else {
+				redirectToIndex(patientName, taskTitle, code)
+			}
 		} else {
 			def resp = taskService.getTask(request, response, code)
 
@@ -183,7 +196,7 @@ class TaskController extends BaseController {
 
 				render view: '/task/result', model: [
 						Task     : task,
-						client   : session.client,
+						client   : JSON.parse(session.client),
 						taskTitle: taskTitle,
 						taskCode : code
 				]

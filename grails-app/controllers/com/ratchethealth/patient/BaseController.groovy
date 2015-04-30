@@ -3,6 +3,7 @@ package com.ratchethealth.patient
 import com.ratchethealth.patient.exceptions.ApiAccessException
 import com.ratchethealth.patient.exceptions.ApiReturnException
 import com.ratchethealth.patient.exceptions.InvalidTaskException
+import grails.converters.JSON
 
 /**
  * Base Controller.
@@ -63,7 +64,7 @@ class BaseController {
         if (request.isXhr()) {
             render status: 404, text: e.message
         } else {
-            render view: '/error/invalidTask', model: [client: session.client], status: 404
+            render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
         }
     }
 }

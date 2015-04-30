@@ -8,7 +8,7 @@ class AssistController {
 
     def index() {
     	def patientId = params?.patientId
-    	render view: '/assist', model: [client: session.client, patientId:patientId]
+    	render view: '/assist', model: [client: JSON.parse(session.client), patientId:patientId]
     }
 
     def addAssist() {
