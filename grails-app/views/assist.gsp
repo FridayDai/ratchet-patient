@@ -55,8 +55,8 @@
 
             </g:form>
             <div class="success-message" style="display:none;">
-                <span>Thank you!</span>
-                <span>Message successfully sent.</span>
+                <div class="first-message">Thank you!</div>
+                <div class="second-message">Message successfully sent.</div>
             </div>
         </div>
     </div>

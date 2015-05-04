@@ -54,6 +54,13 @@ a {
 
 .success-message {
 
+    .first-message, .second-message {
+        margin-bottom: 12px;
+
+        @include breakpoint('mobile') {
+            text-align: center;
+        }
+    }
 }
 
 .description {
