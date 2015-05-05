@@ -196,6 +196,8 @@ grails.cache.config = {
     }
 }
 
+ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvVedyg9hT\$dvkUGhNVqj"
+
 ratchetv2 {
 	server {
 		url {
