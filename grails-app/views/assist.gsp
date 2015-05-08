@@ -22,6 +22,7 @@
 
         .rc-btn.primary-button-color {
             color: ${  client.primaryColorHex?:'#0f137d'  };
+            border-color: ${  client.primaryColorHex?:'#0f137d'  };
         }
 
         .rc-btn.primary-button-color:hover {
