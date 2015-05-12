@@ -24,7 +24,7 @@ class AssistService {
         def url = params?.url
         
         def patientId = params?.patientId
-        def clientId = session.client.id
+        def clientId = JSON.parse(session.client).id
 
         def type = 'Patient'
 

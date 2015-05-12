@@ -18,7 +18,7 @@ class ClientFilters {
                         if (result) {
                             log.info("Client found, Server Name: ${request.getServerName()}, Client Domain: ${clientName}")
 
-                            session.client = result
+                            session.client = result.toString()
                         }
                     } catch (Exception e) {
                         log.error("Client not found, " +

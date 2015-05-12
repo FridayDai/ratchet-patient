@@ -13,7 +13,7 @@ class EmailController extends BaseController {
         def client = emailService.confirmPatientEmail(request, response, code, emailUpdate)
 
         if (client) {
-            render view: "/email/confirm", model: [client: session.client]
+            render view: "/email/confirm", model: [client: JSON.parse(session.client)]
         }
     }
 
@@ -23,13 +23,13 @@ class EmailController extends BaseController {
         def client = emailService.confirmEmergencyContactEmail(request, response, code)
 
         if (client) {
-            render view: "/email/confirm", model: [client: session.client]
+            render view: "/email/confirm", model: [client: JSON.parse(session.client)]
         }
     }
 
     def emailSetting() {
         def patientId = params.id
-        render view: "/email/emailSetting", model: [client: session.client, patientId: patientId]
+        render view: "/email/emailSetting", model: [client: JSON.parse(session.client), patientId: patientId]
     }
 
     def emailSettingCheck() {

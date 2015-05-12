@@ -70,7 +70,7 @@ grails.project.dependency.resolution = {
             excludes 'ehcache-core'
         }
         compile ":cache-ehcache:1.0.5"
-//        compile ":cookie-session:2.0.16"
+        compile ":cookie-session:2.0.17"
         // plugins needed at runtime but not for compilation
 //        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
 //        runtime ":database-migration:1.4.0"
