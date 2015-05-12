@@ -19,6 +19,16 @@
         .circle-list li:before {
             color: ${  client.primaryColorHex?:'#0f137d'  } !important;
         }
+
+        .rc-btn.primary-button-color {
+            color: ${  client.primaryColorHex?:'#0f137d'  };
+            border-color: ${  client.primaryColorHex?:'#0f137d'  };
+        }
+
+        .rc-btn.primary-button-color:hover {
+            color: #fff;
+            background-color: ${  client.primaryColorHex?:'#0f137d'  };
+        }
         </style>
     </head>
 
@@ -50,13 +60,13 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="rc-btn req-assist-btn" id="assist-me" data-patientid="${patientId}">Send</button>
+                    <button type="submit" class="rc-btn req-assist-btn primary-button-color" id="assist-me" data-patientid="${patientId}">Send</button>
                 </div>
 
             </g:form>
             <div class="success-message" style="display:none;">
-                <div class="first-message">Thank you!</div>
-                <div class="second-message">Message successfully sent.</div>
+                <p class="first-message">Thank you!</p>
+                <p class="second-message">Message successfully sent.</p>
             </div>
         </div>
     </div>
