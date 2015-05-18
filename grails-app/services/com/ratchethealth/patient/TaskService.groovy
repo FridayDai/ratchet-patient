@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse
 class TaskService {
 
     def grailsApplication
-
+    def userAgentIdentService
     /**
      * Get task short description
      *
@@ -92,11 +92,19 @@ class TaskService {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
+        def browserName = userAgentIdentService.getBrowser()
+        def browserVersion = userAgentIdentService.getBrowserVersion()
+        def OSName = userAgentIdentService.getOperatingSystem()
 
-        String json = JsonOutput.toJson([code: code, choices: choices])
+        String json = JsonOutput.toJson([code: code, choices: choices, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
 
         try {
             def resp = Unirest.post(url).body(json).asJson()
+//                    .field("browserName", browserName)
+//                    .field("browserVersion", browserVersion)
+//                    .field("OSName", OSName)
+//                    .asString()
+
 
             if (resp.status == 200) {
                 log.info("Submit questionnaire success, token: ${request.session.token}")
