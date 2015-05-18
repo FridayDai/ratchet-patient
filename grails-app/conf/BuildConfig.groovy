@@ -75,11 +75,35 @@ grails.project.dependency.resolution = {
 //        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
 //        runtime ":database-migration:1.4.0"
         runtime ":resources:1.2.13"
+        compile ":codenarc:0.23"
 
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
         //compile ":less-asset-pipeline:1.10.0"
         //compile ":coffee-asset-pipeline:1.8.0"
         //compile ":handlebars-asset-pipeline:1.3.0.3"
+    }
+}
+
+codenarc {
+    reports = {
+        XmlReport('xml') {
+            outputFile = 'target/CodeNarc-Report.xml'
+            title = 'CodeNarc Report'
+        }
+        HtmlReport('html') {
+            outputFile = 'target/CodeNarc-Report.html'
+            title = 'CodeNarc Report'
+        }
+    }
+
+    systemExitOnBuildException = true
+    maxPriority1Violations = 100
+    maxPriority2Violations = 100
+    maxPriority3Violations = 100
+
+    properties = {
+        CatchException.enabled = false
+        GrailsDomainReservedSqlKeywordName.enabled = false
     }
 }
