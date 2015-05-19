@@ -81,16 +81,9 @@ class EmailService {
 
         def url = String.format(checkPhoneNumberUrl, id)
 
-        def browserName = userAgentIdentService.getBrowser()
-        def browserVersion = userAgentIdentService.getBrowserVersion()
-        def OSName = userAgentIdentService.getOperatingSystem()
-
         try {
             def resp = Unirest.post(url)
                     .field("last4PhoneDigit", last4Number)
-                    .field("browserName", browserName)
-                    .field("browserVersion", browserVersion)
-                    .field("OSName", OSName)
                     .asString()
 
             def result = JSON.parse(resp.body)

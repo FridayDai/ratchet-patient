@@ -60,9 +60,16 @@ class TaskService {
 
         url = String.format(url, code)
 
+        def browserName = userAgentIdentService.getBrowser()
+        def browserVersion = userAgentIdentService.getBrowserVersion()
+        def OSName = userAgentIdentService.getOperatingSystem()
+
         try {
             def resp = Unirest.get(url)
                     .queryString("last4PhoneDigit", last4Number)
+                    .queryString("browserName", browserName)
+                    .queryString("browserVersion", browserVersion)
+                    .queryString("OSName", OSName)
                     .asString()
 
             if (resp.status == 200) {
