@@ -26,6 +26,7 @@ class TaskService {
         def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
+
         try {
             def resp = Unirest.get(url)
                     .queryString("summary", true)
@@ -46,6 +47,45 @@ class TaskService {
 
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @param code
+     * @return
+     * @throws ApiAccessException
+     * @throws InvalidTaskException
+     */
+    def recordBehaviour(HttpServletRequest request, HttpServletResponse response, code)
+            throws ApiAccessException, InvalidTaskException {
+        def url = grailsApplication.config.ratchetv2.server.url.task.recordBehaviour
+
+        url = String.format(url, code)
+
+        def browserName = userAgentIdentService.getBrowser()
+        def browserVersion = userAgentIdentService.getBrowserVersion()
+        def OSName = userAgentIdentService.getOperatingSystem()
+        try {
+            def resp = Unirest.post(url)
+                    .field("browserName", browserName)
+                    .field("browserVersion", browserVersion)
+                    .field("OSName", OSName)
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("Record behaviour success, token: ${request.session.token}")
+                return true
+            } else {
+                def result = JSON.parse(resp.body)
+                def message = result?.error?.errorMessage
+                throw new InvalidTaskException(message)
+            }
+
+        } catch (UnirestException e) {
+            throw new ApiAccessException(e.message)
+        }
+
+    }
     /**
      * Get task short description
      *
