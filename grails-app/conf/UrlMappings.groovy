@@ -27,7 +27,8 @@ class UrlMappings {
         }
 
         // Help
-        "/assist/$patientId"(controller: "assist", action: "index")
+        "/patient/assist/$patientId"(controller: "assist", action: "index")
+        "/care-giver/assist/$careGiverId"(controller: "assist", action: "assistCareGiver")
         "/addAssist"(controller: "assist", action: "addAssist")
 
         // Agreement
