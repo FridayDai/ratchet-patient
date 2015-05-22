@@ -42,7 +42,7 @@
 
 	<body>
 	<div class="odi task-content">
-		<div class="info container">${Task.description}</div>
+		<div class="info container">${raw(Task.description)}</div>
 
 		<form action="" method="post">
 			<input type="hidden" name="code" value="${taskCode}"/>
