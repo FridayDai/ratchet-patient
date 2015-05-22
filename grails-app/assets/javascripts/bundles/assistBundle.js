@@ -62,7 +62,8 @@ function assistBundle(undefined) {
     _bindAssistEvent();
 }
 
-if (window.addEventListener)
+if (window.addEventListener) {
     window.addEventListener("load", assistBundle, false);
-else if (window.attachEvent)
+} else if (window.attachEvent) {
     window.attachEvent("onload", assistBundle);
+}

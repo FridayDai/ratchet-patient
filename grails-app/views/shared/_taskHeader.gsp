@@ -6,7 +6,7 @@
 
 		<div class="task-time primary-color"><span>DUE:</span> <g:formatDate date="${new java.util.Date(Task.dueTime)}"
 															   timeZone="${TimeZone.getTimeZone('America/Vancouver')}"
-															   format="MMM d, yyyy h:mm a" /></div>
+															   format="MMM d, yyyy" /></div>
 		<div class="tips">
 			<asset:image src="tip.png" class="primary-background-color" />
 			<span class="tip-content">Losing weight enhances your chance of recovery.</span>

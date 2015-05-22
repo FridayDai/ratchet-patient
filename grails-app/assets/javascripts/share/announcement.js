@@ -17,7 +17,8 @@ function announcementHandle () {
     }
 }
 
-if (window.addEventListener)
+if (window.addEventListener) {
     window.addEventListener("load", announcementHandle, false);
-else if (window.attachEvent)
+} else if (window.attachEvent) {
     window.attachEvent("onload", announcementHandle);
+}
