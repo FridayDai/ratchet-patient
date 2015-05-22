@@ -15,8 +15,9 @@
         });
     }
 
-    if (window.addEventListener)
+    if (window.addEventListener) {
         window.addEventListener("load", constantHandle, false);
-    else if (window.attachEvent)
+    } else if (window.attachEvent) {
         window.attachEvent("onload", constantHandle);
+    }
 })();

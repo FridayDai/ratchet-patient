@@ -174,13 +174,13 @@ function taskBundle() {
                 var headerEl = $('#header');
 
                 if ($('#maintenance').length) {
-                    this.classes.unpinned = "headroom--banner--unpinned"
+                    this.classes.unpinned = "headroom--banner--unpinned";
 
                     if (headerEl.hasClass('headroom--unpinned')) {
                         headerEl.removeClass('headroom--unpinned');
                     }
                 } else {
-                    this.classes.unpinned = "headroom--unpinned"
+                    this.classes.unpinned = "headroom--unpinned";
 
                     if (headerEl.hasClass('headroom--banner--unpinned')) {
                         headerEl.removeClass('headroom--banner--unpinned');
@@ -199,7 +199,8 @@ function taskBundle() {
     init();
 }
 
-if (window.addEventListener)
+if (window.addEventListener) {
     window.addEventListener("load", taskBundle, false);
-else if (window.attachEvent)
+} else if (window.attachEvent) {
     window.attachEvent("onload", taskBundle);
+}

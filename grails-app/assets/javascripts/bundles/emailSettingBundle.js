@@ -73,7 +73,7 @@ function emailSettingBundle (undefined) {
         var regexp = /\sshow($|\s)/;
 
         if (!regexp.test(coverEl.className)) {
-            coverEl.addClass("show")
+            coverEl.addClass("show");
         }
 
         if (!regexp.test(containerEl.className)) {
@@ -170,7 +170,7 @@ function emailSettingBundle (undefined) {
             $("#interact-alert-cover")
                 .removeClass('show')
                 .addClass('hide');
-        })
+        });
     }
 
     function initCheckButton() {
@@ -232,7 +232,8 @@ function emailSettingBundle (undefined) {
     init();
 }
 
-if (window.addEventListener)
+if (window.addEventListener) {
     window.addEventListener("load", emailSettingBundle, false);
-else if (window.attachEvent)
+} else if (window.attachEvent) {
     window.attachEvent("onload", emailSettingBundle);
+}
