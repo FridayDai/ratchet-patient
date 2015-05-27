@@ -111,6 +111,7 @@ class TaskController extends BaseController {
             def resp = taskService.getQuestionnaire(request, response, code, last4Number)
 
             if (resp.status == 200) {
+                taskService.recordTaskStart(request, response, code)
                 def result = JSON.parse(resp.body)
 
                 render view: view,

@@ -166,4 +166,29 @@ class TaskService {
         }
 
     }
+
+    def recordTaskStart(HttpServletRequest request, HttpServletResponse response, code)
+            throws ApiAccessException, InvalidTaskException {
+        def url = grailsApplication.config.ratchetv2.server.url.task.recordTaskStart
+
+        url = String.format(url, code)
+
+        try {
+            def resp = Unirest.post(url)
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("Record task start success, token: ${request.session.token}")
+                return true
+            } else {
+                def result = JSON.parse(resp.body)
+                def message = result?.error?.errorMessage
+                throw new InvalidTaskException(message)
+            }
+
+        } catch (UnirestException e) {
+            throw new ApiAccessException(e.message)
+        }
+
+    }
 }

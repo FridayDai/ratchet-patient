@@ -9,6 +9,7 @@
     "latedef": true,
     "globals": {
         "jQuery": false,
+        "$": false,
         "RC": true
     },
     "maxparams": 4,
