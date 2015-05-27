@@ -15,12 +15,14 @@ function assistBundle(undefined) {
         var desc = $('#assist-desc').val();
         var name = $('#assist-name').html();
         var patientId = $('#assist-me').data('patientid');
+        var careGiverId = $('#assist-me').data('careGiverId');
 
         var browser = window.navigator.userAgent;
         var url = window.location.href;
 
         return {
             patientId: patientId,
+            careGiverId: careGiverId,
             title: title,
             desc: desc,
             name: name,
@@ -60,7 +62,8 @@ function assistBundle(undefined) {
     _bindAssistEvent();
 }
 
-if (window.addEventListener)
+if (window.addEventListener) {
     window.addEventListener("load", assistBundle, false);
-else if (window.attachEvent)
+} else if (window.attachEvent) {
     window.attachEvent("onload", assistBundle);
+}

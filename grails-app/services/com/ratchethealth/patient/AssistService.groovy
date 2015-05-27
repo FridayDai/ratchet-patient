@@ -22,11 +22,17 @@ class AssistService {
         def desc = params?.desc
         def browser = params?.browser
         def url = params?.url
+        def type
         
         def patientId = params?.patientId
+        def careGiverId = params?.careGiverId
         def clientId = JSON.parse(session.client).id
 
-        def type = 'Patient'
+        if (patientId) {
+            type = 'Patient'
+        } else if (careGiverId) {
+            type = 'Care Giver'
+        }
 
         String addAssistUrl = grailsApplication.config.ratchetv2.server.url.addAssist
         def formattedUrl = String.format(addAssistUrl, clientId)
@@ -37,6 +43,7 @@ class AssistService {
                     .field("desc", desc)
                     .field("browser", browser)
                     .field("patientId", patientId)
+                    .field("careGiverId", careGiverId)
                     .field("clientId", clientId)
                     .field("url", url)
                     .field("type", type)

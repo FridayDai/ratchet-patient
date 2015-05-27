@@ -136,7 +136,8 @@ function shareBundle(undefined) {
     _init();
 }
 
-if (window.addEventListener)
+if (window.addEventListener) {
     window.addEventListener("load", shareBundle, false);
-else if (window.attachEvent)
+} else if (window.attachEvent) {
     window.attachEvent("onload", shareBundle);
+}

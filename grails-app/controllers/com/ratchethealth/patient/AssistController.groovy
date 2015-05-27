@@ -11,6 +11,11 @@ class AssistController {
     	render view: '/assist', model: [client: JSON.parse(session.client), patientId:patientId]
     }
 
+    def assistCareGiver() {
+        def careGiverId = params?.careGiverId
+        render view: '/assist', model: [client: JSON.parse(session.client), careGiverId:careGiverId]
+    }
+
     def addAssist() {
         def resp = assistService.addAssist(request, response, params, session)
         render resp as JSON

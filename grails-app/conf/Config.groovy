@@ -94,7 +94,7 @@ grails.assets.excludes = [
         'share/*.js'
 ]
 
-grails.assets.plugin."resources".excludes =["**"]
+grails.assets.plugin."resources".excludes = ["**"]
 
 environments {
     development {
@@ -199,9 +199,9 @@ grails.cache.config = {
 ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvVedyg9hT\$dvkUGhNVqj"
 
 ratchetv2 {
-	server {
-		url {
-			base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
+    server {
+        url {
+            base = System.getProperty("SERVER_URL") ?: "http://api.release.ratchethealth.com/api/v1"
 
             // Client
             client {
@@ -220,9 +220,11 @@ ratchetv2 {
             task {
                 oneTest = "${ratchetv2.server.url.base}/tests/%s"
                 tests = "${ratchetv2.server.url.base}/tests"
+                recordBehaviour = "${ratchetv2.server.url.base}/tests/%s/link/clicked"
+                recordTaskStart = "${ratchetv2.server.url.base}/tests/%s/link/started"
             }
 
-			addAssist = "${ratchetv2.server.url.base}/assist"
+            addAssist = "${ratchetv2.server.url.base}/assist"
 
             // Announcement
             announcements = "${ratchetv2.server.url.base}/announcements"
