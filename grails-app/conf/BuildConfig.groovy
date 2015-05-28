@@ -101,9 +101,9 @@ codenarc {
     }
 
     systemExitOnBuildException = true
-    maxPriority1Violations = 100
-    maxPriority2Violations = 100
-    maxPriority3Violations = 100
+    maxPriority1Violations = 0
+    maxPriority2Violations = 2
+    maxPriority3Violations = 5
 
     properties = {
         CatchException.enabled = false
