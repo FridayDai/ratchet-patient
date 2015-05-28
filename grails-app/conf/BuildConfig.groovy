@@ -108,5 +108,6 @@ codenarc {
     properties = {
         CatchException.enabled = false
         GrailsDomainReservedSqlKeywordName.enabled = false
+        MisorderedStaticImports.enabled = false
     }
 }
