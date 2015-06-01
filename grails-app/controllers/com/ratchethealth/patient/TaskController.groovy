@@ -30,7 +30,7 @@ class TaskController extends BaseController {
             } else if (resp.status == 207) {
                 session["taskComplete${code}"] = true
 
-                redirectToComplete(patientName, code, taskTitle)
+                redirectToComplete(patientName, taskTitle, code)
             }
         }
     }
