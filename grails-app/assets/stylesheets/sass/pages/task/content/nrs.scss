@@ -43,8 +43,15 @@
             background-color: #fff;
         }
 
+        .answer-description {
+            @include breakpoint('tablet') {
+                margin-bottom: 10px;
+            }
+        }
+
         .list {
             @include breakpoint('tablet') {
+                display: inline;
                 margin: 10px 0 10px -20px;
             }
         }
@@ -150,7 +157,6 @@
         }
     }
 }
-
 
 .choice-number-0 {
     .rc-radio:before {
