@@ -156,7 +156,7 @@ class TaskService {
                 log.info("Submit questionnaire success, token: ${request.session.token}")
                 return JSON.parse(resp.body.toString())
             } else {
-                def result = JSON.parse(resp.body)
+                def result = JSON.parse(resp?.body?.toString())
                 def message = result?.error?.errorMessage
                 throw new InvalidTaskException(message)
             }
