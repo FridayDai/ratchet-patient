@@ -42,6 +42,12 @@
             margin-bottom: 10px;
         }
 
+        .intro-form {
+            @include breakpoint('mobile') {
+                width: 305px;
+            }
+        }
+
         .info {
             display: inline-block;
             vertical-align: middle;
