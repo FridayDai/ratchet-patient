@@ -34,7 +34,7 @@
 		<div class="phone">
 			<p>Enter the last 4 digit of your phone #:</p>
 
-			<form id="intro-form" action="" method="post">
+			<form id="intro-form" class="intro-form" action="" method="post">
 				<div class="form-control <g:if test="${errorMsg}">error</g:if>">
 					<input type="text" name="last4Number" class="last-4-number" placeholder="Enter last 4 digits"
 						   maxlength="4"/>

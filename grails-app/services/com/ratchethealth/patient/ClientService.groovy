@@ -8,13 +8,12 @@ import grails.converters.JSON
 import org.codehaus.groovy.grails.web.converters.exceptions.ConverterException
 
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 class ClientService {
 
     def grailsApplication
 
-    def getClient(HttpServletRequest request, HttpServletResponse response, String subDomain)
+    def getClient(HttpServletRequest request, String subDomain)
             throws ApiAccessException, ApiReturnException {
         String subDomainUrl = grailsApplication.config.ratchetv2.server.url.client.subDomain
 

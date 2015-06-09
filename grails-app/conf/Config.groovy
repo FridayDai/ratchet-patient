@@ -140,7 +140,11 @@ log4j.main = {
             'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
             'org.springframework',
             'org.hibernate',
-            'net.sf.ehcache.hibernate'
+            'net.sf.ehcache.hibernate',
+            'com.granicus.grails.plugins.cookiesession.CookieSessionFilter',
+            'com.granicus.grails.plugins.cookiesession.SessionRepositoryRequestWrapper',
+            'com.granicus.grails.plugins.cookiesession.SessionRepositoryResponseWrapper',
+            'com.granicus.grails.plugins.cookiesession.CookieSessionRepository'
 
     environments {
         development {
@@ -201,7 +205,7 @@ ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvV
 ratchetv2 {
     server {
         url {
-            base = System.getProperty("SERVER_URL") ?: "http://api.release.ratchethealth.com/api/v1"
+            base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
 
             // Client
             client {

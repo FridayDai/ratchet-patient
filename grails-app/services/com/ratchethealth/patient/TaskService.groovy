@@ -8,7 +8,6 @@ import grails.converters.JSON
 import groovy.json.JsonOutput
 
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 class TaskService {
 
@@ -21,7 +20,7 @@ class TaskService {
      *
      * @return response
      */
-    def getTask(HttpServletRequest request, HttpServletResponse response, code)
+    def getTask(HttpServletRequest request, code)
             throws ApiAccessException, InvalidTaskException {
         def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
@@ -56,7 +55,7 @@ class TaskService {
      * @throws ApiAccessException
      * @throws InvalidTaskException
      */
-    def recordBehaviour(HttpServletRequest request, HttpServletResponse response, code)
+    def recordBehaviour(HttpServletRequest request, code)
             throws ApiAccessException, InvalidTaskException {
         def url = grailsApplication.config.ratchetv2.server.url.task.recordBehaviour
 
@@ -94,7 +93,7 @@ class TaskService {
      *
      * @return questionnaire object if success otherwise error status code
      */
-    def getQuestionnaire(HttpServletRequest request, HttpServletResponse response, code, last4Number)
+    def getQuestionnaire(HttpServletRequest request, code, last4Number)
             throws ApiAccessException {
         def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
@@ -134,7 +133,7 @@ class TaskService {
      *
      * @return questionnaire result
      */
-    def submitQuestionnaire(HttpServletRequest request, HttpServletResponse response, code, choices)
+    def submitQuestionnaire(HttpServletRequest request, code, choices)
             throws ApiAccessException, InvalidTaskException {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
@@ -157,7 +156,7 @@ class TaskService {
                 log.info("Submit questionnaire success, token: ${request.session.token}")
                 return JSON.parse(resp.body.toString())
             } else {
-                def result = JSON.parse(resp.body)
+                def result = JSON.parse(resp?.body?.toString())
                 def message = result?.error?.errorMessage
                 throw new InvalidTaskException(message)
             }
@@ -167,7 +166,7 @@ class TaskService {
 
     }
 
-    def recordTaskStart(HttpServletRequest request, HttpServletResponse response, code)
+    def recordTaskStart(HttpServletRequest request, code)
             throws ApiAccessException, InvalidTaskException {
         def url = grailsApplication.config.ratchetv2.server.url.task.recordTaskStart
 

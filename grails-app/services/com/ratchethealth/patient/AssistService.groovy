@@ -7,7 +7,6 @@ import com.ratchethealth.patient.exceptions.ApiReturnException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 
 class AssistService {
@@ -15,7 +14,7 @@ class AssistService {
     def grailsApplication
     def messageSource
 
-    def addAssist(HttpServletRequest request, HttpServletResponse response, params, session)
+    def addAssist(HttpServletRequest request, params)
             throws ApiAccessException, ApiReturnException {
 
         def title = params?.title
@@ -26,7 +25,7 @@ class AssistService {
         
         def patientId = params?.patientId
         def careGiverId = params?.careGiverId
-        def clientId = JSON.parse(session.client).id
+        def clientId = JSON.parse(request.session.client).id
 
         if (patientId) {
             type = 'Patient'

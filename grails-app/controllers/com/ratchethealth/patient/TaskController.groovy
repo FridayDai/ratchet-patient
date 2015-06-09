@@ -15,8 +15,8 @@ class TaskController extends BaseController {
         if (session["taskComplete${code}"]) {
             redirectToComplete(patientName, taskTitle, code)
         } else {
-            def resp = taskService.getTask(request, response, code)
-            def behaviourResp = taskService.recordBehaviour(request, response, code)
+            def resp = taskService.getTask(request, code)
+            taskService.recordBehaviour(request, code)
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
@@ -30,7 +30,7 @@ class TaskController extends BaseController {
             } else if (resp.status == 207) {
                 session["taskComplete${code}"] = true
 
-                redirectToComplete(patientName, code, taskTitle)
+                redirectToComplete(patientName, taskTitle, code)
             }
         }
     }
@@ -41,7 +41,7 @@ class TaskController extends BaseController {
         def taskTitle = params.taskTitle
 
         if (!user.validate()) {
-            def resp = taskService.getTask(request, response, code)
+            def resp = taskService.getTask(request, code)
 
             if (resp.status == 200) {
                 def task = JSON.parse(resp.body)
@@ -55,7 +55,7 @@ class TaskController extends BaseController {
                         ]
             }
         } else {
-            def resp = taskService.getQuestionnaire(request, response, code, user.last4Number)
+            def resp = taskService.getQuestionnaire(request, code, user.last4Number)
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
@@ -81,7 +81,7 @@ class TaskController extends BaseController {
             } else if (resp.status == 404) {
                 render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
             } else {
-                def taskResp = taskService.getTask(request, response, code)
+                def taskResp = taskService.getTask(request, code)
 
                 if (taskResp.status == 200) {
                     def task = JSON.parse(taskResp.body)
@@ -108,10 +108,10 @@ class TaskController extends BaseController {
         } else if (session["questionnaireView${code}"]) {
             def view = session["questionnaireView${code}"]
             def last4Number = session["last4Number${code}"]
-            def resp = taskService.getQuestionnaire(request, response, code, last4Number)
+            def resp = taskService.getQuestionnaire(request, code, last4Number)
 
             if (resp.status == 200) {
-                taskService.recordTaskStart(request, response, code)
+                taskService.recordTaskStart(request, code)
                 def result = JSON.parse(resp.body)
 
                 render view: view,
@@ -140,7 +140,7 @@ class TaskController extends BaseController {
         if (errors.size() > 0) {
             def view = session["questionnaireView${code}"]
             def last4Number = session["last4Number${code}"]
-            def resp = taskService.getQuestionnaire(request, response, code, last4Number)
+            def resp = taskService.getQuestionnaire(request, code, last4Number)
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
@@ -156,7 +156,7 @@ class TaskController extends BaseController {
                         ]
             }
         } else {
-            taskService.submitQuestionnaire(request, response, code, choices)
+            taskService.submitQuestionnaire(request, code, choices)
 
             session["taskComplete${code}"] = true
 
@@ -170,7 +170,7 @@ class TaskController extends BaseController {
         def code = params.code
 
         if (session["taskComplete${code}"]) {
-            def resp = taskService.getTask(request, response, code)
+            def resp = taskService.getTask(request, code)
 
             if (resp.status == 207) {
                 def result = JSON.parse(resp.body)
@@ -185,7 +185,7 @@ class TaskController extends BaseController {
                 redirectToIndex(patientName, taskTitle, code)
             }
         } else {
-            def resp = taskService.getTask(request, response, code)
+            def resp = taskService.getTask(request, code)
 
             if (resp.status == 200) {
                 session["task${code}"] = resp.body

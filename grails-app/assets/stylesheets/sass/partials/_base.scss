@@ -118,6 +118,26 @@ ul {
         color: #fff;
         background-color: $base-color-primary;
     }
+
+    @include breakpoint('tablet') {
+        -webkit-appearance: none;
+    }
+
+    @include breakpoint('mobile') {
+        -webkit-appearance: none;
+    }
+}
+
+@include breakpoint('tablet') {
+    .container {
+        width: 750px;
+    }
+}
+
+@include breakpoint('desktop') {
+    .container {
+        width: 970px;
+    }
 }
 
 .rc-choice-hidden,

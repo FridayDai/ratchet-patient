@@ -7,7 +7,6 @@ import com.ratchethealth.patient.exceptions.ApiReturnException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 class EmailService {
     // dependency injection for grailsApplication
@@ -21,7 +20,7 @@ class EmailService {
      *
      * @return result
      */
-    def confirmPatientEmail(HttpServletRequest request, HttpServletResponse response, code, emailUpdate)
+    def confirmPatientEmail(HttpServletRequest request, code, emailUpdate)
             throws ApiAccessException, ApiReturnException {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
 
@@ -52,7 +51,7 @@ class EmailService {
      *
      * @return result
      */
-    def confirmEmergencyContactEmail(HttpServletRequest request, HttpServletResponse response, code)
+    def confirmEmergencyContactEmail(HttpServletRequest request, code)
             throws ApiAccessException, ApiReturnException {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.emergencyContactConfirmation
 

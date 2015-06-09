@@ -17,7 +17,7 @@ class AssistController {
     }
 
     def addAssist() {
-        def resp = assistService.addAssist(request, response, params, session)
+        def resp = assistService.addAssist(request, params)
         render resp as JSON
     }
 }

@@ -10,7 +10,7 @@ class EmailController extends BaseController {
         def code = params.code;
         def emailUpdate = params.email_update == 'true'
 
-        def client = emailService.confirmPatientEmail(request, response, code, emailUpdate)
+        def client = emailService.confirmPatientEmail(request, code, emailUpdate)
 
         if (client) {
             render view: "/email/confirm", model: [client: JSON.parse(session.client)]
@@ -20,7 +20,7 @@ class EmailController extends BaseController {
     def confirmEmergencyContactEmail() {
         def code = params.code;
 
-        def client = emailService.confirmEmergencyContactEmail(request, response, code)
+        def client = emailService.confirmEmergencyContactEmail(request, code)
 
         if (client) {
             render view: "/email/confirm", model: [client: JSON.parse(session.client)]

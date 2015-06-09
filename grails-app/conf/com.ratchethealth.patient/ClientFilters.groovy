@@ -14,7 +14,7 @@ class ClientFilters {
                     def clientName = hostname.replaceAll(/\.?(x|develop|release|stable)?\.ratchethealth\.com$/, '')
 
                     try {
-                        def result = clientService.getClient(request, response, clientName)
+                        def result = clientService.getClient(request, clientName)
                         if (result) {
                             log.info("Client found, Server Name: ${request.getServerName()}, Client Domain: ${clientName}")
 
