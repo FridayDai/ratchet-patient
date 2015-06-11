@@ -33,6 +33,9 @@ class EmailService {
             if (resp.status == 200) {
                 log.info("Confirm patient email success, token: ${request.session.token}")
                 return result
+            } else if (resp.status == 412) {
+                log.info("Invitation link is expired,token:${request.session.token}.")
+                return result
             } else {
                 def message = result?.error?.errorMessage
                 throw new ApiReturnException(message, resp.status)
@@ -64,6 +67,9 @@ class EmailService {
 
             if (resp.status == 200) {
                 log.info("Confirm emergency contact email success, token: ${request.session.token}")
+                return result
+            } else if (resp.status == 412) {
+                log.info("Invitation link is expired,token:${request.session.token}.")
                 return result
             } else {
                 def message = result?.error?.errorMessage
