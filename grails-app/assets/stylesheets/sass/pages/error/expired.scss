@@ -1,0 +1,66 @@
+@import '../../partials/base';
+@import '../../partials/variable';
+
+.error-body {
+    margin-top: 138px;
+    padding: 0;
+    color: $base-logo-color;
+    text-align: center;
+
+    .middle-content {
+        font-weight: 600;
+        font-size: 80px;
+    }
+
+    .text-font {
+        font-weight: 500;
+        font-size: 19px;
+    }
+
+    .display-inline {
+        display: inline;
+    }
+}
+
+.expire-body {
+    margin-top: 250px;
+
+    .invite-expire-top {
+        font-weight: 700;
+        font-size: 45px;
+    }
+
+    .invite-expire-middle {
+        margin-top: 20px;
+        font-weight: 400;
+    }
+
+    .expire-logo {
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .error-body {
+        margin-top: 300px;
+
+        .display-inline {
+            display: list-item;
+        }
+    }
+}
+
+@include breakpoint('mobile') {
+    .expire-body {
+        margin-top: 150px;
+
+        .invite-expire-top {
+            font-size: 28px;
+        }
+
+        .invite-expire-middle {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+    }
+}
