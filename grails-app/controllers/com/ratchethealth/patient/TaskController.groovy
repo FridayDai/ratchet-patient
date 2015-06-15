@@ -157,11 +157,21 @@ class TaskController extends BaseController {
             }
         } else {
             def resp = taskService.submitQuestionnaire(request, code, choices)
+//            List respList = resp.list()
+            resp.each { map ->
+                map.keySet().each {key ->
+                    session.setAttribute(key, map.get(key))
+                }
+            }
 
-            session["completeTask.score"] = resp.score
-            session["completeTask.comparison"] = resp.comparison
-            session["completeTask.lastScoreTime"] = resp.lastScoreTime
-            session["completeTask.type"] = resp.type
+//            session["completeTask.score"] = resp.score
+//            session["completeTask.type"] = resp.type
+//            if (resp.comparison) {
+//                session["completeTask.comparison"] = resp.comparison
+//            }
+//            if (resp.lastScoreTime) {
+//                session["completeTask.lastScoreTime"] = resp.lastScoreTime
+//            }
 
             session["taskComplete${code}"] = true
 
@@ -181,10 +191,10 @@ class TaskController extends BaseController {
                 def result = JSON.parse(resp.body)
 
                 render view: '/task/result', model: [
-                        Task        : result,
-                        client      : JSON.parse(session.client),
-                        taskTitle   : taskTitle,
-                        taskCode    : code
+                        Task     : result,
+                        client   : JSON.parse(session.client),
+                        taskTitle: taskTitle,
+                        taskCode : code
                 ]
             } else {
                 redirectToIndex(patientName, taskTitle, code)
