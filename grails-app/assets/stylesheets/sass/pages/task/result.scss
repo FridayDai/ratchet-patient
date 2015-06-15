@@ -12,43 +12,80 @@
         text-align: center;
 
         .para1 {
-            color: $base-color-primary;
-            font-weight: bold;
-            font-size: 23px;
+            color: $base-color-light-dark;
+            font-size: 35px;
+            font-style: italic;
         }
 
         .para2 {
-            margin-top: 30px;
+            margin-top: 20px;
             margin-bottom: 0;
             color: $base-color-light-dark;
+            font-size: 20px;
+        }
+    }
+
+    .middle {
+        margin: 0 auto;
+    }
+
+    .nrs-width {
+        width: 49%;
+    }
+
+    .normal-width {
+        width: 30%;
+    }
+
+    .report-header {
+        padding-bottom: 10px;
+        border-bottom: 1px solid $base-font-grey;
+        font-size: 20px;
+    }
+
+    .report-middle {
+        border-bottom: 1px solid $base-font-grey;
+    }
+
+    .score-header {
+        padding: 10px 0;
+        font-size: 20px;
+    }
+
+    .score-content {
+        padding-bottom: 20px;
+        color: $base-font-grey;
+
+        .inner-content {
+            margin: 0;
         }
 
-        .para3 {
-            display: inline-block;
-            margin-top: 0;
-            margin-bottom: 0;
-            padding: 30px;
-            color: $base-color-primary;
+        .content-header {
+            font-size: 18px;
         }
 
-        .para4 {
-            margin-top: 0;
-            margin-bottom: 0;
-            padding-bottom: 40px;
-            color: $base-color-primary;
-            font-size: 25px;
+        .content-list {
+            font-size: 14px;
+        }
+    }
+
+    .report-bottom {
+        padding-bottom: 15px;
+        font-size: 14px;
+        color: $base-color-medium-black;
+
+        .bottom-content {
+            margin: 0;
         }
     }
 
     .bottom {
         height: 280px;
-        background-color: $base-color-lighter-gray;
+        text-align: center;
 
         .reminder {
             margin-top: 0;
             margin-bottom: 0;
-            padding: 50px 30px 40px;
-            color: $base-color-primary;
             line-height: 18px;
         }
 
@@ -60,7 +97,6 @@
             border: 1px solid $base-color-primary;
             color: $base-color-primary;
             font-size: 16px;
-            text-align: center;
         }
     }
 }
@@ -81,21 +117,12 @@
         right: 0;
         bottom: 0;
         left: 0;
-        background-color: $base-color-lightest-gray;
 
         .top {
             width: 80%;
             margin: 40px auto 0;
             border-bottom: 0;
             background-color: #fff;
-
-            .para2 {
-                font-size: 16px;
-            }
-
-            .para3 {
-                font-size: 16px;
-            }
         }
 
         .bottom {
@@ -103,13 +130,10 @@
             height: 280px;
             margin: 0 auto;
             padding: 0 20px;
-            background-color: $base-color-lighter-gray;
 
             .reminder {
-                padding: 35px 55px 50px;
                 font-size: 15px;
                 line-height: 23px;
-                text-align: center;
             }
 
             .btn-create-account {
