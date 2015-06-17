@@ -146,11 +146,6 @@ class TaskService {
 
         try {
             def resp = Unirest.post(url).body(json).asJson()
-//                    .field("browserName", browserName)
-//                    .field("browserVersion", browserVersion)
-//                    .field("OSName", OSName)
-//                    .asString()
-
 
             if (resp.status == 200) {
                 log.info("Submit questionnaire success, token: ${request.session.token}")

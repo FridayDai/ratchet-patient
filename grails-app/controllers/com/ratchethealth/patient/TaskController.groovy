@@ -2,6 +2,8 @@ package com.ratchethealth.patient
 
 import com.ratchethealth.patient.commands.UserCommand
 import grails.converters.JSON
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 
 
 class TaskController extends BaseController {
@@ -156,7 +158,9 @@ class TaskController extends BaseController {
                         ]
             }
         } else {
-            taskService.submitQuestionnaire(request, code, choices)
+            def resp = taskService.submitQuestionnaire(request, code, choices)
+
+            saveResultToSession(code, resp)
 
             session["taskComplete${code}"] = true
 
@@ -168,6 +172,22 @@ class TaskController extends BaseController {
         def patientName = params.patientName
         def taskTitle = params.taskTitle
         def code = params.code
+        def completeTask
+        if (session["result${code}"]) {
+            def slurper = new JsonSlurper()
+            completeTask = slurper.parseText(session["result${code}"])
+            if (completeTask.nrsScore) {
+                def nrsScoreString = '{' + completeTask.nrsScore + '}'
+                def nrsScoreJson = JSON.parse(nrsScoreString)
+                if (completeTask.type == 4) {
+                    completeTask.nrsScore1 = nrsScoreJson.back
+                    completeTask.nrsScore2 = nrsScoreJson.leg
+                } else {
+                    completeTask.nrsScore1 = nrsScoreJson.neck
+                    completeTask.nrsScore2 = nrsScoreJson.arm
+                }
+            }
+        }
 
         if (session["taskComplete${code}"]) {
             def resp = taskService.getTask(request, code)
@@ -175,11 +195,12 @@ class TaskController extends BaseController {
             if (resp.status == 207) {
                 def result = JSON.parse(resp.body)
 
-                render view: '/task/result', model: [
-                        Task     : result,
-                        client   : JSON.parse(session.client),
-                        taskTitle: taskTitle,
-                        taskCode : code
+                render view: '/task/result/resultBase', model: [
+                        Task        : result,
+                        client      : JSON.parse(session.client),
+                        taskTitle   : taskTitle,
+                        taskCode    : code,
+                        completeTask: completeTask
                 ]
             } else {
                 redirectToIndex(patientName, taskTitle, code)
@@ -196,11 +217,12 @@ class TaskController extends BaseController {
                 session["task${code}"] = resp.body
                 def task = JSON.parse(resp.body)
 
-                render view: '/task/result', model: [
-                        Task     : task,
-                        client   : JSON.parse(session.client),
-                        taskTitle: taskTitle,
-                        taskCode : code
+                render view: '/task/result/resultBase', model: [
+                        Task        : task,
+                        client      : JSON.parse(session.client),
+                        taskTitle   : taskTitle,
+                        taskCode    : code,
+                        completeTask: completeTask
                 ]
             }
         }
@@ -237,6 +259,22 @@ class TaskController extends BaseController {
         return errors
     }
 
+    def saveResultToSession(code, result) {
+        def fields = ['comparison', 'nrsScore', 'type', 'score', 'lastScoreTime']
+
+        def resultsObj = [:]
+
+        result.keySet().each { key ->
+            if (key in fields) {
+                resultsObj.put(key, result[key])
+            }
+        }
+//        session.setAttribute(key, map.get(key))
+        def builder = new JsonBuilder()
+        builder(resultsObj)
+        session["result${code}"] = builder.toString()
+    }
+
     def redirectToIndex(patientName, taskTitle, code) {
         redirect(mapping: 'taskIndex', params: [
                 patientName: patientName,
@@ -249,7 +287,7 @@ class TaskController extends BaseController {
         redirect(mapping: 'taskComplete', params: [
                 patientName: patientName,
                 taskTitle  : taskTitle,
-                code       : code,
+                code       : code
         ])
     }
 }
