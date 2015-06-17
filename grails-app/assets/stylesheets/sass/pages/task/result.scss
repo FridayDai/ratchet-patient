@@ -1,5 +1,6 @@
 @import '../../partials/variable';
 @import '../../partials/common';
+@import "../../partials/headroom";
 
 .result-content {
 
@@ -31,10 +32,6 @@
 
     .nrs-width {
         width: 49%;
-    }
-
-    .normal-width {
-        width: 30%;
     }
 
     .report-header {
@@ -71,7 +68,7 @@
 
     .report-bottom {
         padding-bottom: 15px;
-        font-size: 14px;
+        font-size: 16px;
         color: $base-color-medium-black;
 
         .bottom-content {
@@ -101,8 +98,7 @@
     }
 }
 
-@media (min-width: 768px) {
-
+@include breakpoint('tablet') {
     .header {
         display: block;
     }
@@ -117,6 +113,14 @@
         right: 0;
         bottom: 0;
         left: 0;
+
+        .normal-width {
+            width: 24%;
+        }
+
+        .compare-width {
+            width: 34%;
+        }
 
         .top {
             width: 80%;
@@ -143,3 +147,32 @@
     }
 }
 
+@include breakpoint('mobile') {
+    .result-content {
+        .top {
+            .para1 {
+                font-size: 30px;
+            }
+
+            .para2 {
+                font-size: 15px;
+            }
+        }
+
+        .normal-width {
+            width: 71%;
+        }
+
+        .compare-width {
+            width: 71%;
+        }
+
+        .nrs-width {
+            width: 80%;
+        }
+
+        .bottom {
+            height: 100px;
+        }
+    }
+}
