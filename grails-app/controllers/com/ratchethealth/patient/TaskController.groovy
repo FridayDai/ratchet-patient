@@ -187,7 +187,21 @@ class TaskController extends BaseController {
                     completeTask.nrsScore2 = nrsScoreJson.arm
                 }
             }
+        } else {
+            completeTask = taskService.getTaskResult(request, code)
+            if (completeTask.nrsScore) {
+                def nrsScoreString = '{' + completeTask.nrsScore + '}'
+                def nrsScoreJson = JSON.parse(nrsScoreString)
+                if (completeTask.type == 4) {
+                    completeTask.nrsScore1 = nrsScoreJson.back
+                    completeTask.nrsScore2 = nrsScoreJson.leg
+                } else {
+                    completeTask.nrsScore1 = nrsScoreJson.neck
+                    completeTask.nrsScore2 = nrsScoreJson.arm
+                }
+            }
         }
+
 
         if (session["taskComplete${code}"]) {
             def resp = taskService.getTask(request, code)
