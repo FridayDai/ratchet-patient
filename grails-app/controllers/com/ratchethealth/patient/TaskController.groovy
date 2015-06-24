@@ -160,7 +160,7 @@ class TaskController extends BaseController {
         } else {
             def resp = taskService.submitQuestionnaire(request, code, choices)
 
-            saveResultToSession(code, resp)
+//            saveResultToSession(code, resp)
 
             session["taskComplete${code}"] = true
 
@@ -173,34 +173,34 @@ class TaskController extends BaseController {
         def taskTitle = params.taskTitle
         def code = params.code
         def completeTask
-        if (session["result${code}"]) {
-            def slurper = new JsonSlurper()
-            completeTask = slurper.parseText(session["result${code}"])
-            if (completeTask.nrsScore) {
-                def nrsScoreString = '{' + completeTask.nrsScore + '}'
-                def nrsScoreJson = JSON.parse(nrsScoreString)
-                if (completeTask.type == 4) {
-                    completeTask.nrsScore1 = nrsScoreJson.back
-                    completeTask.nrsScore2 = nrsScoreJson.leg
-                } else {
-                    completeTask.nrsScore1 = nrsScoreJson.neck
-                    completeTask.nrsScore2 = nrsScoreJson.arm
-                }
-            }
-        } else {
-            completeTask = taskService.getTaskResult(request, code)
-            if (completeTask.nrsScore) {
-                def nrsScoreString = '{' + completeTask.nrsScore + '}'
-                def nrsScoreJson = JSON.parse(nrsScoreString)
-                if (completeTask.type == 4) {
-                    completeTask.nrsScore1 = nrsScoreJson.back
-                    completeTask.nrsScore2 = nrsScoreJson.leg
-                } else {
-                    completeTask.nrsScore1 = nrsScoreJson.neck
-                    completeTask.nrsScore2 = nrsScoreJson.arm
-                }
+//        if (session["result${code}"]) {
+//            def slurper = new JsonSlurper()
+//            completeTask = slurper.parseText(session["result${code}"])
+//            if (completeTask.nrsScore) {
+//                def nrsScoreString = '{' + completeTask.nrsScore + '}'
+//                def nrsScoreJson = JSON.parse(nrsScoreString)
+//                if (completeTask.type == 4) {
+//                    completeTask.nrsScore1 = nrsScoreJson.back
+//                    completeTask.nrsScore2 = nrsScoreJson.leg
+//                } else {
+//                    completeTask.nrsScore1 = nrsScoreJson.neck
+//                    completeTask.nrsScore2 = nrsScoreJson.arm
+//                }
+//            }
+//        } else {
+        completeTask = taskService.getTaskResult(request, code)
+        if (completeTask.nrsScore) {
+            def nrsScoreString = '{' + completeTask.nrsScore + '}'
+            def nrsScoreJson = JSON.parse(nrsScoreString)
+            if (completeTask.type == 4) {
+                completeTask.nrsScore1 = nrsScoreJson.back
+                completeTask.nrsScore2 = nrsScoreJson.leg
+            } else {
+                completeTask.nrsScore1 = nrsScoreJson.neck
+                completeTask.nrsScore2 = nrsScoreJson.arm
             }
         }
+//        }
 
 
         if (session["taskComplete${code}"]) {
@@ -273,21 +273,20 @@ class TaskController extends BaseController {
         return errors
     }
 
-    def saveResultToSession(code, result) {
-        def fields = ['comparison', 'nrsScore', 'type', 'score', 'lastScoreTime']
-
-        def resultsObj = [:]
-
-        result.keySet().each { key ->
-            if (key in fields) {
-                resultsObj.put(key, result[key])
-            }
-        }
-//        session.setAttribute(key, map.get(key))
-        def builder = new JsonBuilder()
-        builder(resultsObj)
-        session["result${code}"] = builder.toString()
-    }
+//    def saveResultToSession(code, result) {
+//        def fields = ['comparison', 'nrsScore', 'type', 'score', 'lastScoreTime']
+//
+//        def resultsObj = [:]
+//
+//        result.keySet().each { key ->
+//            if (key in fields) {
+//                resultsObj.put(key, result[key])
+//            }
+//        }
+//        def builder = new JsonBuilder()
+//        builder(resultsObj)
+//        session["result${code}"] = builder.toString()
+//    }
 
     def redirectToIndex(patientName, taskTitle, code) {
         redirect(mapping: 'taskIndex', params: [
