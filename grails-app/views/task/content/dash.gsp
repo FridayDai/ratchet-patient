@@ -75,8 +75,8 @@
 											<label class="choice">
 												<input type="radio" class="rc-choice-hidden"
 													   name="choices.${question.id}"
-													   value="${choice.sequence}"
-													   <g:if test="${choices && choices["${question.id}"] == choice.sequence}">checked</g:if>/>
+													   value="${choice.id}.${choice.sequence}"
+													   <g:if test="${choices && choices["${question.id}"]?.endsWith(choice.sequence)}">checked</g:if>/>
 												<span class="rc-radio"></span>
 											</label>
 										</li>

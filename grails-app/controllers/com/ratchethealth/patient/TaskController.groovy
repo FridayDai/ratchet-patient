@@ -158,6 +158,7 @@ class TaskController extends BaseController {
                         ]
             }
         } else {
+            choices = convertChoice(taskType, choices)
             def resp = taskService.submitQuestionnaire(request, code, choices)
 
             saveResultToSession(code, resp)
@@ -187,7 +188,21 @@ class TaskController extends BaseController {
                     completeTask.nrsScore2 = nrsScoreJson.arm
                 }
             }
+        } else {
+            completeTask = taskService.getTaskResult(request, code)
+            if (completeTask.nrsScore) {
+                def nrsScoreString = '{' + completeTask.nrsScore + '}'
+                def nrsScoreJson = JSON.parse(nrsScoreString)
+                if (completeTask.type == 4) {
+                    completeTask.nrsScore1 = nrsScoreJson.back
+                    completeTask.nrsScore2 = nrsScoreJson.leg
+                } else {
+                    completeTask.nrsScore1 = nrsScoreJson.neck
+                    completeTask.nrsScore2 = nrsScoreJson.arm
+                }
+            }
         }
+
 
         if (session["taskComplete${code}"]) {
             def resp = taskService.getTask(request, code)
@@ -225,6 +240,22 @@ class TaskController extends BaseController {
                         completeTask: completeTask
                 ]
             }
+        }
+    }
+
+    def convertChoice(type, choices) {
+        if (type == '4' || type == '5') {
+            return choices
+        } else {
+            def newType = [:]
+
+            choices.entrySet().each { entry ->
+                def vals = entry.value.split('\\.')
+
+                newType[vals[0]] = vals[1]
+            };
+
+            return newType
         }
     }
 
@@ -269,7 +300,6 @@ class TaskController extends BaseController {
                 resultsObj.put(key, result[key])
             }
         }
-//        session.setAttribute(key, map.get(key))
         def builder = new JsonBuilder()
         builder(resultsObj)
         session["result${code}"] = builder.toString()

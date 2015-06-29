@@ -205,7 +205,7 @@ ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvV
 ratchetv2 {
     server {
         url {
-            base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
+            base = System.getProperty("SERVER_URL") ?: "http://api.release.ratchethealth.com/api/v1"
 
             // Client
             client {
@@ -226,6 +226,7 @@ ratchetv2 {
                 tests = "${ratchetv2.server.url.base}/tests"
                 recordBehaviour = "${ratchetv2.server.url.base}/tests/%s/link/clicked"
                 recordTaskStart = "${ratchetv2.server.url.base}/tests/%s/link/started"
+                testResult = "${ratchetv2.server.url.base}/test/result"
             }
 
             addAssist = "${ratchetv2.server.url.base}/assist"
