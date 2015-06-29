@@ -7,18 +7,9 @@
     color: $base-logo-color;
     text-align: center;
 
-    .top-content {
-        font-weight: 600;
-        font-size: 45px;
-    }
-
     .middle-content {
         font-weight: 600;
         font-size: 80px;
-    }
-
-    .bottom-content {
-        padding: 50px 0;
     }
 
     .text-font {
@@ -26,17 +17,8 @@
         font-size: 19px;
     }
 
-    .btn-home {
-        padding: 10px 34px;
-        font-size: 18px;
-    }
-
-    .logo {
-        margin-top: 80px;
-
-        &:before {
-            content: url('/assets/ratchet_health_cube.png');
-        }
+    .display-inline {
+        display: inline;
     }
 }
 
@@ -55,5 +37,30 @@
 
     .expire-logo {
         margin-top: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .error-body {
+        margin-top: 300px;
+
+        .display-inline {
+            display: list-item;
+        }
+    }
+}
+
+@include breakpoint('mobile') {
+    .expire-body {
+        margin-top: 150px;
+
+        .invite-expire-top {
+            font-size: 28px;
+        }
+
+        .invite-expire-middle {
+            margin-top: 30px;
+            font-size: 14px;
+        }
     }
 }

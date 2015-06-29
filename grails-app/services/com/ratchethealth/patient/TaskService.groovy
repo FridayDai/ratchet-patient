@@ -146,11 +146,6 @@ class TaskService {
 
         try {
             def resp = Unirest.post(url).body(json).asJson()
-//                    .field("browserName", browserName)
-//                    .field("browserVersion", browserVersion)
-//                    .field("OSName", OSName)
-//                    .asString()
-
 
             if (resp.status == 200) {
                 log.info("Submit questionnaire success, token: ${request.session.token}")
@@ -181,6 +176,30 @@ class TaskService {
                 return true
             } else {
                 def result = JSON.parse(resp.body)
+                def message = result?.error?.errorMessage
+                throw new InvalidTaskException(message)
+            }
+
+        } catch (UnirestException e) {
+            throw new ApiAccessException(e.message)
+        }
+
+    }
+
+    def getTaskResult(HttpServletRequest request, code)
+            throws ApiAccessException, InvalidTaskException {
+        def getTestResultUrl = grailsApplication.config.ratchetv2.server.url.task.testResult
+
+        try {
+            def resp = Unirest.get(getTestResultUrl)
+                    .queryString("code",code)
+                    .asString()
+
+            def result = JSON.parse(resp.body)
+            if (resp.status == 200) {
+                log.info("Get task result success, token: ${request.session.token}")
+                return result
+            } else {
                 def message = result?.error?.errorMessage
                 throw new InvalidTaskException(message)
             }

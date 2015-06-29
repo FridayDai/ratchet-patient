@@ -13,7 +13,11 @@ class EmailController extends BaseController {
         def client = emailService.confirmPatientEmail(request, code, emailUpdate)
 
         if (client) {
-            render view: "/email/confirm", model: [client: JSON.parse(session.client)]
+            if (client.error?.errorId == 412) {
+                render view: '/error/invitationExpired', model: [client: JSON.parse(session.client)]
+            } else {
+                render view: "/email/confirm", model: [client: JSON.parse(session.client)]
+            }
         }
     }
 
@@ -23,7 +27,11 @@ class EmailController extends BaseController {
         def client = emailService.confirmEmergencyContactEmail(request, code)
 
         if (client) {
-            render view: "/email/confirm", model: [client: JSON.parse(session.client)]
+            if (client.error?.errorId == 412) {
+                render view: '/error/invitationExpired', model: [client: JSON.parse(session.client)]
+            } else {
+                render view: "/email/confirm", model: [client: JSON.parse(session.client)]
+            }
         }
     }
 

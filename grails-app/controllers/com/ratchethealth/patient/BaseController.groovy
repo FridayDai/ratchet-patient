@@ -42,9 +42,9 @@ class BaseController {
         log.error("API access exception: ${e.message}, token: ${session.token}.")
 
         if (request.isXhr()) {
-            render status: 400, text: e.message
+            render status: 503, text: e.message
         } else {
-            render view: '/error/404', status: 404
+            render view: '/error/503', status: 503
         }
     }
 
