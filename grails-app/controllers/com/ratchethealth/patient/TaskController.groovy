@@ -158,6 +158,7 @@ class TaskController extends BaseController {
                         ]
             }
         } else {
+            choices = convertChoice(taskType, choices)
             def resp = taskService.submitQuestionnaire(request, code, choices)
 
             saveResultToSession(code, resp)
@@ -239,6 +240,22 @@ class TaskController extends BaseController {
                         completeTask: completeTask
                 ]
             }
+        }
+    }
+
+    def convertChoice(type, choices) {
+        if (type == '4' || type == '5') {
+            return choices
+        } else {
+            def newType = [:]
+
+            choices.entrySet().each { entry ->
+                def vals = entry.value.split('\\.')
+
+                newType[vals[0]] = vals[1]
+            };
+
+            return newType
         }
     }
 
