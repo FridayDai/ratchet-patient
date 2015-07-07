@@ -1,4 +1,4 @@
-<div class="score-header">Score:${completeTask.score}</div>
+<div class="score-header">Score: ${completeTask.score as float}</div>
 
 <div class="score-content">
     <p class="inner-content content-header">Interpretaion:</p>
