@@ -1,12 +1,12 @@
 <g:if test="${completeTask.type == 4}">
-    <div class="score-header">Back Score:${completeTask.nrsScore1}</div>
+    <div class="score-header">Back Score: ${completeTask.nrsScore1}</div>
 
-    <div class="score-header">Leg Score:${completeTask.nrsScore2}</div>
+    <div class="score-header">Leg Score: ${completeTask.nrsScore2}</div>
 </g:if>
 <g:else>
-    <div class="score-header">Neck Score:${completeTask.nrsScore1}</div>
+    <div class="score-header">Neck Score: ${completeTask.nrsScore1}</div>
 
-    <div class="score-header">Arm Score:${completeTask.nrsScore2}</div>
+    <div class="score-header">Arm Score: ${completeTask.nrsScore2}</div>
 </g:else>
 
 <div class="score-content">
