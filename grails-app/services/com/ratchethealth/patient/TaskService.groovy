@@ -1,13 +1,7 @@
 package com.ratchethealth.patient
 
-import com.mashape.unirest.http.Unirest
-import com.mashape.unirest.http.exceptions.UnirestException
-import com.ratchethealth.patient.exceptions.ApiAccessException
-import com.ratchethealth.patient.exceptions.InvalidTaskException
 import grails.converters.JSON
 import groovy.json.JsonOutput
-
-import javax.servlet.http.HttpServletRequest
 
 class TaskService extends RatchetPatientService {
 

@@ -41,8 +41,6 @@ class AssistService extends RatchetPatientService {
                     .field("type", type)
                     .asString()
 
-            def result = JSON.parse(resp.body)
-
             if (resp.status == 201) {
                 def map = [:]
                 map.put("status", "ok")

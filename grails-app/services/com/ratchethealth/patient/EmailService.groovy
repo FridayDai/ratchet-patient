@@ -1,12 +1,6 @@
 package com.ratchethealth.patient
 
-import com.mashape.unirest.http.Unirest
-import com.mashape.unirest.http.exceptions.UnirestException
-import com.ratchethealth.patient.exceptions.ApiAccessException
-import com.ratchethealth.patient.exceptions.ServerException
 import grails.converters.JSON
-
-import javax.servlet.http.HttpServletRequest
 
 class EmailService extends RatchetPatientService {
     def grailsApplication
