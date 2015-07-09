@@ -3,134 +3,97 @@ package com.ratchethealth.patient
 import com.mashape.unirest.http.Unirest
 import com.mashape.unirest.http.exceptions.UnirestException
 import com.ratchethealth.patient.exceptions.ApiAccessException
-import com.ratchethealth.patient.exceptions.ApiReturnException
+import com.ratchethealth.patient.exceptions.ServerException
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletRequest
 
-class EmailService {
-    // dependency injection for grailsApplication
+class EmailService extends RatchetPatientService {
     def grailsApplication
     def userAgentIdentService
 
-    /**
-     * Confirm patient email
-     *
-     * @param code # temporary code
-     *
-     * @return result
-     */
-    def confirmPatientEmail(HttpServletRequest request, code, emailUpdate)
-            throws ApiAccessException, ApiReturnException {
+    def confirmPatientEmail(String token, code, emailUpdate) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
 
-        try {
-            def resp = Unirest.post(emailUrl)
+        withPost(emailUrl) { req ->
+            def resp = req
                     .field("code", code)
                     .field("email_update", emailUpdate)
                     .asString()
             def result = JSON.parse(resp.body)
-            if (resp.status == 200) {
-                log.info("Confirm patient email success, token: ${request.session.token}")
-                return result
-            } else if (resp.status == 412) {
-                log.info("Invitation link is expired,token:${request.session.token}.")
-                return result
-            } else {
-                def message = result?.error?.errorMessage
-                throw new ApiReturnException(message, resp.status)
-            }
-        }
-        catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
-        }
 
+            if (resp.status == 200) {
+                log.info("Confirm patient email success, token: ${token}")
+                return [resp, result]
+
+            } else if (resp.status == 412) {
+                log.info("Invitation link is expired,token:${token}.")
+                return [resp, result]
+            }
+
+            [resp, null]
+        }
     }
 
-    /**
-     * Confirm emergency contact email
-     *
-     * @param code # temporary code
-     *
-     * @return result
-     */
-    def confirmEmergencyContactEmail(HttpServletRequest request, code)
-            throws ApiAccessException, ApiReturnException {
+    def confirmEmergencyContactEmail(String token, code) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.emergencyContactConfirmation
 
-        try {
-            def resp = Unirest.post(emailUrl)
+        withPost(emailUrl) { req ->
+            def resp = req
                     .field("code", code)
                     .field("hasProfile", true)
                     .asString()
             def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
-                log.info("Confirm emergency contact email success, token: ${request.session.token}")
-                return result
+                log.info("Confirm emergency contact email success, token: ${token}")
+                return [resp, result]
             } else if (resp.status == 412) {
-                log.info("Invitation link is expired,token:${request.session.token}.")
-                return result
-            } else {
-                def message = result?.error?.errorMessage
-                throw new ApiReturnException(message, resp.status)
+                log.info("Invitation link is expired,token:${token}.")
+                return [resp, result]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+            [resp, null]
         }
     }
 
-    def emailCheck(HttpServletRequest request, int id, int last4Number)
-            throws ApiReturnException, ApiReturnException {
+    def emailCheck(String token, int id, int last4Number) {
         String checkPhoneNumberUrl = grailsApplication.config.ratchetv2.server.url.email.checkPhoneNumber
 
         def url = String.format(checkPhoneNumberUrl, id)
 
-        try {
-            def resp = Unirest.post(url)
+        withPost(url) { req ->
+            def resp = req
                     .field("last4PhoneDigit", last4Number)
                     .asString()
 
             def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
-                log.info("Email setting check success, token: ${request.session.token}")
+                log.info("Email setting check success, token: ${token}")
 
-                return result
-            } else {
-
-                def message = result?.error?.errorMessage
-
-                throw new ApiReturnException(message, resp.status)
+                return [resp, result]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+            [resp, null]
         }
     }
 
-    def unsubscribe(HttpServletRequest request, int id, int last4Number, boolean unsubscribe)
-            throws ApiReturnException, ApiReturnException {
+    def unsubscribe(String token, int id, int last4Number, boolean unsubscribe) {
         String unsubscribeUrl = grailsApplication.config.ratchetv2.server.url.email.unsubscribe
 
         def url = String.format(unsubscribeUrl, id)
 
-        try {
-            def resp = Unirest.post(url)
+        withPost(url) { req ->
+            def resp = req
                     .field("last4PhoneDigit", last4Number)
                     .field("unsubscribe", unsubscribe)
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Email setting unsubscribe success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-                def message = result?.error?.errorMessage
-
-                throw new ApiReturnException(message, resp.status)
+                log.info("Email setting unsubscribe success, token: ${token}")
+                return [resp, true]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+            [resp, null]
         }
+
     }
 }

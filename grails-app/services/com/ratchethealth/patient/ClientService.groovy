@@ -3,7 +3,7 @@ package com.ratchethealth.patient
 import com.mashape.unirest.http.Unirest
 import com.mashape.unirest.http.exceptions.UnirestException
 import com.ratchethealth.patient.exceptions.ApiAccessException
-import com.ratchethealth.patient.exceptions.ApiReturnException
+import com.ratchethealth.patient.exceptions.ServerException
 import grails.converters.JSON
 import org.codehaus.groovy.grails.web.converters.exceptions.ConverterException
 
@@ -14,7 +14,7 @@ class ClientService {
     def grailsApplication
 
     def getClient(HttpServletRequest request, String subDomain)
-            throws ApiAccessException, ApiReturnException {
+            throws ApiAccessException, ServerException {
         String subDomainUrl = grailsApplication.config.ratchetv2.server.url.client.subDomain
 
         def clientUrl = String.format(subDomainUrl, subDomain)
@@ -26,7 +26,7 @@ class ClientService {
                 return JSON.parse(resp.body)
             } else {
                 log.warn("Get client failed, status: ${resp.status}\n Body: {$resp.body}")
-                throw new ApiReturnException(resp.body, resp.status)
+                throw new ServerException(resp.body, resp.status)
             }
         } catch (UnirestException e) {
             throw new ApiAccessException(e.message)

@@ -1,18 +1,18 @@
 package com.ratchethealth.patient.exceptions
 
-class ApiReturnException extends Exception {
+class ServerException extends Exception {
 
     private Integer statusId;
 
-    public ApiReturnException() {
+    public ServerException() {
         super();
     }
 
-    public ApiReturnException(String message) {
+    public ServerException(String message) {
         super(message);
     }
 
-    public ApiReturnException(String message, Integer status) {
+    public ServerException(String message, Integer status) {
         super(message);
         this.statusId = status;
     }

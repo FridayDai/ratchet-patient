@@ -9,54 +9,31 @@ import groovy.json.JsonOutput
 
 import javax.servlet.http.HttpServletRequest
 
-class TaskService {
+class TaskService extends RatchetPatientService {
 
     def grailsApplication
     def userAgentIdentService
-    /**
-     * Get task short description
-     *
-     * @param code # temporary code
-     *
-     * @return response
-     */
-    def getTask(HttpServletRequest request, code)
-            throws ApiAccessException, InvalidTaskException {
+
+    def getTask(String token, code) {
         def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
 
-        try {
-            def resp = Unirest.get(url)
+        withGet(url) { req ->
+            def resp = req
                     .queryString("summary", true)
                     .asString()
 
             if (resp.status == 200 || resp.status == 207) {
-                log.info("Get task success, token: ${request.session.token}")
-                return resp
-            } else {
-                def result = JSON.parse(resp.body)
-                def message = result?.error?.errorMessage
-                throw new InvalidTaskException(message)
+                log.info("Get task success, token: ${token}")
+                return [resp, resp]
             }
 
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+            [resp, null]
         }
-
     }
 
-    /**
-     *
-     * @param request
-     * @param response
-     * @param code
-     * @return
-     * @throws ApiAccessException
-     * @throws InvalidTaskException
-     */
-    def recordBehaviour(HttpServletRequest request, code)
-            throws ApiAccessException, InvalidTaskException {
+    def recordBehaviour(String token, code) {
         def url = grailsApplication.config.ratchetv2.server.url.task.recordBehaviour
 
         url = String.format(url, code)
@@ -64,37 +41,24 @@ class TaskService {
         def browserName = userAgentIdentService.getBrowser()
         def browserVersion = userAgentIdentService.getBrowserVersion()
         def OSName = userAgentIdentService.getOperatingSystem()
-        try {
-            def resp = Unirest.post(url)
+
+        withPost(url) { req ->
+            def resp = req
                     .field("browserName", browserName)
                     .field("browserVersion", browserVersion)
                     .field("OSName", OSName)
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Record behaviour success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-                def message = result?.error?.errorMessage
-                throw new InvalidTaskException(message)
+                log.info("Record behaviour success, token: ${token}")
+                return [resp, true]
             }
 
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+            [resp, null]
         }
-
     }
-    /**
-     * Get task short description
-     *
-     * @param code # temporary code
-     * @param last4Number # last 4 number of patient phone
-     *
-     * @return questionnaire object if success otherwise error status code
-     */
-    def getQuestionnaire(HttpServletRequest request, code, last4Number)
-            throws ApiAccessException {
+
+    def getQuestionnaire(String token, code, last4Number) {
         def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
@@ -103,8 +67,8 @@ class TaskService {
         def browserVersion = userAgentIdentService.getBrowserVersion()
         def OSName = userAgentIdentService.getOperatingSystem()
 
-        try {
-            def resp = Unirest.get(url)
+        withGet(url) { req ->
+            def resp = req
                     .queryString("last4PhoneDigit", last4Number)
                     .queryString("browserName", browserName)
                     .queryString("browserVersion", browserVersion)
@@ -112,29 +76,15 @@ class TaskService {
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Get questionnaire success, token: ${request.session.token}")
-                return resp
-            } else {
-                def result = JSON.parse(resp.body)
-                log.error("Invalid task exception: ${result?.error?.errorMessage}, token: ${request.session.token}.")
-                return resp
+                log.info("Get questionnaire success, token: ${token}")
+                return [resp, resp]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
-        }
 
+            [resp, null]
+        }
     }
 
-    /**
-     * Get task short description
-     *
-     * @param code # temporary code
-     * @param choices # answer of questionnaire
-     *
-     * @return questionnaire result
-     */
-    def submitQuestionnaire(HttpServletRequest request, code, choices)
-            throws ApiAccessException, InvalidTaskException {
+    def submitQuestionnaire(String token, code, choices) {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
@@ -144,68 +94,51 @@ class TaskService {
 
         String json = JsonOutput.toJson([code: code, choices: choices, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
 
-        try {
-            def resp = Unirest.post(url).body(json).asJson()
+        withPost(url) { req ->
+            def resp = req.body(json).asJson()
 
             if (resp.status == 200) {
-                log.info("Submit questionnaire success, token: ${request.session.token}")
-                return JSON.parse(resp.body.toString())
-            } else {
-                def result = JSON.parse(resp?.body?.toString())
-                def message = result?.error?.errorMessage
-                throw new InvalidTaskException(message)
+                log.info("Submit questionnaire success, token: ${token}")
+                def result = JSON.parse(resp.body.toString())
+                return [resp, result]
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
-        }
 
+            [resp, null]
+        }
     }
 
-    def recordTaskStart(HttpServletRequest request, code)
-            throws ApiAccessException, InvalidTaskException {
+    def recordTaskStart(String token, code) {
         def url = grailsApplication.config.ratchetv2.server.url.task.recordTaskStart
 
         url = String.format(url, code)
 
-        try {
-            def resp = Unirest.post(url)
+        withPost(url) { req ->
+            def resp = req
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Record task start success, token: ${request.session.token}")
-                return true
-            } else {
-                def result = JSON.parse(resp.body)
-                def message = result?.error?.errorMessage
-                throw new InvalidTaskException(message)
+                log.info("Record task start success, token: ${token}")
+                return [resp, resp]
             }
 
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+            [resp, null]
         }
-
     }
 
-    def getTaskResult(HttpServletRequest request, code)
-            throws ApiAccessException, InvalidTaskException {
+    def getTaskResult(String token, code) {
         def getTestResultUrl = grailsApplication.config.ratchetv2.server.url.task.testResult
 
-        try {
-            def resp = Unirest.get(getTestResultUrl)
-                    .queryString("code",code)
+        withGet(getTestResultUrl) { req ->
+            def resp = req
+                    .queryString("code", code)
                     .asString()
 
             def result = JSON.parse(resp.body)
             if (resp.status == 200) {
-                log.info("Get task result success, token: ${request.session.token}")
-                return result
-            } else {
-                def message = result?.error?.errorMessage
-                throw new InvalidTaskException(message)
+                log.info("Get task result success, token: ${token}")
+                return [resp, result]
             }
-
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
+            [resp, null]
         }
 
     }
