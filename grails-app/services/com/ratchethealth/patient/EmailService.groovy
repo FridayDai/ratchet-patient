@@ -2,7 +2,7 @@ package com.ratchethealth.patient
 
 import grails.converters.JSON
 
-class EmailService extends RatchetPatientService {
+class EmailService extends RatchetAPIService {
     def grailsApplication
     def userAgentIdentService
 
@@ -22,10 +22,11 @@ class EmailService extends RatchetPatientService {
 
             } else if (resp.status == 412) {
                 log.info("Invitation link is expired,token:${token}.")
-                return [resp, result]
-            }
 
-            [resp, null]
+                result
+            } else {
+                handleError(resp)
+            }
         }
     }
 
@@ -41,12 +42,15 @@ class EmailService extends RatchetPatientService {
 
             if (resp.status == 200) {
                 log.info("Confirm emergency contact email success, token: ${token}")
-                return [resp, result]
+
+                result
             } else if (resp.status == 412) {
                 log.info("Invitation link is expired,token:${token}.")
-                return [resp, result]
+
+                result
+            } else {
+                handleError(resp)
             }
-            [resp, null]
         }
     }
 
@@ -65,9 +69,10 @@ class EmailService extends RatchetPatientService {
             if (resp.status == 200) {
                 log.info("Email setting check success, token: ${token}")
 
-                return [resp, result]
+                result
+            } else {
+                handleError(resp)
             }
-            [resp, null]
         }
     }
 
@@ -84,9 +89,10 @@ class EmailService extends RatchetPatientService {
 
             if (resp.status == 200) {
                 log.info("Email setting unsubscribe success, token: ${token}")
-                return [resp, true]
+                true
+            } else {
+                handleError(resp)
             }
-            [resp, null]
         }
 
     }

@@ -3,7 +3,7 @@ package com.ratchethealth.patient
 import grails.converters.JSON
 import groovy.json.JsonOutput
 
-class TaskService extends RatchetPatientService {
+class TaskService extends RatchetAPIService {
 
     def grailsApplication
     def userAgentIdentService
@@ -20,10 +20,10 @@ class TaskService extends RatchetPatientService {
 
             if (resp.status == 200 || resp.status == 207) {
                 log.info("Get task success, token: ${token}")
-                return [resp, resp]
+                resp
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
@@ -45,10 +45,10 @@ class TaskService extends RatchetPatientService {
 
             if (resp.status == 200) {
                 log.info("Record behaviour success, token: ${token}")
-                return [resp, true]
+                true
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
@@ -71,10 +71,10 @@ class TaskService extends RatchetPatientService {
 
             if (resp.status == 200) {
                 log.info("Get questionnaire success, token: ${token}")
-                return [resp, resp]
+                resp
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
@@ -94,10 +94,10 @@ class TaskService extends RatchetPatientService {
             if (resp.status == 200) {
                 log.info("Submit questionnaire success, token: ${token}")
                 def result = JSON.parse(resp.body.toString())
-                return [resp, result]
+                result
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
@@ -112,10 +112,10 @@ class TaskService extends RatchetPatientService {
 
             if (resp.status == 200) {
                 log.info("Record task start success, token: ${token}")
-                return [resp, resp]
+                resp
+            } else {
+                handleError(resp)
             }
-
-            [resp, null]
         }
     }
 
@@ -130,9 +130,10 @@ class TaskService extends RatchetPatientService {
             def result = JSON.parse(resp.body)
             if (resp.status == 200) {
                 log.info("Get task result success, token: ${token}")
-                return [resp, result]
+                result
+            } else {
+                handleError(resp)
             }
-            [resp, null]
         }
 
     }

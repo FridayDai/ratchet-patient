@@ -9,7 +9,7 @@ import com.ratchethealth.patient.exceptions.ServerException
 import grails.converters.JSON
 
 
-class RatchetPatientService {
+class RatchetAPIService {
     def withGet(String url, Closure reqHandler) {
         GetRequest get = new GetRequest(HttpMethod.GET, url)
 
@@ -40,8 +40,29 @@ class RatchetPatientService {
         withReq(delete, token, reqHandler)
     }
 
+    def handleError(resp) {
+        if (!resp || !resp.status?.toString()?.isNumber()) {
+            throw new ApiAccessException(messageSource.getMessage("api.errors.not.access", null, Locale.ENGLISH))
+        }
+
+        def body
+        try {
+            body = JSON.parse(resp.body)
+        } catch (e) {
+            body = [:]
+        }
+
+        if (resp.status >= 500) {
+            String errorMessage = body?.errors?.message
+            throw new ApiAccessException(errorMessage ?: resp.body)
+        } else if (resp.status >= 400 && resp.status < 500) {
+            String errorMessage = body?.error?.errorMessage
+            throw new ServerException(errorMessage ?: resp.body)
+        }
+    }
+
     def withReq(req, String token, Closure reqHandler)
-            throws ServerException, ApiAccessException {
+            throws ApiAccessException {
         try {
             def reqObj
 
@@ -50,17 +71,8 @@ class RatchetPatientService {
             else
                 reqObj = req
 
-            def (resp, result) = reqHandler.call(reqObj)
+            reqHandler.call(reqObj)
 
-            if (result != null) {
-                return result
-            } else if (resp.status == 500 || resp.status == 502 || resp.status == 503) {
-                String errorMessage = JSON.parse(resp.body)?.errors?.message
-                throw new ApiAccessException(errorMessage ?: resp.body)
-            } else {
-                String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
-                throw new ServerException(errorMessage ?: resp.body)
-            }
         } catch (UnirestException e) {
             throw new ApiAccessException(e.message, e)
         }

@@ -1,26 +1,29 @@
 package com.ratchethealth.patient
 
-import com.mashape.unirest.http.Unirest
 import grails.converters.JSON
 import grails.plugin.cache.Cacheable
 
-class AnnouncementService {
+class AnnouncementService extends RatchetAPIService {
 
-	def grailsApplication
+    def grailsApplication
 
-	@Cacheable('announcement')
-	def checkAnnouncement() {
-		String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
+    @Cacheable('announcement')
+    def checkAnnouncement() {
+        String announcementsUrl = grailsApplication.config.ratchetv2.server.url.announcements
 
-		def resp = Unirest.get(announcementsUrl)
-				.queryString("latest", true)
-				.asString()
+        withGet(announcementsUrl) { req ->
+            def resp = req
+                    .queryString("latest", true)
+                    .asString()
 
-		def result = JSON.parse(resp.body)
+            def result = JSON.parse(resp.body)
 
-		if (resp.status == 200) {
-			log.info("Get announcement success")
-			return result?.items[0];
-		}
-	}
+            if (resp.status == 200) {
+                log.info("Get announcement success")
+                result?.items[0];
+            } else {
+                handleError(resp)
+            }
+        }
+    }
 }

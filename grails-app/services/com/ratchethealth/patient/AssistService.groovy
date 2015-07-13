@@ -3,7 +3,7 @@ package com.ratchethealth.patient
 import grails.converters.JSON
 
 
-class AssistService extends RatchetPatientService {
+class AssistService extends RatchetAPIService {
 
     def grailsApplication
     def messageSource
@@ -45,10 +45,11 @@ class AssistService extends RatchetPatientService {
                 def map = [:]
                 map.put("status", "ok")
                 log.info("Add assist success, token: ${token}.")
-                return [resp, map]
-            }
 
-            [resp, null]
+                map
+            } else {
+                handleError(resp)
+            }
         }
 
     }
