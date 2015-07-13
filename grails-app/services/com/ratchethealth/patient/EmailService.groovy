@@ -18,8 +18,8 @@ class EmailService extends RatchetAPIService {
 
             if (resp.status == 200) {
                 log.info("Confirm patient email success, token: ${token}")
-                return [resp, result]
 
+                result
             } else if (resp.status == 412) {
                 log.info("Invitation link is expired,token:${token}.")
 

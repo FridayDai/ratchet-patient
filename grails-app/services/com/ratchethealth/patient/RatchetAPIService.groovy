@@ -11,7 +11,6 @@ import grails.converters.JSON
 
 class RatchetAPIService {
     def messageSource
-
     def withGet(String url, Closure reqHandler) {
         GetRequest get = new GetRequest(HttpMethod.GET, url)
 
