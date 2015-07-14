@@ -8,7 +8,7 @@ class AssistService extends RatchetAPIService {
     def grailsApplication
     def messageSource
 
-    def addAssist(String token, client, Assist assist) {
+    def addAssist(String token, clientId, Assist assist) {
 
         def title = assist?.title
         def desc = assist?.desc
@@ -18,7 +18,7 @@ class AssistService extends RatchetAPIService {
 
         def patientId = assist?.patientId
         def careGiverId = assist?.careGiverId
-        def clientId = JSON.parse(client).id
+
 
         if (patientId) {
             type = 'Patient'

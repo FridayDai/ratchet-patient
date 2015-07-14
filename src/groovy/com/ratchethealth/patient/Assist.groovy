@@ -5,6 +5,6 @@ class Assist {
     String desc
     String browser
     String url
-    int patientId
-    int careGiverId
+    Long patientId
+    Long careGiverId
 }

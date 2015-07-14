@@ -4,7 +4,7 @@ import grails.converters.JSON
 
 class AssistController {
 
-    def ratchetAPIService
+    def assistService
 
     def index() {
         def patientId = params?.patientId
@@ -19,7 +19,8 @@ class AssistController {
     def addAssist(Assist assist) {
         String token = request.session.token
         def client = request.session.client
-        def resp = ratchetAPIService.addAssist(token, client, assist)
+        def clientId = JSON.parse(client).id
+        def resp = assistService.addAssist(token, clientId, assist)
         render resp as JSON
     }
 }
