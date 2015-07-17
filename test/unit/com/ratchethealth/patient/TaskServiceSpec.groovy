@@ -124,11 +124,33 @@ class TaskServiceSpec extends Specification {
         resultJson.id == 1
     }
 
+    def "test getQuestionnaire without 400 result"() {
+        given:
+        def jBuilder = new JsonBuilder()
+        jBuilder {
+            msg 'wrong phone number'
+        }
+
+        GetRequest.metaClass.asString = { ->
+            return [
+                    status: 400,
+                    body  : jBuilder.toString()
+            ]
+        }
+
+        when:
+        def result = service.getQuestionnaire('token', 1, 1)
+        def resultJson = JSON.parse(result.body)
+
+        then:
+        resultJson.msg == 'wrong phone number'
+    }
+
     def "test getQuestionnaire without successful result"() {
         given:
         GetRequest.metaClass.asString = { ->
             return [
-                    status: 400,
+                    status: 404,
                     body  : "body"
             ]
         }
