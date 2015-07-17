@@ -1,7 +1,5 @@
 package com.ratchethealth.patient
 
-import grails.converters.JSON
-
 
 class AssistService extends RatchetAPIService {
 
