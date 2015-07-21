@@ -2,7 +2,6 @@ package com.ratchethealth.patient
 
 import com.mashape.unirest.request.GetRequest
 import com.ratchethealth.patient.exceptions.ServerException
-import grails.converters.JSON
 import grails.test.mixin.TestFor
 import groovy.json.JsonBuilder
 import spock.lang.Specification

@@ -72,6 +72,10 @@ class TaskService extends RatchetAPIService {
             if (resp.status == 200) {
                 log.info("Get questionnaire success, token: ${token}")
                 resp
+            } else if (resp.status == 400) {
+                def result = JSON.parse(resp.body)
+                log.error("Invalid task exception: ${result?.error?.errorMessage}, token: ${token}.")
+                return resp
             } else {
                 handleError(resp)
             }
