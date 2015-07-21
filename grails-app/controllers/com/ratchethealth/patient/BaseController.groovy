@@ -1,7 +1,7 @@
 package com.ratchethealth.patient
 
 import com.ratchethealth.patient.exceptions.ApiAccessException
-import com.ratchethealth.patient.exceptions.ApiReturnException
+import com.ratchethealth.patient.exceptions.ServerException
 import com.ratchethealth.patient.exceptions.InvalidTaskException
 import grails.converters.JSON
 
@@ -48,7 +48,7 @@ class BaseController {
         }
     }
 
-    def handleApiReturnException(ApiReturnException e) {
+    def handleApiReturnException(ServerException e) {
         log.error("API return exception: ${e.message}, token: ${session.token}.")
 
         if (request.isXhr()) {

@@ -10,6 +10,7 @@ class TaskController extends BaseController {
     def taskService
 
     def index() {
+        String token = request.session.token
         def patientName = params.patientName
         def code = params.code
         def taskTitle = params.taskTitle
@@ -17,8 +18,8 @@ class TaskController extends BaseController {
         if (session["taskComplete${code}"]) {
             redirectToComplete(patientName, taskTitle, code)
         } else {
-            def resp = taskService.getTask(request, code)
-            taskService.recordBehaviour(request, code)
+            def resp = taskService.getTask(token, code)
+            taskService.recordBehaviour(token, code)
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
@@ -38,12 +39,13 @@ class TaskController extends BaseController {
     }
 
     def phoneNumberValidate(UserCommand user) {
+        String token = request.session.token
         def patientName = params.patientName
         def code = params.code
         def taskTitle = params.taskTitle
 
         if (!user.validate()) {
-            def resp = taskService.getTask(request, code)
+            def resp = taskService.getTask(token, code)
 
             if (resp.status == 200) {
                 def task = JSON.parse(resp.body)
@@ -57,7 +59,7 @@ class TaskController extends BaseController {
                         ]
             }
         } else {
-            def resp = taskService.getQuestionnaire(request, code, user.last4Number)
+            def resp = taskService.getQuestionnaire(token, code, user.last4Number)
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
@@ -83,7 +85,7 @@ class TaskController extends BaseController {
             } else if (resp.status == 404) {
                 render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
             } else {
-                def taskResp = taskService.getTask(request, code)
+                def taskResp = taskService.getTask(token, code)
 
                 if (taskResp.status == 200) {
                     def task = JSON.parse(taskResp.body)
@@ -101,6 +103,7 @@ class TaskController extends BaseController {
     }
 
     def start() {
+        String token = request.session.token
         def patientName = params.patientName
         def taskTitle = params.taskTitle
         def code = params.code
@@ -110,10 +113,10 @@ class TaskController extends BaseController {
         } else if (session["questionnaireView${code}"]) {
             def view = session["questionnaireView${code}"]
             def last4Number = session["last4Number${code}"]
-            def resp = taskService.getQuestionnaire(request, code, last4Number)
+            def resp = taskService.getQuestionnaire(token, code, last4Number)
 
             if (resp.status == 200) {
-                taskService.recordTaskStart(request, code)
+                taskService.recordTaskStart(token, code)
                 def result = JSON.parse(resp.body)
 
                 render view: view,
@@ -130,6 +133,7 @@ class TaskController extends BaseController {
     }
 
     def submit() {
+        String token = request.session.token
         def patientName = params.patientName
         def taskTitle = params.taskTitle
         def code = params.code
@@ -142,7 +146,7 @@ class TaskController extends BaseController {
         if (errors.size() > 0) {
             def view = session["questionnaireView${code}"]
             def last4Number = session["last4Number${code}"]
-            def resp = taskService.getQuestionnaire(request, code, last4Number)
+            def resp = taskService.getQuestionnaire(token, code, last4Number)
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
@@ -159,7 +163,7 @@ class TaskController extends BaseController {
             }
         } else {
             choices = convertChoice(taskType, choices)
-            def resp = taskService.submitQuestionnaire(request, code, choices)
+            def resp = taskService.submitQuestionnaire(token, code, choices)
 
             saveResultToSession(code, resp)
 
@@ -170,6 +174,7 @@ class TaskController extends BaseController {
     }
 
     def complete() {
+        String token = request.session.token
         def patientName = params.patientName
         def taskTitle = params.taskTitle
         def code = params.code
@@ -178,34 +183,17 @@ class TaskController extends BaseController {
             def slurper = new JsonSlurper()
             completeTask = slurper.parseText(session["result${code}"])
             if (completeTask.nrsScore) {
-                def nrsScoreString = '{' + completeTask.nrsScore + '}'
-                def nrsScoreJson = JSON.parse(nrsScoreString)
-                if (completeTask.type == 4) {
-                    completeTask.nrsScore1 = nrsScoreJson.back
-                    completeTask.nrsScore2 = nrsScoreJson.leg
-                } else {
-                    completeTask.nrsScore1 = nrsScoreJson.neck
-                    completeTask.nrsScore2 = nrsScoreJson.arm
-                }
+                completeTask = splitNrsScore(completeTask)
             }
         } else {
-            completeTask = taskService.getTaskResult(request, code)
+            completeTask = taskService.getTaskResult(token, code)
             if (completeTask.nrsScore) {
-                def nrsScoreString = '{' + completeTask.nrsScore + '}'
-                def nrsScoreJson = JSON.parse(nrsScoreString)
-                if (completeTask.type == 4) {
-                    completeTask.nrsScore1 = nrsScoreJson.back
-                    completeTask.nrsScore2 = nrsScoreJson.leg
-                } else {
-                    completeTask.nrsScore1 = nrsScoreJson.neck
-                    completeTask.nrsScore2 = nrsScoreJson.arm
-                }
+                completeTask = splitNrsScore(completeTask)
             }
         }
 
-
         if (session["taskComplete${code}"]) {
-            def resp = taskService.getTask(request, code)
+            def resp = taskService.getTask(token, code)
 
             if (resp.status == 207) {
                 def result = JSON.parse(resp.body)
@@ -221,7 +209,7 @@ class TaskController extends BaseController {
                 redirectToIndex(patientName, taskTitle, code)
             }
         } else {
-            def resp = taskService.getTask(request, code)
+            def resp = taskService.getTask(token, code)
 
             if (resp.status == 200) {
                 session["task${code}"] = resp.body
@@ -257,6 +245,19 @@ class TaskController extends BaseController {
 
             return newType
         }
+    }
+
+    def splitNrsScore(completeTask) {
+        def nrsScoreString = '{' + completeTask.nrsScore + '}'
+        def nrsScoreJson = JSON.parse(nrsScoreString)
+        if (completeTask.type == 4) {
+            completeTask.nrsScore1 = nrsScoreJson.back
+            completeTask.nrsScore2 = nrsScoreJson.leg
+        } else {
+            completeTask.nrsScore1 = nrsScoreJson.neck
+            completeTask.nrsScore2 = nrsScoreJson.arm
+        }
+        return completeTask
     }
 
     def validateChoice(type, choices, optionals) {

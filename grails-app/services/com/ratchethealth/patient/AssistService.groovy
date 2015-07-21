@@ -1,31 +1,22 @@
 package com.ratchethealth.patient
 
-import com.mashape.unirest.http.Unirest
-import com.mashape.unirest.http.exceptions.UnirestException
-import com.ratchethealth.patient.exceptions.ApiAccessException
-import com.ratchethealth.patient.exceptions.ApiReturnException
-import grails.converters.JSON
 
-import javax.servlet.http.HttpServletRequest
+class AssistService extends RatchetAPIService {
 
-
-class AssistService {
-    /** dependency injection for grailsApplication */
     def grailsApplication
     def messageSource
 
-    def addAssist(HttpServletRequest request, params)
-            throws ApiAccessException, ApiReturnException {
+    def addAssist(String token, clientId, Assist assist) {
 
-        def title = params?.title
-        def desc = params?.desc
-        def browser = params?.browser
-        def url = params?.url
+        def title = assist?.title
+        def desc = assist?.desc
+        def browser = assist?.browser
+        def url = assist?.url
         def type
-        
-        def patientId = params?.patientId
-        def careGiverId = params?.careGiverId
-        def clientId = JSON.parse(request.session.client).id
+
+        def patientId = assist?.patientId
+        def careGiverId = assist?.careGiverId
+
 
         if (patientId) {
             type = 'Patient'
@@ -36,8 +27,8 @@ class AssistService {
         String addAssistUrl = grailsApplication.config.ratchetv2.server.url.addAssist
         def formattedUrl = String.format(addAssistUrl, clientId)
 
-        try {
-            def resp = Unirest.post(formattedUrl)
+        withPost(formattedUrl) { req ->
+            def resp = req
                     .field("title", title)
                     .field("desc", desc)
                     .field("browser", browser)
@@ -47,19 +38,18 @@ class AssistService {
                     .field("url", url)
                     .field("type", type)
                     .asString()
-            def result = JSON.parse(resp.body)
 
             if (resp.status == 201) {
                 def map = [:]
                 map.put("status", "ok")
-                log.info("Add assist success, token: ${request.session.token}.")
-                return map
+                log.info("Add assist success, token: ${token}.")
+
+                map
             } else {
-                def message = result?.error?.errorMessage
-                throw new ApiReturnException(resp.status, message)
+                handleError(resp)
             }
-        } catch (UnirestException e) {
-            throw new ApiAccessException(e.message)
         }
+
     }
+
 }
