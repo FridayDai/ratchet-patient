@@ -92,6 +92,10 @@
 				<input type="submit" class="rc-btn task-done-btn" value="I'm Done">
 			</div>
 		</form>
+        <div class="task-copyright text-center">
+            <span>&#169 Institute for Work & Health 2006.</span>
+            <span class="inline-right">All rights reserved.</span>
+        </div>
 	</div>
 	</body>
 	</html>
