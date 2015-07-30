@@ -217,7 +217,7 @@ ratchetv2 {
                 patientConfirmation = "${ratchetv2.server.url.base}/patient/confirm"
                 emergencyContactConfirmation = "${ratchetv2.server.url.base}/caregiver/confirm"
                 checkPhoneNumber = "${ratchetv2.server.url.base}/patients/%d/check_phone_number"
-                unsubscribe = "${ratchetv2.server.url.base}/patients/%d/unsubscribe"
+                subscribe = "${ratchetv2.server.url.base}/patients/%d/subscribe"
             }
 
             // Task

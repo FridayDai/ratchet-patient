@@ -76,15 +76,15 @@ class EmailService extends RatchetAPIService {
         }
     }
 
-    def unsubscribe(String token, int id, int last4Number, boolean unsubscribe) {
-        String unsubscribeUrl = grailsApplication.config.ratchetv2.server.url.email.unsubscribe
+    def subscribe(String token, int id, int last4Number, boolean subscribe) {
+        String subscribeUrl = grailsApplication.config.ratchetv2.server.url.email.subscribe
 
-        def url = String.format(unsubscribeUrl, id)
+        def url = String.format(subscribeUrl, id)
 
         withPost(url) { req ->
             def resp = req
                     .field("last4PhoneDigit", last4Number)
-                    .field("unsubscribe", unsubscribe)
+                    .field("subscribe", subscribe)
                     .asString()
 
             if (resp.status == 200) {

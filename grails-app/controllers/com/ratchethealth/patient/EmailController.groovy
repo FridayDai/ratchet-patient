@@ -58,9 +58,9 @@ class EmailController extends BaseController {
         String token = request.session.token
         String id = params.id
         String last4Number = params.last4Number
-        def unsubscribe = params.boolean("unsubscribe")
+        def subscribe = params.boolean("subscribe")
 
-        def result = emailService.unsubscribe(token, id.toInteger(), last4Number.toInteger(), unsubscribe)
+        def result = emailService.subscribe(token, id.toInteger(), last4Number.toInteger(), subscribe)
 
         if (result) {
             render status: 200

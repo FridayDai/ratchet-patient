@@ -126,7 +126,7 @@
                     last4Number: numberInputEl.val()
                 }
             }).done(function (data) {
-                $("#unSubscribe").prop("checked", data.subscribeStatus | false);
+                $("#subscribe").prop("checked", data.subscribeStatus | false);
 
                 $('#check-number-button')
                     .prop("disabled", false)
@@ -169,17 +169,17 @@
                 var data = $(this).data();
                 var patientId = data.patientId;
                 var last4Number = numberInputEl.val();
-                subscribeEmail(patientId, last4Number, $("#unSubscribe").prop("checked") !== true);
+                subscribeEmail(patientId, last4Number, $("#subscribe").prop("checked") === true);
             });
         }
 
-        function subscribeEmail(patientId, last4Number, unsubscribe) {
+        function subscribeEmail(patientId, last4Number, subscribe) {
             $.ajax({
                 url: opts.urls.subscription.format(patientId),
                 type: 'POST',
                 data: {
                     last4Number: last4Number,
-                    unsubscribe: unsubscribe
+                    subscribe: subscribe
                 }
             }).done(function () {
                 $("#interact-model-container")

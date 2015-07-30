@@ -42,7 +42,7 @@
 
         <div class="interact-modal-body">
             <div class="interact-modal-content">
-                <input type="checkbox" id="unSubscribe"/>
+                <input type="checkbox" id="subscribe"/>
                 <span>Remind me if I have a pending or overdue task.</span>
             </div>
 
