@@ -80,6 +80,7 @@ grails.project.dependency.resolution = {
 
         compile ":browser-detection:2.3.0"
 
+        test ':code-coverage:2.0.3-3'
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
         //compile ":less-asset-pipeline:1.10.0"
@@ -109,4 +110,44 @@ codenarc {
         CatchException.enabled = false
         GrailsDomainReservedSqlKeywordName.enabled = false
     }
+}
+
+coverage {
+    environments {
+        development {
+            enabledByDefault = true
+        }
+        production {
+            enabledByDefault = true
+        }
+        test {
+            enabledByDefault = false
+        }
+    }
+    xml = true
+    exclusions = [
+            "**/QuartzConfig*",
+            '**/Hstore*',
+            "**/*changelog*/**",
+            "**/*add_*/**",
+            "**/*update_*/**",
+            "**/*drop_*/**",
+            "**/*remove_*/**",
+            "**/*rename_*/**",
+            "**/*schedule_job*/**",
+            "**/*token_refactor*/**",
+            "**/*user_add_*/**",
+            "**/*BootStrap*",
+            "Config*",
+            "**/*DataSource*",
+            "**/*CodeNarcRuleSet*",
+            "**/*resources*",
+            "**/*UrlMappings*",
+            "**/*Tests*",
+            "**/grails/test/**",
+            "**/org/codehaus/groovy/grails/**",
+            "**/PreInit*",
+            "*GrailsPlugin*",
+            "**/domain/**"
+    ]
 }
