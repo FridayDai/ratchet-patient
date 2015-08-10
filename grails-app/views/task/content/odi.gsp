@@ -91,7 +91,7 @@
         <g:if test="${Task.type == 2}">
             <div class="task-copyright text-center">
                 <span>ODI © Jeremy Fairbank, 1980.</span>
-                <span class="inline-right">All rights reserved.</span>
+                <span class="inline-right">All Rights Reserved.</span>
             </div>
         </g:if>
 
