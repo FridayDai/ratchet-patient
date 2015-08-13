@@ -1,5 +1,4 @@
 @import '../../partials/base';
-@import '../../partials/variable';
 
 .error-body {
     margin-top: 138px;
@@ -24,6 +23,7 @@
 
 .expire-body {
     margin-top: 250px;
+    text-align: center;
 
     .invite-expire-top {
         font-weight: 700;
@@ -35,8 +35,18 @@
         font-weight: 400;
     }
 
+    .single-expire {
+        padding: 20px;
+        font-weight: 700;
+        font-size: 50px;
+    }
+
     .expire-logo {
         margin-top: 50px;
+    }
+
+    .client-logo {
+        max-height: 100px;
     }
 }
 
@@ -48,6 +58,19 @@
             display: list-item;
         }
     }
+
+    .expire-body {
+        .single-expire {
+            padding: 10px;
+            font-weight: 500;
+            font-size: 25px;
+        }
+
+        .client-logo {
+            max-height: 75px;
+        }
+    }
+
 }
 
 @include breakpoint('mobile') {

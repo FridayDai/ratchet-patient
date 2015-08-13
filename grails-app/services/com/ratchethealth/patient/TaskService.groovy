@@ -20,7 +20,11 @@ class TaskService extends RatchetAPIService {
 
             if (resp.status == 200 || resp.status == 207) {
                 log.info("Get task success, token: ${token}")
-                resp
+                return resp
+            }
+            else if (resp.status == 400) {
+                log.info("Task expired, token: ${token}")
+                return resp
             } else {
                 handleError(resp)
             }
@@ -46,7 +50,11 @@ class TaskService extends RatchetAPIService {
             if (resp.status == 200) {
                 log.info("Record behaviour success, token: ${token}")
                 true
-            } else {
+            } else if(resp.status == 400) {
+                String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
+                log.error("Record behaviour error ${errorMessage}")
+            }
+            else {
                 handleError(resp)
             }
         }
