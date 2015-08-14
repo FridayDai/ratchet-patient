@@ -1,4 +1,4 @@
-<g:set var="cssPath" value="error/expired"/>
+<g:set var="cssPath" value="error/specifiedError"/>
 <g:applyLayout name="error">
     <html>
     <head>
@@ -11,14 +11,17 @@
     </head>
 
     <body>
-    <div class="expire-body">
+    <div class="wrapper">
+        <div class="expire-body">
 
-        <div class="single-expire primary-color">This task has expired</div>
+            <div class="single-expire primary-color">This task has expired</div>
 
-        <div class="expire-logo">
-            <img src="${client.logo}" alt="" class="client-logo"/>
+            <div class="expire-logo">
+                <img src="${client.logo}" alt="" class="client-logo"/>
+            </div>
         </div>
     </div>
+
     </body>
     </html>
 
