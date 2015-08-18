@@ -139,8 +139,8 @@ class TaskService extends RatchetAPIService {
                     .queryString("code", code)
                     .asString()
 
-            def result = JSON.parse(resp.body)
             if (resp.status == 200) {
+                def result = JSON.parse(resp.body)
                 log.info("Get task result success, token: ${token}")
                 result
             } else {

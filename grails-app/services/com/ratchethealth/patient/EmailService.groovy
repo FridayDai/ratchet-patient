@@ -14,16 +14,15 @@ class EmailService extends RatchetAPIService {
                     .field("code", code)
                     .field("email_update", emailUpdate)
                     .asString()
-            def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
                 log.info("Confirm patient email success, token: ${token}")
 
-                result
+                JSON.parse(resp.body)
             } else if (resp.status == 412) {
                 log.info("Invitation link is expired,token:${token}.")
 
-                result
+                JSON.parse(resp.body)
             } else {
                 handleError(resp)
             }
@@ -38,16 +37,15 @@ class EmailService extends RatchetAPIService {
                     .field("code", code)
                     .field("hasProfile", true)
                     .asString()
-            def result = JSON.parse(resp.body)
 
             if (resp.status == 200) {
                 log.info("Confirm emergency contact email success, token: ${token}")
 
-                result
+                JSON.parse(resp.body)
             } else if (resp.status == 412) {
                 log.info("Invitation link is expired,token:${token}.")
 
-                result
+                JSON.parse(resp.body)
             } else {
                 handleError(resp)
             }
@@ -64,9 +62,8 @@ class EmailService extends RatchetAPIService {
                     .field("last4PhoneDigit", last4Number)
                     .asString()
 
-            def result = JSON.parse(resp.body)
-
             if (resp.status == 200) {
+                def result = JSON.parse(resp.body)
                 log.info("Email setting check success, token: ${token}")
 
                 result
