@@ -52,11 +52,33 @@ class TaskServiceSpec extends Specification {
         resultJson.id == 1
     }
 
+    def "test getTask expired"() {
+        given:
+        def jBuilder = new JsonBuilder()
+        jBuilder {
+            id 1
+        }
+
+        GetRequest.metaClass.asString = { ->
+            return [
+                    status: 400,
+                    body  : jBuilder.toString()
+            ]
+        }
+
+        when:
+        def result = service.getTask('token', 1)
+        def resultJson = JSON.parse(result.body)
+
+        then:
+        resultJson.id == 1
+    }
+
     def "test getTask without successful result"() {
         given:
         GetRequest.metaClass.asString = { ->
             return [
-                    status: 400,
+                    status: 404,
                     body  : "body"
             ]
         }
@@ -89,7 +111,7 @@ class TaskServiceSpec extends Specification {
         given:
         MultipartBody.metaClass.asString = { ->
             return [
-                    status: 400,
+                    status: 404,
                     body  : "body"
             ]
         }

@@ -165,7 +165,7 @@ class EmailServiceSpec extends Specification {
         e.getMessage() == "body"
     }
 
-    def "test unsubscribe with successful result"() {
+    def "test subscribe with successful result"() {
         given:
         def jBuilder = new JsonBuilder()
         jBuilder {
@@ -180,13 +180,13 @@ class EmailServiceSpec extends Specification {
         }
 
         when:
-        def result = service.unsubscribe('token', 1, 1, true)
+        def result = service.subscribe('token', 1, 1, true)
 
         then:
         result == true
     }
 
-    def "test unsubscribe without successful result"() {
+    def "test subscribe without successful result"() {
         given:
         MultipartBody.metaClass.asString = { ->
             return [
@@ -196,7 +196,7 @@ class EmailServiceSpec extends Specification {
         }
 
         when:
-        service.unsubscribe('token', 1, 1, true)
+        service.subscribe('token', 1, 1, true)
 
         then:
         ServerException e = thrown()

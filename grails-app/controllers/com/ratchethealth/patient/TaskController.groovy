@@ -18,8 +18,8 @@ class TaskController extends BaseController {
         if (session["taskComplete${code}"]) {
             redirectToComplete(patientName, taskTitle, code)
         } else {
-            def resp = taskService.getTask(token, code)
             taskService.recordBehaviour(token, code)
+            def resp = taskService.getTask(token, code)
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
@@ -34,6 +34,8 @@ class TaskController extends BaseController {
                 session["taskComplete${code}"] = true
 
                 redirectToComplete(patientName, taskTitle, code)
+            } else if (resp.status == 400 ) {
+                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             }
         }
     }
