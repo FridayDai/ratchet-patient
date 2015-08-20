@@ -34,7 +34,7 @@ class TaskController extends BaseController {
                 session["taskComplete${code}"] = true
 
                 redirectToComplete(patientName, taskTitle, code)
-            } else if (resp.status == 400 ) {
+            } else if (resp.status == 412 ) {
                 render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             }
         }
