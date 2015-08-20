@@ -61,7 +61,7 @@ class TaskServiceSpec extends Specification {
 
         GetRequest.metaClass.asString = { ->
             return [
-                    status: 400,
+                    status: 412,
                     body  : jBuilder.toString()
             ]
         }
