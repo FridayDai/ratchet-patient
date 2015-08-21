@@ -1,6 +1,6 @@
 <g:set var="scriptPath" value="taskBundle"/>
 <g:set var="cssPath" value="task/content/dash"/>
-<g:applyLayout name="taskLayout">
+<g:applyLayout name="taskContent">
 	<html>
 	<head>
 		<title>${Task.title}</title>
@@ -38,7 +38,7 @@
 			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 
-		.rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
+		.rc-choice-hidden:checked + .rc-radio:before {
 			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 		</style>
