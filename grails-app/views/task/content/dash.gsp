@@ -38,7 +38,7 @@
 			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 
-		.rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
+		.rc-choice-hidden:checked + .rc-radio:before {
 			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 		</style>
