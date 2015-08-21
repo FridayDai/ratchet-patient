@@ -86,16 +86,16 @@
 										<label class="choice choice-number choice-number-${j}">
 											<input type="radio" class="rc-choice-hidden"
 												<g:if test="${Task.type == 4}">
-													<g:if test="${i == 0}">name="choices.back"</g:if>
-													<g:if test="${i == 1}">name="choices.leg"</g:if>
-													<g:if test="${i == 0 && choices?.back == j}">checked</g:if>
-													<g:if test="${i == 1 && choices?.leg == j}">checked</g:if>
+													<g:if test="${i == 0}"> name="choices.back"</g:if>
+													<g:if test="${i == 1}"> name="choices.leg"</g:if>
+													<g:if test="${i == 0 && choices?.back == j.toString()}"> checked</g:if>
+													<g:if test="${i == 1 && choices?.leg == j.toString()}"> checked</g:if>
 												</g:if>
 												<g:if test="${Task.type == 5}">
-													<g:if test="${i == 0}">name="choices.neck"</g:if>
-													<g:if test="${i == 1}">name="choices.arm"</g:if>
-													<g:if test="${i == 0 && choices?.neck == j.toString()}">checked</g:if>
-													<g:if test="${i == 1 && choices?.arm == j.toString()}">checked</g:if>
+													<g:if test="${i == 0}"> name="choices.neck"</g:if>
+													<g:if test="${i == 1}"> name="choices.arm"</g:if>
+													<g:if test="${i == 0 && choices?.neck == j.toString()}"> checked</g:if>
+													<g:if test="${i == 1 && choices?.arm == j.toString()}"> checked</g:if>
 												</g:if>
 												   value="${j}"/>
 											<span class="rc-radio"></span>
