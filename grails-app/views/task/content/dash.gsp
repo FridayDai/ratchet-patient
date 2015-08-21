@@ -1,6 +1,6 @@
 <g:set var="scriptPath" value="taskBundle"/>
 <g:set var="cssPath" value="task/content/dash"/>
-<g:applyLayout name="taskLayout">
+<g:applyLayout name="taskContent">
 	<html>
 	<head>
 		<title>${Task.title}</title>
