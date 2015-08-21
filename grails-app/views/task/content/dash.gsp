@@ -30,7 +30,7 @@
 
 		.task-done-btn {
 			color: ${client.primaryColorHex?:'#0f137d'} !important;
-			border-color: ${client.primaryColorHex?:'#0f137d'} !important;;
+			border-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 
 		.task-done-btn:hover {
