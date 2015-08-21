@@ -14,7 +14,8 @@
     <div class="wrapper">
         <div class="expire-body">
 
-            <div class="single-expire primary-color">${errorMessage}</div>
+            <div class="single-expire primary-color">Email already confirmed</div>
+            <div class="subhead primary-color">You have already confirmed your email address</div>
 
             <div class="expire-logo">
                 <img src="${client.logo}" alt="" class="client-logo"/>
