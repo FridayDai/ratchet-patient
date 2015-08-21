@@ -18,8 +18,7 @@ class EmailController extends BaseController {
             if (client.error?.errorId == 412) {
                 render view: '/error/invitationExpired', model: [client: JSON.parse(session.client)]
             } else if (client.error?.errorId == 400) {
-                def errorMessage = (client?.error?.errorMessage) ?: messageSource.getMessage("security.errors.email", null, Locale.default)
-                render view: '/error/emailConfirmError', model: [client: JSON.parse(session.client), errorMessage: errorMessage]
+                render view: '/error/emailConfirmError', model: [client: JSON.parse(session.client)]
             } else {
                 render view: "/email/confirm", model: [client: JSON.parse(session.client)]
             }
