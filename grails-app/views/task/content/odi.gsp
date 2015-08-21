@@ -70,8 +70,8 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="${question.id}"
-                                                   value="${choice.id}${choice.sequence}"
+                                                   name="choices.${question.id}"
+                                                   value="${choice.id}.${choice.sequence}"
                                                    <g:if test="${choices && choices["${question.id}"]?.endsWith(choice.sequence)}">checked</g:if>/>
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
