@@ -38,6 +38,9 @@ function assistBundle(undefined) {
 
     function _sendAssistReport() {
         var data = _getAssistData();
+        var $submitButton = $('button[type="submit"]');
+
+        $submitButton.prop('disabled', true);
 
         $.ajax({
             url: opts.urls.addAssist,
@@ -45,6 +48,9 @@ function assistBundle(undefined) {
             data: data,
             success: function () {
                 _showSuccessMessage();
+            },
+            complete: function () {
+                $submitButton.prop('disabled', false);
             }
         });
     }
