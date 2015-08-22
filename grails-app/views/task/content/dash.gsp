@@ -41,6 +41,13 @@
 		.rc-choice-hidden:checked + .rc-radio:before {
 			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
+
+		.task-done-btn[disabled], .task-done-btn[disabled]:hover {
+			color: ${client.primaryColorHex?:'#0f137d'} !important;
+			background-color: #ffffff !important;
+			cursor: default;
+			opacity: 0.3;
+		}
 		</style>
 	</head>
 
