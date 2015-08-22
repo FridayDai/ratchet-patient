@@ -1,7 +1,7 @@
 //= require ../share/constant
 //=require ../share/announcement
 
-function emailSettingBundle() {
+(function () {
     String.prototype.format = function () {
         var str = this;
         if (arguments.length === 0) {
@@ -241,10 +241,4 @@ function emailSettingBundle() {
     } else if (window.attachEvent) {
         window.attachEvent("onload", emailSettingBundle);
     }
-}
-
-if (window.addEventListener) {
-    window.addEventListener("load", emailSettingBundle, false);
-} else if (window.attachEvent) {
-    window.attachEvent("onload", emailSettingBundle);
-}
+})();
