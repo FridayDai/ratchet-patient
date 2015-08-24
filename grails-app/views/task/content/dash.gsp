@@ -1,6 +1,6 @@
 <g:set var="scriptPath" value="taskBundle"/>
 <g:set var="cssPath" value="task/content/dash"/>
-<g:applyLayout name="taskLayout">
+<g:applyLayout name="taskContent">
 	<html>
 	<head>
 		<title>${Task.title}</title>
@@ -38,8 +38,15 @@
 			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 
-		.rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
+		.rc-choice-hidden:checked + .rc-radio:before {
 			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
+		}
+
+		.task-done-btn[disabled], .task-done-btn[disabled]:hover {
+			color: ${client.primaryColorHex?:'#0f137d'} !important;
+			background-color: #ffffff !important;
+			cursor: default;
+			opacity: 0.3;
 		}
 		</style>
 	</head>
@@ -66,6 +73,8 @@
 									<span class="error-label">This question is required.</span>
 								</g:if>
 							</div>
+
+                            <g:hiddenField name="sections.${section.id}" value="${question.id}"></g:hiddenField>
 
 							<div class="answer-list answer-list-${question.order}">
 								<ul class="list horizontal-list">

@@ -161,8 +161,7 @@ ul {
     }
 }
 
-.rc-choice-hidden:checked + .rc-radio:before,
-.rc-radio:hover:before {
+.rc-choice-hidden:checked + .rc-radio:before {
     position: absolute;
     top: 2px;
     left: 2px;

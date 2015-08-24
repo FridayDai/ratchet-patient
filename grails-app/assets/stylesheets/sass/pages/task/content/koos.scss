@@ -1,0 +1,116 @@
+@import '../../../partials/task_content';
+
+@include breakpoint('mobile') {
+    @include answer-vertical-list('small');
+}
+
+.koos {
+    .info {
+        @include breakpoint('mobile') {
+            padding-bottom: 10px;
+        }
+    }
+
+    .section-title {
+        padding: 30px 0;
+        color: #333;
+        font-weight: bold;
+        font-size: 16px;
+
+        @include breakpoint('mobile') {
+            padding: 20px;
+        }
+
+        @include breakpoint('tablet') {
+            text-align: center;
+        }
+    }
+
+    .question {
+        background-color: #fff;
+
+        @include breakpoint('tablet') {
+            margin-bottom: 0;
+            padding: 30px 20px 0;
+            font-size: 18px;
+        }
+
+        @include breakpoint('desktop') {
+            padding-left: 45px;
+        }
+
+        @include breakpoint('lg-desktop') {
+            padding-left: 65px;
+        }
+    }
+
+    .answer-list {
+        @include breakpoint('tablet') {
+            padding: 15px 20px;
+            background-color: #fff;
+        }
+
+        .list {
+            @include breakpoint('tablet') {
+                margin: 10px 0 10px -20px;
+            }
+        }
+    }
+
+    .answer {
+        @include breakpoint('mobile') {
+            width: 100%;
+        }
+
+        @include breakpoint('tablet') {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 20%;
+            min-height: 1px;
+            margin-right: -.35em;
+            padding-left: 20px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .text {
+            @include breakpoint('tablet') {
+                margin: 10px 0;
+            }
+        }
+    }
+
+    // Special handle for 2 line choices
+    .answer-list-29,
+    .answer-list-30 {
+        .text {
+            @include breakpoint('tablet') {
+                height: 34px;
+                margin-bottom: 5px;
+            }
+        }
+
+    }
+
+    .answer-list-29 {
+        .text {
+            @include breakpoint('desktop') {
+                height: 17px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .answer-list-30 {
+        .text {
+            @include breakpoint('lg-desktop') {
+                height: 17px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .task-done-panel {
+        padding-bottom: 50px;
+    }
+}
