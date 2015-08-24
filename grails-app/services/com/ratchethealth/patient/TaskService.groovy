@@ -21,8 +21,7 @@ class TaskService extends RatchetAPIService {
             if (resp.status == 200 || resp.status == 207) {
                 log.info("Get task success, token: ${token}")
                 return resp
-            }
-            else if (resp.status == 400) {
+            } else if (resp.status == 400) {
                 log.info("Task expired, token: ${token}")
                 return resp
             } else {
@@ -50,17 +49,16 @@ class TaskService extends RatchetAPIService {
             if (resp.status == 200) {
                 log.info("Record behaviour success, token: ${token}")
                 true
-            } else if(resp.status == 400) {
+            } else if (resp.status == 400) {
                 String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
                 log.error("Record behaviour error ${errorMessage}")
-            }
-            else {
+            } else {
                 handleError(resp)
             }
         }
     }
 
-    def getQuestionnaire(String token, code, last4Number) {
+    def getQuestionnaire(String token, treatmentCode, code, last4Number) {
         def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
@@ -71,6 +69,7 @@ class TaskService extends RatchetAPIService {
 
         withGet(url) { req ->
             def resp = req
+                    .queryString("treatmentCode", treatmentCode)
                     .queryString("last4PhoneDigit", last4Number)
                     .queryString("browserName", browserName)
                     .queryString("browserVersion", browserVersion)
@@ -148,5 +147,28 @@ class TaskService extends RatchetAPIService {
             }
         }
 
+    }
+
+    def submitQuestionnaireWithoutHandle(String token, code, choices) {
+        String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
+
+        url = String.format(url, code)
+        def browserName = userAgentIdentService.getBrowser()
+        def browserVersion = userAgentIdentService.getBrowserVersion()
+        def OSName = userAgentIdentService.getOperatingSystem()
+
+        String json = JsonOutput.toJson([code: code, choices: choices, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
+
+        withPost(url) { req ->
+            def resp = req.body(json).asJson()
+
+            if (resp.status == 200) {
+                log.info("Submit questionnaire success, token: ${token}")
+                def result = JSON.parse(resp.body.toString())
+                result
+            } else {
+                return true
+            }
+        }
     }
 }

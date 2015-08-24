@@ -7,6 +7,8 @@
 
 //= require ../share/constant
 
+
+//= require ../bower_components/jquery/jquery.min.js
 function shareBundle(undefined) {
     'use strict';
 
