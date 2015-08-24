@@ -21,6 +21,13 @@
 			color: #ffffff !important;
 			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
+
+		.btn-start-task[disabled], .btn-start-task[disabled]:hover {
+			color: ${client.primaryColorHex?:'#0f137d'} !important;
+			background-color: #ffffff !important;
+			cursor: default;
+			opacity: 0.3;
+		}
 		</style>
 	</head>
 

@@ -29,6 +29,13 @@
             color: #fff;
             background-color: ${  client.primaryColorHex?:'#0f137d'  };
         }
+
+        .req-assist-btn[disabled], .req-assist-btn[disabled]:hover {
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: #ffffff !important;
+            cursor: default;
+            opacity: 0.3;
+        }
         </style>
     </head>
 

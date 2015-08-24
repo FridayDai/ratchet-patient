@@ -147,6 +147,8 @@ function taskBundle() {
                 return false;
             }
 
+            $('input[type="submit"]').prop('disabled', true);
+
             isForm = true;
         });
     }
