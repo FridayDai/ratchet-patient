@@ -67,6 +67,8 @@
 								</g:if>
 							</div>
 
+                            <g:hiddenField name="sections.${section.id}" value="${question.id}"></g:hiddenField>
+
 							<div class="answer-list answer-list-${question.order}">
 								<ul class="list horizontal-list">
 									<g:each var="choice" in="${question.choices}">
