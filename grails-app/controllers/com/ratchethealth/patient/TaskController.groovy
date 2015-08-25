@@ -220,12 +220,16 @@ class TaskController extends BaseController {
             def slurper = new JsonSlurper()
             completeTask = slurper.parseText(session["result${code}"])
             if (completeTask.nrsScore) {
-                completeTask = splitNrsScore(completeTask)
+                if(completeTask.type == 4 || completeTask.type == 5){
+                    completeTask = splitNrsScore(completeTask)
+                }
             }
         } else {
             completeTask = taskService.getTaskResult(token, code)
             if (completeTask.nrsScore) {
-                completeTask = splitNrsScore(completeTask)
+                if(completeTask.type == 4 || completeTask.type == 5){
+                    completeTask = splitNrsScore(completeTask)
+                }
             }
         }
 

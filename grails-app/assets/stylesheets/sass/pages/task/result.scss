@@ -2,6 +2,10 @@
 @import '../../partials/common';
 @import "../../partials/headroom";
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 .result-content {
 
     .container {

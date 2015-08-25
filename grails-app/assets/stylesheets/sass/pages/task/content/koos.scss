@@ -6,15 +6,24 @@
 
 .koos {
     .info {
+        padding-top: 55px;
+        border-bottom: 1px solid $base-color-medium-gray;
+
+        br {
+            content: "";
+            display: block;
+            margin: 30px 0;
+        }
+
         @include breakpoint('mobile') {
-            padding-bottom: 10px;
+            margin: 0 20px;
+            padding: 50px 0;
         }
     }
 
     .section-title {
         padding: 30px 0;
         color: #333;
-        font-weight: bold;
         font-size: 16px;
 
         @include breakpoint('mobile') {
@@ -22,7 +31,7 @@
         }
 
         @include breakpoint('tablet') {
-            text-align: center;
+            text-align: left;
         }
     }
 

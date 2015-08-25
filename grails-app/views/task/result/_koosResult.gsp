@@ -1,6 +1,13 @@
 <div class="score-header">
-    <g:each in="${scores}" var="">
-        <p>Score: ${completeTask.score as float}</p>
+    <% def completeScores = "" %>
+    <% def singleScore%>
+    <% if(completeTask.nrsScore != null) {%>
+    <% completeScores = completeTask.nrsScore?.split(',') }%>
+    <g:each in="${completeScores}" var="num">
+        <% singleScore = num.trim().split(':') %>
+        <g:if test="${singleScore.size() == 2}">
+            <p class="capitalize">${singleScore[0].replaceAll("_", "/" ).toLowerCase()} Score: ${singleScore[1]}</p>
+        </g:if>
     </g:each>
 </div>
 

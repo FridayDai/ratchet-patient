@@ -68,10 +68,10 @@
 
                     <g:each var="question" in="${section.questions}" status="j">
 
-                        <g:if test="${Task.type == 7 && j == 5}">
+                        <g:if test="${Task.type == 7 && i==0 && j == 5}">
                             <div class="section-title">${raw(secondTitle)}</div>
                         </g:if>
-                        <g:elseif test="${Task.type == 8 && j == 3}">
+                        <g:elseif test="${Task.type == 8 && i==0 && j == 3}">
                             <div class="section-title">${raw(secondTitle)}</div>
                         </g:elseif>
 

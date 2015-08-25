@@ -66,6 +66,12 @@ function taskBundle() {
             return true;
         }
 
+        //TODO: add KOOS and HOOS validation
+        var type = $('input[name=taskType]').val();
+        if(type === "7" || type === "8"){
+            return true;
+        }
+
         var radios = questionListEl.querySelectorAll('[type="radio"]');
 
         for (var i = 0, len = radios.length; i < len; i++) {
