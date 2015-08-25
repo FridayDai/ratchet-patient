@@ -31,6 +31,22 @@ class TaskService extends RatchetAPIService {
         }
     }
 
+    def recordTaskStart(String token, code) {
+        def url = grailsApplication.config.ratchetv2.server.url.task.recordTaskStart
+
+        url = String.format(url, code)
+
+        withPost(url) { req ->
+            def resp = req
+                .asString()
+
+            if (resp.status == 200) {
+                log.info("Record task start success, token: ${token}")
+                resp
+            }
+        }
+    }
+
     def recordBehaviour(String token, code) {
         def url = grailsApplication.config.ratchetv2.server.url.task.recordBehaviour
 
@@ -54,9 +70,6 @@ class TaskService extends RatchetAPIService {
                 String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
                 log.error("Record behaviour error ${errorMessage}")
             }
-            else {
-                handleError(resp)
-            }
         }
     }
 
@@ -78,10 +91,10 @@ class TaskService extends RatchetAPIService {
                     .queryString("OSName", OSName)
                     .asString()
 
-            if (resp.status == 200) {
+            if (resp.status == 200 || resp.status == 207) {
                 log.info("Get questionnaire success, token: ${token}")
                 resp
-            } else if (resp.status == 400) {
+            } else if (resp.status == 412 || resp.status == 400) {
                 def result = JSON.parse(resp.body)
                 log.error("Invalid task exception: ${result?.error?.errorMessage}, token: ${token}.")
                 return resp
@@ -104,28 +117,14 @@ class TaskService extends RatchetAPIService {
         withPost(url) { req ->
             def resp = req.body(json).asJson()
 
-            if (resp.status == 200) {
+            if (resp.status == 200 || resp.status == 207) {
                 log.info("Submit questionnaire success, token: ${token}")
                 def result = JSON.parse(resp.body.toString())
                 result
-            } else {
-                handleError(resp)
-            }
-        }
-    }
-
-    def recordTaskStart(String token, code) {
-        def url = grailsApplication.config.ratchetv2.server.url.task.recordTaskStart
-
-        url = String.format(url, code)
-
-        withPost(url) { req ->
-            def resp = req
-                    .asString()
-
-            if (resp.status == 200) {
-                log.info("Record task start success, token: ${token}")
-                resp
+            } else if (resp.status == 412) {
+                def result = JSON.parse(resp.body)
+                log.error("Task expire exception: ${result?.error?.errorMessage}, token: ${token}.")
+                return resp
             } else {
                 handleError(resp)
             }
@@ -151,7 +150,7 @@ class TaskService extends RatchetAPIService {
 
     }
 
-    def submitQuestionnaireWithoutHandle(String token, code, answer) {
+    def submitQuestionnaireWithoutErrorHandle(String token, code, answer) {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
