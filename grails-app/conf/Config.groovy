@@ -227,6 +227,7 @@ ratchetv2 {
                 recordBehaviour = "${ratchetv2.server.url.base}/tests/%s/link/clicked"
                 recordTaskStart = "${ratchetv2.server.url.base}/tests/%s/link/started"
                 testResult = "${ratchetv2.server.url.base}/test/result"
+                getClinicTests = "${ratchetv2.server.url.base}/tests/treatment/%s"
             }
 
             addAssist = "${ratchetv2.server.url.base}/assist"

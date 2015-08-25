@@ -2,6 +2,10 @@ class UrlMappings {
 
     static mappings = {
 
+        "/"(controller: "clinicTestPath", action: "index")
+
+        "/in_clinic"(controller: "clinicTestPath", action: "getTreatmentTasks")
+
         //Health check
         "/healthcheck"(controller: "healthCheck", action: "index")
 
@@ -20,7 +24,7 @@ class UrlMappings {
             action = [GET: "index", POST: "phoneNumberValidate"]
         }
         name taskStart: "/$patientName/tasks/$taskTitle/$code/start"(controller: "task") {
-            action = [GET:"start", POST: "submit"]
+            action = [GET: "start", POST: "submit"]
         }
         name taskComplete: "/$patientName/tasks/$taskTitle/$code/complete"(controller: "task") {
             action = [GET: "complete"]
@@ -39,5 +43,6 @@ class UrlMappings {
         "/announcement/close"(controller: "announcement", action: "close")
 
         "404"(view: '/error/404')
+
     }
 }

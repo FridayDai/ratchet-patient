@@ -139,7 +139,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.getQuestionnaire('token', 1, 1)
+        def result = service.getQuestionnaire('token', 1, 1,1)
         def resultJson = JSON.parse(result.body)
 
         then:
@@ -161,7 +161,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.getQuestionnaire('token', 1, 1)
+        def result = service.getQuestionnaire('token', 1, 1,1)
         def resultJson = JSON.parse(result.body)
 
         then:
@@ -178,7 +178,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        service.getQuestionnaire('token', 1, 1)
+        service.getQuestionnaire('token', 1, 1,1)
 
         then:
         ServerException e = thrown()

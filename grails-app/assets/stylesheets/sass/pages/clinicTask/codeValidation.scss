@@ -1,0 +1,220 @@
+@import '../../partials/common';
+@import '../../partials/form';
+@import '../../partials/input_error';
+
+.main-container {
+    height: 100vh;
+}
+
+.code-panel {
+    padding-top: 50px;
+
+    .treatment-code {
+        text-align: center;
+        font-size: 18px;
+        font-weight: normal;
+        opacity: 0.5;
+        display: block;
+        width: 400px;
+        height: 65px;
+        margin: 0 auto;
+        background-color: $base-color-white;
+
+        @include breakpoint('mobile') {
+            width: 230px;
+            font-size: 16px;
+        }
+    }
+}
+
+.task-go-panel {
+    padding-top: 50px;
+
+    .task-go-btn {
+        display: block;
+        width: 400px;
+        height: 44px;
+        margin: 0 auto;
+        background-color: $base-color-white;
+        border: $base-color-white;
+
+        @include breakpoint('mobile') {
+            width: 230px;
+        }
+    }
+}
+
+.inner-container {
+    height: 100%;
+}
+
+.middle-layer {
+    background-image: linear-gradient(to left, white, black);
+    background-repeat: repeat-x;
+    opacity: 0.3;
+    width: 100%;
+    position: absolute;
+    z-index: 10;
+}
+
+.top-layer {
+    background-image: url("../../../../images/plus_bg.png");
+    background-repeat: repeat;
+    opacity: 0.5;
+    width: 100%;
+    position: absolute;
+    z-index: 20;
+}
+
+.content-layer {
+    position: absolute;
+    z-index: 30;
+    left: 50%;
+
+    .content-middle {
+        position: relative;
+        left: -50%;
+
+        @include breakpoint('mobile') {
+            position: static;
+            left: 0;
+        }
+    }
+
+    .welcome {
+        font-size: 36px;
+        text-align: center;
+    }
+
+    .portal-name {
+        font-size: 21px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .code-div {
+        text-align: center;
+        font-size: 21px;
+        font-weight: normal;
+        border-top: 1px solid rgba(255, 255, 255, .3);
+        border-bottom: 1px solid rgba(255, 255, 255, .3);
+
+        .enter-code-title {
+            margin: 0;
+            font-size: 21px;
+            font-weight: normal;
+            color: $base-color-white;
+
+            @include breakpoint('mobile') {
+                font-size: 18px;
+            }
+        }
+    }
+
+    .font-color {
+        color: $base-color-white;
+    }
+}
+
+.copy-right {
+    display: block;
+    text-align: center;
+    margin-top: 40px;
+    opacity: 0.6;
+    color: $base-color-white;
+    font-size: 13px;
+}
+
+.logo {
+    height: 20px;
+    vertical-align: middle;
+}
+
+@include breakpoint('mobile') {
+
+    .content-layer {
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        //        padding: 45px 15px;
+        //        margin: 45px 15px;
+
+        .content-middle {
+            position: static;
+            left: 0;
+
+            margin-top: 45px;
+        }
+
+        .portal-name {
+            padding: 15px;
+        }
+
+        .code-div {
+            //            padding: 20px;
+
+            .enter-code-title {
+                padding: 25px;
+            }
+
+            .code-panel {
+                padding: 0;
+            }
+
+            .task-go-panel {
+                padding: 25px;
+            }
+
+            .treatment-code {
+                width: 100%;
+            }
+        }
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    //@include breakpoint('tablet') {
+    .content-layer {
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        padding: 100px 20%;
+
+        .content-middle {
+            position: static;
+            left: 0;
+        }
+
+        .portal-name {
+            padding: 35px;
+        }
+
+        .code-div {
+            padding: 50px;
+        }
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    //@include breakpoint('desktop') {
+    .content-layer {
+        padding: 150px 0;
+
+        .portal-name {
+            padding: 35px;
+        }
+
+        .code-div {
+            width: 500px;
+            padding: 50px;
+        }
+    }
+
+}
+
+.rc-error-label {
+    font-size: 16px;
+}

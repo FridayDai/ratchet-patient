@@ -8,43 +8,47 @@
         <style type="text/css">
         @media only screen and (max-width: 767px) {
             .task-time {
-                color: ${ client.primaryColorHex?:'#0f137d' } !important;
+                color: ${client.primaryColorHex?:'#0f137d'} !important;
             }
         }
 
         .primary-color {
-            color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .primary-border-color {
-            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            border-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .primary-background-color {
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .task-done-btn {
-            color: ${ client.primaryColorHex?:'#0f137d' } !important;
-            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;;
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            border-color: ${client.primaryColorHex?:'#0f137d'} !important;;
         }
 
         .task-done-btn:hover {
             color: #ffffff !important;
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
         </style>
+
+        <script language="javascript" type="text/javascript">
+            window.history.forward();
+        </script>
     </head>
 
     <body>
     <div class="odi task-content">
         <div class="info container">${raw(Task.description)}</div>
 
-        <form action="" method="post">
+        <g:form uri="/in_clinic" name="odiTaskForm" method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
@@ -83,10 +87,19 @@
                 </g:each>
             </div>
 
+            <g:if test="${(itemIndex + 1) < tasksLength}">
+                <input hidden name="itemIndex" value="${itemIndex + 1}">
+            </g:if>
+            <g:else>
+                <input hidden name="itemIndex" value="${tasksLength}">
+            </g:else>
+
+            <input hidden name="tasksList" value="${tasksList}">
+            <input hidden name="treatmentCode" value="${treatmentCode}">
             <div class="task-done-panel">
-                <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
+                <g:actionSubmit value="I'm Done" action="submitTasks" class="rc-btn task-done-btn"/>
             </div>
-        </form>
+        </g:form>
 
         <g:if test="${Task.type == 2}">
             <div class="task-copyright text-center">
