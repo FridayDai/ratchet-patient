@@ -21,7 +21,8 @@ class TaskService extends RatchetAPIService {
             if (resp.status == 200 || resp.status == 207) {
                 log.info("Get task success, token: ${token}")
                 return resp
-            } else if (resp.status == 400) {
+            }
+            else if (resp.status == 412) {
                 log.info("Task expired, token: ${token}")
                 return resp
             } else {
@@ -49,10 +50,11 @@ class TaskService extends RatchetAPIService {
             if (resp.status == 200) {
                 log.info("Record behaviour success, token: ${token}")
                 true
-            } else if (resp.status == 400) {
+            } else if(resp.status == 412) {
                 String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
                 log.error("Record behaviour error ${errorMessage}")
-            } else {
+            }
+            else {
                 handleError(resp)
             }
         }
@@ -89,7 +91,7 @@ class TaskService extends RatchetAPIService {
         }
     }
 
-    def submitQuestionnaire(String token, code, choices) {
+    def submitQuestionnaire(String token, code, answer) {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
@@ -97,7 +99,7 @@ class TaskService extends RatchetAPIService {
         def browserVersion = userAgentIdentService.getBrowserVersion()
         def OSName = userAgentIdentService.getOperatingSystem()
 
-        String json = JsonOutput.toJson([code: code, choices: choices, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
+        String json = JsonOutput.toJson([code: code, answer: answer, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
 
         withPost(url) { req ->
             def resp = req.body(json).asJson()
@@ -149,7 +151,7 @@ class TaskService extends RatchetAPIService {
 
     }
 
-    def submitQuestionnaireWithoutHandle(String token, code, choices) {
+    def submitQuestionnaireWithoutHandle(String token, code, answer) {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
@@ -157,7 +159,7 @@ class TaskService extends RatchetAPIService {
         def browserVersion = userAgentIdentService.getBrowserVersion()
         def OSName = userAgentIdentService.getOperatingSystem()
 
-        String json = JsonOutput.toJson([code: code, choices: choices, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
+        String json = JsonOutput.toJson([code: code, answer: answer, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
 
         withPost(url) { req ->
             def resp = req.body(json).asJson()

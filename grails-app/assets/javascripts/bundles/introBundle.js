@@ -1,7 +1,7 @@
 //= require ../share/constant
 //= require ../share/announcement
 
-(function (undefined) {
+function introBundle() {
     'use strict';
 
     function createErrorElement(message) {
@@ -75,6 +75,8 @@
                 event.returnValue = false;
                 return false;
             }
+
+            $('input[type="submit"]').prop('disabled', true);
         });
 
         var last4NumberEl = formEl.querySelector('[name="last4Number"]');
@@ -108,4 +110,10 @@
     }
 
     init();
-})();
+}
+
+if (window.addEventListener) {
+    window.addEventListener("load", introBundle, false);
+} else if (window.attachEvent) {
+    window.attachEvent("onload", introBundle);
+}

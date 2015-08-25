@@ -48,7 +48,7 @@
     <div class="odi task-content">
         <div class="info container">${raw(Task.description)}</div>
 
-        <form action="" method="post">
+        <g:form uri="/in_clinic" name="odiTaskForm" method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
@@ -99,7 +99,7 @@
             <div class="task-done-panel">
                 <g:actionSubmit value="I'm Done" action="submitTasks" class="rc-btn task-done-btn"/>
             </div>
-        </form>
+        </g:form>
 
         <g:if test="${Task.type == 2}">
             <div class="task-copyright text-center">

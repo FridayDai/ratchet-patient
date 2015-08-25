@@ -3,9 +3,6 @@
 <g:applyLayout name="main">
     <html>
     <head>
-        <meta http-equiv="pragma" content="no-cache">
-        <meta http-equiv="cache-control" content="no-cache">
-        <meta http-equiv="expires" content="0">
         <style type="text/css">
         .primary-color {
             color: ${ client.primaryColorHex?:'#0f137d' } !important;
@@ -36,15 +33,7 @@
         </style>
 
         <script language="javascript" type="text/javascript">
-            //            window.history.forward();
-            //            window.open("http://viralpatel.net/blogs/",
-            //                    "mywindow", "status=1,toolbar=0");
-            //            window.open ("URL",
-            //                    "mywindow","status=1,toolbar=0");
-            window.location.hash = "";
-            window.onhashchange = function () {
-                window.location.hash = "";
-            }
+                 window.history.forward();
         </script>
     </head>
 
@@ -59,8 +48,7 @@
                 <div class="code-div">
                     <p class="enter-code-title">Enter Treatment Code</p>
 
-                    <g:form class="code-validation-form" controller="clinicTestPath" action="getTreatmentTasks"
-                            method="post">
+                    <g:form class="code-validation-form" controller="clinicTestPath" action="getTreatmentTasks" method="post">
                         <div class="code-panel">
                             <input type="text" name="treatmentCode" class="treatment-code"
                                    placeholder="Enter 6 digits treatment code"
@@ -69,6 +57,7 @@
                         </div>
 
                         <div class="task-go-panel">
+                            %{--<g:actionSubmit value="Go" class="rc-btn primary-color task-go-btn"/>--}%
                             <input type="submit" class="rc-btn primary-color task-go-btn" value="Go">
                         </div>
                     </g:form>

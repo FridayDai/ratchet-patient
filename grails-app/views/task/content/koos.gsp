@@ -1,6 +1,6 @@
 <g:set var="scriptPath" value="taskBundle"/>
-<g:set var="cssPath" value="task/content/dash"/>
-<g:applyLayout name="taskContent">
+<g:set var="cssPath" value="task/content/koos"/>
+<g:applyLayout name="taskLayout">
     <html>
     <head>
         <title>${Task.title}</title>
@@ -8,65 +8,73 @@
         <style type="text/css">
         @media only screen and (max-width: 767px) {
             .task-time {
-                color: ${ client.primaryColorHex?:'#0f137d' } !important;
+                color: ${client.primaryColorHex?:'#0f137d'} !important;
             }
 
             .task-content .question {
-                color: ${ client.primaryColorHex?:'#0f137d' } !important;
+                color: ${client.primaryColorHex?:'#0f137d'} !important;
             }
         }
 
         .primary-color {
-            color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .primary-border-color {
-            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            border-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .primary-background-color {
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .task-done-btn {
-            color: ${ client.primaryColorHex?:'#0f137d' } !important;
-            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;;
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            border-color: ${client.primaryColorHex?:'#0f137d'} !important;;
         }
 
         .task-done-btn:hover {
             color: #ffffff !important;
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
-        }
-
-        .task-done-btn[disabled], .task-done-btn[disabled]:hover {
-            color: ${client.primaryColorHex?:'#0f137d'} !important;
-            background-color: #ffffff !important;
-            cursor: default;
-            opacity: 0.3;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
         </style>
-
-        <script language="javascript" type="text/javascript">
-            window.history.forward();
-        </script>
     </head>
 
     <body>
-    <div class="dash task-content">
-        <div class="info container">${Task.description}</div>
+    <div class="koos task-content">
+        <div class="info container">${raw(Task.description)}</div>
 
-        <g:form uri="/in_clinic" name="dashTaskForm" method="post">
+        <form id="koos2" name="koos2" method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
             <div class="task-list-wrapper container">
-                <g:each var="section" in="${Task.sections}">
-                    <div class="section-title">${section.title}</div>
-                    <g:each var="question" in="${section.questions}">
+                <% def secondTitle = ""%>
+                <g:each var="section" in="${Task.sections}" status="i">
+                    <g:if test="${i == 0}">
+                        <% def splitTitle %>
+                        <% splitTitle = section.title.split(/\(#\)/)%>
+                        <% if(splitTitle.size() >= 2) {%>
+                        <% secondTitle = splitTitle[1]}%>
+                        <div class="section-title">${raw(splitTitle[0])}</div>
+                    </g:if>
+                    <g:else>
+                        <div class="section-title">${raw(section.title)}</div>
+                    </g:else>
+
+                    <g:each var="question" in="${section.questions}" status="j">
+
+                        <g:if test="${Task.type == 7 && j == 5}">
+                            <div class="section-title">${raw(secondTitle)}</div>
+                        </g:if>
+                        <g:elseif test="${Task.type == 8 && j == 3}">
+                            <div class="section-title">${raw(secondTitle)}</div>
+                        </g:elseif>
+
                         <div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>">
                             <input type="hidden" name="optionals.${question.id}"
                                    value="${question.optional ? '0' : '1'}"/>
@@ -77,6 +85,8 @@
                                     <span class="error-label">This question is required.</span>
                                 </g:if>
                             </div>
+
+                            <g:hiddenField name="sections.${section.id}" value="${question.id}"></g:hiddenField>
 
                             <div class="answer-list answer-list-${question.order}">
                                 <ul class="list horizontal-list">
@@ -99,26 +109,10 @@
                 </g:each>
             </div>
 
-            <g:if test="${(itemIndex + 1) < tasksLength}">
-                <input hidden name="itemIndex" value="${itemIndex + 1}">
-            </g:if>
-            <g:else>
-                <input hidden name="itemIndex" value="${tasksLength}">
-            </g:else>
-
-            <input hidden name="tasksList" value="${tasksList}">
-            <input hidden name="treatmentCode" value="${treatmentCode}">
-
             <div class="task-done-panel">
-                <g:actionSubmit value="I'm Done" action="submitTasks" class="rc-btn task-done-btn"/>
+                <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
             </div>
-
-        </g:form>
-
-        <div class="task-copyright text-center">
-            <span>&#169 Institute for Work & Health 2006.</span>
-            <span class="inline-right">All rights reserved.</span>
-        </div>
+        </form>
     </div>
     </body>
     </html>

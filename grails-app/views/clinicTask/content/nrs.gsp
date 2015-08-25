@@ -8,34 +8,34 @@
         <style type="text/css">
         @media only screen and (max-width: 767px) {
             .task-time {
-                color: ${client.primaryColorHex?:'#0f137d'} !important;
+                color: ${ client.primaryColorHex?:'#0f137d' } !important;
             }
         }
 
         .primary-color {
-            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .primary-border-color {
-            border-color: ${client.primaryColorHex?:'#0f137d'} !important;
+            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .primary-background-color {
-            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .task-done-btn {
-            color: ${client.primaryColorHex?:'#0f137d'} !important;
-            border-color: ${client.primaryColorHex?:'#0f137d'} !important;;
+            color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;;
         }
 
         .task-done-btn:hover {
             color: #ffffff !important;
-            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
-            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
         </style>
 
@@ -58,7 +58,7 @@
             <p>7-10 = Severe Pain (disabling; unable to perform activities of daily living)</p>
         </div>
 
-        <form action="" method="post">
+        <g:form uri="/in_clinic" name="nrsTaskForm" method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
@@ -121,10 +121,11 @@
 
             <input hidden name="tasksList" value="${tasksList}">
             <input hidden name="treatmentCode" value="${treatmentCode}">
+
             <div class="task-done-panel">
                 <g:actionSubmit value="I'm Done" action="submitTasks" class="rc-btn task-done-btn"/>
             </div>
-        </form>
+        </g:form>
     </div>
     </body>
     </html>
