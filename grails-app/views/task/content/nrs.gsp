@@ -61,7 +61,7 @@
 			<p>7-10 = Severe Pain (disabling; unable to perform activities of daily living)</p>
 		</div>
 
-		<form id="nrs2" name="nrs2" method="post">
+		<form id="nrs" name="nrs" method="post">
 			<input type="hidden" name="code" value="${taskCode}"/>
 			<input type="hidden" name="taskType" value="${Task.type}"/>
 

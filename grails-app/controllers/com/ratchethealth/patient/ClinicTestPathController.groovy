@@ -151,7 +151,7 @@ class ClinicTestPathController extends BaseController {
             answer.each {
                 it.choices = convertChoice(taskType, it.choices)
             }
-            taskService.submitQuestionnaireWithoutHandle(token, code, answer)
+            taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer)
 
             if (itemIndexRecord < tasksListRecord.size()) {
                 forward(action: 'startTasks', params: [itemIndex: itemIndex, treatmentCode: treatmentCode, tasksList: tasksList])

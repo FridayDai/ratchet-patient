@@ -86,8 +86,12 @@ class TaskController extends BaseController {
                         taskTitle  : taskTitle,
                         code       : code,
                 ])
-            } else if (resp.status == 404) {
-                render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
+            } else if (resp.status == 207) {
+                session["taskComplete${code}"] = true
+
+                redirectToComplete(patientName, taskTitle, code)
+            } else if (resp.status == 412) {
+                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             } else {
                 def taskResp = taskService.getTask(token, code)
 
@@ -130,6 +134,12 @@ class TaskController extends BaseController {
                                 taskTitle: taskTitle,
                                 taskCode : code,
                         ]
+            } else if (resp.status == 207) {
+                session["taskComplete${code}"] = true
+
+                redirectToComplete(patientName, taskTitle, code)
+            } else if (resp.status == 412) {
+                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             }
         } else {
             redirectToIndex(patientName, taskTitle, code)
@@ -202,11 +212,17 @@ class TaskController extends BaseController {
 //            choices = convertChoice(taskType, choices)
             def resp = taskService.submitQuestionnaire(token, code, answer)
 
-            saveResultToSession(code, resp)
+            if (resp.status == 200) {
+                saveResultToSession(code, resp)
+            }
 
-            session["taskComplete${code}"] = true
+            if (resp.status == 200 || resp.status == 207) {
+                session["taskComplete${code}"] = true
 
-            redirectToComplete(patientName, taskTitle, code)
+                redirectToComplete(patientName, taskTitle, code)
+            } else if (resp.status == 412) {
+                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
+            }
         }
     }
 
@@ -268,6 +284,8 @@ class TaskController extends BaseController {
                         taskCode    : code,
                         completeTask: completeTask
                 ]
+            } else if (resp.status == 412) {
+                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             }
         }
     }
