@@ -119,8 +119,9 @@ class TaskService extends RatchetAPIService {
 
             if (resp.status == 200 || resp.status == 207) {
                 log.info("Submit questionnaire success, token: ${token}")
-                def result = JSON.parse(resp.body.toString())
-                result
+//                def result = JSON.parse(resp.body.toString())
+//                result
+                return resp
             } else if (resp.status == 412) {
                 def result = JSON.parse(resp.body)
                 log.error("Task expire exception: ${result?.error?.errorMessage}, token: ${token}.")
