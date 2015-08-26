@@ -67,7 +67,7 @@ class TaskService extends RatchetAPIService {
                 log.info("Record behaviour success, token: ${token}")
                 true
             } else if(resp.status == 412) {
-                String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
+                String errorMessage = JSON.parse(resp.body.toString())?.error?.errorMessage
                 log.error("Record behaviour error ${errorMessage}")
             }
         }
@@ -95,7 +95,7 @@ class TaskService extends RatchetAPIService {
                 log.info("Get questionnaire success, token: ${token}")
                 resp
             } else if (resp.status == 412 || resp.status == 400) {
-                def result = JSON.parse(resp.body)
+                def result = JSON.parse(resp.body.toString())
                 log.error("Invalid task exception: ${result?.error?.errorMessage}, token: ${token}.")
                 return resp
             } else {
@@ -122,7 +122,7 @@ class TaskService extends RatchetAPIService {
                 def result = JSON.parse(resp.body.toString())
                 result
             } else if (resp.status == 412) {
-                def result = JSON.parse(resp.body)
+                def result = JSON.parse(resp.body.toString())
                 log.error("Task expire exception: ${result?.error?.errorMessage}, token: ${token}.")
                 return resp
             } else {
@@ -140,7 +140,7 @@ class TaskService extends RatchetAPIService {
                     .asString()
 
             if (resp.status == 200) {
-                def result = JSON.parse(resp.body)
+                def result = JSON.parse(resp.body.toString())
                 log.info("Get task result success, token: ${token}")
                 result
             } else {
