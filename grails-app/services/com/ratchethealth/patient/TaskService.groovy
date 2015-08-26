@@ -67,7 +67,7 @@ class TaskService extends RatchetAPIService {
                 log.info("Record behaviour success, token: ${token}")
                 true
             } else if(resp.status == 412) {
-                String errorMessage = JSON.parse(resp.body)?.error?.errorMessage
+                String errorMessage = JSON.parse(resp.body.toString())?.error?.errorMessage
                 log.error("Record behaviour error ${errorMessage}")
             }
         }

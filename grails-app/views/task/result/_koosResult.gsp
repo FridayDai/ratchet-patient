@@ -23,9 +23,12 @@
     <div class="report-bottom">
         <p class="bottom-content">Comparison:</p>
 
-        <p class="bottom-content">${completeTask.comparison} based on <g:formatDate
-                date="${new java.util.Date(completeTask.lastScoreTime)}"
-                timeZone="${TimeZone.getTimeZone('America/Vancouver')}"
-                format="MMM d, yyyy"></g:formatDate> measurement</p>
+        <g:each in="${completeTask.comparison}" var="compare">
+            <p class="bottom-content">${compare} based on <g:formatDate
+                    date="${new java.util.Date(completeTask.lastScoreTime)}"
+                    timeZone="${TimeZone.getTimeZone('America/Vancouver')}"
+                    format="MMM d, yyyy"></g:formatDate> measurement</p>
+        </g:each>
+
     </div>
 </g:if>

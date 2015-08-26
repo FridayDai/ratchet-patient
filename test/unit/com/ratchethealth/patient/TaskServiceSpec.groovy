@@ -183,7 +183,8 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.submitQuestionnaire('token', 1, 1)
+        def resp = service.submitQuestionnaire('token', 1, 1)
+        def result = JSON.parse(resp.body.toString())
 
         then:
         result.id == 1
