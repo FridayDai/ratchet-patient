@@ -52,7 +52,7 @@
     <div class="koos task-content">
         <div class="info container">${raw(Task.description)}</div>
 
-        <g:form uri="/in_clinic" name="koosTaskForm" method="post">
+        <form method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
@@ -123,11 +123,12 @@
 
             <input hidden name="tasksList" value="${tasksList}">
             <input hidden name="treatmentCode" value="${treatmentCode}">
+            <input type="hidden" name="clinicPathRoute" value="todoTask">
 
             <div class="task-done-panel">
-                <g:actionSubmit value="I'm Done" action="submitTasks" class="rc-btn task-done-btn"/>
+                <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
             </div>
-        </g:form>
+        </form>
     </div>
     </body>
     </html>

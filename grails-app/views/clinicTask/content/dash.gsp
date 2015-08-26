@@ -8,38 +8,38 @@
         <style type="text/css">
         @media only screen and (max-width: 767px) {
             .task-time {
-                color: ${ client.primaryColorHex?:'#0f137d' } !important;
+                color: ${client.primaryColorHex?:'#0f137d'} !important;
             }
 
             .task-content .question {
-                color: ${ client.primaryColorHex?:'#0f137d' } !important;
+                color: ${client.primaryColorHex?:'#0f137d'} !important;
             }
         }
 
         .primary-color {
-            color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .primary-border-color {
-            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            border-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .primary-background-color {
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .task-done-btn {
-            color: ${ client.primaryColorHex?:'#0f137d' } !important;
-            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;;
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            border-color: ${client.primaryColorHex?:'#0f137d'} !important;;
         }
 
         .task-done-btn:hover {
             color: #ffffff !important;
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .task-done-btn[disabled], .task-done-btn[disabled]:hover {
@@ -59,7 +59,7 @@
     <div class="dash task-content">
         <div class="info container">${Task.description}</div>
 
-        <g:form uri="/in_clinic" name="dashTaskForm" method="post">
+        <form method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
@@ -106,14 +106,14 @@
                 <input hidden name="itemIndex" value="${tasksLength}">
             </g:else>
 
+            <input type="hidden" name="clinicPathRoute" value="todoTask">
             <input hidden name="tasksList" value="${tasksList}">
             <input hidden name="treatmentCode" value="${treatmentCode}">
 
             <div class="task-done-panel">
-                <g:actionSubmit value="I'm Done" action="submitTasks" class="rc-btn task-done-btn"/>
+                <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
             </div>
-
-        </g:form>
+        </form>
 
         <div class="task-copyright text-center">
             <span>&#169 Institute for Work & Health 2006.</span>

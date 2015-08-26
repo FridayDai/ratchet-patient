@@ -5,35 +5,35 @@
     <head>
         <style type="text/css">
         .primary-color {
-            color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .primary-border-color {
-            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            border-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .primary-background-color {
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .primary-hover-color:hover {
             color: #ffffff !important;
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
         .task-go-btn {
-            color: ${ client.primaryColorHex?:'#0f137d' } !important;
-            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;;
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            border-color: ${client.primaryColorHex?:'#0f137d'} !important;;
         }
 
         .task-go-btn:hover {
             color: #ffffff !important;
-            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
         </style>
 
         <script language="javascript" type="text/javascript">
-                 window.history.forward();
+            window.history.forward();
         </script>
     </head>
 
@@ -48,7 +48,7 @@
                 <div class="code-div">
                     <p class="enter-code-title">Enter Treatment Code</p>
 
-                    <g:form class="code-validation-form" controller="clinicTestPath" action="getTreatmentTasks" method="post">
+                    <g:form class="code-validation-form" controller="clinicTestPath" action="checkClinicPath" method="post">
                         <div class="code-panel">
                             <input type="text" name="treatmentCode" class="treatment-code"
                                    placeholder="Enter 6 digits treatment code"
@@ -56,8 +56,8 @@
                             <g:if test="${errorMsg}"><span class="rc-error-label">${errorMsg}</span></g:if>
                         </div>
 
+                        <input type="hidden" name="clinicPathRoute" value="codeValidation">
                         <div class="task-go-panel">
-                            %{--<g:actionSubmit value="Go" class="rc-btn primary-color task-go-btn"/>--}%
                             <input type="submit" class="rc-btn primary-color task-go-btn" value="Go">
                         </div>
                     </g:form>

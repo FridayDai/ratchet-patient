@@ -70,8 +70,9 @@
                 <input hidden name="itemIndex" value="${0}">
                 <input hidden name="treatmentCode" value="${treatmentCode}">
 
+                <input type="hidden" name="clinicPathRoute" value="tasksList">
                 <div class="task-start-panel">
-                    <g:actionSubmit value="Start" action="startTasks" class="rc-btn task-start-btn"/>
+                    <input type="submit" class="rc-btn task-start-btn" value="Start">
                 </div>
 
             </form>

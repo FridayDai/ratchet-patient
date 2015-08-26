@@ -8,7 +8,7 @@
         <style type="text/css">
         @media only screen and (max-width: 767px) {
             .task-time {
-                color: ${ client.primaryColorHex?:'#0f137d' } !important;
+                color: ${client.primaryColorHex?:'#0f137d'} !important;
             }
         }
 
@@ -58,7 +58,7 @@
             <p>7-10 = Severe Pain (disabling; unable to perform activities of daily living)</p>
         </div>
 
-        <g:form uri="/in_clinic" name="nrsTaskForm" method="post">
+        <form method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
@@ -119,13 +119,14 @@
                 <input hidden name="itemIndex" value="${tasksLength}">
             </g:else>
 
+            <input type="hidden" name="clinicPathRoute" value="todoTask">
             <input hidden name="tasksList" value="${tasksList}">
             <input hidden name="treatmentCode" value="${treatmentCode}">
 
             <div class="task-done-panel">
-                <g:actionSubmit value="I'm Done" action="submitTasks" class="rc-btn task-done-btn"/>
+                <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
             </div>
-        </g:form>
+        </form>
     </div>
     </body>
     </html>

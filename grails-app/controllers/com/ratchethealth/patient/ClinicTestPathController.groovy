@@ -11,6 +11,17 @@ class ClinicTestPathController extends BaseController {
         render view: '/clinicTask/codeValidation', model: [client: JSON.parse(session.client)]
     }
 
+    def checkClinicPath() {
+        def clinicPathRoute = params?.clinicPathRoute
+        if (clinicPathRoute == "codeValidation") {
+            forward(action: "getTreatmentTasks", params: [params: params])
+        } else if (clinicPathRoute == "tasksList") {
+            forward(action: "startTasks", params: [params: params])
+        } else if (clinicPathRoute == "todoTask") {
+            forward(action: "submitTasks", params: [params: params])
+        }
+    }
+
     def getTreatmentTasks() {
         String token = request.session.token
         def treatmentCode = params?.treatmentCode
@@ -21,7 +32,6 @@ class ClinicTestPathController extends BaseController {
             def tasksList = tasksListResp.tests
             def firstName = tasksListResp.firstName
             if (tasksList) {
-//                session["tasksListLength${treatmentCode}"] = tasksList.size()
                 render view: '/clinicTask/tasksList', model: [client          : JSON.parse(session.client),
                                                               tasksList       : tasksList, treatmentCode: treatmentCode,
                                                               patientFirstName: firstName,
