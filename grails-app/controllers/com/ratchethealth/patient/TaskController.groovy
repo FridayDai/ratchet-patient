@@ -213,7 +213,8 @@ class TaskController extends BaseController {
             def resp = taskService.submitQuestionnaire(token, code, answer)
 
             if (resp.status == 200) {
-                saveResultToSession(code, resp)
+                def result = JSON.parse(resp.body.toString())
+                saveResultToSession(code, result)
             }
 
             if (resp.status == 200 || resp.status == 207) {
