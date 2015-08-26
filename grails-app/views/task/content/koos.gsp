@@ -48,7 +48,7 @@
     <div class="koos task-content">
         <div class="info container">${raw(Task.description)}</div>
 
-        <form id="koos2" name="koos2" method="post">
+        <form id="koos" name="koos" method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
