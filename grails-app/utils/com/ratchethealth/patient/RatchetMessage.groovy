@@ -8,4 +8,10 @@ class RatchetMessage {
 	
     //task optional rules
     public static final Integer[] choicesLimit= [0,0,0,0,0 ,4,5,9,3,2 ,3,5,9,2,2]
+
+    //KOOS and HOOS scores
+
+    public static final String[] scoreNames = ["Symptoms", "Pain", "ADL", "Sport/Rec", "QOL"]
+
+
 }

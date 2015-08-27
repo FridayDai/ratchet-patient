@@ -112,9 +112,11 @@ class ClinicTestPathController extends BaseController {
                 def section = [:]
                 def options = [:]
                 value.each {
-                    def val = choices[it]
-                    if (val) {
-                        options.put(it, val)
+                    if(choices){
+                        def val = choices[it]
+                        if (val) {
+                            options.put(it, val)
+                        }
                     }
                 }
                 section.put("sectionId", key)

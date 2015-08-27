@@ -163,9 +163,11 @@ class TaskController extends BaseController {
                 def section = [:]
                 def options = [:]
                 value.each {
-                    def val = choices[it]
-                    if (val) {
-                        options.put(it, val)
+                    if(choices){
+                        def val = choices[it]
+                        if (val) {
+                            options.put(it, val)
+                        }
                     }
                 }
                 section.put("sectionId", key)
@@ -209,7 +211,7 @@ class TaskController extends BaseController {
             answer.each {
                 it.choices = convertChoice(taskType, it.choices)
             }
-//            choices = convertChoice(taskType, choices)
+
             def resp = taskService.submitQuestionnaire(token, code, answer)
 
             if (resp.status == 200) {
