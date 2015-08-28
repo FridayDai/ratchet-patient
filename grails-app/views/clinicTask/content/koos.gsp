@@ -59,58 +59,61 @@
             <div class="task-list-wrapper container">
                 <% def secondTitle = "" %>
                 <g:each var="section" in="${Task.sections}" status="i">
-                    <g:if test="${i == 0}">
-                        <% def splitTitle %>
-                        <% splitTitle = section.title.split(/\(#\)/) %>
-                        <% if (splitTitle.size() >= 2) { %>
-                        <% secondTitle = splitTitle[1]
-                        } %>
-                        <div class="section-title">${raw(splitTitle[0])}</div>
-                    </g:if>
-                    <g:else>
-                        <div class="section-title">${raw(section.title)}</div>
-                    </g:else>
-
-                    <g:each var="question" in="${section.questions}" status="j">
-
-                        <g:if test="${Task.type == 7 && i == 0 && j == 5}">
-                            <div class="section-title">${raw(secondTitle)}</div>
+                    <div class="section-list" value="${section.id}">
+                        <g:if test="${i == 0}">
+                            <% def splitTitle %>
+                            <% splitTitle = section.title.split(/\(#\)/) %>
+                            <% if (splitTitle.size() >= 2) { %>
+                            <% secondTitle = splitTitle[1]
+                            } %>
+                            <div class="section-title">${raw(splitTitle[0])}</div>
                         </g:if>
-                        <g:elseif test="${Task.type == 8 && i == 0 && j == 3}">
-                            <div class="section-title">${raw(secondTitle)}</div>
-                        </g:elseif>
+                        <g:else>
+                            <div class="section-title">${raw(section.title)}</div>
+                        </g:else>
 
-                        <div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>">
-                            <input type="hidden" name="optionals.${question.id}"
-                                   value="${question.optional ? '0' : '1'}"/>
+                        <g:each var="question" in="${section.questions}" status="j">
 
-                            <div class="question">
-                                ${question.order}. ${question.title}
-                                <g:if test="${errors && errors["${question.id}"]}">
-                                    <span class="error-label">This question is required.</span>
-                                </g:if>
+                            <g:if test="${Task.type == 7 && i == 0 && j == 5}">
+                                <div class="section-title">${raw(secondTitle)}</div>
+                            </g:if>
+                            <g:elseif test="${Task.type == 8 && i == 0 && j == 3}">
+                                <div class="section-title">${raw(secondTitle)}</div>
+                            </g:elseif>
+
+                            <div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>">
+                                <input type="hidden" name="optionals.${question.id}"
+                                       value="${question.optional ? '0' : '1'}"/>
+
+                                <div class="question">
+                                    ${question.order}. ${question.title}
+                                    <g:if test="${errors && errors["${question.id}"]}">
+                                        <span class="error-label">This question is required.</span>
+                                    </g:if>
+                                </div>
+
+                                <g:hiddenField name="sections.${section.id}" value="${question.id}"></g:hiddenField>
+
+                                <div class="answer-list answer-list-${question.order}">
+                                    <ul class="list horizontal-list">
+                                        <g:each var="choice" in="${question.choices}">
+                                            <li class="answer">
+                                                <div class="text">${choice.content}</div>
+                                                <label class="choice">
+                                                    <input type="radio" class="rc-choice-hidden"
+                                                           name="choices.${question.id}"
+                                                           value="${choice.id}.${choice.sequence}"
+                                                           <g:if test="${choices && choices["${question.id}"]?.endsWith(choice.sequence)}">checked</g:if>/>
+                                                    <span class="rc-radio"></span>
+                                                </label>
+                                            </li>
+                                        </g:each>
+                                    </ul>
+                                </div>
                             </div>
+                        </g:each>
+                    </div>
 
-                            <g:hiddenField name="sections.${section.id}" value="${question.id}"></g:hiddenField>
-
-                            <div class="answer-list answer-list-${question.order}">
-                                <ul class="list horizontal-list">
-                                    <g:each var="choice" in="${question.choices}">
-                                        <li class="answer">
-                                            <div class="text">${choice.content}</div>
-                                            <label class="choice">
-                                                <input type="radio" class="rc-choice-hidden"
-                                                       name="choices.${question.id}"
-                                                       value="${choice.id}.${choice.sequence}"
-                                                       <g:if test="${choices && choices["${question.id}"]?.endsWith(choice.sequence)}">checked</g:if>/>
-                                                <span class="rc-radio"></span>
-                                            </label>
-                                        </li>
-                                    </g:each>
-                                </ul>
-                            </div>
-                        </div>
-                    </g:each>
                 </g:each>
             </div>
 
