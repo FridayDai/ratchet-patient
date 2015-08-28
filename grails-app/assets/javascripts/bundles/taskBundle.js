@@ -109,7 +109,7 @@ function taskBundle() {
        if(questionList.length < choicesLimit[sectionId]) {
             return notDoneQuestion;
        }
-        return false
+        return false;
     }
 
     function setErrorStatus(questionListEl) {
@@ -168,17 +168,7 @@ function taskBundle() {
             errorQuestions = [];
 
             if(type === "7" || type === "8"){
-                for(var j= 0, sectionLen= sectionLists.length; j < sectionLen; j++) {
-                    var questionsUndone = questionsNotDone($(sectionLists[j]));
-
-                    if(questionsUndone) {
-                        for(var k = 0, questionLen = questionsUndone.length; k < questionLen; k++) {
-                            errorQuestions.push(questionsUndone[k]);
-                            setErrorStatus(questionsUndone[k]);
-                            isValid = false;
-                        }
-                    }
-                }
+                isValid = sectionQuestionValid(sectionLists);
             } else{
                 for (var i = 0, len = questionLists.length; i < len; i++) {
                     if (!hasChecked(questionLists[i])) {
@@ -201,6 +191,23 @@ function taskBundle() {
 
             isForm = true;
         });
+    }
+
+    function sectionQuestionValid(sectionLists) {
+
+        var isValid = true;
+        for(var j= 0, sectionLen= sectionLists.length; j < sectionLen; j++) {
+            var questionsUndone = questionsNotDone($(sectionLists[j]));
+
+            if(questionsUndone) {
+                for(var k = 0, questionLen = questionsUndone.length; k < questionLen; k++) {
+                    errorQuestions.push(questionsUndone[k]);
+                    setErrorStatus(questionsUndone[k]);
+                    isValid = false;
+                }
+            }
+        }
+        return isValid;
     }
 
     function setCloseConfirmation() {
