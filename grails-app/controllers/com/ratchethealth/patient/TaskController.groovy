@@ -326,7 +326,7 @@ class TaskController extends BaseController {
         def errors = [:]
         answer.each {
             def sectionId  = it.sectionId
-            if(it.choices.size() < RatchetMessage.choicesLimit[sectionId.toInteger()]){
+            if(it.choices.size() < RatchetStatusCode.choicesLimit[sectionId.toInteger()]){
                 def sectionChoices = sections[sectionId]?: []
                 def checkedChoices = it.choices.keySet()?: []
                 def list = sectionChoices - checkedChoices
