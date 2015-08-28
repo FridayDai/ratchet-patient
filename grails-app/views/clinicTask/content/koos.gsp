@@ -85,12 +85,12 @@
                                 <input type="hidden" name="optionals.${question.id}"
                                        value="${question.optional ? '0' : '1'}"/>
 
-                                <div class="question">
-                                    ${question.order}. ${question.title}
-                                    <g:if test="${errors && errors["${question.id}"]}">
-                                        <span class="error-label">This question is required.</span>
-                                    </g:if>
-                                </div>
+                            <div class="question">
+                                ${question.order}. ${raw(question.title)}
+                                <g:if test="${errors && errors["${question.id}"]}">
+                                    <span class="error-label">This question is required.</span>
+                                </g:if>
+                            </div>
 
                                 <g:hiddenField name="sections.${section.id}" value="${question.id}"></g:hiddenField>
 
