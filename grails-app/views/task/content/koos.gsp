@@ -53,16 +53,18 @@
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
             <div class="task-list-wrapper container">
+                <% def firstTitle = "" %>
                 <% def secondTitle = "" %>
                 <g:each var="section" in="${Task.sections}" status="i">
                     <div class="section-list" value="${section.id}">
-                        <g:if test="${i == 0}">
-                            <% def splitTitle %>
+                        <g:if test="${section.title.startsWith("<h3>Symptoms") || section.title.startsWith("<h3>Pain")}">
+                            <% def splitTitle%>
                             <% splitTitle = section.title.split(/\(#\)/) %>
                             <% if (splitTitle.size() >= 2) { %>
+                            <% firstTitle = splitTitle[0] %>
                             <% secondTitle = splitTitle[1]
                             } %>
-                            <div class="section-title">${raw(splitTitle[0])}</div>
+                            <div class="section-title">${raw(firstTitle)}</div>
                         </g:if>
                         <g:else>
                             <div class="section-title">${raw(section.title)}</div>
@@ -72,12 +74,19 @@
 
                         <g:each var="question" in="${section.questions}" status="j">
 
-                            <g:if test="${Task.type == 7 && i == 0 && j == 5}">
-                                <div class="section-title">${raw(secondTitle)}</div>
+                            <g:if test="${secondTitle && firstTitle && firstTitle.startsWith("<h3>Symptoms")}">
+                                <g:if test="${Task.type == 7 && j == 5}">
+                                    <div class="section-title">${raw(secondTitle)}</div>
+                                </g:if>
+                                <g:elseif test="${Task.type == 8 && j == 3}">
+                                    <div class="section-title">${raw(secondTitle)}</div>
+                                </g:elseif>
                             </g:if>
-                            <g:elseif test="${Task.type == 8 && i == 0 && j == 3}">
-                                <div class="section-title">${raw(secondTitle)}</div>
+
+                            <g:elseif test="${secondTitle && firstTitle && firstTitle.startsWith("<h3>Pain") && j == 1 }">
+                                    <div class="section-title">${raw(secondTitle)}</div>
                             </g:elseif>
+
 
                             <div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>">
                                 <input type="hidden" name="optionals.${question.id}"
