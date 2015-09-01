@@ -172,11 +172,22 @@ class ClinicTestPathController extends BaseController {
                 def resp = clinicTestPathService.getTreatmentTasks(token, treatmentCode, completedTasksOnly)
                 if (resp.status == 200) {
                     def completeTasksList = JSON.parse(resp.body)
-                    def uncompleteTasksList = tasksListRecord - completeTasksList.tests
+                    def DoneTaskList = []
+                    tasksListRecord.each { it->
+                        def collectList = completeTasksList.tests
+                        for(def i = 0; i< collectList.size(); i++) {
+                            if(it.code == collectList[i].code){
+                                DoneTaskList.add(it)
+                            }
+                        }
+                    }
+                    def uncompleteTasksList = tasksListRecord - DoneTaskList
                     render(view: '/clinicTask/tasksList', model: [client           : JSON.parse(session.client),
-                                                                  completeTasksList: completeTasksList, uncompleteTasksList: uncompleteTasksList,
+                                                                  completeTasksList: completeTasksList,
+                                                                  doneTaskList: DoneTaskList,
+                                                                  uncompleteTasksList: uncompleteTasksList,
                                                                   treatmentCode    : treatmentCode,
-                                                                  tasksLength      : completeTasksList.tests.size()])
+                                                                  tasksLength      : DoneTaskList.size()])
                 } else {
                     render(view: '/clinicTask/tasksList', model: [client     : JSON.parse(session.client),
                                                                   tasksList  : tasksListRecord, treatmentCode: treatmentCode,

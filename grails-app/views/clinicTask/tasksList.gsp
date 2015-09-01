@@ -85,7 +85,7 @@
                 <p>You have completed <strong>${tasksLength}</strong> task(s):</p>
             </div>
 
-            <g:each in="${completeTasksList.tests}" var="${completeTask}">
+            <g:each in="${doneTaskList}" var="${completeTask}">
 
                 <div class="task-title primary-background-color">
                     <div class="task-done-or-not task-done"></div>
