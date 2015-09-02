@@ -1,0 +1,67 @@
+@import '../../partials/common';
+@import "../../partials/headroom";
+
+.task-list-header {
+    margin-top: 50px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 18px;
+}
+
+.task-title {
+    display: block;
+    width: 490px;
+    margin: 20px auto;
+    padding: 15px 10px;
+    color: $base-color-white;
+    font-weight: normal;
+    font-size: 18px;
+    position: relative;
+
+    .task-done-or-not {
+        position: absolute;
+        width: 40px;
+        height: 100%;
+        background-color: $base-color-gery-light;
+        top: 0;
+        left: -40px;
+    }
+
+    .task-done {
+        &:before {
+            position: absolute;
+            top: 30%;
+            left: 10px;
+            content: '√';
+            font-size: 22px;
+            color: $base-color-white;
+        }
+    }
+}
+
+.task-start-panel {
+    padding-top: 50px;
+    padding-bottom: 150px;
+
+    @include breakpoint('mobile') {
+        padding-bottom: 80px;
+    }
+
+    .task-start-btn {
+        display: block;
+        width: 250px;
+        margin: 0 auto;
+        padding: 15px;
+
+        @include breakpoint('mobile') {
+            width: 250px;
+        }
+    }
+}
+
+@include breakpoint('mobile') {
+    .task-title {
+        width: 91%;
+        margin-left: 37px;
+    }
+}

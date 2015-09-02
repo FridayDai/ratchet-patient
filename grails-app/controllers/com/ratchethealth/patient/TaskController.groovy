@@ -34,7 +34,7 @@ class TaskController extends BaseController {
                 session["taskComplete${code}"] = true
 
                 redirectToComplete(patientName, taskTitle, code)
-            } else if (resp.status == 400 ) {
+            } else if (resp.status == 412) {
                 render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             }
         }
@@ -61,19 +61,21 @@ class TaskController extends BaseController {
                         ]
             }
         } else {
-            def resp = taskService.getQuestionnaire(token, code, user.last4Number)
+            def resp = taskService.getQuestionnaire(token, null, code, user.last4Number)
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
                 def questionnaireView = ''
 
-                //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH
+                //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS
                 if (result.type == 1 || result.type == 6) {
                     questionnaireView = '/task/content/dash'
                 } else if (result.type == 2 || result.type == 3) {
                     questionnaireView = '/task/content/odi'
                 } else if (result.type == 4 || result.type == 5) {
                     questionnaireView = '/task/content/nrs'
+                } else if(result.type == 7 || result.type == 8) {
+                    questionnaireView = '/task/content/koos'
                 }
 
                 session["questionnaireView${code}"] = questionnaireView
@@ -84,8 +86,12 @@ class TaskController extends BaseController {
                         taskTitle  : taskTitle,
                         code       : code,
                 ])
-            } else if (resp.status == 404) {
-                render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
+            } else if (resp.status == 207) {
+                session["taskComplete${code}"] = true
+
+                redirectToComplete(patientName, taskTitle, code)
+            } else if (resp.status == 412) {
+                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             } else {
                 def taskResp = taskService.getTask(token, code)
 
@@ -115,7 +121,7 @@ class TaskController extends BaseController {
         } else if (session["questionnaireView${code}"]) {
             def view = session["questionnaireView${code}"]
             def last4Number = session["last4Number${code}"]
-            def resp = taskService.getQuestionnaire(token, code, last4Number)
+            def resp = taskService.getQuestionnaire(token, null, code, last4Number)
 
             if (resp.status == 200) {
                 taskService.recordTaskStart(token, code)
@@ -128,6 +134,12 @@ class TaskController extends BaseController {
                                 taskTitle: taskTitle,
                                 taskCode : code,
                         ]
+            } else if (resp.status == 207) {
+                session["taskComplete${code}"] = true
+
+                redirectToComplete(patientName, taskTitle, code)
+            } else if (resp.status == 412) {
+                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             }
         } else {
             redirectToIndex(patientName, taskTitle, code)
@@ -142,13 +154,45 @@ class TaskController extends BaseController {
         def taskType = params.taskType
         def choices = params.choices
         def optionals = params.optionals
+        def sections = params.sections
+        def answer = []
+        def errors
 
-        def errors = validateChoice(taskType, choices, optionals)
+        if (sections) {
+            sections.each { key, value ->
+                def section = [:]
+                def options = [:]
+                value.each {
+                    if(choices){
+                        def val = choices[it]
+                        if (val) {
+                            options.put(it, val)
+                        }
+                    }
+                }
+                section.put("sectionId", key)
+                section.put("choices", options)
+                answer.add(section)
+            }
+        } else {
+            def section = [:]
+            section.put("sectionId", null)
+            section.put("choices", choices)
+            answer.add(section)
+        }
+
+        //validation
+        if (taskType == '7' || taskType == '8') {
+            //only check for (7.KOOS 8.HOOS)
+            errors = validateSectionChoice(sections, answer)
+        } else {
+            errors = validateChoice(taskType, choices, optionals)
+        }
 
         if (errors.size() > 0) {
             def view = session["questionnaireView${code}"]
             def last4Number = session["last4Number${code}"]
-            def resp = taskService.getQuestionnaire(token, code, last4Number)
+            def resp = taskService.getQuestionnaire(token, null, code, last4Number)
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
@@ -164,14 +208,24 @@ class TaskController extends BaseController {
                         ]
             }
         } else {
-            choices = convertChoice(taskType, choices)
-            def resp = taskService.submitQuestionnaire(token, code, choices)
+            answer.each {
+                it.choices = convertChoice(taskType, it.choices)
+            }
 
-            saveResultToSession(code, resp)
+            def resp = taskService.submitQuestionnaire(token, code, answer)
 
-            session["taskComplete${code}"] = true
+            if (resp.status == 200) {
+                def result = JSON.parse(resp.body.toString())
+                saveResultToSession(code, result)
+            }
 
-            redirectToComplete(patientName, taskTitle, code)
+            if (resp.status == 200 || resp.status == 207) {
+                session["taskComplete${code}"] = true
+
+                redirectToComplete(patientName, taskTitle, code)
+            } else if (resp.status == 412) {
+                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
+            }
         }
     }
 
@@ -185,12 +239,16 @@ class TaskController extends BaseController {
             def slurper = new JsonSlurper()
             completeTask = slurper.parseText(session["result${code}"])
             if (completeTask.nrsScore) {
-                completeTask = splitNrsScore(completeTask)
+                if(completeTask.type == 4 || completeTask.type == 5){
+                    completeTask = splitNrsScore(completeTask)
+                }
             }
         } else {
             completeTask = taskService.getTaskResult(token, code)
             if (completeTask.nrsScore) {
-                completeTask = splitNrsScore(completeTask)
+                if(completeTask.type == 4 || completeTask.type == 5){
+                    completeTask = splitNrsScore(completeTask)
+                }
             }
         }
 
@@ -229,6 +287,8 @@ class TaskController extends BaseController {
                         taskCode    : code,
                         completeTask: completeTask
                 ]
+            } else if (resp.status == 412) {
+                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             }
         }
     }
@@ -260,6 +320,22 @@ class TaskController extends BaseController {
             completeTask.nrsScore2 = nrsScoreJson.arm
         }
         return completeTask
+    }
+
+    def validateSectionChoice(sections, answer) {
+        def errors = [:]
+        answer.each {
+            def sectionId  = it.sectionId
+            if(it.choices.size() < RatchetStatusCode.choicesLimit[sectionId.toInteger()]){
+                def sectionChoices = sections[sectionId]?: []
+                def checkedChoices = it.choices.keySet()?: []
+                def list = sectionChoices - checkedChoices
+                list.each{
+                    errors[it] = 1
+                }
+            }
+        }
+        return errors
     }
 
     def validateChoice(type, choices, optionals) {

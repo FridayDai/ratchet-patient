@@ -26,7 +26,7 @@
 
 		.task-done-btn {
 			color: ${client.primaryColorHex?:'#0f137d'} !important;
-			border-color: ${client.primaryColorHex?:'#0f137d'} !important;;
+			border-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 
 		.task-done-btn:hover {
@@ -61,7 +61,7 @@
 			<p>7-10 = Severe Pain (disabling; unable to perform activities of daily living)</p>
 		</div>
 
-		<form action="" method="post">
+		<form id="nrs" name="nrs" method="post">
 			<input type="hidden" name="code" value="${taskCode}"/>
 			<input type="hidden" name="taskType" value="${Task.type}"/>
 
@@ -93,16 +93,16 @@
 										<label class="choice choice-number choice-number-${j}">
 											<input type="radio" class="rc-choice-hidden"
 												<g:if test="${Task.type == 4}">
-													<g:if test="${i == 0}">name="choices.back"</g:if>
-													<g:if test="${i == 1}">name="choices.leg"</g:if>
-													<g:if test="${i == 0 && choices?.back == j}">checked</g:if>
-													<g:if test="${i == 1 && choices?.leg == j}">checked</g:if>
+													<g:if test="${i == 0}"> name="choices.back"</g:if>
+													<g:if test="${i == 1}"> name="choices.leg"</g:if>
+													<g:if test="${i == 0 && choices?.back == j.toString()}"> checked</g:if>
+													<g:if test="${i == 1 && choices?.leg == j.toString()}"> checked</g:if>
 												</g:if>
 												<g:if test="${Task.type == 5}">
-													<g:if test="${i == 0}">name="choices.neck"</g:if>
-													<g:if test="${i == 1}">name="choices.arm"</g:if>
-													<g:if test="${i == 0 && choices?.neck == j.toString()}">checked</g:if>
-													<g:if test="${i == 1 && choices?.arm == j.toString()}">checked</g:if>
+													<g:if test="${i == 0}"> name="choices.neck"</g:if>
+													<g:if test="${i == 1}"> name="choices.arm"</g:if>
+													<g:if test="${i == 0 && choices?.neck == j.toString()}"> checked</g:if>
+													<g:if test="${i == 1 && choices?.arm == j.toString()}"> checked</g:if>
 												</g:if>
 												   value="${j}"/>
 											<span class="rc-radio"></span>

@@ -47,6 +47,9 @@
                     <g:if test="${completeTask.type == 4 || completeTask.type == 5}">
                         <g:render template="result/nrsResult" model="['completeTask': completeTask]"/>
                     </g:if>
+                    <g:elseif test="${completeTask.type == 7 || completeTask.type == 8}">
+                        <g:render template="result/koosResult" model="['completeTask': completeTask]"/>
+                    </g:elseif>
                     <g:else>
                         <g:render template="result/taskResult" model="['completeTask': completeTask]"/>
                     </g:else>

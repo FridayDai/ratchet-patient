@@ -38,13 +38,17 @@
             background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
         </style>
+
+        <script language="javascript" type="text/javascript">
+        window.history.forward();
+        </script>
     </head>
 
     <body>
     <div class="odi task-content">
         <div class="info container">${raw(Task.description)}</div>
 
-        <form action="" method="post">
+        <form method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
@@ -82,6 +86,17 @@
                     </div>
                 </g:each>
             </div>
+
+            <g:if test="${(itemIndex + 1) < tasksLength}">
+                <input hidden name="itemIndex" value="${itemIndex + 1}">
+            </g:if>
+            <g:else>
+                <input hidden name="itemIndex" value="${tasksLength}">
+            </g:else>
+
+            <input hidden name="tasksList" value="${tasksList}">
+            <input hidden name="treatmentCode" value="${treatmentCode}">
+            <input type="hidden" name="clinicPathRoute" value="todoTask">
 
             <div class="task-done-panel">
                 <input type="submit" class="rc-btn task-done-btn" value="I'm Done">

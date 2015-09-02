@@ -5,7 +5,7 @@ class ClientFilters {
     def clientService
 
     def filters = {
-        all(controller: 'email|task|agreement|assist') {
+        all(controller: 'email|task|agreement|assist|clinicTestPath') {
             before = {
                 log.info("${request.requestURI}, ip: ${request.getRemoteAddr()}")
                 if (!session.client) {

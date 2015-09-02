@@ -61,7 +61,7 @@ class TaskServiceSpec extends Specification {
 
         GetRequest.metaClass.asString = { ->
             return [
-                    status: 400,
+                    status: 412,
                     body  : jBuilder.toString()
             ]
         }
@@ -107,23 +107,6 @@ class TaskServiceSpec extends Specification {
         result == true
     }
 
-    def "test recordBehaviour without successful result"() {
-        given:
-        MultipartBody.metaClass.asString = { ->
-            return [
-                    status: 404,
-                    body  : "body"
-            ]
-        }
-
-        when:
-        service.recordBehaviour('token', 1)
-
-        then:
-        ServerException e = thrown()
-        e.getMessage() == "body"
-    }
-
     def "test getQuestionnaire with successful result"() {
         given:
         def jBuilder = new JsonBuilder()
@@ -139,7 +122,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.getQuestionnaire('token', 1, 1)
+        def result = service.getQuestionnaire('token', 1, 1, 1)
         def resultJson = JSON.parse(result.body)
 
         then:
@@ -161,7 +144,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.getQuestionnaire('token', 1, 1)
+        def result = service.getQuestionnaire('token', 1, 1, 1)
         def resultJson = JSON.parse(result.body)
 
         then:
@@ -178,7 +161,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        service.getQuestionnaire('token', 1, 1)
+        service.getQuestionnaire('token', 1, 1, 1)
 
         then:
         ServerException e = thrown()
@@ -200,7 +183,8 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.submitQuestionnaire('token', 1, 1)
+        def resp = service.submitQuestionnaire('token', 1, 1)
+        def result = JSON.parse(resp.body.toString())
 
         then:
         result.id == 1
@@ -243,24 +227,6 @@ class TaskServiceSpec extends Specification {
 
         then:
         resultJson.id == 1
-    }
-
-
-    def "test recordTaskStart without successful result"() {
-        given:
-        HttpRequestWithBody.metaClass.asString = { ->
-            return [
-                    status: 400,
-                    body  : "body"
-            ]
-        }
-
-        when:
-        service.recordTaskStart('token', 1)
-
-        then:
-        ServerException e = thrown()
-        e.getMessage() == "body"
     }
 
     def "test getTaskResult with successful result"() {

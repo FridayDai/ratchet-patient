@@ -16,9 +16,8 @@ class AnnouncementService extends RatchetAPIService {
                     .queryString("latest", true)
                     .asString()
 
-            def result = JSON.parse(resp.body)
-
             if (resp.status == 200) {
+                def result = JSON.parse(resp.body)
                 log.info("Get announcement success")
                 result?.items[0];
             } else {
