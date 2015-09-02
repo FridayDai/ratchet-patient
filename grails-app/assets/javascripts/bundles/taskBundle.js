@@ -17,6 +17,10 @@ function taskBundle() {
         'Yoga, Pilates and Tai Chi might help alleviate pain.'
     ];
 
+    var errorQuestions = [];
+
+    var choicesLimit= [0,0,0,0,0 ,4,5,9,3,2 ,3,5,9,2,2];
+
     var setTip = (function () {
         var subHeaderEl = document.getElementsByClassName('sub-header')[0];
         var tipContent = subHeaderEl.querySelector('.tip-content');
@@ -54,21 +58,34 @@ function taskBundle() {
         }
 
         el.addEventListener('click', function () {
+            var type = $('input[name=taskType]').val();
 
             this.querySelector('.rc-choice-hidden').checked = true;
             setTip();
-            clearErrorStatus(findParentQuestionList(this));
+
+            if(errorQuestions.length > 0) {
+                clearErrorStatus(findParentQuestionList(this));
+
+                if(type === "7" || type === "8") {
+                    var questionList = findParentQuestionList(this);
+                    var sectionId = $(questionList).parent(".section-list").attr("value");
+                    var siblings = $(questionList).siblings(".question-list");
+                    var checkedQuestions = siblings.has('[type="radio"]:checked');
+
+                    // it's need to count self, so this plus 1
+                    if(1 + checkedQuestions.length >= choicesLimit[sectionId]) {
+                        for(var i= 0, len = siblings.length; i < len; i++) {
+                            clearErrorStatus(siblings[i]);
+                        }
+                    }
+
+                }
+            }
         });
     }
 
     function hasChecked(questionListEl) {
         if (questionListEl.dataset.optional === 'true') {
-            return true;
-        }
-
-        //TODO: add KOOS and HOOS validation
-        var type = $('input[name=taskType]').val();
-        if(type === "7" || type === "8"){
             return true;
         }
 
@@ -80,6 +97,18 @@ function taskBundle() {
             }
         }
 
+        return false;
+    }
+
+    function questionsNotDone(sectionListEl) {
+
+        var sectionId = sectionListEl.attr("value");
+        var questionList = sectionListEl.find('.question-list').has('[type="radio"]:checked');
+        var notDoneQuestion = sectionListEl.find('.question-list').not(questionList);
+
+       if(questionList.length < choicesLimit[sectionId]) {
+            return notDoneQuestion;
+       }
         return false;
     }
 
@@ -116,8 +145,6 @@ function taskBundle() {
         return window.innerWidth < 768;
     }
 
-    var errorQuestions = [];
-
     function scrollToError() {
         var first = errorQuestions[0];
         var top = first.offsetTop;
@@ -132,17 +159,24 @@ function taskBundle() {
     function setValidation() {
         var formEl = document.getElementsByTagName('form')[0];
         var questionLists = formEl.querySelectorAll('.question-list');
+        var sectionLists = formEl.querySelectorAll('.section-list');
+        var type = $('input[name=taskType]').val();
+
 
         formEl.addEventListener('submit', function (event) {
             var isValid = true;
             errorQuestions = [];
 
-            for (var i = 0, len = questionLists.length; i < len; i++) {
-                if (!hasChecked(questionLists[i])) {
-                    errorQuestions.push(questionLists[i]);
-                    setErrorStatus(questionLists[i]);
+            if(type === "7" || type === "8"){
+                isValid = sectionQuestionValid(sectionLists);
+            } else{
+                for (var i = 0, len = questionLists.length; i < len; i++) {
+                    if (!hasChecked(questionLists[i])) {
+                        errorQuestions.push(questionLists[i]);
+                        setErrorStatus(questionLists[i]);
 
-                    isValid = false;
+                        isValid = false;
+                    }
                 }
             }
 
@@ -157,6 +191,23 @@ function taskBundle() {
 
             isForm = true;
         });
+    }
+
+    function sectionQuestionValid(sectionLists) {
+
+        var isValid = true;
+        for(var j= 0, sectionLen= sectionLists.length; j < sectionLen; j++) {
+            var questionsUndone = questionsNotDone($(sectionLists[j]));
+
+            if(questionsUndone) {
+                for(var k = 0, questionLen = questionsUndone.length; k < questionLen; k++) {
+                    errorQuestions.push(questionsUndone[k]);
+                    setErrorStatus(questionsUndone[k]);
+                    isValid = false;
+                }
+            }
+        }
+        return isValid;
     }
 
     function setCloseConfirmation() {

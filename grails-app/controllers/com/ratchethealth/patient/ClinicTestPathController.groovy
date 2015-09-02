@@ -112,9 +112,11 @@ class ClinicTestPathController extends BaseController {
                 def section = [:]
                 def options = [:]
                 value.each {
-                    def val = choices[it]
-                    if (val) {
-                        options.put(it, val)
+                    if(choices){
+                        def val = choices[it]
+                        if (val) {
+                            options.put(it, val)
+                        }
                     }
                 }
                 section.put("sectionId", key)
@@ -170,11 +172,22 @@ class ClinicTestPathController extends BaseController {
                 def resp = clinicTestPathService.getTreatmentTasks(token, treatmentCode, completedTasksOnly)
                 if (resp.status == 200) {
                     def completeTasksList = JSON.parse(resp.body)
-                    def uncompleteTasksList = tasksListRecord - completeTasksList.tests
+                    def DoneTaskList = []
+                    tasksListRecord.each { it->
+                        def collectList = completeTasksList.tests
+                        for(def i = 0; i< collectList.size(); i++) {
+                            if(it.code == collectList[i].code){
+                                DoneTaskList.add(it)
+                            }
+                        }
+                    }
+                    def uncompleteTasksList = tasksListRecord - DoneTaskList
                     render(view: '/clinicTask/tasksList', model: [client           : JSON.parse(session.client),
-                                                                  completeTasksList: completeTasksList, uncompleteTasksList: uncompleteTasksList,
+                                                                  completeTasksList: completeTasksList,
+                                                                  doneTaskList: DoneTaskList,
+                                                                  uncompleteTasksList: uncompleteTasksList,
                                                                   treatmentCode    : treatmentCode,
-                                                                  tasksLength      : completeTasksList.tests.size()])
+                                                                  tasksLength      : DoneTaskList.size()])
                 } else {
                     render(view: '/clinicTask/tasksList', model: [client     : JSON.parse(session.client),
                                                                   tasksList  : tasksListRecord, treatmentCode: treatmentCode,
@@ -188,7 +201,7 @@ class ClinicTestPathController extends BaseController {
         def errors = [:]
         answer.each {
             def sectionId = it.sectionId
-            if (it.choices.size() < RatchetMessage.choicesLimit[sectionId.toInteger()]) {
+            if (it.choices.size() < RatchetStatusCode.choicesLimit[sectionId.toInteger()]) {
                 def sectionChoices = sections[sectionId] ?: []
                 def checkedChoices = it.choices.keySet() ?: []
                 def list = sectionChoices - checkedChoices

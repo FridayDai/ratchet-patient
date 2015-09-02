@@ -51,6 +51,10 @@
     .score-header {
         padding: 10px 0;
         font-size: 20px;
+
+        P {
+            margin: 6px 0;
+        }
     }
 
     .score-content {
@@ -73,15 +77,21 @@
     .report-bottom {
         padding-bottom: 15px;
         font-size: 16px;
+        font-weight: 600;
         color: $base-color-medium-black;
 
+        .report-title {
+            font-size: 19px;
+        }
+
         .bottom-content {
+            padding: 6px 0;
             margin: 0;
         }
     }
 
     .bottom {
-        height: 280px;
+//        height: 280px;
         text-align: center;
 
         .reminder {
@@ -119,7 +129,7 @@
         left: 0;
 
         .normal-width {
-            width: 24%;
+            width: 760px;
         }
 
         .compare-width {
