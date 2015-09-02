@@ -1,5 +1,6 @@
 <g:set var="cssPath" value="task/result"/>
 <g:set var="scriptPath" value="taskResultBundle"/>
+<g:set var="noTips" value="true"/>
 <g:applyLayout name="taskLayout">
     <html>
     <head>
