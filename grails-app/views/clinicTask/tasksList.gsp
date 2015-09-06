@@ -116,7 +116,7 @@
             <div class="task-list-header">
                 <P>Hi ${patientFirstName},</P>
 
-                <p>You have <strong>0</strong> task</p>
+                <p>You have <strong>0</strong> tasks</p>
             </div>
 
             <form name="noTaskListForm" method="post">
