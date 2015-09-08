@@ -1,3 +1,5 @@
+//= require ../bower_components/jquery/jquery.min.js
+
 //= require ../bower_components/jquery-validation/dist/jquery.validate
 
 //= require ../bower_components/jquery-ui/ui/jquery.ui.core
@@ -7,8 +9,6 @@
 
 //= require ../share/constant
 
-
-//= require ../bower_components/jquery/jquery.min.js
 function shareBundle(undefined) {
     'use strict';
 
