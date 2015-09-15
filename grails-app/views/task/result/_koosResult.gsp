@@ -24,12 +24,11 @@
     <div class="report-bottom">
         <div class="report-title">Comparison:</div>
 
-        <g:each in="${completeTask.comparison}" var="compare" status="i">
-            <p class="bottom-content"> ${RatchetStatusCode.TASK_OOS_SCORE[compare.key]} Score: ${compare.value} based on <g:formatDate
+        <g:each in="${RatchetStatusCode.TASK_OOS_SCORE}" var="singleCompare">
+            <p class="bottom-content"> ${singleCompare.value} Score: ${completeTask.comparison[singleCompare.key]} based on <g:formatDate
                     date="${new java.util.Date(completeTask.lastScoreTime)}"
                     timeZone="${TimeZone.getTimeZone('America/Vancouver')}"
                     format="MMM d, yyyy"></g:formatDate> measurement</p>
         </g:each>
-
     </div>
 </g:if>

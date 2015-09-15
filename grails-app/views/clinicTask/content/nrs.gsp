@@ -36,6 +36,7 @@
 
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
             background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            color: #ffffff;
         }
         </style>
 

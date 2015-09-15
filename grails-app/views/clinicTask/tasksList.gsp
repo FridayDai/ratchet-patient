@@ -4,30 +4,30 @@
     <head>
         <style type="text/css">
         .primary-color {
-            color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            color: ${  client.primaryColorHex?:'#0f137d'  } !important;
         }
 
         .primary-border-color {
-            border-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
         }
 
         .primary-background-color {
-            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
         }
 
         .primary-hover-color:hover {
             color: #ffffff !important;
-            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
         }
 
         .task-start-btn {
-            color: ${     client.primaryColorHex?:'#0f137d'     } !important;
-            border-color: ${     client.primaryColorHex?:'#0f137d'     } !important;;
+            color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+            border-color: ${  client.primaryColorHex?:'#0f137d'  } !important;;
         }
 
         .task-start-btn:hover {
             color: #ffffff !important;
-            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            background-color: ${  client.primaryColorHex?:'#0f137d'  } !important;
         }
         </style>
 
@@ -54,7 +54,15 @@
             <div class="task-list-header">
                 <P>Hi ${patientFirstName},</P>
 
-                <p>You have <strong>${tasksLength}</strong> tasks:</p>
+                <p>
+                    You have
+                    <g:if test="${tasksLength == 1}">
+                        <strong>${tasksLength}</strong> task:
+                    </g:if>
+                    <g:else>
+                        <strong>${tasksLength}</strong> tasks:
+                    </g:else>
+                </p>
             </div>
 
             <g:each in="${tasksList}" var="${task}">
@@ -71,6 +79,7 @@
                 <input hidden name="treatmentCode" value="${treatmentCode}">
 
                 <input type="hidden" name="clinicPathRoute" value="tasksList">
+
                 <div class="task-start-panel">
                     <input type="submit" class="rc-btn task-start-btn" value="Start">
                 </div>
@@ -82,7 +91,15 @@
             <div class="task-list-header">
                 <P>Hi ${completeTasksList.firstName},</P>
 
-                <p>You have completed <strong>${tasksLength}</strong> task(s):</p>
+                <p>
+                    You have completed
+                    <g:if test="${tasksLength == 1}">
+                        <strong>${tasksLength}</strong> task:
+                    </g:if>
+                    <g:else>
+                        <strong>${tasksLength}</strong> tasks:
+                    </g:else>
+                </p>
             </div>
 
             <g:each in="${doneTaskList}" var="${completeTask}">
@@ -116,7 +133,7 @@
             <div class="task-list-header">
                 <P>Hi ${patientFirstName},</P>
 
-                <p>You have <strong>0</strong> task</p>
+                <p>You have <strong>0</strong> tasks</p>
             </div>
 
             <form name="noTaskListForm" method="post">
