@@ -100,15 +100,15 @@
             </div>
 
             <g:if test="${(itemIndex + 1) < tasksLength}">
-                <input hidden name="itemIndex" value="${itemIndex + 1}">
+                <input type="hidden" name="itemIndex" value="${itemIndex + 1}">
             </g:if>
             <g:else>
-                <input hidden name="itemIndex" value="${tasksLength}">
+                <input type="hidden" name="itemIndex" value="${tasksLength}">
             </g:else>
 
             <input type="hidden" name="clinicPathRoute" value="todoTask">
-            <input hidden name="tasksList" value="${tasksList}">
-            <input hidden name="treatmentCode" value="${treatmentCode}">
+            <input type="hidden" name="tasksList" value="${tasksList}">
+            <input type="hidden" name="treatmentCode" value="${treatmentCode}">
 
             <div class="task-done-panel">
                 <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
