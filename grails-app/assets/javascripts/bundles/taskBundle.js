@@ -9,8 +9,6 @@ function taskBundle() {
 
     var TIPS = [
         'Losing weight enhances your chance of recovery.',
-        'Have you learned the “log-rolling” technique?',
-        'Back pain improves up to 2 years after surgery.',
         'Smoking inhabited fusion of the bone.',
         'Physical therapy could help with recovery.',
         'Avoid bending, lifting heavy objects and twisting.',
