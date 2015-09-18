@@ -75,8 +75,8 @@
 
             <form name="tasksListForm" method="post">
                 <input type="hidden" name="tasksList" value="${tasksList}">
-                <input hidden name="itemIndex" value="${0}">
-                <input hidden name="treatmentCode" value="${treatmentCode}">
+                <input type="hidden" name="itemIndex" value="${0}">
+                <input type="hidden" name="treatmentCode" value="${treatmentCode}">
 
                 <input type="hidden" name="clinicPathRoute" value="tasksList">
 
