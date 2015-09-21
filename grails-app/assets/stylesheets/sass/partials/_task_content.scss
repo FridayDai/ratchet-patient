@@ -60,7 +60,7 @@
 }
 
 .task-content {
-    background-color: #f2f2f2;
+    background-color: $base-color-lighter-gray;
 
     @include breakpoint('tablet') {
         padding-top: 180px;

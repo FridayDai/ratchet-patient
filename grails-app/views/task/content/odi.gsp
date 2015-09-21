@@ -1,6 +1,6 @@
 <g:set var="scriptPath" value="taskBundle"/>
 <g:set var="cssPath" value="task/odi"/>
-<g:set var="hasAssistMe" value="true"></g:set>
+<g:set var="hasAssistMe" value="true"/>
 
 <g:applyLayout name="taskLayout">
     <html>

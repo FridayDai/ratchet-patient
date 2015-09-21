@@ -15,8 +15,10 @@ class TaskController extends BaseController {
         def code = params.code
         def taskTitle = params.taskTitle
 
+        def patientId = taskService.getPatientInfoByTaskCode(token, code).patientPK
+
         if (session["taskComplete${code}"]) {
-            redirectToComplete(patientName, taskTitle, code)
+            redirectToComplete(patientName, patientId, taskTitle, code)
         } else {
             taskService.recordBehaviour(token, code)
             def resp = taskService.getTask(token, code)
@@ -33,7 +35,7 @@ class TaskController extends BaseController {
             } else if (resp.status == 207) {
                 session["taskComplete${code}"] = true
 
-                redirectToComplete(patientName, taskTitle, code)
+                redirectToComplete(patientName, patientId, taskTitle, code)
             } else if (resp.status == 412) {
                 render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             }
@@ -46,6 +48,7 @@ class TaskController extends BaseController {
         def code = params.code
         def taskTitle = params.taskTitle
 
+        def patientId = taskService.getPatientInfoByTaskCode(token, code).patientPK
         if (!user.validate()) {
             def resp = taskService.getTask(token, code)
 
@@ -74,7 +77,7 @@ class TaskController extends BaseController {
                     questionnaireView = '/task/content/odi'
                 } else if (result.type == 4 || result.type == 5) {
                     questionnaireView = '/task/content/nrs'
-                } else if(result.type == 7 || result.type == 8) {
+                } else if (result.type == 7 || result.type == 8) {
                     questionnaireView = '/task/content/koos'
                 }
 
@@ -85,12 +88,12 @@ class TaskController extends BaseController {
                         patientName: patientName,
                         taskTitle  : taskTitle,
                         code       : code,
-                        patientId : result.patientPK
+                        patientId  : result.patientPK
                 ])
             } else if (resp.status == 207) {
                 session["taskComplete${code}"] = true
 
-                redirectToComplete(patientName, taskTitle, code)
+                redirectToComplete(patientName, patientId, taskTitle, code)
             } else if (resp.status == 412) {
                 render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             } else {
@@ -119,7 +122,7 @@ class TaskController extends BaseController {
         def patientId = params.patientId
 
         if (session["taskComplete${code}"]) {
-            redirectToComplete(patientName, taskTitle, code)
+            redirectToComplete(patientName, patientId, taskTitle, code)
         } else if (session["questionnaireView${code}"]) {
             def view = session["questionnaireView${code}"]
             def last4Number = session["last4Number${code}"]
@@ -140,7 +143,7 @@ class TaskController extends BaseController {
             } else if (resp.status == 207) {
                 session["taskComplete${code}"] = true
 
-                redirectToComplete(patientName, taskTitle, code)
+                redirectToComplete(patientName, patientId, taskTitle, code)
             } else if (resp.status == 412) {
                 render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             }
@@ -152,6 +155,7 @@ class TaskController extends BaseController {
     def submit() {
         String token = request.session.token
         def patientName = params.patientName
+        def patientId = params.patientId
         def taskTitle = params.taskTitle
         def code = params.code
         def taskType = params.taskType
@@ -166,7 +170,7 @@ class TaskController extends BaseController {
                 def section = [:]
                 def options = [:]
                 value.each {
-                    if(choices){
+                    if (choices) {
                         def val = choices[it]
                         if (val) {
                             options.put(it, val)
@@ -203,6 +207,7 @@ class TaskController extends BaseController {
                 render view: view,
                         model: [
                                 client   : JSON.parse(session.client),
+                                patientId: patientId,
                                 Task     : result,
                                 taskTitle: taskTitle,
                                 taskCode : code,
@@ -225,7 +230,7 @@ class TaskController extends BaseController {
             if (resp.status == 200 || resp.status == 207) {
                 session["taskComplete${code}"] = true
 
-                redirectToComplete(patientName, taskTitle, code)
+                redirectToComplete(patientName, patientId, taskTitle, code)
             } else if (resp.status == 412) {
                 render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
             }
@@ -235,6 +240,7 @@ class TaskController extends BaseController {
     def complete() {
         String token = request.session.token
         def patientName = params.patientName
+        def patientId = params.patientId
         def taskTitle = params.taskTitle
         def code = params.code
         def completeTask
@@ -242,14 +248,14 @@ class TaskController extends BaseController {
             def slurper = new JsonSlurper()
             completeTask = slurper.parseText(session["result${code}"])
             if (completeTask.nrsScore) {
-                if(completeTask.type == 4 || completeTask.type == 5){
+                if (completeTask.type == 4 || completeTask.type == 5) {
                     completeTask = splitNrsScore(completeTask)
                 }
             }
         } else {
             completeTask = taskService.getTaskResult(token, code)
             if (completeTask.nrsScore) {
-                if(completeTask.type == 4 || completeTask.type == 5){
+                if (completeTask.type == 4 || completeTask.type == 5) {
                     completeTask = splitNrsScore(completeTask)
                 }
             }
@@ -266,6 +272,7 @@ class TaskController extends BaseController {
                         client      : JSON.parse(session.client),
                         taskTitle   : taskTitle,
                         taskCode    : code,
+                        patientId   : patientId,
                         completeTask: completeTask
                 ]
             } else {
@@ -328,12 +335,12 @@ class TaskController extends BaseController {
     def validateSectionChoice(sections, answer) {
         def errors = [:]
         answer.each {
-            def sectionId  = it.sectionId
-            if(it.choices.size() < RatchetStatusCode.choicesLimit[sectionId.toInteger()]){
-                def sectionChoices = sections[sectionId]?: []
-                def checkedChoices = it.choices.keySet()?: []
+            def sectionId = it.sectionId
+            if (it.choices.size() < RatchetStatusCode.choicesLimit[sectionId.toInteger()]) {
+                def sectionChoices = sections[sectionId] ?: []
+                def checkedChoices = it.choices.keySet() ?: []
                 def list = sectionChoices - checkedChoices
-                list.each{
+                list.each {
                     errors[it] = 1
                 }
             }
@@ -395,11 +402,14 @@ class TaskController extends BaseController {
         ])
     }
 
-    def redirectToComplete(patientName, taskTitle, code) {
+    def redirectToComplete(patientName, patientId, taskTitle, code) {
+
         redirect(mapping: 'taskComplete', params: [
                 patientName: patientName,
+                patientId  : patientId,
                 taskTitle  : taskTitle,
                 code       : code
         ])
+
     }
 }

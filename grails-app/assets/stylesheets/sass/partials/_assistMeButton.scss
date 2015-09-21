@@ -11,3 +11,30 @@
         font-family: 'Ionicons';
     }
 }
+
+.assist-bottom {
+    padding: 10px 20px 80px;
+    background: $base-color-lighter-gray;
+    text-align: center;
+
+    .assist-mobile-btn {
+        display: none;
+
+        @include breakpoint('mobile') {
+            display: inline-block;
+            padding: 3px 10px;
+            color: $base-color-medium-gray;
+            font-weight: 400;
+            font-size: 20px;
+
+            &:before{
+                display: inline-block;
+                content: '\f445';
+                font-family: 'Ionicons';
+            }
+        }
+
+    }
+}
+
+

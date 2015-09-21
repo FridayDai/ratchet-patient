@@ -222,6 +222,7 @@ ratchetv2 {
 
             // Task
             task {
+                getPatientInfo = "${ratchetv2.server.url.base}/tests/assist/%s"
                 oneTest = "${ratchetv2.server.url.base}/tests/%s"
                 tests = "${ratchetv2.server.url.base}/tests"
                 recordBehaviour = "${ratchetv2.server.url.base}/tests/%s/link/clicked"

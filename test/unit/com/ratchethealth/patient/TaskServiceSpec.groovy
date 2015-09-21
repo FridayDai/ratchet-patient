@@ -266,4 +266,42 @@ class TaskServiceSpec extends Specification {
         ServerException e = thrown()
         e.getMessage() == "body"
     }
+
+    def "test getPatientId by code with successfully"() {
+        given:
+        def jBuilder = new JsonBuilder()
+        jBuilder {
+            id 1
+        }
+
+        GetRequest.metaClass.asString = { ->
+            return [
+                    status: 200,
+                    body  : jBuilder.toString()
+            ]
+        }
+
+        when:
+        def result = service.getPatientInfoByTaskCode('token', 1)
+
+        then:
+        result.id == 1
+    }
+
+    def "test getPatientId by code without successful result"() {
+        given:
+        GetRequest.metaClass.asString = { ->
+            return [
+                    status: 404,
+                    body  : "body"
+            ]
+        }
+
+        when:
+        service.getPatientInfoByTaskCode('token', 1)
+
+        then:
+        ServerException e = thrown()
+        e.getMessage() == "body"
+    }
 }
