@@ -1,0 +1,13 @@
+
+.assist-btn {
+    padding: 3px 10px;
+    margin: 0 15px;
+    border: 1px solid $base-color-medium-gray;
+    color: $base-color-medium-gray;
+
+    &:before{
+        display: inline-block;
+        content: '\f445';
+        font-family: 'Ionicons';
+    }
+}

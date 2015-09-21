@@ -85,6 +85,7 @@ class TaskController extends BaseController {
                         patientName: patientName,
                         taskTitle  : taskTitle,
                         code       : code,
+                        patientId : result.patientPK
                 ])
             } else if (resp.status == 207) {
                 session["taskComplete${code}"] = true
@@ -115,6 +116,7 @@ class TaskController extends BaseController {
         def patientName = params.patientName
         def taskTitle = params.taskTitle
         def code = params.code
+        def patientId = params.patientId
 
         if (session["taskComplete${code}"]) {
             redirectToComplete(patientName, taskTitle, code)
@@ -133,6 +135,7 @@ class TaskController extends BaseController {
                                 Task     : result,
                                 taskTitle: taskTitle,
                                 taskCode : code,
+                                patientId: patientId
                         ]
             } else if (resp.status == 207) {
                 session["taskComplete${code}"] = true

@@ -1,5 +1,7 @@
 <g:set var="scriptPath" value="taskBundle"/>
-<g:set var="cssPath" value="task/content/nrs"/>
+<g:set var="cssPath" value="task/nrs"/>
+<g:set var="hasAssistMe" value="true"></g:set>
+
 <g:applyLayout name="taskContent">
 	<html>
 	<head>

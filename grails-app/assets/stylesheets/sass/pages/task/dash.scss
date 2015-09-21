@@ -1,4 +1,4 @@
-@import '../../../partials/task_content';
+@import '../../partials/task_content';
 
 @include breakpoint('mobile') {
     @include answer-vertical-list('small');
