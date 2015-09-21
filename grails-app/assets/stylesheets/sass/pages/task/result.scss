@@ -1,6 +1,7 @@
 @import '../../partials/variable';
 @import '../../partials/common';
 @import "../../partials/headroom";
+@import "../../partials/assistMeButton";
 
 .capitalize {
     text-transform: capitalize;
@@ -187,4 +188,8 @@
             height: 100px;
         }
     }
+}
+
+.assist-bottom {
+    background: transparent;
 }

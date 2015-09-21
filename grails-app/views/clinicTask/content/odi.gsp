@@ -1,5 +1,5 @@
 <g:set var="scriptPath" value="taskBundle"/>
-<g:set var="cssPath" value="task/content/odi"/>
+<g:set var="cssPath" value="task/odi"/>
 <g:applyLayout name="taskLayout">
     <html>
     <head>

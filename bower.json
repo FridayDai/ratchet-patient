@@ -14,11 +14,12 @@
     "tests"
   ],
   "dependencies": {
+    "Ionicons": "ionicons#~2.0.1",
+    "headroom.js": "git://github.com/WickyNilliams/headroom.js.git#~0.7.0",
     "jquery": "1.8.3",
-    "underscore": "1.7.0",
     "jquery-ui": "1.9.0",
     "jquery-validation": "1.13.1",
     "toast-grid": "~1.0.0",
-    "headroom.js": "git://github.com/WickyNilliams/headroom.js.git#~0.7.0"
+    "underscore": "1.7.0"
   }
 }
