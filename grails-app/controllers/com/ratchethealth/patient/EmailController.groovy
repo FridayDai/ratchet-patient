@@ -50,7 +50,7 @@ class EmailController extends BaseController {
         String id = params.id
         String last4Number = params.last4Number
 
-        def result = emailService.emailCheck(token, id.toInteger(), last4Number.toInteger())
+        def result = emailService.emailCheck(token, id as long, last4Number.toInteger())
 
         if (result) {
             render result as JSON
@@ -63,7 +63,7 @@ class EmailController extends BaseController {
         String last4Number = params.last4Number
         def subscribe = params.boolean("subscribe")
 
-        def result = emailService.subscribe(token, id.toInteger(), last4Number.toInteger(), subscribe)
+        def result = emailService.subscribe(token, id as long, last4Number.toInteger(), subscribe)
 
         if (result) {
             render status: 200
