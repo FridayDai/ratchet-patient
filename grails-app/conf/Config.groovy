@@ -201,6 +201,8 @@ grails.cache.config = {
 }
 
 cors.url.pattern = '/assets/*'
+cors.allow.origin.regex = '.*\\.ratchethealth\\.com'
+
 ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvVedyg9hT\$dvkUGhNVqj"
 
 ratchetv2 {
