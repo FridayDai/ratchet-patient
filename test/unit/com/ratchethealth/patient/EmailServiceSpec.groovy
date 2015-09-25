@@ -55,7 +55,7 @@ class EmailServiceSpec extends Specification {
         given:
         MultipartBody.metaClass.asString = { ->
             return [
-                    status: 404,
+                    status: 405,
                     body  : "body"
             ]
         }
