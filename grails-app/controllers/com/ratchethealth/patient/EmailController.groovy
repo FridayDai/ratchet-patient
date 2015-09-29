@@ -17,7 +17,7 @@ class EmailController extends BaseController {
         if (client) {
             if (client.error?.errorId == 412) {
                 render view: '/error/invitationExpired', model: [client: JSON.parse(session.client)]
-            } else if (client.error?.errorId == 400) {
+            } else if (client.error?.errorId == 400 || client.error?.errorId == 404) {
                 render view: '/error/emailConfirmError', model: [client: JSON.parse(session.client)]
             } else {
                 render view: "/email/confirm", model: [client: JSON.parse(session.client)]
