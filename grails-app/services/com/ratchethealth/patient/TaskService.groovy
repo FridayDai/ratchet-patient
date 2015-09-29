@@ -173,4 +173,23 @@ class TaskService extends RatchetAPIService {
             }
         }
     }
+
+    def getPatientInfoByTaskCode(String token, code) {
+        def url = grailsApplication.config.ratchetv2.server.url.task.getPatientInfo
+
+        url = String.format(url, code)
+
+        withGet(url) { req ->
+            def resp = req
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("Get patientId success, token: ${token}")
+                def result = JSON.parse(resp.body)
+                return result
+            } else {
+                handleError(resp)
+            }
+        }
+    }
 }

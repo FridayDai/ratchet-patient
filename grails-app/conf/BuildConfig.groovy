@@ -79,6 +79,7 @@ grails.project.dependency.resolution = {
         compile ":codenarc:0.23"
 
         compile ":browser-detection:2.3.0"
+        runtime ":cors:1.1.6"
 
         test ':code-coverage:2.0.3-3'
         // Uncomment these to enable additional asset-pipeline capabilities

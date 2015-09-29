@@ -17,7 +17,7 @@ class EmailController extends BaseController {
         if (client) {
             if (client.error?.errorId == 412) {
                 render view: '/error/invitationExpired', model: [client: JSON.parse(session.client)]
-            } else if (client.error?.errorId == 400) {
+            } else if (client.error?.errorId == 400 || client.error?.errorId == 404) {
                 render view: '/error/emailConfirmError', model: [client: JSON.parse(session.client)]
             } else {
                 render view: "/email/confirm", model: [client: JSON.parse(session.client)]
@@ -50,7 +50,7 @@ class EmailController extends BaseController {
         String id = params.id
         String last4Number = params.last4Number
 
-        def result = emailService.emailCheck(token, id.toInteger(), last4Number.toInteger())
+        def result = emailService.emailCheck(token, id as long, last4Number.toInteger())
 
         if (result) {
             render result as JSON
@@ -63,7 +63,7 @@ class EmailController extends BaseController {
         String last4Number = params.last4Number
         def subscribe = params.boolean("subscribe")
 
-        def result = emailService.subscribe(token, id.toInteger(), last4Number.toInteger(), subscribe)
+        def result = emailService.subscribe(token, id as long, last4Number.toInteger(), subscribe)
 
         if (result) {
             render status: 200
