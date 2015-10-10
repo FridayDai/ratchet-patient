@@ -55,7 +55,9 @@
 
 			<div class="task-list-wrapper container">
 				<g:each var="section" in="${Task.sections}">
+					<g:if test="${section.title}">
 					<div class="section-title">${section.title}</div>
+					</g:if>
 					<g:each var="question" in="${section.questions}">
 						<div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>">
 							<input type="hidden" name="optionals.${question.id}"
@@ -71,7 +73,7 @@
 							<div class="answer-list answer-list-${question.order}">
 								<ul class="list horizontal-list">
 									<g:each var="choice" in="${question.choices}">
-										<li class="answer">
+										<li class="answer answer-${question.choices.size()}-columns">
 											<div class="text">${choice.content}</div>
 											<label class="choice">
 												<input type="radio" class="rc-choice-hidden"
