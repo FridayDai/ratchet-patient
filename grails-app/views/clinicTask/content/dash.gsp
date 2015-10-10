@@ -109,6 +109,8 @@
             <input type="hidden" name="clinicPathRoute" value="todoTask">
             <input type="hidden" name="tasksList" value="${tasksList}">
             <input type="hidden" name="treatmentCode" value="${treatmentCode}">
+            <input type="hidden" name="patientId" value="${patientId}">
+            <input type="hidden" name="emailStatus" value="${emailStatus}">
 
             <div class="task-done-panel">
                 <input type="submit" class="rc-btn task-done-btn" value="I'm Done">

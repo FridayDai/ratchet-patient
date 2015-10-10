@@ -1,5 +1,6 @@
 package com.ratchethealth.patient
 
+
 class RatchetStatusCode {
 
     //task optional rules
@@ -14,4 +15,7 @@ class RatchetStatusCode {
             "SPORT_REC": "Sport/Rec",
             "QOL": "QOL"
     ]
+
+    //patient email status
+    public static final String[] emailStatus = ['UNDEFINED', 'UNINVITED', 'INVITED', 'VERIFIED', 'NO_EMAIL', 'BOUNCED']
 }

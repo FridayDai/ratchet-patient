@@ -208,11 +208,16 @@ ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvV
 ratchetv2 {
     server {
         url {
-            base = System.getProperty("SERVER_URL") ?: "http://api.release.ratchethealth.com/api/v1"
+            base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
 
             // Client
             client {
                 subDomain = "${ratchetv2.server.url.base}/clients/domain?subDomain=%s"
+            }
+
+            //patient
+            patient {
+                update = "${ratchetv2.server.url.base}/patients/%s"
             }
 
             // Email
