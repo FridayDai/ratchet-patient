@@ -170,11 +170,18 @@ class TaskController extends BaseController {
             sections.each { key, value ->
                 def section = [:]
                 def options = [:]
-                value.each {
+
+                if (value.getClass() == String) {
                     if (choices) {
-                        def val = choices[it]
-                        if (val) {
-                            options.put(it, val)
+                        options.put(value, choices[value])
+                    }
+                } else {
+                    value.each {
+                        if (choices) {
+                            def val = choices[it]
+                            if (val) {
+                                options.put(it, val)
+                            }
                         }
                     }
                 }

@@ -62,6 +62,7 @@
 						<div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>">
 							<input type="hidden" name="optionals.${question.id}"
 								   value="${question.optional ? '0' : '1'}"/>
+							<g:hiddenField name="sections.${section.id}" value="${question.id}" />
 
 							<div class="question">
 								${question.order}. ${question.title}
