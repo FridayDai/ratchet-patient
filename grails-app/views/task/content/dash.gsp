@@ -47,7 +47,7 @@
 
 	<body>
 	<div class="dash task-content">
-		<div class="info container">${Task.description}</div>
+		<div class="info container">${raw(Task.description)}</div>
 
 		<form action="" method="post">
 			<input type="hidden" name="code" value="${taskCode}"/>
@@ -62,8 +62,9 @@
 						<div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>">
 							<input type="hidden" name="optionals.${question.id}"
 								   value="${question.optional ? '0' : '1'}"/>
+							<g:if test="${Task.type == 10}">
 							<g:hiddenField name="sections.${section.id}" value="${question.id}" />
-
+							</g:if>
 							<div class="question">
 								${question.order}. ${question.title}
 								<g:if test="${errors && errors["${question.id}"]}">
