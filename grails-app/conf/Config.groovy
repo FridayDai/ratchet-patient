@@ -217,7 +217,7 @@ ratchetv2 {
 
             //patient
             patient {
-                update = "${ratchetv2.server.url.base}/patients/%s"
+                update = "${ratchetv2.server.url.base}/tests/collect/email"
             }
 
             // Email

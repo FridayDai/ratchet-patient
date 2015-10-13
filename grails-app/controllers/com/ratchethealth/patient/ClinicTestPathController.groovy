@@ -22,6 +22,8 @@ class ClinicTestPathController extends BaseController {
             forward(action: "submitTasks", params: [params: params])
         } else if (clinicPathRoute == "submitEmail") {
             forward(action: "submitPatientEmail", params: [params: params])
+        } else if (clinicPathRoute == "completeTask") {
+            forward(action: "completeTasks", params: [params: params])
         }
     }
 
@@ -183,9 +185,9 @@ class ClinicTestPathController extends BaseController {
             } else {
                 if(RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
                     forward(action: 'enterPatientEmail', params: [patientId: patientId, treatmentCode: treatmentCode, tasksList: tasksList])
+                } else {
+                    forward(action: 'completeTasks', params: [treatmentCode: treatmentCode, tasksList: tasksList])
                 }
-
-                forward(action: 'completeTasks', params: [treatmentCode: treatmentCode, tasksList: tasksList])
             }
         }
     }
@@ -225,18 +227,26 @@ class ClinicTestPathController extends BaseController {
     }
 
     def enterPatientEmail() {
-        def patientId = params.patientId
         def tasksList = params?.tasksList
         def treatmentCode = params?.treatmentCode
-        render view: '/clinicTask/enterEmail', model: [client: JSON.parse(session.client), patientId: patientId, treatmentCode: treatmentCode, tasksList: tasksList]
+        def errorMsg = params?.errorMsg
+        render view: '/clinicTask/enterEmail', model: [client: JSON.parse(session.client), treatmentCode: treatmentCode, tasksList: tasksList, errorMsg: errorMsg]
     }
 
-    def submitPatientEmail(Patient patient) {
+    def submitPatientEmail() {
         String token = request.session.token
-        def client = request.session.client
-        def clientId = JSON.parse(client).id
-        patientService.updatePatient(token, clientId, patient)//TODO token is null, need another way.
-        forward(action: 'completeTasks', params: [treatmentCode: treatmentCode, tasksList: tasksList])
+        def email = params?.email
+        def tasksList = params?.tasksList
+        def treatmentCode = params?.treatmentCode
+
+        def resp = patientService.updatePatient(token, treatmentCode, email)
+        if (resp.status == 400) {
+            def result = JSON.parse(resp.body)
+            forward(action: 'enterPatientEmail', params: [treatmentCode: treatmentCode, tasksList: tasksList, errorMsg: result?.error?.errorMessage])
+        } else {
+            forward(action: 'completeTasks', params: [treatmentCode: treatmentCode, tasksList: tasksList])
+        }
+
 
     }
 

@@ -1,102 +1,72 @@
 //= require ../share/constant
-//= require ../share/share
+//= require ../share/announcement
+
 
 (function () {
-    String.prototype.format = function () {
-        var str = this;
-        if (arguments.length === 0) {
-            return str;
+
+    function emailValid() {
+        var email = $("#email").val();
+        var regexp = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/; // jshint ignore:line
+        if(regexp.test(email)) {
+            return true;
         }
-
-        for (var i = 0; i < arguments.length; i++) {
-            var re = new RegExp('\\{' + i + '\\}', 'gm');
-            if (arguments[i] !== undefined || arguments[i] !== null) {
-                str = str.replace(re, arguments[i]);
-            } else {
-                str = str.replace(re, '');
-            }
-        }
-        return str;
-    };
-
-
-
-    var numberInputEl;
-
-    function setDialogErrorMsg(msg) {
-        var parentEl = numberInputEl.parents();
-        var mobileAlertTitleEl = parentEl.find(".mobile-alert-title");
-        mobileAlertTitleEl.after('<div class="mobile-alert-content">' + msg + '</div>');
-    }
-
-    function removeDialogErrorMsg() {
-        var parentEl = numberInputEl.parents();
-        var mobileAlertContentEl = parentEl.find(".mobile-alert-content");
-        mobileAlertContentEl.remove();
-    }
-
-    function setErrorMsg(msg) {
-        var parentEl = numberInputEl.parent();
-
-        if (!parentEl.hasClass('error')) {
-            parentEl.addClass('error');
-            numberInputEl.after('<span class="rc-error-label">' + msg + '</span>');
-        }
-    }
-
-    function removeErrorMsg() {
-        var parentEl = numberInputEl.parent();
-
-        if (parentEl.hasClass('error')) {
-            parentEl.removeClass('error');
-            parentEl.find('.rc-error-label').remove();
-        }
+            return false;
     }
 
     function showConfirmationPop() {
-        var coverEl = $("#mobile-alert-cover");
-        var containerEl = $("#mobile-alert-container");
-        var regexp = /\sshow($|\s)/;
 
-        if (!regexp.test(coverEl.className)) {
-            coverEl.addClass("show");
-        }
+        var containerEl = $("#dialog-alert-container");
+        var regexp = /\sshow($|\s)/;
 
         if (!regexp.test(containerEl.className)) {
             containerEl.addClass("show");
         }
     }
 
-    function emailSettingBundle(undefined) {
+    function post(path, params, method) {
+        method = method || "post"; // Set method to post by default if not specified.
+
+        // The rest of this code assumes you are not using a library.
+        // It can be made less wordy if you use one.
+        var form = document.createElement("form");
+        form.setAttribute("method", method);
+        form.setAttribute("action", path);
+
+        for(var key in params) {
+            if(params.hasOwnProperty(key)) {
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", params[key]);
+
+                form.appendChild(hiddenField);
+            }
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+
+    function clinicEnterEmailBundle(undefined) {
         'use strict';
 
         var opts = {
             urls: {
-                emailSettingCheck: "/mail_setting/{0}",
-                subscription: "/mail_setting/{0}/subscription"
+                enterEmail: '/in_clinic'
             }
         };
 
-        numberInputEl = $('input[name="last4Number"]');
+        function showErrorMessage() {
 
-        function phoneNumberValidation() {
-            var regexp = /^\d{4}$/;
-
-            removeErrorMsg();
-            removeDialogErrorMsg();
-
-            if (!regexp.test(numberInputEl.val())) {
-
-                if (isMobileOrTablet()) {
-                    setDialogErrorMsg(RC.constants.phoneNumberTypeError);
-                    showConfirmationPop();
-                } else {
-                    setErrorMsg(RC.constants.phoneNumberTypeError);
-                }
-                return false;
-            } else {
-                removeErrorMsg();
-                return true;
+            var errorContainer =  $('#error-container');
+            var errorLabel;
+            if(errorContainer.children().length > 0) {
+                errorLabel =  $("#error-msg");
+                errorLabel.text('Invalid Email');
+            } else{
+                var html =  '<span id="error-msg" class="rc-error rc-error-label">Invalid Email</span>';
+                errorContainer.append(html);
             }
         }
 
@@ -104,139 +74,51 @@
             var closeBtnEl = $('#close-btn');
 
             closeBtnEl.click(function () {
-                $("#interact-model-container")
-                    .removeClass('show')
-                    .removeClass('fade')
-                    .removeClass('in')
-                    .addClass('hide');
-
-                $("#interact-alert-cover")
-                    .removeClass('show')
-                    .addClass('hide');
+                $("#dialog-alert-container")
+                    .removeClass('show');
             });
         }
 
-        function checkPhoneNumber(patientId) {
-            $.ajax({
-                url: opts.urls.emailSettingCheck.format(patientId),
-                type: 'POST',
-                data: {
-                    last4Number: numberInputEl.val()
-                }
-            }).done(function (data) {
-                $("#subscribe").prop("checked", data.subscribeStatus | false);
-
-                $('#check-number-button')
-                    .prop("disabled", false)
-                    .removeClass("btn-disable")
-                    .addClass("rc-btn");
-
-                $("#interact-model-container")
-                    .removeClass('hide')
-                    .addClass('fade');
-
-                setTimeout(function () {
-                    $("#interact-model-container").addClass("in");
-                }, 300);
-
-                $("#interact-alert-cover")
-                    .removeClass('hide')
-                    .addClass('show');
-
-                closeDialog();
-                initSubscribeButton();
-
-            }).fail(function () {
-                if (isMobileOrTablet()) {
-                    setDialogErrorMsg(RC.constants.phoneNumberNotCorrect);
-                    showConfirmationPop();
-                }
-                $('#check-number-button')
-                    .prop("disabled", false)
-                    .removeClass("btn-disable")
-                    .addClass("rc-btn");
-
-                setErrorMsg(RC.constants.phoneNumberTypeError);
-            });
-        }
-
-        function initSubscribeButton() {
-            var updateBtnEl = $('#btn-update');
-
-            updateBtnEl.click(function () {
-                var data = $(this).data();
-                var patientId = data.patientId;
-                var last4Number = numberInputEl.val();
-                subscribeEmail(patientId, last4Number, $("#subscribe").prop("checked") === true);
-            });
-        }
-
-        function subscribeEmail(patientId, last4Number, subscribe) {
-            $.ajax({
-                url: opts.urls.subscription.format(patientId),
-                type: 'POST',
-                data: {
-                    last4Number: last4Number,
-                    subscribe: subscribe
-                }
-            }).done(function () {
-                $("#interact-model-container")
-                    .removeClass('show')
-                    .removeClass('fade')
-                    .removeClass('in')
-                    .addClass('hide');
-
-                $("#interact-alert-cover")
-                    .removeClass('show')
-                    .addClass('hide');
-            });
-        }
-
-        function initCheckButton() {
-            var btnEl = $('#check-number-button');
+        function skipEnterEmail() {
+            var btnEl = $('#jump-btn');
+            var data = {
+                clinicPathRoute: 'completeTask',
+                tasksList: $('input[name="tasksList"]').val(),
+                treatmentCode: $('input[name="treatmentCode"]').val()
+            };
 
             btnEl.click(function () {
-                var data = $(this).data();
-                var patientId = data.patientId;
-
-                if (phoneNumberValidation()) {
-                    btnEl.prop("disabled", true).removeClass("rc-btn").addClass("btn-disable");
-                    checkPhoneNumber(patientId);
-                }
+                post(opts.urls.enterEmail, data);
             });
-        }
-
-        function initPhoneNumberCheck() {
-            initCheckButton();
         }
 
         function start() {
-            initPhoneNumberCheck();
-        }
+            var skip = $('#skip-button');
+            skip.click(function(){
+                showConfirmationPop();
+            });
 
-        function setConfirmation() {
-            var coverEl = $("#mobile-alert-cover");
-            var containerEl = $("#mobile-alert-container");
-            var buttonEl = containerEl.find("button");
-
-            buttonEl.on('click', function () {
-                coverEl.removeClass("show");
-                containerEl.removeClass("show");
+            var emailForm = $('#email-enter-form');
+            emailForm.submit(function(e) {
+                if(!emailValid()) {
+                    e.preventDefault();
+                    showErrorMessage();
+                }
             });
         }
 
         function init() {
+            skipEnterEmail();
+            closeDialog();
             start();
-
-            setConfirmation();
         }
 
         init();
     }
 
     if (window.addEventListener) {
-        window.addEventListener("load", emailSettingBundle, false);
+        window.addEventListener("load", clinicEnterEmailBundle, false);
     } else if (window.attachEvent) {
-        window.attachEvent("onload", emailSettingBundle);
+        window.attachEvent("onload", clinicEnterEmailBundle);
     }
 })();
