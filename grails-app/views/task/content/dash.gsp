@@ -47,7 +47,7 @@
 
 	<body>
 	<div class="dash task-content">
-		<div class="info container">${Task.description}</div>
+		<div class="info container">${raw(Task.description)}</div>
 
 		<form action="" method="post">
 			<input type="hidden" name="code" value="${taskCode}"/>
@@ -55,12 +55,16 @@
 
 			<div class="task-list-wrapper container">
 				<g:each var="section" in="${Task.sections}">
+					<g:if test="${section.title}">
 					<div class="section-title">${section.title}</div>
+					</g:if>
 					<g:each var="question" in="${section.questions}">
 						<div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>">
 							<input type="hidden" name="optionals.${question.id}"
 								   value="${question.optional ? '0' : '1'}"/>
-
+							<g:if test="${Task.type == 10}">
+							<g:hiddenField name="sections.${section.id}" value="${question.id}" />
+							</g:if>
 							<div class="question">
 								${question.order}. ${question.title}
 								<g:if test="${errors && errors["${question.id}"]}">
@@ -71,7 +75,7 @@
 							<div class="answer-list answer-list-${question.order}">
 								<ul class="list horizontal-list">
 									<g:each var="choice" in="${question.choices}">
-										<li class="answer">
+										<li class="answer answer-${question.choices.size()}-columns">
 											<div class="text">${choice.content}</div>
 											<label class="choice">
 												<input type="radio" class="rc-choice-hidden"

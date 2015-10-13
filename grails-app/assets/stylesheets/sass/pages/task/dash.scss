@@ -74,8 +74,15 @@
             vertical-align: top;
         }
 
+        &.answer-6-columns {
+            @include breakpoint('tablet') {
+                width: 16.66666%;
+            }
+        }
+
         .text {
             @include breakpoint('tablet') {
+                height: 34px;
                 margin: 10px 0;
             }
         }
