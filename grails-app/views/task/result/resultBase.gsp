@@ -39,6 +39,7 @@
 
             </div>
 
+            <g:if test="${completeTask.type != 10}">
             <div <g:if test="${completeTask.type == 4 || completeTask.type == 5}">class="middle nrs-width"</g:if>
                  <g:elseif
                          test="${(completeTask.type == 1 || completeTask.type == 2 || completeTask.type == 3 || completeTask.type == 6) && completeTask.comparison}">class="middle compare-width"</g:elseif>
@@ -58,6 +59,7 @@
                     </g:else>
                 </div>
             </div>
+            </g:if>
 
             <div class="bottom">
                 <p>The result is securely stored for your care team to review.</p>

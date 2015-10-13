@@ -1,0 +1,101 @@
+//dialog alert
+.dialog-alert-cover,
+.dialog-alert-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    display: none;
+}
+
+
+//.dialog-alert-cover {
+//    background-color: rgba(0, 0, 0, .3);
+//}
+
+.dialog-alert-container.show {
+   display: block;
+}
+
+.dialog-alert {
+    width: 360px;
+    margin: 210px auto 0;
+    border: 15px solid rgba(0, 0, 0, 0.2);
+    text-align: center;
+
+    @include breakpoint('mobile') {
+        width: 325px;
+    }
+}
+
+.dialog-inline {
+    background-color: $base-color-dark-grey;
+}
+
+.dialog-alert-header {
+    padding:15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: center;
+
+    &:before{
+        margin: auto;
+        content: '\f100';
+        color: #fdfdfd;
+        font-weight: lighter;
+        font-size: 25px;
+        font-family: ionicons;
+    }
+}
+
+
+.dialog-alert-content {
+    padding-bottom: 20px;
+
+    .dialog-alert-title {
+        color: $base-color-white;
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+
+.dialog-alert-footer {
+    margin-top: 2px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    text-align: center;
+
+    .dialog-alert-buttonset {
+        padding: 24px;
+    }
+
+    .red-btn {
+        border: 1px solid $base-color-error;
+        background-color: $base-color-error;
+
+        &:focus,
+        &:hover {
+            border: 1px solid $base-color-dark-red;
+            color: $base-color-white;
+            background-color: $base-color-dark-red;
+        }
+
+    }
+
+    button {
+        width: 100px;
+        padding: 7px 0;
+        margin: 0 10px;
+        border: solid 1px $base-color-white;
+        color: $base-color-white;
+        background-color: transparent;
+        font-size: 16px;
+
+        &:focus, &:hover{
+            color: $base-color-dark-grey;
+            background-color: $base-color-white;
+        }
+    }
+}

@@ -6,6 +6,7 @@ class ClinicTestPathController extends BaseController {
 
     def clinicTestPathService
     def taskService
+    def patientService
 
     def index() {
         render view: '/clinicTask/codeValidation', model: [client: JSON.parse(session.client)]
@@ -19,6 +20,10 @@ class ClinicTestPathController extends BaseController {
             forward(action: "startTasks", params: [params: params])
         } else if (clinicPathRoute == "todoTask") {
             forward(action: "submitTasks", params: [params: params])
+        } else if (clinicPathRoute == "submitEmail") {
+            forward(action: "submitPatientEmail", params: [params: params])
+        } else if (clinicPathRoute == "completeTask") {
+            forward(action: "completeTasks", params: [params: params])
         }
     }
 
@@ -31,10 +36,14 @@ class ClinicTestPathController extends BaseController {
             def tasksListResp = JSON.parse(resp.body)
             def tasksList = tasksListResp.tests
             def firstName = tasksListResp.firstName
+            def emailStatus = tasksListResp.emailStatus
+            def patientId = tasksListResp.patientId
             if (tasksList) {
                 render view: '/clinicTask/tasksList', model: [client          : JSON.parse(session.client),
                                                               tasksList       : tasksList, treatmentCode: treatmentCode,
                                                               patientFirstName: firstName,
+                                                              emailStatus: emailStatus,
+                                                              patientId: patientId,
                                                               tasksLength     : tasksList.size()]
             } else {
                 render view: '/clinicTask/tasksList', model: [client: JSON.parse(session.client), patientFirstName: firstName]
@@ -51,6 +60,8 @@ class ClinicTestPathController extends BaseController {
         def tasksList = JSON.parse(params?.tasksList)
         def itemIndex = params?.int('itemIndex')
         def treatmentCode = params?.treatmentCode
+        def emailStatus = params?.emailStatus
+        def patientId = params?.patientId
 
         def task = tasksList[itemIndex]
         def taskTitle = task.title
@@ -84,7 +95,9 @@ class ClinicTestPathController extends BaseController {
                             itemIndex    : itemIndex,
                             tasksList    : tasksList,
                             treatmentCode: treatmentCode,
-                            tasksLength  : tasksList.size()
+                            tasksLength  : tasksList.size(),
+                            patientId: patientId,
+                            emailStatus: emailStatus
                     ]
         } else if (resp.status == 404) {
             render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
@@ -98,6 +111,8 @@ class ClinicTestPathController extends BaseController {
         def tasksListRecord = JSON.parse(tasksList)
         def itemIndexRecord = params?.int('itemIndex')
         def treatmentCode = params?.treatmentCode
+        def emailStatus = params?.emailStatus
+        def patientId = params?.patientId
         def taskTitle = params.taskTitle
         def code = params.code
         def taskType = params.taskType
@@ -168,34 +183,73 @@ class ClinicTestPathController extends BaseController {
             if (itemIndexRecord < tasksListRecord.size()) {
                 forward(action: 'startTasks', params: [itemIndex: itemIndex, treatmentCode: treatmentCode, tasksList: tasksList])
             } else {
-                def completedTasksOnly = true
-                def resp = clinicTestPathService.getTreatmentTasks(token, treatmentCode, completedTasksOnly)
-                if (resp.status == 200) {
-                    def completeTasksList = JSON.parse(resp.body)
-                    def DoneTaskList = []
-                    tasksListRecord.each { it->
-                        def collectList = completeTasksList.tests
-                        for(def i = 0; i< collectList.size(); i++) {
-                            if(it.code == collectList[i].code){
-                                DoneTaskList.add(it)
-                            }
-                        }
-                    }
-                    def uncompleteTasksList = tasksListRecord - DoneTaskList
-                    render(view: '/clinicTask/tasksList', model: [client           : JSON.parse(session.client),
-                                                                  completeTasksList: completeTasksList,
-                                                                  doneTaskList: DoneTaskList,
-                                                                  uncompleteTasksList: uncompleteTasksList,
-                                                                  treatmentCode    : treatmentCode,
-                                                                  tasksLength      : DoneTaskList.size()])
+                if(RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
+                    forward(action: 'enterPatientEmail', params: [patientId: patientId, treatmentCode: treatmentCode, tasksList: tasksList])
                 } else {
-                    render(view: '/clinicTask/tasksList', model: [client     : JSON.parse(session.client),
-                                                                  tasksList  : tasksListRecord, treatmentCode: treatmentCode,
-                                                                  tasksLength: tasksListRecord.size()])
+                    forward(action: 'completeTasks', params: [treatmentCode: treatmentCode, tasksList: tasksList])
                 }
             }
         }
     }
+
+    def completeTasks() {
+        String token = request.session.token
+        def tasksList = params?.tasksList
+        def treatmentCode = params?.treatmentCode
+        def tasksListRecord = JSON.parse(tasksList)
+        def completedTasksOnly = true
+
+        def resp = clinicTestPathService.getTreatmentTasks(token, treatmentCode, completedTasksOnly)
+        if (resp.status == 200) {
+            def completeTasksList = JSON.parse(resp.body)
+            def DoneTaskList = []
+            tasksListRecord.each { it->
+                def collectList = completeTasksList.tests
+                for(def i = 0; i< collectList.size(); i++) {
+                    if(it.code == collectList[i].code){
+                        DoneTaskList.add(it)
+                    }
+                }
+            }
+            def uncompleteTasksList = tasksListRecord - DoneTaskList
+            render(view: '/clinicTask/tasksList', model: [client           : JSON.parse(session.client),
+                                                          completeTasksList: completeTasksList,
+                                                          doneTaskList: DoneTaskList,
+                                                          uncompleteTasksList: uncompleteTasksList,
+                                                          treatmentCode    : treatmentCode,
+                                                          tasksLength      : DoneTaskList.size()])
+        } else {
+            render(view: '/clinicTask/tasksList', model: [client     : JSON.parse(session.client),
+                                                          tasksList  : tasksListRecord, treatmentCode: treatmentCode,
+                                                          tasksLength: tasksListRecord.size()])
+        }
+
+    }
+
+    def enterPatientEmail() {
+        def tasksList = params?.tasksList
+        def treatmentCode = params?.treatmentCode
+        def errorMsg = params?.errorMsg
+        render view: '/clinicTask/enterEmail', model: [client: JSON.parse(session.client), treatmentCode: treatmentCode, tasksList: tasksList, errorMsg: errorMsg]
+    }
+
+    def submitPatientEmail() {
+        String token = request.session.token
+        def email = params?.email
+        def tasksList = params?.tasksList
+        def treatmentCode = params?.treatmentCode
+
+        def resp = patientService.updatePatient(token, treatmentCode, email)
+        if (resp.status == 400) {
+            def result = JSON.parse(resp.body)
+            forward(action: 'enterPatientEmail', params: [treatmentCode: treatmentCode, tasksList: tasksList, errorMsg: result?.error?.errorMessage])
+        } else {
+            forward(action: 'completeTasks', params: [treatmentCode: treatmentCode, tasksList: tasksList])
+        }
+
+
+    }
+
 
     def validateSectionChoice(sections, answer) {
         def errors = [:]
