@@ -73,15 +73,15 @@ class ClinicTestPathController extends BaseController {
             def result = JSON.parse(resp.body)
             def questionnaireView = ''
 
-            //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS
-            if (result.type == 1 || result.type == 6) {
-                questionnaireView = '/clinicTask/content/dash'
+            //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS 10.Fairley Nasal Symptom
+            if (result.type == 1 || result.type == 6 || result.type == 10) {
+                questionnaireView = '/task/content/dash'
             } else if (result.type == 2 || result.type == 3) {
-                questionnaireView = '/clinicTask/content/odi'
+                questionnaireView = '/task/content/odi'
             } else if (result.type == 4 || result.type == 5) {
-                questionnaireView = '/clinicTask/content/nrs'
+                questionnaireView = '/task/content/nrs'
             } else if (result.type == 7 || result.type == 8) {
-                questionnaireView = '/clinicTask/content/koos'
+                questionnaireView = '/task/content/koos'
             }
 
             session["questionnaireView${taskCode}"] = questionnaireView
@@ -89,6 +89,7 @@ class ClinicTestPathController extends BaseController {
             render view: questionnaireView,
                     model: [
                             client       : JSON.parse(session.client),
+                            isInClinic   : true,
                             Task         : result,
                             taskTitle    : taskTitle,
                             taskCode     : taskCode,
