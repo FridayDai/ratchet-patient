@@ -59,11 +59,11 @@
                     </g:else>
                 </div>
             </div>
-            </g:if>
 
             <div class="bottom">
                 <p>The result is securely stored for your care team to review.</p>
             </div>
+            </g:if>
         </div>
     </div>
     </body>
