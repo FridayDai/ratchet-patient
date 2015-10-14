@@ -5,17 +5,17 @@
 
 .main-title {
     padding: 15px 0;
-    font-size: 23px;
+    font-size: 26px;
     font-weight: 400;
 }
 
 .sub-title {
-    padding: 22px 0;
+    padding: 26px 0 35px;
 }
 
 .form-content {
     width: 612px;
-    padding: 30px 30px 6px;
+    padding: 20px 30px 6px;
     margin: 0 auto;
     background-color: $base-color-lighter-gray;
 
@@ -26,8 +26,8 @@
 }
 
 .inline-email {
-    width: 80%;
-    padding: 16px;
+    width: 73%;
+    padding: 19px;
     text-align: center;
     font-size: 15px;
 
@@ -43,12 +43,14 @@
 
 .error-container {
    padding-top: 5px;
+    height: 24px;
+    font-size: 13px;
 }
 
 .enter-email-btn {
     margin: 58px 0 28px;
-    padding: 10px;
-    width: 243px;
+    padding: 12px;
+    width: 230px;
 
     @include breakpoint('mobile') {
         width: 90%;
@@ -59,9 +61,9 @@
 .skip-button {
     border: 0;
     background-color: transparent;
-    color: $base-color-gray;
+    color: $base-font-light-gray;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 17px;
 }
 
 

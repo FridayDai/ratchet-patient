@@ -5,6 +5,18 @@
     <head>
         <title>Enter email</title>
         <style type="text/css">
+        .primary-color {
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+        }
+
+        .primary-border-color {
+            border-color: ${client.primaryColorHex?:'#0f137d'} !important;
+        }
+
+        .primary-background-color {
+            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
+        }
+
         .main-title {
             color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
