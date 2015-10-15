@@ -124,7 +124,7 @@ class ClinicTestPathController extends BaseController {
         def errors
 
         if (sections) {
-            sections.each { key, value ->
+            sections.each { key, String[] value ->
                 def section = [:]
                 def options = [:]
                 value.each {
