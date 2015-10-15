@@ -64,6 +64,11 @@
     color: $base-font-light-gray;
     cursor: pointer;
     font-size: 17px;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
 }
 
 
