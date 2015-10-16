@@ -63,7 +63,7 @@ function taskBundle() {
             return cur;
         }
 
-        el.addEventListener('click', function () {
+        $(el).click(function () {
             var type = $('input[name=taskType]').val();
 
             this.querySelector('.rc-choice-hidden').checked = true;
@@ -169,7 +169,7 @@ function taskBundle() {
         var type = $('input[name=taskType]').val();
 
 
-        formEl.addEventListener('submit', function (event) {
+        $(formEl).submit(function (event) {
             var isValid = true;
             errorQuestions = [];
 
@@ -221,7 +221,7 @@ function taskBundle() {
     }
 
     function setCloseConfirmation() {
-        window.addEventListener('beforeunload', function (event) {
+        $(window).on('beforeunload', function (event) {
             if (!isForm) {
                 var confirmationMessage = "We won't be able to save your progress as the result is time sensitive." +
                     "Leaving the task half way will lose your progress.";
