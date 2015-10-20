@@ -1,6 +1,9 @@
 <g:set var="scriptPath" value="taskBundle"/>
-<g:set var="cssPath" value="task/content/dash"/>
-<g:applyLayout name="taskLayout">
+<g:set var="cssPath" value="task/dash"/>
+<g:if test="${!isInClinic}">
+<g:set var="hasAssistMe" value="true"/>
+</g:if>
+<g:applyLayout name="taskContent">
 	<html>
 	<head>
 		<title>${Task.title}</title>
@@ -42,11 +45,17 @@
 			background-color: ${client.primaryColorHex?:'#0f137d'} !important;
 		}
 		</style>
+
+		<g:if test="${isInClinic}">
+		<script language="javascript" type="text/javascript">
+			window.history.forward();
+		</script>
+		</g:if>
 	</head>
 
 	<body>
 	<div class="dash task-content">
-		<div class="info container">${Task.description}</div>
+		<div class="info container">${raw(Task.description)}</div>
 
 		<form action="" method="post">
 			<input type="hidden" name="code" value="${taskCode}"/>
@@ -54,12 +63,16 @@
 
 			<div class="task-list-wrapper container">
 				<g:each var="section" in="${Task.sections}">
+					<g:if test="${section.title}">
 					<div class="section-title">${section.title}</div>
+					</g:if>
 					<g:each var="question" in="${section.questions}">
 						<div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>">
 							<input type="hidden" name="optionals.${question.id}"
 								   value="${question.optional ? '0' : '1'}"/>
-
+							<g:if test="${Task.type == 10}">
+							<g:hiddenField name="sections.${section.id}" value="${question.id}" />
+							</g:if>
 							<div class="question">
 								${question.order}. ${question.title}
 								<g:if test="${errors && errors["${question.id}"]}">
@@ -70,7 +83,7 @@
 							<div class="answer-list answer-list-${question.order}">
 								<ul class="list horizontal-list">
 									<g:each var="choice" in="${question.choices}">
-										<li class="answer">
+										<li class="answer answer-${question.choices.size()}-columns">
 											<div class="text">${choice.content}</div>
 											<label class="choice">
 												<input type="radio" class="rc-choice-hidden"
@@ -88,14 +101,32 @@
 				</g:each>
 			</div>
 
+			<g:if test="${isInClinic}">
+				<g:if test="${(itemIndex + 1) < tasksLength}">
+					<input type="hidden" name="itemIndex" value="${itemIndex + 1}">
+				</g:if>
+				<g:else>
+					<input type="hidden" name="itemIndex" value="${tasksLength}">
+				</g:else>
+
+				<input type="hidden" name="clinicPathRoute" value="todoTask">
+				<input type="hidden" name="tasksList" value="${tasksList}">
+				<input type="hidden" name="treatmentCode" value="${treatmentCode}">
+				<input type="hidden" name="patientId" value="${patientId}">
+				<input type="hidden" name="emailStatus" value="${emailStatus}">
+			</g:if>
+
 			<div class="task-done-panel">
 				<input type="submit" class="rc-btn task-done-btn" value="I'm Done">
 			</div>
 		</form>
+
+		<g:if test="${Task.type != 10}">
         <div class="task-copyright text-center">
             <span>&#169 Institute for Work & Health 2006.</span>
             <span class="inline-right">All rights reserved.</span>
         </div>
+		</g:if>
 	</div>
 	</body>
 	</html>

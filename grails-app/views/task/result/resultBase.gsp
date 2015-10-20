@@ -1,6 +1,8 @@
 <g:set var="cssPath" value="task/result"/>
 <g:set var="scriptPath" value="taskResultBundle"/>
 <g:set var="noTips" value="true"/>
+<g:set var="hasAssistMe" value="true"/>
+
 <g:applyLayout name="taskLayout">
     <html>
     <head>
@@ -37,6 +39,7 @@
 
             </div>
 
+            <g:if test="${completeTask.type != 10}">
             <div <g:if test="${completeTask.type == 4 || completeTask.type == 5}">class="middle nrs-width"</g:if>
                  <g:elseif
                          test="${(completeTask.type == 1 || completeTask.type == 2 || completeTask.type == 3 || completeTask.type == 6) && completeTask.comparison}">class="middle compare-width"</g:elseif>
@@ -60,6 +63,7 @@
             <div class="bottom">
                 <p>The result is securely stored for your care team to review.</p>
             </div>
+            </g:if>
         </div>
     </div>
     </body>

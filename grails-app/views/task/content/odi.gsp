@@ -1,6 +1,10 @@
 <g:set var="scriptPath" value="taskBundle"/>
-<g:set var="cssPath" value="task/content/odi"/>
-<g:applyLayout name="taskLayout">
+<g:set var="cssPath" value="task/odi"/>
+<g:if test="${!isInClinic}">
+    <g:set var="hasAssistMe" value="true"/>
+</g:if>
+
+<g:applyLayout name="taskContent">
     <html>
     <head>
         <title>${Task.title}</title>
@@ -38,6 +42,12 @@
             background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
         </style>
+
+        <g:if test="${isInClinic}">
+            <script language="javascript" type="text/javascript">
+                window.history.forward();
+            </script>
+        </g:if>
     </head>
 
     <body>
@@ -82,6 +92,21 @@
                     </div>
                 </g:each>
             </div>
+
+            <g:if test="${isInClinic}">
+                <g:if test="${(itemIndex + 1) < tasksLength}">
+                    <input type="hidden" name="itemIndex" value="${itemIndex + 1}">
+                </g:if>
+                <g:else>
+                    <input type="hidden" name="itemIndex" value="${tasksLength}">
+                </g:else>
+
+                <input type="hidden" name="tasksList" value="${tasksList}">
+                <input type="hidden" name="treatmentCode" value="${treatmentCode}">
+                <input type="hidden" name="clinicPathRoute" value="todoTask">
+                <input type="hidden" name="patientId" value="${patientId}">
+                <input type="hidden" name="emailStatus" value="${emailStatus}">
+            </g:if>
 
             <div class="task-done-panel">
                 <input type="submit" class="rc-btn task-done-btn" value="I'm Done">

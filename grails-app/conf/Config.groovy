@@ -200,6 +200,9 @@ grails.cache.config = {
     }
 }
 
+cors.url.pattern = '/assets/*'
+cors.allow.origin.regex = '.*\\.ratchethealth\\.com'
+
 ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvVedyg9hT\$dvkUGhNVqj"
 
 ratchetv2 {
@@ -212,6 +215,11 @@ ratchetv2 {
                 subDomain = "${ratchetv2.server.url.base}/clients/domain?subDomain=%s"
             }
 
+            //patient
+            patient {
+                update = "${ratchetv2.server.url.base}/tests/collect/email"
+            }
+
             // Email
             email {
                 patientConfirmation = "${ratchetv2.server.url.base}/patient/confirm"
@@ -222,6 +230,7 @@ ratchetv2 {
 
             // Task
             task {
+                getPatientInfo = "${ratchetv2.server.url.base}/tests/assist/%s"
                 oneTest = "${ratchetv2.server.url.base}/tests/%s"
                 tests = "${ratchetv2.server.url.base}/tests"
                 recordBehaviour = "${ratchetv2.server.url.base}/tests/%s/link/clicked"

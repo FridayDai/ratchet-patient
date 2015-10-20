@@ -74,9 +74,12 @@
             </g:each>
 
             <form name="tasksListForm" method="post">
-                <input hidden name="tasksList" value="${tasksList}">
-                <input hidden name="itemIndex" value="${0}">
-                <input hidden name="treatmentCode" value="${treatmentCode}">
+                <input type="hidden" name="tasksList" value="${tasksList}">
+                <input type="hidden" name="itemIndex" value="${0}">
+                <input type="hidden" name="treatmentCode" value="${treatmentCode}">
+                <input type="hidden" name="patientId" value="${patientId}">
+                <input type="hidden" name="emailStatus" value="${emailStatus}">
+
 
                 <input type="hidden" name="clinicPathRoute" value="tasksList">
 

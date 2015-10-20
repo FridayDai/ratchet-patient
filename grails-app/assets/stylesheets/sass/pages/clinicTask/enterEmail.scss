@@ -1,0 +1,74 @@
+@import '../../partials/common';
+@import "../../partials/headroom";
+@import "../../partials/clientHeaderLayout";
+@import "../../partials/dialog_alert";
+
+.main-title {
+    padding: 15px 0;
+    font-size: 26px;
+    font-weight: 400;
+}
+
+.sub-title {
+    padding: 26px 0 35px;
+}
+
+.form-content {
+    width: 612px;
+    padding: 20px 30px 6px;
+    margin: 0 auto;
+    background-color: $base-color-lighter-gray;
+
+    @include breakpoint('mobile') {
+        width: 100%;
+        padding: 30px 0 6px;
+    }
+}
+
+.inline-email {
+    width: 73%;
+    padding: 19px;
+    text-align: center;
+    font-size: 15px;
+
+    @include breakpoint('mobile') {
+        width: 100%;
+        border: 0;
+    }
+}
+
+.form-title {
+    padding-bottom: 15px;
+}
+
+.error-container {
+   padding-top: 5px;
+    height: 24px;
+    font-size: 13px;
+}
+
+.enter-email-btn {
+    margin: 58px 0 28px;
+    padding: 12px;
+    width: 230px;
+
+    @include breakpoint('mobile') {
+        width: 90%;
+    }
+
+}
+
+.skip-button {
+    border: 0;
+    background-color: transparent;
+    color: $base-font-light-gray;
+    cursor: pointer;
+    font-size: 17px;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
+
