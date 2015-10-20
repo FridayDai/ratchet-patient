@@ -35,6 +35,14 @@ function taskBundle() {
         };
     })();
 
+    function isIE() {
+
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+
+        return (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) ? true : false;
+    }
+
     function makeRowSelect() {
         var answerEls = document.getElementsByClassName('answer');
 
@@ -55,7 +63,7 @@ function taskBundle() {
             return cur;
         }
 
-        el.addEventListener('click', function () {
+        $(el).click(function () {
             var type = $('input[name=taskType]').val();
 
             this.querySelector('.rc-choice-hidden').checked = true;
@@ -83,7 +91,7 @@ function taskBundle() {
     }
 
     function hasChecked(questionListEl) {
-        if (questionListEl.dataset.optional === 'true') {
+        if ($(questionListEl).data('optional') === true) {
             return true;
         }
 
@@ -161,9 +169,13 @@ function taskBundle() {
         var type = $('input[name=taskType]').val();
 
 
-        formEl.addEventListener('submit', function (event) {
+        $(formEl).submit(function (event) {
             var isValid = true;
             errorQuestions = [];
+
+            if (isIE()) {
+                isForm = true;
+            }
 
             if(type === "7" || type === "8"){
                 isValid = sectionQuestionValid(sectionLists);
@@ -209,13 +221,15 @@ function taskBundle() {
     }
 
     function setCloseConfirmation() {
-        window.addEventListener('beforeunload', function (event) {
-            var confirmationMessage = "We won't be able to save your progress as the result is time sensitive." +
-                "Leaving the task half way will lose your progress.";
-
+        $(window).on('beforeunload', function (event) {
             if (!isForm) {
+                var confirmationMessage = "We won't be able to save your progress as the result is time sensitive." +
+                    "Leaving the task half way will lose your progress.";
+
                 (event || window.event).returnValue = confirmationMessage;
                 return confirmationMessage;
+            } else {
+                isForm = false;
             }
         });
     }
@@ -246,9 +260,9 @@ function taskBundle() {
             }
         });
 
-        setValidation();
-
         setCloseConfirmation();
+
+        setValidation();
 
         makeRowSelect();
     }
