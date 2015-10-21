@@ -50,6 +50,8 @@ class ClinicTestPathController extends BaseController {
             }
         } else if (resp.status == 404) {
             render view: '/clinicTask/codeValidation', model: [client: JSON.parse(session.client), errorMsg: RatchetMessage.IN_CLINIC_INCORRECT_TREATMENT_CODE]
+        } else if (resp.status == 412) {
+            render view: '/clinicTask/codeValidation', model: [client: JSON.parse(session.client), errorMsg: RatchetMessage.IN_CLINIC_EXPIRED_TREATMENT_CODE]
         } else {
             render view: '/error/taskExpired', model: [client: JSON.parse(session.client)]
         }

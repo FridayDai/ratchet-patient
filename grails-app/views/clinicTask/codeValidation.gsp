@@ -47,13 +47,14 @@
 
                 <div class="code-div">
                     <p class="enter-code-title">Enter Treatment Code</p>
-
+                    <g:if test="${errorMsg}">
+                        <div class="rc-server-error rc-error-label">${errorMsg}</div>
+                    </g:if>
                     <form action="/in-clinic" method="post" class="code-validation-form">
                         <div class="code-panel">
                             <input type="text" name="treatmentCode" class="treatment-code"
                                    placeholder="Enter 6 digits treatment code"
                                    maxlength="6"/>
-                            <g:if test="${errorMsg}"><span class="rc-error-label">${errorMsg}</span></g:if>
                         </div>
 
                         <input type="hidden" name="clinicPathRoute" value="codeValidation">

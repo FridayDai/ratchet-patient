@@ -7,8 +7,6 @@
 }
 
 .code-panel {
-    padding-top: 50px;
-
     .treatment-code {
         text-align: center;
         font-size: 18px;
@@ -100,7 +98,7 @@
         border-bottom: 1px solid rgba(255, 255, 255, .3);
 
         .enter-code-title {
-            margin: 0;
+            margin: 0 0 30px 0;
             font-size: 21px;
             font-weight: normal;
             color: $base-color-white;
@@ -156,6 +154,7 @@
 
             .enter-code-title {
                 padding: 25px;
+                margin-bottom: 0;
             }
 
             .code-panel {
@@ -209,12 +208,16 @@
 
         .code-div {
             width: 500px;
-            padding: 50px;
+            padding: 50px 0;
         }
     }
 
 }
 
-.rc-error-label {
-    font-size: 16px;
+.rc-server-error {
+    margin: 20px 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 40px;
+    padding: 11px 0;
+    font-size: 14px;
 }
