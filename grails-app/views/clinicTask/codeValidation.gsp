@@ -48,7 +48,7 @@
                 <div class="code-div">
                     <p class="enter-code-title">Enter Treatment Code</p>
 
-                    <g:form class="code-validation-form" controller="clinicTestPath" action="checkClinicPath" method="post">
+                    <form action="/in-clinic" method="post" class="code-validation-form">
                         <div class="code-panel">
                             <input type="text" name="treatmentCode" class="treatment-code"
                                    placeholder="Enter 6 digits treatment code"
@@ -60,7 +60,7 @@
                         <div class="task-go-panel">
                             <input type="submit" class="rc-btn primary-color task-go-btn" value="Go">
                         </div>
-                    </g:form>
+                    </form>
                 </div>
 
                 <span class="copy-right">
