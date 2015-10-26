@@ -39,7 +39,7 @@
 
             </div>
 
-            <g:if test="${completeTask.type != 10}">
+            <g:if test="${completeTask.type < 9}">
             <div <g:if test="${completeTask.type == 4 || completeTask.type == 5}">class="middle nrs-width"</g:if>
                  <g:elseif
                          test="${(completeTask.type == 1 || completeTask.type == 2 || completeTask.type == 3 || completeTask.type == 6) && completeTask.comparison}">class="middle compare-width"</g:elseif>
