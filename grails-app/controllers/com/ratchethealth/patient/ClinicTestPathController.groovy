@@ -75,15 +75,24 @@ class ClinicTestPathController extends BaseController {
             def result = JSON.parse(resp.body)
             def questionnaireView = ''
 
-            //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS 10.Fairley Nasal Symptom
-            if (result.type == 1 || result.type == 6 || result.type == 10) {
-                questionnaireView = '/task/content/dash'
-            } else if (result.type == 2 || result.type == 3) {
-                questionnaireView = '/task/content/odi'
-            } else if (result.type == 4 || result.type == 5) {
-                questionnaireView = '/task/content/nrs'
-            } else if (result.type == 7 || result.type == 8) {
-                questionnaireView = '/task/content/koos'
+            //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS
+            // 9.Harris Hip Score 10.Fairley Nasal Symptom
+            switch (result.type) {
+                case 1: case 6: case 10:
+                    questionnaireView = '/task/content/dash'
+                    break
+                case 2: case 3:
+                    questionnaireView = '/task/content/odi'
+                    break
+                case 4: case 5:
+                    questionnaireView = '/task/content/nrs'
+                    break
+                case 7: case 8:
+                    questionnaireView = '/task/content/koos'
+                    break
+                case 9:
+                    questionnaireView = '/task/content/verticalChoice'
+                    //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
             }
 
             session["questionnaireView${taskCode}"] = questionnaireView
@@ -166,6 +175,7 @@ class ClinicTestPathController extends BaseController {
                 render view: view,
                         model: [
                                 client       : JSON.parse(session.client),
+                                isInClinic   : true,
                                 Task         : result,
                                 taskTitle    : taskTitle,
                                 taskCode     : code,
@@ -175,6 +185,7 @@ class ClinicTestPathController extends BaseController {
                                 treatmentCode: treatmentCode,
                                 tasksLength  : tasksListRecord.size(),
                                 errors       : errors,
+                                emailStatus: emailStatus
                         ]
             }
         } else {
