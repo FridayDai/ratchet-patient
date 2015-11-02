@@ -21,9 +21,9 @@ function WithDialog() {
     };
 
     this.options = function (options) {
-        if (_.isArray(options.buttons)
-            && options.buttons.length === 1
-            && _.isString(options.buttons[0])) {
+        if (_.isArray(options.buttons) &&
+            options.buttons.length === 1 &&
+            _.isString(options.buttons[0])) {
             var originButtons = options.buttons;
             var primaryButtonStr = originButtons[0];
 

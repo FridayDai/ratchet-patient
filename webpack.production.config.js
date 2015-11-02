@@ -11,11 +11,11 @@ module.exports = {
         assist: "./pages/assist.js",
         emailConfirm: "./pages/emailConfirm.js",
         emailSetting: "./pages/emailSetting.js",
-        dashLike: "./pages/dashLike.js",
-        koosLike: "./pages/koosLike.js",
-        nrsLike: "./pages/nrsLike.js",
-        odiLike: "./pages/odiLike.js",
-        verticalChoice: "./pages/verticalChoice.js"
+        dashLikeTool: "./pages/dashLikeTool.js",
+        koosLikeTool: "./pages/koosLikeTool.js",
+        nrsLikeTool: "./pages/nrsLikeTool.js",
+        odiLikeTool: "./pages/odiLikeTool.js",
+        verticalChoiceTool: "./pages/verticalChoiceTool.js"
     },
     output: {
         path: absoluteContext,
@@ -29,6 +29,7 @@ module.exports = {
             flight: "libs/flight/index.js",
             jForm: "bower_components/jquery-form/jquery.form.js",
             "jquery-ui-dialog": "bower_components/jquery-ui/ui/dialog.js",
+            headroom: "bower_components/headroom.js/dist/headroom.js",
             "jquery-headroom": "bower_components/headroom/dist/jQuery.headroom.js"
         }
     },

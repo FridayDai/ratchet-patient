@@ -2,7 +2,7 @@ require('../components/common/initSetup');
 require('../components/layout/Main');
 
 var flight = require('flight');
-var Task = require('../components/shared/components/Task');
+var Task = require('../components/shared/functional/Task');
 
 var Utility = require('../utils/Utility');
 
@@ -17,11 +17,14 @@ function KOOSLike() {
             this.isFormSubmit = true;
         }
 
-        _.each($sectionLists, function ($sectionList) {
+        _.each($sectionLists, function (sectionListEl) {
+            var $sectionList = $(sectionListEl);
             var $notFinishedQuestions = this.getNotFinishedQuestions($sectionList);
 
             if ($notFinishedQuestions) {
-                _.each($notFinishedQuestions, function ($notFinishedQuestion) {
+                _.each($notFinishedQuestions, function (notFinishedQuestionEl) {
+                    var $notFinishedQuestion = $(notFinishedQuestionEl);
+
                     this.errorQuestions.push($notFinishedQuestion);
                     this.setErrorStatus($notFinishedQuestion);
 
@@ -32,6 +35,7 @@ function KOOSLike() {
 
         if (!isValid) {
             this.scrollToTopError();
+            this.errorQuestions = [];
 
             event.returnValue = false;
             return false;
@@ -39,7 +43,7 @@ function KOOSLike() {
 
         this.disableSubmitButton();
 
-        this.isFormSubmit = true
+        this.isFormSubmit = true;
     };
 
     this.getNotFinishedQuestions = function ($sectionList) {
@@ -54,21 +58,25 @@ function KOOSLike() {
     this.onChoiceItemClicked = function (e) {
         var $target = $(e.target);
 
-        $target.closest('.rc-choice-hidden').prop('checked', true);
+        $target.closest(this.attr.choiceItemSelector)
+            .find('.rc-choice-hidden')
+            .prop('checked', true);
 
         this.setTip();
 
-        if (this.errorQuestions.length > 0) {
-            var $questionList = $target.closest('.question-list');
-            var sectionId = $questionList.parent(".section-list").attr("value");
-            var $siblings = $questionList.siblings(".question-list");
-            var $checkedQuestions = siblings.has('[type="radio"]:checked');
+        this.clearErrorStatus($target.closest('.question-list'));
 
-            // it's need to count self, so this plus 1
-            if(1 + $checkedQuestions.length >= SECTION_ALLOW_MIN_FINISHED[sectionId]) {
-                for(var i= 0, len = $siblings.length; i < len; i++) {
-                    this.clearErrorStatus($siblings[i]);
-                }
+        var $questionList = $target.closest('.question-list');
+        var sectionId = $questionList.parent(".section-list").attr("value");
+        var $siblings = $questionList.siblings(".question-list");
+        var $checkedQuestions = $siblings.has('[type="radio"]:checked');
+
+        // it's need to count self, so this plus 1
+        if(1 + $checkedQuestions.length >= SECTION_ALLOW_MIN_FINISHED[sectionId]) {
+            var optionals = $siblings.filter('.error');
+
+            for(var i= 0, len = optionals.length; i < len; i++) {
+                this.clearErrorStatus(optionals[i]);
             }
         }
     };

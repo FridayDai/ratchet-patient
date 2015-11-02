@@ -1,5 +1,6 @@
+require('headroom');
 require('jquery-headroom');
-var flight = require('flight');
+
 var Utility = require('../../../utils/Utility');
 
 var LEAVE_CONFIRMATION_MSG = "We won't be able to save your progress as the result is time sensitive." +
@@ -21,8 +22,16 @@ function Task() {
         headerPanelSelector: '#header',
         formSelector: 'form',
         submitButtonSelector: 'input[type="submit"]',
-        choiceItemSelector: '.answer'
+        choiceItemSelector: '.answer',
+        questionLabelSelector: '.question',
+        questionErrorMarkerSelector: '.error-label'
     });
+
+    this.initPrivates = function () {
+        this.isFormSubmit = false;
+
+        this.errorQuestions = [];
+    };
 
     this.initHeadroom = function () {
         var $header = this.select('headerPanelSelector');
@@ -52,8 +61,6 @@ function Task() {
         });
     };
 
-    this.isFormSubmit = false;
-
     this.initCloseConfirmation = function () {
         var me = this;
 
@@ -69,8 +76,6 @@ function Task() {
         });
     };
 
-    this.errorQuestions = [];
-
     this.formSubmit = function () {
         var $questionLists = this.select('formSelector').find('.question-list');
         var isValid = true;
@@ -79,7 +84,9 @@ function Task() {
             this.isFormSubmit = true;
         }
 
-        _.each($questionLists, function ($question) {
+        _.each($questionLists, function (questionEl) {
+            var $question = $(questionEl);
+
             if (!this.isQuestionChecked($question)) {
                 this.errorQuestions.push($question);
                 this.setErrorStatus($question);
@@ -90,6 +97,7 @@ function Task() {
 
         if (!isValid) {
             this.scrollToTopError();
+            this.errorQuestions.length = 0;
 
             event.returnValue = false;
             return false;
@@ -97,7 +105,7 @@ function Task() {
 
         this.disableSubmitButton();
 
-        this.isFormSubmit = true
+        this.isFormSubmit = true;
     };
 
     this.isQuestionChecked = function ($question) {
@@ -128,6 +136,8 @@ function Task() {
     };
 
     this.clearErrorStatus = function ($question) {
+        $question = $($question);
+
         if ($question.hasClass('error')) {
             $question
                 .removeClass('error')
@@ -138,7 +148,7 @@ function Task() {
 
     this.scrollToTopError = function () {
         var first = this.errorQuestions[0];
-        var top = first.offsetTop;
+        var top = first.offset().top;
 
         if (!Utility.isMobile()) {
             top -= 180;
@@ -154,13 +164,14 @@ function Task() {
     this.onChoiceItemClicked = function (e) {
         var $target = $(e.target);
 
-        $target.closest('.rc-choice-hidden').prop('checked', true);
+        $target
+            .closest(this.attr.choiceItemSelector)
+            .find('.rc-choice-hidden')
+            .prop('checked', true);
 
         this.setTip();
 
-        if (this.errorQuestions.length > 0) {
-            this.clearErrorStatus($target.closest('.question-list'));
-        }
+        this.clearErrorStatus($target.closest('.question-list'));
     };
 
     this.setTip = (function () {
@@ -180,6 +191,8 @@ function Task() {
 
     this.after('initialize', function () {
         this.initHeadroom();
+
+        this.initPrivates();
         this.initCloseConfirmation();
 
         this.on('submit', {
@@ -188,8 +201,8 @@ function Task() {
 
         this.on('click', {
             choiceItemSelector: this.onChoiceItemClicked
-        })
+        });
     });
 }
 
-module.exports = flight.component(Task);
+module.exports = Task;

@@ -3,7 +3,7 @@ require('../../../libs/jquery-validation/jquery.validate.js');
 var STRINGs = require('../../../constants/Strings');
 
 module.exports = {
-    get: function (originalCheck, scope) {
+    get: function () {
         return {
             rules: {
                 last4Number: {

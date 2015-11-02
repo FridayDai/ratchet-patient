@@ -1,5 +1,5 @@
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
-<g:set var="scriptPath" value="dist/verticalChoice.bundle.js"/>
+<g:set var="scriptPath" value="dist/verticalChoiceTool.bundle.js"/>
 <g:set var="cssPath" value="task/odi"/>
 <g:if test="${!isInClinic}">
     <g:set var="hasAssistMe" value="true"/>
