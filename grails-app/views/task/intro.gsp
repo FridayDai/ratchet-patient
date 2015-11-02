@@ -1,4 +1,4 @@
-<g:set var="scriptPath" value="introBundle"/>
+<g:set var="scriptPath" value="bundles/introBundle"/>
 <g:set var="cssPath" value="task/intro"/>
 <g:applyLayout name="taskLayout">
 	<html>

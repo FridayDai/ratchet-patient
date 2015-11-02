@@ -1,16 +1,17 @@
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/emailSetting.bundle.js"/>
 <g:set var="cssPath" value="email/emailSetting"/>
-<g:set var="scriptPath" value="emailSettingBundle"/>
 <g:applyLayout name="clientContentLayout">
     <html>
     <head>
         <title>Email Setting</title>
         <style type="text/css">
-        .rc-btn {
+        .rc-btn, .rc-primary-color, .rc-primary-color span {
             color: ${client.primaryColorHex?:'#0f137d'} !important;
             border-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
 
-        .rc-btn:hover {
+        .rc-btn:hover, .rc-primary-color:hover, .rc-primary-color:hover span {
             color: #ffffff !important;
             background-color: ${client.primaryColorHex?:'#0f137d'} !important;
         }
@@ -22,49 +23,20 @@
         <div class="desc">Enter the last 4 digit of your phone #:</div>
 
         <div id="email-setting-form">
-            <div class="form-control <g:if test="${errorMsg}">error</g:if>">
-                <input type="text" name="last4Number" class="last-4-number" placeholder="Enter last 4 digits"
-                       maxlength="4"/>
-                <g:if test="${errorMsg}"><span class="rc-error-label">${errorMsg}</span></g:if>
-            </div>
-            <input type="button" id="check-number-button" class="rc-btn check-number-btn"
-                   data-patient-id="${patientId}" value="Edit E-mail Setting"/>
+            <form action="/mail_setting/${patientId}" method="post">
+                <div class="form-control <g:if test="${errorMsg}">error</g:if>">
+                    <input type="text" id="last4Number" name="last4Number" class="last-4-number" placeholder="Enter last 4 digits"
+                           maxlength="4" required/>
+                    <span class="rc-error-label"><g:if test="${errorMsg}">${errorMsg}</g:if></span>
+                </div>
+                <input type="submit" id="check-number-button" class="rc-btn check-number-btn" value="Edit E-mail Setting"/>
+            </form>
         </div>
     </div>
 
-    <div class="interact-alert-cover hide" id="interact-alert-cover"></div>
-
-    <div class="interact-model-container hide" id="interact-model-container">
-        <div class="interact-modal-header">
-            <div class="title">EDIT EMAIL SETTING</div>
-            <span class="close-btn" id="close-btn">X</span>
-        </div>
-
-        <div class="interact-modal-body">
-            <div class="interact-modal-content">
-                <input type="checkbox" id="subscribe"/>
-                <span>Remind me if I have a pending or overdue task.</span>
-            </div>
-
-            <input type="button" class="btn rc-btn btn-update" id="btn-update" data-patient-id="${patientId}"
-                   value="Update Setting"/>
-        </div>
-    </div>
-
-    <div class="mobile-alert-cover" id="mobile-alert-cover"></div>
-
-    <div class="mobile-alert-container" id="mobile-alert-container">
-        <div class="mobile-alert">
-            <div class="mobile-alert-header">
-                <div class="mobile-alert-title">Incorrect Number</div>
-
-                <g:if test="${errorMsg}"><div class="mobile-alert-content">${errorMsg}</div></g:if>
-            </div>
-
-            <div class="mobile-alert-footer">
-                <button>OK</button>
-            </div>
-        </div>
+    <div id="subscribe-dialog" class="hide" data-patient-id="${patientId}">
+        <input type="checkbox" id="subscribe"/>
+        <label for="subscribe">Remind me if I have a pending or overdue task.</label>
     </div>
     </body>
     </html>

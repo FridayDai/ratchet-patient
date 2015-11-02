@@ -1,5 +1,5 @@
 <g:set var="cssPath" value="clinicTask/enterEmail"/>
-<g:set var="scriptPath" value="clinicEnterEmailBundle"/>
+<g:set var="scriptPath" value="bundles/clinicEnterEmailBundle"/>
 <g:applyLayout name="clientHeaderLayout">
     <html>
     <head>

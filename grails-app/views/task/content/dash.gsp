@@ -1,4 +1,5 @@
-<g:set var="scriptPath" value="taskBundle"/>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/dashLike.bundle.js"/>
 <g:set var="cssPath" value="task/dash"/>
 <g:if test="${!isInClinic}">
 <g:set var="hasAssistMe" value="true"/>
