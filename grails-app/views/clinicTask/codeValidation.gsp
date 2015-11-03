@@ -80,24 +80,6 @@
 
         <div class="inner-container bottom-layer primary-background-color"></div>
     </div>
-
-
-    <div class="mobile-alert-cover <g:if test="${errorMsg}">show</g:if>" id="mobile-alert-cover"></div>
-
-    <div class="mobile-alert-container <g:if test="${errorMsg}">show</g:if>" id="mobile-alert-container">
-        <div class="mobile-alert">
-            <div class="mobile-alert-header">
-                <div class="mobile-alert-title">Incorrect Treatment Code</div>
-
-                <div class="mobile-alert-content">The treatment code you entered is incorrect. Please try again.</div>
-            </div>
-
-            <div class="mobile-alert-footer">
-                <button>OK</button>
-            </div>
-        </div>
-    </div>
-
     </body>
     </html>
 </g:applyLayout>
