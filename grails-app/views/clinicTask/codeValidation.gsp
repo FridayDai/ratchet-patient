@@ -1,5 +1,4 @@
 <g:set var="cssPath" value="clinicTask/codeValidation"/>
-<g:set var="scriptPath" value="codeValidationBundle"/>
 <g:applyLayout name="main">
     <html>
     <head>
@@ -80,6 +79,10 @@
 
         <div class="inner-container bottom-layer primary-background-color"></div>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6a34000fc0463b2aa41572b06e5a27746346c310
     </body>
     </html>
 </g:applyLayout>

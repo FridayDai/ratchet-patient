@@ -1,6 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/emailConfirm.bundle.js"/>
 <g:set var="cssPath" value="email/confirm"/>
-<g:set var="scriptPath" value="emailConfirmBundle"/>
 <g:applyLayout name="clientContentLayout">
     <html>
     <head>

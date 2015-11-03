@@ -1,4 +1,4 @@
-@import 'mobile_alert';
+//@import 'mobile_alert';
 
 .form-control {
     position: relative;
@@ -11,19 +11,5 @@
             content: 'X';
             color: $base-color-error-font-red;
         }
-    }
-}
-
-.rc-error-label {
-    @include breakpoint('mobile') {
-        display: none;
-    }
-
-    @include breakpoint('tablet') {
-        display: none;
-    }
-
-    @include breakpoint('desktop') {
-        display: block;
     }
 }
