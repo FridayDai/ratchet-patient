@@ -53,7 +53,7 @@
 
         var opts = {
             urls: {
-                enterEmail: '/in_clinic'
+                enterEmail: '/in-clinic'
             }
         };
 

@@ -2,8 +2,9 @@ class UrlMappings {
 
     static mappings = {
 
-        "/"(controller: "clinicTestPath", action: "index")
-        "/in_clinic"(controller: "clinicTestPath",action: "checkClinicPath")
+        "/in-clinic"(controller: "clinicTestPath") {
+            action = [GET: "index", POST: "checkClinicPath"]
+        }
 
         //Health check
         "/healthcheck"(controller: "healthCheck", action: "index")

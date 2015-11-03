@@ -47,20 +47,21 @@
 
                 <div class="code-div">
                     <p class="enter-code-title">Enter Treatment Code</p>
-
-                    <g:form class="code-validation-form" controller="clinicTestPath" action="checkClinicPath" method="post">
+                    <g:if test="${errorMsg}">
+                        <div class="rc-server-error rc-error-label">${errorMsg}</div>
+                    </g:if>
+                    <form action="/in-clinic" method="post" class="code-validation-form">
                         <div class="code-panel">
                             <input type="text" name="treatmentCode" class="treatment-code"
                                    placeholder="Enter 6 digits treatment code"
                                    maxlength="6"/>
-                            <g:if test="${errorMsg}"><span class="rc-error-label">${errorMsg}</span></g:if>
                         </div>
 
                         <input type="hidden" name="clinicPathRoute" value="codeValidation">
                         <div class="task-go-panel">
                             <input type="submit" class="rc-btn primary-color task-go-btn" value="Go">
                         </div>
-                    </g:form>
+                    </form>
                 </div>
 
                 <span class="copy-right">
@@ -79,24 +80,6 @@
 
         <div class="inner-container bottom-layer primary-background-color"></div>
     </div>
-
-
-    <div class="mobile-alert-cover <g:if test="${errorMsg}">show</g:if>" id="mobile-alert-cover"></div>
-
-    <div class="mobile-alert-container <g:if test="${errorMsg}">show</g:if>" id="mobile-alert-container">
-        <div class="mobile-alert">
-            <div class="mobile-alert-header">
-                <div class="mobile-alert-title">Incorrect Treatment Code</div>
-
-                <div class="mobile-alert-content">The treatment code you entered is incorrect. Please try again.</div>
-            </div>
-
-            <div class="mobile-alert-footer">
-                <button>OK</button>
-            </div>
-        </div>
-    </div>
-
     </body>
     </html>
 </g:applyLayout>
