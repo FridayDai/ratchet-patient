@@ -63,7 +63,7 @@ function EmailCollectionPage() {
     this.after('initialize', function () {
         this.on('click', {
             skipButtonSelector: this.onSkipButtonClicked
-        })
+        });
     });
 }
 

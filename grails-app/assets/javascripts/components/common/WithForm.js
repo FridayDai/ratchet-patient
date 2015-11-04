@@ -23,7 +23,7 @@ function WithForm() {
         if (!this.attr.nativeSubmit) {
             _.extend(options, {
                 submitHandler: _.bind(this._prepareSubmitForm, this)
-            })
+            });
         }
 
         this.formEl.validate(options);
