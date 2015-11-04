@@ -190,8 +190,14 @@ ul {
 }
 
 .rc-error-label {
-    margin-top: 5px;
     color: $base-color-error-font-red;
+}
+
+.error-container {
+    .rc-error-label {
+        display: block;
+        margin-top: 5px;
+    }
 }
 
 .client-logo {

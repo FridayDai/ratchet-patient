@@ -254,16 +254,13 @@ class ClinicTestPathController extends BaseController {
         def treatmentCode = params?.treatmentCode
 
         def resp = patientService.updatePatient(token, treatmentCode, email)
-        if (resp.status == 400) {
+        if (resp.status == 400 || resp.status == 404) {
             def result = JSON.parse(resp.body)
             forward(action: 'enterPatientEmail', params: [treatmentCode: treatmentCode, tasksList: tasksList, errorMsg: result?.error?.errorMessage])
         } else {
             forward(action: 'completeTasks', params: [treatmentCode: treatmentCode, tasksList: tasksList])
         }
-
-
     }
-
 
     def validateSectionChoice(sections, answer) {
         def errors = [:]

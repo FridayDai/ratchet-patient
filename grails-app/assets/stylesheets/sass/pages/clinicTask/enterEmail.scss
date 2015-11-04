@@ -1,4 +1,6 @@
 @import '../../partials/common';
+@import '../../partials/theme';
+@import '../../partials/interact_modal';
 @import "../../partials/headroom";
 @import "../../partials/clientHeaderLayout";
 @import "../../partials/dialog_alert";
@@ -15,7 +17,7 @@
 
 .form-content {
     width: 612px;
-    padding: 20px 30px 6px;
+    padding: 20px 30px 30px;
     margin: 0 auto;
     background-color: $base-color-lighter-gray;
 
@@ -38,14 +40,9 @@
 }
 
 .form-title {
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 }
 
-.error-container {
-   padding-top: 5px;
-    height: 24px;
-    font-size: 13px;
-}
 
 .enter-email-btn {
     margin: 58px 0 28px;

@@ -17,7 +17,7 @@ class PatientService extends RatchetAPIService {
             if (resp.status == 200) {
                 log.info("Update single patient success, token: ${token}")
                 return resp
-            } else if(resp.status == 400) {
+            } else if(resp.status == 400 || resp.status == 404) {
                 log.info("Update single patient failed, token: ${token}")
                 return resp
             } else {
