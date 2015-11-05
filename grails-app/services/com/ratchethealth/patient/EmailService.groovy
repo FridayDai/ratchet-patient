@@ -91,6 +91,27 @@ class EmailService extends RatchetAPIService {
                 handleError(resp)
             }
         }
+    }
 
+    def checkPatientEmail(String token, clientId, email) {
+        def url = grailsApplication.config.ratchetv2.server.url.email.checkPatientEmail
+
+        log.info("Call backend service to check patient email, token: ${token}.")
+        withPost(url) { req ->
+            def resp = req
+                .field("clientId", clientId)
+                .field("email", email)
+                .asString()
+
+            if (resp.status == 200) {
+                log.info("this patient email already exist, token: ${token}")
+                return false
+            } else if (resp.status == 404) {
+                log.info("this patient email doesn't exist, token: ${token}")
+                return true
+            } else {
+                handleError(resp)
+            }
+        }
     }
 }

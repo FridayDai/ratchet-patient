@@ -20,9 +20,13 @@ function WithForm() {
             options = this.initValidation();
         }
 
-        this.formEl.validate(_.extend({
-            submitHandler: _.bind(this._prepareSubmitForm, this)
-        }, options));
+        if (!this.attr.nativeSubmit) {
+            _.extend(options, {
+                submitHandler: _.bind(this._prepareSubmitForm, this)
+            });
+        }
+
+        this.formEl.validate(options);
     };
 
     this.submitForm = function () {

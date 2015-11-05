@@ -1,5 +1,6 @@
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/emailCollection.bundle.js"/>
 <g:set var="cssPath" value="clinicTask/enterEmail"/>
-<g:set var="scriptPath" value="bundles/clinicEnterEmailBundle"/>
 <g:applyLayout name="clientHeaderLayout">
     <html>
     <head>
@@ -42,11 +43,11 @@
         <div class="main-title">Enter email</div>
         <div class="sub-title">Please enter your email address to receive future task notifications via email.</div>
 
-        <form id="email-enter-form" method="post">
+        <form action="" id="email-enter-form" method="post">
 
             <div class="form-content">
                 <div class="form-title">ENTER EMAIL</div>
-                <input type="email" name="email" id="email" class="inline-email" placeholder="john.smith@email.com"/>
+                <input type="email" name="email" id="email" class="inline-email" placeholder="john.smith@email.com" required/>
                 <div class="error-container" id="error-container">
                     <g:if test="${errorMsg}">
                         <span id="error-msg" class="rc-error rc-error-label">${errorMsg}</span>
@@ -62,27 +63,6 @@
         </form>
 
         <input type="button" class="skip-button" id="skip-button" value="Skip"/>
-    </div>
-
-    %{--<div class="dialog-alert-cover" id="dialog-alert-cover"></div>--}%
-
-    <div class="dialog-alert-container" id="dialog-alert-container">
-        <div class="dialog-alert">
-            <div class="dialog-inline">
-                <div class="dialog-alert-header"></div>
-
-                <div class="dialog-alert-content">
-                    <div class="dialog-alert-title">Are you sure?</div>
-                </div>
-
-                <div class="dialog-alert-footer">
-                    <div class="dialog-alert-buttonset">
-                        <button id="jump-btn" class="red-btn">Yes</button>
-                        <button id="close-btn">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     </body>
     </html>

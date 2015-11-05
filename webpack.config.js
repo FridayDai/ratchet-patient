@@ -11,6 +11,7 @@ module.exports = {
         assist: "./pages/assist.js",
         emailConfirm: "./pages/emailConfirm.js",
         emailSetting: "./pages/emailSetting.js",
+        emailCollection: "./pages/emailCollection.js",
         dashLikeTool: "./pages/dashLikeTool.js",
         koosLikeTool: "./pages/koosLikeTool.js",
         nrsLikeTool: "./pages/nrsLikeTool.js",
