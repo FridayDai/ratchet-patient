@@ -1,0 +1,11 @@
+.arm-part {
+    pointer-events:all;
+    stroke: $base-font-color;
+    stroke-width: 2px;
+    stroke-dasharray: 5,5;
+
+    &:hover {
+        fill: $base-color-white;
+        stroke-width: 0;
+    }
+}
