@@ -4,16 +4,16 @@
 	<div class="sub-header primary-border-color">
 		<p class="primary-color">${Task.title}</p>
 
-		<div class="task-time primary-color"><span>Due Date:</span> <g:formatDate date="${new java.util.Date(Task.dueTime)}"
-															   timeZone="${TimeZone.getTimeZone('America/Vancouver')}"
-															   format="MMM d, yyyy" /></div>
-        <g:if test="${!noTips}">
-            <div class="tips">
-                <asset:image src="tip.png" class="primary-background-color" />
-                <span class="tip-content">Losing weight enhances your chance of recovery.</span>
-            </div>
-        </g:if>
-
+		%{--<div class="task-time primary-color"><span>Due Date:</span> <g:formatDate date="${new java.util.Date(Task.dueTime)}"--}%
+															   %{--timeZone="${TimeZone.getTimeZone('America/Vancouver')}"--}%
+															   %{--format="MMM d, yyyy" /></div>--}%
+        %{--<g:if test="${!noTips}">--}%
+            %{--<div class="tips">--}%
+                %{--<asset:image src="tip.png" class="primary-background-color" />--}%
+                %{--<span class="tip-content">Losing weight enhances your chance of recovery.</span>--}%
+            %{--</div>--}%
+        %{--</g:if>--}%
+		<div class="warning">&nbsp;Please answer the following questions to the best of your knowledge without compromising any existing medical condition(s) and/or doctor's advisement(s).</div>
 	</div>
 
 </div>
