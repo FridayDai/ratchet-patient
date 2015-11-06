@@ -2,8 +2,8 @@ class UrlMappings {
 
     static mappings = {
 
-        "/in-clinic"(controller: "clinicTestPath") {
-            action = [GET: "index", POST: "checkClinicPath"]
+        "/in-clinic"(controller: "multiTask") {
+            action = [GET: "index", POST: "checkPath"]
         }
 
         //Health check
@@ -29,6 +29,10 @@ class UrlMappings {
         }
         name taskComplete: "/$patientName/tasks/$taskTitle/$code/complete"(controller: "task") {
             action = [GET: "complete"]
+        }
+
+        "/tasks/$treatmentCode"(controller: "multiTask") {
+            action = [GET: "getTreatmentTasks", POST: "checkPath"]
         }
 
         // Help

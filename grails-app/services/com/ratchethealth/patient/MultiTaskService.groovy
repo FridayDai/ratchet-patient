@@ -1,6 +1,6 @@
 package com.ratchethealth.patient
 
-class ClinicTestPathService extends RatchetAPIService {
+class MultiTaskService extends RatchetAPIService {
 
     def grailsApplication
 
