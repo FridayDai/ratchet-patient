@@ -104,6 +104,36 @@ class TaskService extends RatchetAPIService {
         }
     }
 
+    def getQuestionnaireWithCombineTaskCode(String token, combinedTasksCode, code) {
+        def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
+
+        url = String.format(url, code)
+
+        def browserName = userAgentIdentService.getBrowser()
+        def browserVersion = userAgentIdentService.getBrowserVersion()
+        def OSName = userAgentIdentService.getOperatingSystem()
+
+        withGet(url) { req ->
+            def resp = req
+                    .queryString("combinedTasksCode", combinedTasksCode)
+                    .queryString("browserName", browserName)
+                    .queryString("browserVersion", browserVersion)
+                    .queryString("OSName", OSName)
+                    .asString()
+
+            if (resp.status == 200 || resp.status == 207) {
+                log.info("Get questionnaire with combine task code success, token: ${token}")
+                resp
+            } else if (resp.status == 412 || resp.status == 400) {
+                def result = JSON.parse(resp.body)
+                log.error("Invalid task exception: ${result?.error?.errorMessage}, token: ${token}.")
+                return resp
+            } else {
+                handleError(resp)
+            }
+        }
+    }
+
     def submitQuestionnaire(String token, code, answer) {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 

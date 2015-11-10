@@ -126,7 +126,7 @@
                 </g:each>
             </g:if>
 
-            <g:if test="${!isInClinic}">
+            <g:if test="${isInClinic}">
             <form name="completeTaskListForm" method="post">
                 <input type="hidden" name="isInClinic" value="${isInClinic}">
                 <div class="task-start-panel">
@@ -144,7 +144,7 @@
                 <p>You have <strong>0</strong> tasks</p>
             </div>
 
-            <g:if test="${!isInClinic}">
+            <g:if test="${isInClinic}">
             <form name="noTaskListForm" method="post">
                 <input type="hidden" name="isInClinic" value="${isInClinic}">
                 <div class="task-start-panel">

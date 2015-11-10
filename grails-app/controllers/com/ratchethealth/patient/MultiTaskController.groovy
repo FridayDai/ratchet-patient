@@ -31,8 +31,14 @@ class MultiTaskController extends BaseController {
         String token = request.session.token
         def treatmentCode = params?.treatmentCode
         def isInClinic = params?.isInClinic
-        def completedTasksOnly
-        def resp = multiTaskService.getTreatmentTasks(token, treatmentCode, completedTasksOnly)
+        def resp
+
+        if (isInClinic) {
+            resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null)
+        } else {
+            resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, null)
+        }
+
         if (resp.status == 200) {
             def tasksListResp = JSON.parse(resp.body)
             def tasksList = tasksListResp.tests
@@ -82,8 +88,13 @@ class MultiTaskController extends BaseController {
         def task = tasksList[itemIndex]
         def taskTitle = task.title
         def taskCode = task.code
+        def resp
 
-        def resp = taskService.getQuestionnaire(token, treatmentCode, taskCode, null)
+        if (isInClinic) {
+            resp = taskService.getQuestionnaire(token, treatmentCode, taskCode, null)
+        } else {
+            resp = taskService.getQuestionnaireWithCombineTaskCode(token, treatmentCode, taskCode)
+        }
 
         if (resp.status == 200) {
             def result = JSON.parse(resp.body)
@@ -182,7 +193,13 @@ class MultiTaskController extends BaseController {
 
         if (errors.size() > 0) {
             def view = session["questionnaireView${code}"]
-            def resp = taskService.getQuestionnaire(token, treatmentCode, code, null)
+            def resp
+
+            if (isInClinic) {
+                resp = taskService.getQuestionnaire(token, treatmentCode, code, null)
+            } else {
+                resp = taskService.getQuestionnaire(token, null, code, null)
+            }
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
@@ -242,8 +259,14 @@ class MultiTaskController extends BaseController {
         def tasksListRecord = JSON.parse(tasksList)
         def isInClinic = params?.isInClinic
         def completedTasksOnly = true
+        def resp
 
-        def resp = multiTaskService.getTreatmentTasks(token, treatmentCode, completedTasksOnly)
+        if (isInClinic) {
+            resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, completedTasksOnly)
+        } else {
+            resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, completedTasksOnly)
+        }
+
         if (resp.status == 200) {
             def completeTasksList = JSON.parse(resp.body)
             def DoneTaskList = []
