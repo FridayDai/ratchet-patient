@@ -17,7 +17,7 @@ function EmailCollectionPage() {
         submitButtonSelector: '#enter-email-button',
         skipButtonSelector: '.skip-button',
         emailFieldSelector: '#email',
-        pathRouteFieldSelector: 'input[name=clinicPathRoute]'
+        pathRouteFieldSelector: 'input[name=pathRoute]'
     });
 
     this.initValidation = function () {

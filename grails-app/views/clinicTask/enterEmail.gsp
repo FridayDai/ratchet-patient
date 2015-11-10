@@ -55,9 +55,10 @@
                 </div>
             </div>
 
-            <input type="hidden" name="clinicPathRoute" value="submitEmail">
+            <input type="hidden" name="pathRoute" value="submitEmail">
             <input type="hidden" name="tasksList" value="${tasksList}">
             <input type="hidden" name="treatmentCode" value="${treatmentCode}">
+            <input type="hidden" name="isInClinic" value="${isInClinic}">
 
             <input type="submit" id="enter-email-button" class="rc-btn enter-email-btn" value="Enter"/>
         </form>
