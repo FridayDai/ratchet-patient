@@ -1,5 +1,16 @@
-.arm-part {
+.human {
     pointer-events:all;
+
+    &.disabled {
+        pointer-events: none;
+
+        .arm-part {
+            stroke-width: 0;
+        }
+    }
+}
+
+.arm-part {
     stroke: $base-font-color;
     stroke-width: 2px;
     stroke-dasharray: 5,5;
@@ -8,4 +19,8 @@
         fill: $base-color-white;
         stroke-width: 0;
     }
+}
+
+.active-arm {
+    stroke: $base-color-red-stroke;
 }

@@ -1,7 +1,403 @@
-@import '../../partials/variable';
-@import '../../partials/common';
+@import '../../partials/task_content';
+@import '../../partials/theme';
+@import '../../partials/selectmenu';
+@import '../../partials/dialog';
 @import '../../partials/painChartSVG';
 
-.chart-content {
-    display: inline-block;
+.pain-chart-neck {
+
+    .question-list {
+        @include breakpoint('tablet') {
+            margin-bottom: 40px;
+        }
+    }
+
+    .question {
+        background-color: #fff;
+
+        @include breakpoint('tablet') {
+            margin-bottom: 5px;
+            padding: 30px 40px;
+            font-size: 18px;
+        }
+
+        @include breakpoint('mobile') {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background-color: $base-color-lighter-gray;
+            color: $base-color-light-dark;
+        }
+    }
+
+    .answer-list {
+        .answer-title {
+            padding: 20px 12px;
+            font-size: 17px;
+            @include breakpoint('mobile') {
+                background-color: $base-color-white;
+            }
+        }
+
+        @include breakpoint('tablet') {
+            padding: 15px 20px;
+            background-color: #fff;
+        }
+
+        &.chart-style {
+            @include breakpoint('mobile') {
+                background-color: $base-color-white;
+            }
+        }
+
+        &.odi-style {
+            @include breakpoint('tablet') {
+                @include answer-vertical-list('lg');
+            }
+
+            @include breakpoint('mobile') {
+                @include answer-vertical-list('small');
+                background-color: $base-color-white;
+            }
+
+            .answer{
+                @include breakpoint('mobile') {
+                   display: none;
+                }
+                .choice {
+                    margin-left: 23px;
+                }
+            }
+        }
+
+        &.nrs {
+            @include breakpoint('mobile') {
+                @include answer-vertical-list('small');
+            }
+
+            margin-bottom: 5px;
+
+            .answer-description {
+                @include breakpoint('tablet') {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .list {
+                @include breakpoint('tablet') {
+                    display: inline;
+                    margin: 10px 0 10px -20px;
+                }
+            }
+
+            .answer {
+                @include breakpoint('mobile') {
+                    width: 100%;
+                }
+
+                @include breakpoint('tablet') {
+                    display: inline-block;
+                    box-sizing: border-box;
+                    width: 9.0909090909%;
+                    min-height: 1px;
+                    margin-right: -.35em;
+                    padding-left: 20px;
+                    text-align: center;
+                    vertical-align: top;
+
+                    .text {
+                        display: none;
+                    }
+                }
+            }
+
+            .no-pain {
+                color: #80b666;
+                font-size: 18px;
+
+                @include breakpoint('mobile') {
+                    display: none;
+                }
+
+                @include breakpoint('tablet') {
+                    margin-left: 5px;
+                }
+
+                @include breakpoint('lg-desktop') {
+                    margin-left: 20px;
+                }
+            }
+
+            .severe-pain {
+                float: right;
+                color: #ea5b53;
+                font-size: 18px;
+
+                @include breakpoint('mobile') {
+                    display: none;
+                }
+
+                @include breakpoint('tablet') {
+                    margin-right: 5px;
+                }
+
+                @include breakpoint('lg-desktop') {
+                    margin-right: 20px;
+                }
+            }
+
+            .choice-number {
+                .rc-radio {
+                    text-align: center;
+                }
+
+                .rc-radio:before {
+                    display: inline-block;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    font-size: 20px;
+                    line-height: 40px;
+
+                    @include breakpoint('mobile') {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+
+                .rc-choice-hidden:checked + .rc-radio:before {
+                    @include breakpoint('tablet') {
+                        position: static;
+                        width: 40px;
+                        height: 40px;
+                        color: #fff;
+                        background-color: $base-color-primary;
+                    }
+                }
+            }
+
+            .choice-number-0 {
+                .rc-radio:before {
+                    content: '0' !important;
+                }
+            }
+
+            .choice-number-1 {
+                .rc-radio:before {
+                    content: '1' !important;
+                }
+            }
+
+            .choice-number-2 {
+                .rc-radio:before {
+                    content: '2' !important;
+                }
+            }
+
+            .choice-number-3 {
+                .rc-radio:before {
+                    content: '3' !important;
+                }
+            }
+
+            .choice-number-4 {
+                .rc-radio:before {
+                    content: '4' !important;
+                }
+            }
+
+            .choice-number-5 {
+                .rc-radio:before {
+                    content: '5' !important;
+                }
+            }
+
+            .choice-number-6 {
+                .rc-radio:before {
+                    content: '6' !important;
+                }
+            }
+
+            .choice-number-7 {
+                .rc-radio:before {
+                    content: '7' !important;
+                }
+            }
+
+            .choice-number-8 {
+                .rc-radio:before {
+                    content: '8' !important;
+                }
+            }
+
+            .choice-number-9 {
+                .rc-radio:before {
+                    content: '9' !important;
+                }
+            }
+
+            .choice-number-10 {
+                .rc-radio:before {
+                    content: '10' !important;
+                }
+            }
+
+            .choice-number[class*="choice-number-"] {
+                .rc-radio:before {
+                    @include breakpoint('mobile') {
+                        content: '' !important;
+                    }
+                }
+            }
+
+        }
+
+        &.koos-style {
+            @include breakpoint('mobile') {
+                @include answer-vertical-list('small');
+            }
+
+            .list {
+                @include breakpoint('tablet') {
+                    margin: 10px 0 10px -20px;
+                }
+            }
+
+            .answer {
+                @include breakpoint('mobile') {
+                    width: 100%;
+                }
+
+                @include breakpoint('tablet') {
+                    display: inline-block;
+                    box-sizing: border-box;
+                    width: 20%;
+                    min-height: 1px;
+                    margin-right: -.35em;
+                    padding-left: 20px;
+                    text-align: center;
+                    vertical-align: top;
+                }
+
+                .text {
+                    @include breakpoint('tablet') {
+                        margin: 10px 0;
+                    }
+                }
+            }
+        }
+    }
+
 }
+
+.pain-draw {
+    margin-top: 70px;
+
+    .draw-board {
+        position: relative;
+        width: 600px;
+        margin: 0 auto;
+
+        @include breakpoint('mobile') {
+            width: 100%;
+        }
+    }
+
+    .chart-content {
+        display: inline-block;
+        @include breakpoint('mobile') {
+            display: block;
+            width: 232px;
+            margin: 0 auto;
+        }
+    }
+
+    .chart-left {
+        margin-right: 110px;
+        @include breakpoint('mobile') {
+            margin: 0 auto;
+        }
+    }
+
+    .chart-title {
+        padding: 12px 4px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .chart-direction {
+        position: absolute;
+        width: 250px;
+        top: 570px;
+        left: 183px;
+        font-size: 13px;
+
+        @include breakpoint('mobile') {
+            display: none;
+        }
+    }
+
+    .group-direction {
+        display: inline-block;
+        width: 114px;
+        padding: 3px 0;
+    }
+
+    .icon-direction {
+        padding: 0 2px;
+        background-color: $base-color-error-font-red;
+        color: $base-color-white;
+        font-size: 10px;
+    }
+}
+
+.section-title {
+    padding: 18px 20px;
+    font-size: 18px;
+}
+
+.msg-header {
+    padding: 4px;
+    font-size: 16px;
+}
+
+.msg-center {
+    padding: 10px 6px;
+
+    .one-choice {
+        padding: 8px 0;
+    }
+}
+
+.select-contain {
+    padding: 22px;
+}
+
+
+
+//select
+.ui-selectmenu-button {
+    span.ui-icon {
+        background-image: url('../../../../images/sort_both.png');
+    }
+}
+
+.select-percent {
+    position: relative;
+    bottom: 12px;
+
+    @include breakpoint('mobile') {
+        display: block;
+        top: -27px;
+        bottom: 0;
+        left: 96px;
+
+        span {
+            display: none;
+        }
+    }
+}
+
+
+
+
