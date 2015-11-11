@@ -126,7 +126,7 @@
 				</g:each>
 			</div>
 
-			<g:if test="${(itemIndex + 1) < tasksLength}">
+			<g:if test="${itemIndex && (itemIndex + 1) < tasksLength}">
 				<input type="hidden" name="itemIndex" value="${itemIndex + 1}">
 			</g:if>
 			<g:else>
