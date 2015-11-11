@@ -15,7 +15,7 @@ function WithForm() {
 
         this._setDefaultValidation();
 
-        var options;
+        var options = {};
         if ($.isFunction(this.initValidation)) {
             options = this.initValidation();
         }
