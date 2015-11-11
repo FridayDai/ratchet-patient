@@ -5,7 +5,7 @@
     <g:set var="hasAssistMe" value="true"/>
 </g:if>
 
-<g:applyLayout name="main">
+<g:applyLayout name="taskContent">
     <html>
     <head>
         <title>${Task?.title}</title>
@@ -117,6 +117,18 @@
                 <input type="hidden" name="code" value="${taskCode}"/>
                 <input type="hidden" name="taskType" value="${Task?.type}"/>
 
+                <div id="svg-choice-result">
+                    <input type="hidden" name="choice.0" value=""/>
+                    <input type="hidden" name="choice.1" value=""/>
+                    <input type="hidden" name="choice.2" value=""/>
+                    <input type="hidden" name="choice.3" value=""/>
+                    <input type="hidden" name="choice.4" value=""/>
+                    <input type="hidden" name="choice.5" value=""/>
+                    <input type="hidden" name="choice.6" value=""/>
+                    <input type="hidden" name="choice.7" value=""/>
+                    <input type="hidden" name="choice.8" value=""/>
+                </div>
+
                 <div id="pain-percent-question" class="question-list">
                     <div class="question">
                         <p>What percent of your pain is NECK pain vs. SHOULDER pain vs. ARM pain?</p>
@@ -127,47 +139,47 @@
                     <div class="answer-list odi-style">
                         <div class="select-contain">
                             <span>
-                                <select class="select-menu">
-                                    <option>0</option>
-                                    <option>10</option>
-                                    <option>20</option>
-                                    <option>30</option>
-                                    <option>40</option>
-                                    <option>50</option>
-                                    <option>60</option>
-                                    <option>70</option>
-                                    <option>80</option>
-                                    <option>90</option>
+                                <select class="select-menu" name="choice.9">
+                                    <option value="0">0</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
                                 </select>
                                 <span class="select-percent">%Neck<span>+</span></span>
 
                             </span>
 
-                            <select class="select-menu">
-                                <option>0</option>
-                                <option>10</option>
-                                <option>20</option>
-                                <option>30</option>
-                                <option>40</option>
-                                <option>50</option>
-                                <option>60</option>
-                                <option>70</option>
-                                <option>80</option>
-                                <option>90</option>
+                            <select class="select-menu" name="choice.10">
+                                <option value="0">0</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="60">60</option>
+                                <option value="70">70</option>
+                                <option value="80">80</option>
+                                <option value="90">90</option>
                             </select>
                             <span class="select-percent">%Shoulder<span>+</span></span>
 
-                            <select class="select-menu">
-                                <option>0</option>
-                                <option>10</option>
-                                <option>20</option>
-                                <option>30</option>
-                                <option>40</option>
-                                <option>50</option>
-                                <option>60</option>
-                                <option>70</option>
-                                <option>80</option>
-                                <option>90</option>
+                            <select class="select-menu" name="choice.11">
+                                <option value="0">0</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="60">60</option>
+                                <option value="70">70</option>
+                                <option value="80">80</option>
+                                <option value="90">90</option>
                             </select>
                             <span class="select-percent"> %Arm <span>= 100%</span></span>
 
@@ -175,7 +187,7 @@
                         <li class="answer">
                             <div class="text">I have no neck, shoulder or arm pain</div>
                             <label class="choice">
-                                <input id="no-pain-toggle" type="checkbox"
+                                <input id="no-pain-toggle" type="checkbox" name="choice.12"
                                        class="rc-choice-hidden"/>
                                 <span class="rc-radio primary-radio-color"></span>
                             </label>

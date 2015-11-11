@@ -101,7 +101,7 @@ class MultiTaskController extends BaseController {
             def questionnaireView = ''
 
             //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS
-            // 9.Harris Hip Score 10.Fairley Nasal Symptom
+            // 9.Harris Hip Score 10.Fairley Nasal Symptom 11.Pain Chart Reference - Neck
             switch (result.type) {
                 case 1: case 6: case 10:
                     questionnaireView = '/task/content/dash'
@@ -117,7 +117,10 @@ class MultiTaskController extends BaseController {
                     break
                 case 9:
                     questionnaireView = '/task/content/verticalChoice'
+                    break
                     //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
+                case 11:
+                    questionnaireView = '/task/content/painChartNeck'
             }
 
             session["questionnaireView${taskCode}"] = questionnaireView
