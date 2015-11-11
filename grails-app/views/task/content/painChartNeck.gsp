@@ -118,18 +118,19 @@
                 <input type="hidden" name="taskType" value="${Task?.type}"/>
 
                 <div id="svg-choice-result">
-                    <input type="hidden" name="choice.0" value=""/>
-                    <input type="hidden" name="choice.1" value=""/>
-                    <input type="hidden" name="choice.2" value=""/>
-                    <input type="hidden" name="choice.3" value=""/>
-                    <input type="hidden" name="choice.4" value=""/>
-                    <input type="hidden" name="choice.5" value=""/>
-                    <input type="hidden" name="choice.6" value=""/>
-                    <input type="hidden" name="choice.7" value=""/>
-                    <input type="hidden" name="choice.8" value=""/>
+                    <input type="hidden" class="right-upper-font" name="choice.0" value=""/>
+                    <input type="hidden" class="left-upper-font" name="choice.1" value=""/>
+                    <input type="hidden" class="right-lower-font" name="choice.2" value=""/>
+                    <input type="hidden" class="left-lower-font" name="choice.3" value=""/>
+
+                    <input type="hidden" class="left-lower-back" name="choice.4" value=""/>
+                    <input type="hidden" class="right-lower-back" name="choice.5" value=""/>
+                    <input type="hidden" class="middle-neck-back" name="choice.6" value=""/>
+                    <input type="hidden" class="left-upper-back" name="choice.7" value=""/>
+                    <input type="hidden" class="right-upper-back" name="choice.8" value=""/>
                 </div>
 
-                <div id="pain-percent-question" class="question-list">
+                <div id="pain-percent-question" class="question-list" data-optional="${'true'.toBoolean()}">
                     <div class="question">
                         <p>What percent of your pain is NECK pain vs. SHOULDER pain vs. ARM pain?</p>
 
@@ -187,7 +188,7 @@
                         <li class="answer">
                             <div class="text">I have no neck, shoulder or arm pain</div>
                             <label class="choice">
-                                <input id="no-pain-toggle" type="checkbox" name="choice.12"
+                                <input id="no-pain-toggle" type="checkbox" name="choice.12" value="on"
                                        class="rc-choice-hidden"/>
                                 <span class="rc-radio primary-radio-color"></span>
                             </label>
@@ -235,7 +236,7 @@
                                             <g:if test="${j >= 7 && j < 11}">Severe Pain</g:if>
                                         </div>
                                         <label class="choice choice-number choice-number-${j}">
-                                            <input type="radio" class="rc-choice-hidden"/>
+                                            <input type="radio" class="rc-choice-hidden" name="choice.${13+2*i}" value="${j}"/>
                                             <span class="rc-radio"></span>
                                         </label>
                                     </li>
@@ -252,7 +253,7 @@
                                     <li class="answer">
                                         <div class="text">${choice[j]}</div>
                                         <label class="choice">
-                                            <input type="radio" class="rc-choice-hidden"/>
+                                            <input type="radio" class="rc-choice-hidden" name="choice.${13+2*i+1}" value="${j}"/>
                                             <span class="rc-radio"></span>
                                         </label>
                                     </li>
@@ -264,20 +265,18 @@
                 </g:each>
 
 
-                <g:if test="${isInClinic}">
-                    <g:if test="${(itemIndex + 1) < tasksLength}">
-                        <input type="hidden" name="itemIndex" value="${itemIndex + 1}">
-                    </g:if>
-                    <g:else>
-                        <input type="hidden" name="itemIndex" value="${tasksLength}">
-                    </g:else>
-
-                    <input type="hidden" name="tasksList" value="${tasksList}">
-                    <input type="hidden" name="treatmentCode" value="${treatmentCode}">
-                    <input type="hidden" name="clinicPathRoute" value="todoTask">
-                    <input type="hidden" name="patientId" value="${patientId}">
-                    <input type="hidden" name="emailStatus" value="${emailStatus}">
+                <g:if test="${(itemIndex + 1) < tasksLength}">
+                    <input type="hidden" name="itemIndex" value="${itemIndex + 1}">
                 </g:if>
+                <g:else>
+                    <input type="hidden" name="itemIndex" value="${tasksLength}">
+                </g:else>
+
+                <input type="hidden" name="tasksList" value="${tasksList}">
+                <input type="hidden" name="treatmentCode" value="${treatmentCode}">
+                <input type="hidden" name="isInClinic" value="${isInClinic}">
+                <input type="hidden" name="pathRoute" value="todoTask">
+                <input type="hidden" name="emailStatus" value="${emailStatus}">
 
                 <div class="task-done-panel">
                     <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
