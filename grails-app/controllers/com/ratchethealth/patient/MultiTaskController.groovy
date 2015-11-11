@@ -198,7 +198,7 @@ class MultiTaskController extends BaseController {
             if (isInClinic) {
                 resp = taskService.getQuestionnaire(token, treatmentCode, code, null)
             } else {
-                resp = taskService.getQuestionnaire(token, null, code, null)
+                resp = taskService.getQuestionnaireWithCombineTaskCode(token, treatmentCode, code)
             }
 
             if (resp.status == 200) {
