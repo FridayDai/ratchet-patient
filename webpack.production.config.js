@@ -31,7 +31,7 @@ module.exports = {
             jForm: "bower_components/jquery-form/jquery.form.js",
             "jquery-ui-dialog": "bower_components/jquery-ui/ui/dialog.js",
             headroom: "bower_components/headroom.js/dist/headroom.js",
-            "jquery-headroom": "bower_components/headroom/dist/jQuery.headroom.js"
+            "jquery-headroom": "bower_components/headroom.js/dist/jQuery.headroom.js"
         }
     },
     module: {
