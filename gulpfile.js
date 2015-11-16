@@ -16,6 +16,7 @@ var paths = {
         '!./grails-app/assets/javascripts/dist/**/*.js',
         '!./grails-app/assets/javascripts/bower_components/**/*.js',
         '!./grails-app/assets/javascripts/pages/**/*.js',
+        '!./grails-app/assets/javascripts/share/**/*.js',
         '!./grails-app/assets/javascripts/bundles/**/*.js'
     ]
 };
