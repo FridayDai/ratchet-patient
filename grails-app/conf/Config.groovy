@@ -88,10 +88,14 @@ grails.hibernate.osiv.readonly = false
 // asset-pipeline
 grails.assets.excludes = [
         'bower_components/**',
+        'components/**',
+        'constants/**',
+        'libs/**',
+        'pages/**',
+        'utils/**',
         '.sass-cache/**',
         'sass/**',
-        'config.rb',
-        'share/*.js'
+        'config.rb'
 ]
 
 grails.assets.plugin."resources".excludes = ["**"]
