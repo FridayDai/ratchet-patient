@@ -28,7 +28,7 @@
         "gulp-scss-lint": "^0.1.4",
         "gulp-util": "^3.0.7",
         "jshint-stylish": "^1.0.0",
-        "webpack": "^1.10.5",
+        "webpack": "^1.12.2",
         "webpack-stream": "^2.1.1"
     }
 }
