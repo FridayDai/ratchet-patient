@@ -15,7 +15,7 @@ function AssistPage() {
 
     this.setExtraData = function () {
         var $submit = this.select('submitButtonSelector');
-        var patientId = $submit.data('patientid');
+        var patientId = $submit.data('patientId');
         var careGiverId = $submit.data('careGiverId');
         var name = this.select('nameLabelSelector').text();
         var browser = window.navigator.userAgent;

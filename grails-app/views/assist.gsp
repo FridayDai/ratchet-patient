@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="rc-btn req-assist-btn primary-button-color" id="assist-me" data-patientid="${patientId}" data-care-giver-id="${careGiverId}">Send</button>
+                    <button type="submit" class="rc-btn req-assist-btn primary-button-color" id="assist-me" data-patient-id="${patientId}" data-care-giver-id="${careGiverId}">Send</button>
                 </div>
             </form>
             <div class="success-message hide">

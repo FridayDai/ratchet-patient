@@ -47,7 +47,7 @@
 
             <div class="form-content">
                 <div class="form-title">ENTER EMAIL</div>
-                <input type="email" name="email" id="email" class="inline-email" placeholder="john.smith@email.com" required/>
+                <input type="email" name="email" id="email" class="inline-email" placeholder="john.smith@email.com" required="required"/>
                 <div class="error-container" id="error-container">
                     <g:if test="${errorMsg}">
                         <span id="error-msg" class="rc-error rc-error-label">${errorMsg}</span>
