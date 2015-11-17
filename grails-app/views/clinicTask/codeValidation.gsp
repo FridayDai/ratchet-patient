@@ -1,5 +1,4 @@
 <g:set var="cssPath" value="clinicTask/codeValidation"/>
-<g:set var="scriptPath" value="codeValidationBundle"/>
 <g:applyLayout name="main">
     <html>
     <head>
@@ -57,7 +56,8 @@
                                    maxlength="6"/>
                         </div>
 
-                        <input type="hidden" name="clinicPathRoute" value="codeValidation">
+                        <input type="hidden" name="pathRoute" value="codeValidation">
+                        <input type="hidden" name="isInClinic" value="true">
                         <div class="task-go-panel">
                             <input type="submit" class="rc-btn primary-color task-go-btn" value="Go">
                         </div>
@@ -72,12 +72,8 @@
 
         </div>
 
-        <div class="inner-container top-layer">
-
-        </div>
-
+        <div class="inner-container top-layer"></div>
         <div class="inner-container middle-layer"></div>
-
         <div class="inner-container bottom-layer primary-background-color"></div>
     </div>
     </body>

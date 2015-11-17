@@ -1,5 +1,5 @@
 <g:set var="cssPath" value="error/invalid"/>
-<g:set var="scriptPath" value="invalidTaskBundle"/>
+<g:set var="scriptPath" value="bundles/invalidTaskBundle"/>
 <g:applyLayout name="clientContentLayout">
 	<html>
 	<head>

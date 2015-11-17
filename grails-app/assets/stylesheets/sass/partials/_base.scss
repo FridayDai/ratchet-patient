@@ -190,8 +190,14 @@ ul {
 }
 
 .rc-error-label {
-    margin-top: 5px;
     color: $base-color-error-font-red;
+}
+
+.error-container {
+    .rc-error-label {
+        display: block;
+        margin-top: 5px;
+    }
 }
 
 .client-logo {
@@ -227,4 +233,139 @@ ul {
 
 .error {
     color: $base-color-red;
+}
+
+//todo this will be change later
+.ui-helper-hidden {
+    display: none;
+}
+
+.ui-helper-hidden-accessible {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+}
+
+.ui-helper-reset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    line-height: 1.3;
+    list-style: none;
+    outline: 0;
+    text-decoration: none;
+}
+
+.ui-helper-clearfix:before,
+.ui-helper-clearfix:after {
+    display: table;
+    border-collapse: collapse;
+    content: '';
+}
+
+.ui-helper-clearfix:after {
+    clear: both;
+}
+
+.ui-helper-clearfix {
+    min-height: 0; // support: IE7
+}
+
+.ui-helper-zfix {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: Alpha(Opacity=0); // support: IE8
+}
+
+.ui-front {
+    z-index: 100;
+}
+
+// Interaction Cues
+.ui-state-disabled {
+    cursor: default !important;
+}
+
+// Icons
+
+// states and images
+.ui-icon {
+    display: block;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    text-indent: -99999px;
+}
+
+// Misc visuals
+
+// Overlays
+.ui-widget-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btn,
+.ui-button {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0;
+    padding: 6px 22px;
+    border: 1px $base-color-dark-grey solid;
+    white-space: nowrap;
+    color: $base-color-dark-grey;
+    background-color: transparent;
+    background-image: none;
+    font: $base-font-utility;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+
+    &:hover,
+    &:focus {
+        color: $base-color-white;
+        background-color: $base-color-dark-grey;
+    }
+
+    &.disabled {
+        color: $base-color-white;
+        background-color: $base-color-grey;
+
+        &:hover,
+        &:focus {
+            border: 0;
+            color: $base-color-white;
+            background-color: $base-color-grey;
+            cursor: inherit;
+        }
+    }
+}
+
+.ui-button {
+    border: 1px solid $base-color-dark-grey;
+
+    .ui-button-text {
+        color: $base-color-dark-grey;
+    }
+
+    &:hover {
+        border: 0;
+        background-color: darken($base-color-dark-grey, 10%);
+
+        .ui-button-text {
+            color: $base-color-white;
+        }
+    }
 }

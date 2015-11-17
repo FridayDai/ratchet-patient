@@ -1,6 +1,7 @@
 @import '../../partials/base';
 @import '../../partials/variable';
 @import '../../partials/input_error';
+@import '../../partials/theme';
 @import '../../partials/interact_modal';
 @import '../../partials/clientContentLayout';
 
@@ -56,4 +57,8 @@
     background-color: #ccc !important;
     color: #fff !important;
     border: none;
+}
+
+#subscribe-dialog {
+    padding-top: 30px;
 }

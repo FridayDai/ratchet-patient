@@ -31,9 +31,11 @@
         }
         </style>
 
+        <g:if test="${isInClinic}">
         <script language="javascript" type="text/javascript">
             window.history.forward();
         </script>
+        </g:if>
     </head>
 
     <body>
@@ -81,7 +83,8 @@
                 <input type="hidden" name="emailStatus" value="${emailStatus}">
 
 
-                <input type="hidden" name="clinicPathRoute" value="tasksList">
+                <input type="hidden" name="pathRoute" value="tasksList">
+                <input type="hidden" name="isInClinic" value="${isInClinic}">
 
                 <div class="task-start-panel">
                     <input type="submit" class="rc-btn task-start-btn" value="Start">
@@ -92,7 +95,7 @@
 
         <g:elseif test="${completeTasksList}">
             <div class="task-list-header">
-                <P>Hi ${completeTasksList.firstName},</P>
+                <P><strong>Congratulations!</strong></P>
 
                 <p>
                     You have completed
@@ -123,13 +126,15 @@
                 </g:each>
             </g:if>
 
+            <g:if test="${isInClinic}">
             <form name="completeTaskListForm" method="post">
-
+                <input type="hidden" name="isInClinic" value="${isInClinic}">
                 <div class="task-start-panel">
-                    <g:actionSubmit value="Ok" controller="clinicTestPath" action="index"
+                    <g:actionSubmit value="Ok" controller="multiTask" action="index"
                                     class="rc-btn task-start-btn"/>
                 </div>
             </form>
+            </g:if>
         </g:elseif>
 
         <g:else>
@@ -139,15 +144,16 @@
                 <p>You have <strong>0</strong> tasks</p>
             </div>
 
+            <g:if test="${isInClinic}">
             <form name="noTaskListForm" method="post">
-
+                <input type="hidden" name="isInClinic" value="${isInClinic}">
                 <div class="task-start-panel">
-                    <g:actionSubmit value="Ok" controller="clinicTestPath" action="index"
+                    <g:actionSubmit value="Ok" controller="multiTask" action="index"
                                     class="rc-btn task-start-btn"/>
                 </div>
             </form>
+            </g:if>
         </g:else>
-
     </div>
 
     </body>

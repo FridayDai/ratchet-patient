@@ -19,10 +19,16 @@
 </head>
 
 <body>
-<g:layoutBody/>
+<div id="main">
+    <g:layoutBody/>
+</div>
+
+<g:if test="${commonScriptPath}">
+    <asset:javascript src="${commonScriptPath}"/>
+</g:if>
+
 <g:if test="${scriptPath}">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <asset:javascript src="bundles/${scriptPath}"/>
+    <asset:javascript src="${scriptPath}"/>
 </g:if>
 </body>
 </html>

@@ -73,3 +73,8 @@ a {
     height: 300px;
 }
 
+.title.success {
+    @include breakpoint('mobile') {
+        text-align: center;
+    }
+}

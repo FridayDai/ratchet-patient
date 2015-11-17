@@ -69,4 +69,13 @@ class EmailController extends BaseController {
             render status: 200
         }
     }
+
+    def checkPatientEmailExist() {
+        String token = request.session.token
+        def client = request.session.client
+        def clientId = JSON.parse(client).id
+        def email = params?.email
+        def data = emailService.checkPatientEmail(token, clientId, email)
+        render data as String
+    }
 }

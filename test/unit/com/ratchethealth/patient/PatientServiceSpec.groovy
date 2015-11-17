@@ -56,11 +56,33 @@ class PatientServiceSpec extends Specification {
         resultJson.emailConflict == true
     }
 
+    def "test update patientEmail with 404 result"() {
+        given:
+        def jBuilder = new JsonBuilder()
+        jBuilder {
+            treatmentCodeNotFound true
+        }
+
+        MultipartBody.metaClass.asString = { ->
+            return [
+                status: 404,
+                body  : jBuilder.toString()
+            ]
+        }
+
+        when:
+        def result = service.updatePatient('token', 1, 'email')
+        def resultJson = JSON.parse(result.body)
+
+        then:
+        resultJson.treatmentCodeNotFound == true
+    }
+
     def "test update patientEmail without successful result"() {
         given:
         MultipartBody.metaClass.asString = { ->
             return [
-                    status: 404,
+                    status: 412,
                     body  : "body"
             ]
         }

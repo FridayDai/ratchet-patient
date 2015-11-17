@@ -2,8 +2,8 @@ class UrlMappings {
 
     static mappings = {
 
-        "/in-clinic"(controller: "clinicTestPath") {
-            action = [GET: "index", POST: "checkClinicPath"]
+        "/in-clinic"(controller: "multiTask") {
+            action = [GET: "index", POST: "checkPath"]
         }
 
         //Health check
@@ -18,6 +18,7 @@ class UrlMappings {
         "/mail_setting/$id/subscription"(controller: "email") {
             action = [POST: 'subscription']
         }
+        "/patients/check-email"(controller: "email", action: "checkPatientEmailExist")
 
         // Task
         name taskIndex: "/$patientName/tasks/$taskTitle/$code"(controller: "task") {
@@ -30,14 +31,14 @@ class UrlMappings {
             action = [GET: "complete"]
         }
 
+        "/tasks/$treatmentCode"(controller: "multiTask") {
+            action = [GET: "getTreatmentTasks", POST: "checkPath"]
+        }
+
         // Help
         "/patient/assist/$patientId"(controller: "assist", action: "index")
         "/care-giver/assist/$careGiverId"(controller: "assist", action: "assistCareGiver")
         "/addAssist"(controller: "assist", action: "addAssist")
-
-        // Agreement
-//        "/terms_of_service"(controller: "agreement", action: "termOfService")
-//        "/privacy_policy"(controller: "agreement", action: "privacyPolicy")
 
         // Announcement
         "/announcement/close"(controller: "announcement", action: "close")

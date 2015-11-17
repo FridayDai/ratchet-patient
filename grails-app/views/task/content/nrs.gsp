@@ -1,4 +1,5 @@
-<g:set var="scriptPath" value="taskBundle"/>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/nrsLikeTool.bundle.js"/>
 <g:set var="cssPath" value="task/nrs"/>
 <g:if test="${!isInClinic}">
 <g:set var="hasAssistMe" value="true"/>
@@ -125,20 +126,19 @@
 				</g:each>
 			</div>
 
-			<g:if test="${isInClinic}">
-				<g:if test="${(itemIndex + 1) < tasksLength}">
-					<input type="hidden" name="itemIndex" value="${itemIndex + 1}">
-				</g:if>
-				<g:else>
-					<input type="hidden" name="itemIndex" value="${tasksLength}">
-				</g:else>
-
-				<input type="hidden" name="clinicPathRoute" value="todoTask">
-				<input type="hidden" name="tasksList" value="${tasksList}">
-				<input type="hidden" name="treatmentCode" value="${treatmentCode}">
-				<input type="hidden" name="patientId" value="${patientId}">
-				<input type="hidden" name="emailStatus" value="${emailStatus}">
+			<g:if test="${itemIndex != null && (itemIndex + 1) < tasksLength}">
+				<input type="hidden" name="itemIndex" value="${itemIndex + 1}">
 			</g:if>
+			<g:else>
+				<input type="hidden" name="itemIndex" value="${tasksLength}">
+			</g:else>
+
+			<input type="hidden" name="pathRoute" value="todoTask">
+			<input type="hidden" name="tasksList" value="${tasksList}">
+			<input type="hidden" name="treatmentCode" value="${treatmentCode}">
+			<input type="hidden" name="isInClinic" value="${isInClinic}">
+			<input type="hidden" name="patientId" value="${patientId}">
+			<input type="hidden" name="emailStatus" value="${emailStatus}">
 
 			<div class="task-done-panel">
 				<input type="submit" class="rc-btn task-done-btn" value="I'm Done"/>

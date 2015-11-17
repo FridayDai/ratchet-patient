@@ -82,7 +82,7 @@
         function skipEnterEmail() {
             var btnEl = $('#jump-btn');
             var data = {
-                clinicPathRoute: 'completeTask',
+                pathRoute: 'completeTask',
                 tasksList: $('input[name="tasksList"]').val(),
                 treatmentCode: $('input[name="treatmentCode"]').val()
             };

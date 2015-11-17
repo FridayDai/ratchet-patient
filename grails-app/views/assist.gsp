@@ -1,4 +1,5 @@
-<g:set var="scriptPath" value="assistBundle"/>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/assist.bundle.js"/>
 <g:set var="cssPath" value="assist/assist"/>
 <g:applyLayout name="clientHeaderLayout">
     <head>
@@ -45,8 +46,7 @@
         <h1 class="title container primary-color">Assist Me</h1>
         <div class="container">
             
-            <g:form class="assist-form ui-hidden" id="assist-form" name="assist-form">
-
+            <form action="/addAssist" method="post" class="assist-form" id="assist-form">
                 <div class="form-group">
                     <label class="lbl-group">TITLE<span class="primary-color">*</span></label>
                     <input id="assist-title" name="title" type="text" class="input-group title" required/>
@@ -54,7 +54,7 @@
 
                 <div class="form-group">
                     <label class="lbl-group">DESCRIPTION<span class="primary-color">*</span></label>
-                    <textarea id="assist-desc" name="description" type="text" class="input-group description" required></textarea>
+                    <textarea id="assist-desc" name="desc" type="text" class="input-group description" required></textarea>
                 </div>
 
                 <div class="form-group inline" style="display:none;">
@@ -67,11 +67,10 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="rc-btn req-assist-btn primary-button-color" id="assist-me" data-patientid="${patientId}" data-care-giver-id="${careGiverId}">Send</button>
+                    <button type="submit" class="rc-btn req-assist-btn primary-button-color" id="assist-me" data-patient-id="${patientId}" data-care-giver-id="${careGiverId}">Send</button>
                 </div>
-
-            </g:form>
-            <div class="success-message" style="display:none;">
+            </form>
+            <div class="success-message hide">
                 <p class="first-message">Thank you!</p>
                 <p class="second-message">Message successfully sent.</p>
             </div>
