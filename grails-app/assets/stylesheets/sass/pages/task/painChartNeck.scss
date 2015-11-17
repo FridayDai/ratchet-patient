@@ -12,6 +12,56 @@
         }
     }
 
+    .question-list-special {
+        margin-bottom: 40px;
+
+        @include breakpoint('mobile') {
+            margin-bottom: 0;
+        }
+
+        .question {
+            color: $base-color-light-dark;
+            @include breakpoint('mobile') {
+                background-color: $base-color-lighter-gray;
+            }
+        }
+
+        &.error {
+            color: $base-color-light-dark;
+
+            .question {
+                background-color: $base-color-error-background-pink;
+            }
+
+            .error-label {
+                margin-top: 5px;
+                color: $base-color-error-font-red;
+                font-size: 13px;
+
+                @include breakpoint('mobile') {
+                    display: block;
+                }
+
+                @include breakpoint('tablet') {
+                    float: right;
+                }
+            }
+
+            .answer-list {
+                background-color: $base-color-error-background-pink;
+            }
+
+            .ui-selectmenu-button {
+                border-color: $base-color-error-circle-red;
+            }
+
+            .select-percent-number {
+                color: $base-color-error-circle-red;
+            }
+        }
+
+    }
+
     .question {
         background-color: #fff;
 
@@ -20,24 +70,25 @@
             padding: 30px 40px;
             font-size: 18px;
         }
+    }
+
+    .section-list {
+        margin-bottom: 40px;
 
         @include breakpoint('mobile') {
-            padding-top: 20px;
-            padding-bottom: 20px;
-            background-color: $base-color-lighter-gray;
-            color: $base-color-light-dark;
+            margin-bottom: 0;
+        }
+
+        .question-list {
+            margin-bottom: 7px;
+        }
+        .question {
+            margin-bottom: 0;
+            padding: 20px 40px;
         }
     }
 
     .answer-list {
-        .answer-title {
-            padding: 20px 12px;
-            font-size: 17px;
-            @include breakpoint('mobile') {
-                background-color: $base-color-white;
-            }
-        }
-
         @include breakpoint('tablet') {
             padding: 15px 20px;
             background-color: #fff;
@@ -59,9 +110,9 @@
                 background-color: $base-color-white;
             }
 
-            .answer{
+            .answer {
                 @include breakpoint('mobile') {
-                   display: none;
+                    display: none;
                 }
                 .choice {
                     margin-left: 23px;
@@ -286,11 +337,13 @@
             }
         }
     }
-
 }
 
 .pain-draw {
     margin-top: 70px;
+    @include breakpoint('mobile') {
+        margin-top: 0;
+    }
 
     .draw-board {
         position: relative;
@@ -351,9 +404,45 @@
     }
 }
 
-.section-title {
+//global
+.section-summary {
     padding: 18px 20px;
     font-size: 18px;
+}
+
+.section-title {
+    padding: 30px 42px;
+    font-size: 17px;
+    background-color: $base-color-white;
+    margin-bottom: 7px;
+
+    @include breakpoint('mobile') {
+        padding: 30px 25px;
+        background-color: $base-color-lighter-gray;
+    }
+}
+
+.rc-checkbox {
+    width: 32px;
+    height: 32px;
+    border-radius: 0;
+
+    &:hover:before {
+        top: -2px !important;
+        left: -2px !important;
+        border-radius: 0 !important;
+    }
+}
+
+//for dialog
+.ui-dialog {
+    .ui-dialog-titlebar {
+        display: none;
+    }
+
+    .ui-dialog-content {
+        padding: 1em 1em;
+    }
 }
 
 .msg-header {
@@ -362,10 +451,14 @@
 }
 
 .msg-center {
-    padding: 10px 6px;
+    padding: 6px 6px 0;
 
     .one-choice {
         padding: 8px 0;
+
+        input {
+            margin-right: 10px;
+        }
     }
 }
 
@@ -373,30 +466,46 @@
     padding: 22px;
 }
 
-
-
-//select
+//for select
 .ui-selectmenu-button {
     span.ui-icon {
         background-image: url('../../../../images/sort_both.png');
     }
 }
 
-.select-percent {
-    position: relative;
-    bottom: 12px;
+.select-group {
+    display: inline-block;
+    height: 36px;
 
     @include breakpoint('mobile') {
-        display: block;
-        top: -27px;
-        bottom: 0;
-        left: 96px;
+        display: inline-block;
+        width: 100%;
+        padding-top: 10px;
+    }
+}
 
-        span {
+.select-percent {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 10px;
+
+    @include breakpoint('mobile') {
+        & > span {
             display: none;
         }
     }
 }
+
+.select-percent-result {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 10px;
+
+    @include breakpoint('mobile') {
+        display: block;
+    }
+}
+
 
 
 

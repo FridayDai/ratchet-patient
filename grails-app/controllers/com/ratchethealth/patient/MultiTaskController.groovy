@@ -145,6 +145,10 @@ class MultiTaskController extends BaseController {
     }
 
     def submitTasks() {
+        if(params.hardcodeTask) {
+            forward(action: "submitSpecialTask", params: [params: params])
+            return
+        }
         String token = request.session.token
         def itemIndex = params?.itemIndex
         def tasksList = params?.tasksList
@@ -227,7 +231,7 @@ class MultiTaskController extends BaseController {
             answer.each {
                 it.choices = convertChoice(taskType, it.choices)
             }
-            taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer)
+            taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer, null)
 
             if (itemIndexRecord < tasksListRecord.size()) {
                 forward(action: 'startTasks', params: [
@@ -251,6 +255,44 @@ class MultiTaskController extends BaseController {
                         isInClinic: isInClinic
                     ])
                 }
+            }
+        }
+    }
+
+    def submitSpecialTask() {
+        String token = request.session.token
+        def itemIndex = params?.itemIndex
+        def tasksList = params?.tasksList
+        def tasksListRecord = JSON.parse(tasksList)
+        def itemIndexRecord = params?.int('itemIndex')
+        def isInClinic = params?.isInClinic
+
+        def treatmentCode = params?.treatmentCode
+        def emailStatus = params?.emailStatus
+        def choices = params.choices
+        def code = params.code
+
+        taskService.submitQuestionnaireWithoutErrorHandle(token, code, null, choices)
+        if (itemIndexRecord < tasksListRecord.size()) {
+            forward(action: 'startTasks', params: [
+                    itemIndex: itemIndex,
+                    treatmentCode: treatmentCode,
+                    tasksList: tasksList,
+                    isInClinic: isInClinic
+            ])
+        } else {
+            if(isInClinic && RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
+                forward(action: 'enterPatientEmail', params: [
+                        treatmentCode: treatmentCode,
+                        tasksList: tasksList,
+                        isInClinic: isInClinic
+                ])
+            } else {
+                forward(action: 'completeTasks', params: [
+                        treatmentCode: treatmentCode,
+                        tasksList: tasksList,
+                        isInClinic: isInClinic
+                ])
             }
         }
     }

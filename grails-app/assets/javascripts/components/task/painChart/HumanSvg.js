@@ -60,6 +60,11 @@ function humanSvg() {
 
     };
 
+    this.changeInputValue = function (path, value) {
+        var resultClass = ".{0}".format(path.id);
+        $('#svg-choice-result').find(resultClass).val(value);
+    };
+
     this.toggleAllHumanBody = function(e, toggle) {
         var self = this;
 
@@ -104,12 +109,12 @@ function humanSvg() {
         var self = e.target;
         this.snapSvg = $(self).closest('svg').get(0);
         this.armPart = $(self).closest('.part-arm-group').get(0);
-        this.trigger('showSymptomDialog');
+        this.trigger('showSymptomDialog', {id: this.armPart.firstElementChild.id});
     };
 
     this.onSymptomSelectedSuccess = function (e, data) {
         var path = $(this.armPart).find('path').get(0);
-
+        this.changeInputValue(path, data.tags);
         this.addSymptomsText(this.armPart, data.tags);
 
         if (data.tags && data.tags.length > 0) {
