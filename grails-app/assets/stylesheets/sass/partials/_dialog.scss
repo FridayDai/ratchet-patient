@@ -7,6 +7,10 @@
     outline: 0;
     font-family: $base-font-family;
 
+    @include breakpoint('mobile') {
+        border-radius: 2%;
+    }
+
     .ui-dialog-titlebar {
         position: relative;
         padding: 10px;
@@ -72,6 +76,10 @@
             float: none;
             background: $base-color-white;
             text-align: center;
+
+            @include breakpoint('mobile') {
+                border-top: 1px solid $base-color-lighter-black;
+            }
         }
 
         button {
@@ -79,6 +87,13 @@
             cursor: pointer;
             border: 1px solid $base-color-dark-grey;
             color: $base-color-dark-grey;
+
+            @include breakpoint('mobile') {
+                height: 42px;
+                width: 100%;
+                margin: 0;
+                border: 0;
+            }
 
             span {
                 color: $base-color-dark-grey;

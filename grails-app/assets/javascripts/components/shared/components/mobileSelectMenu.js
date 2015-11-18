@@ -2,6 +2,7 @@ require("jquery-ui-selectmenu");
 var Utility = require('../../../utils/Utility');
 
 function MobileSelectMenu() {
+    /*jshint maxcomplexity:20 */
 
     this.after('initialize', function () {
         $.widget( "ui.selectmenu", $.ui.selectmenu, {

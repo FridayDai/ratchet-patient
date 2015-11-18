@@ -272,7 +272,7 @@ class MultiTaskController extends BaseController {
         def choices = params.choices
         def code = params.code
 
-        taskService.submitQuestionnaireWithoutErrorHandle(token, code, null, choices)
+        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices)
         if (itemIndexRecord < tasksListRecord.size()) {
             forward(action: 'startTasks', params: [
                     itemIndex: itemIndex,

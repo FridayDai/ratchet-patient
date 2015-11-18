@@ -31,7 +31,7 @@
 
         .task-done-btn {
             color: ${     client.primaryColorHex?:'#0f137d'     } !important;
-            border-color: ${     client.primaryColorHex?:'#0f137d'     } !important;;
+            border-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
         .task-done-btn:hover {
@@ -42,6 +42,19 @@
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
             background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
+
+        .ui-dialog .ui-dialog-buttonpane button {
+            border-color: ${     client.primaryColorHex?:'#0f137d'     };
+        }
+
+        .ui-dialog-buttonset .ui-button .ui-button-text {
+            color: ${     client.primaryColorHex?:'#0f137d'     };
+        }
+
+        .ui-button-text-only:hover,  .ui-button-text-only:focus {
+            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+        }
+
         </style>
 
         <g:if test="${isInClinic}">

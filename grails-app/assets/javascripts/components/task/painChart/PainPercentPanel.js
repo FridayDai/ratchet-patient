@@ -10,6 +10,8 @@ function PainPercentPanel() {
     this.toggleSelectMenu = function (toggle) {
         if (toggle.checked) {
             this.select('selectMenuSelector').selectmenu("disable");
+            this.clearResultError();
+            this.clearErrorStatus();
         } else {
             this.select('selectMenuSelector').selectmenu("enable");
         }

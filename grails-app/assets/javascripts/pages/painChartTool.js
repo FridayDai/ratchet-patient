@@ -50,7 +50,7 @@ function painChartTask() {
     };
 
     this.isSelectScoreChecked = function ($question) {
-        if ($question.data('optional') === true) {
+        if ($question.data('optional') === true || $question.find('#no-pain-toggle:checked').length > 0) {
             return true;
         }
 
