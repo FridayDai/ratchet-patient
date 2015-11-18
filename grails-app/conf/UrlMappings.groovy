@@ -12,12 +12,7 @@ class UrlMappings {
         // Email
         "/patient/email/confirmation/$code"(controller: "email", action: "confirmPatientEmail")
         "/emergency_contact/email/confirmation/$code"(controller: "email", action: "confirmEmergencyContactEmail")
-        "/mail_setting/$id"(controller: "email") {
-            action = [GET: "emailSetting", POST: "emailSettingCheck"]
-        }
-        "/mail_setting/$id/subscription"(controller: "email") {
-            action = [POST: 'subscription']
-        }
+
         "/patients/check-email"(controller: "email", action: "checkPatientEmailExist")
 
         // Task
