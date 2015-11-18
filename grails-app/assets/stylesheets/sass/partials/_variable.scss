@@ -14,7 +14,9 @@ $base-color-gray: #bbb;
 $base-color-dark-gray: #666;
 $base-color-medium-gray: #777;
 $base-color-middle-gray: #4d4d4d;
+$base-color-mid-gray: #555;
 $base-color-dark-grey: #225f6f;
+
 
 $base-color-light-dark: #333;
 $base-color-lighter-black: #8d8d8d;
@@ -22,6 +24,7 @@ $base-color-medium-black: #333;
 $base-color-black: #000;
 
 $base-color-error: #d9534f;
+$base-color-success: #7AB466;
 $base-color-error-background-pink: #f1e5e5;
 $base-color-error-font-red: #f15b50;
 $base-color-error-circle-red: #f27171;
@@ -31,6 +34,7 @@ $base-color-primary: #0f137d;
 $base-color-dark-white: #edeeee;
 $base-color-grey: #ebecec;
 $base-color-white: #fff;
+$base-color-disable-white: #e6e6e6;
 $base-logo-color: #335d70;
 
 $maintenance-color-red: #FBD9D7;
@@ -40,5 +44,8 @@ $maintenance-color-dark-red: #F05B50;
 $base-color-red: #f05a4f;
 $base-color-dark-red: #d01203;
 $base-color-gery-light:#bcbec0;
+
+//svg
+$base-color-red-stroke:#e82831;
 
 $base-color-warn: #355d6f;

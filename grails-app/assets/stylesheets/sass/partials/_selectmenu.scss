@@ -1,0 +1,121 @@
+//menu
+.ui-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+    outline: none;
+}
+.ui-menu .ui-menu {
+    position: absolute;
+}
+.ui-menu .ui-menu-item {
+    position: relative;
+    margin: 0;
+    padding: 3px 1em 3px .4em;
+    cursor: pointer;
+    min-height: 0; /* support: IE7 */
+    /* support: IE10, see #8844 */
+    list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+}
+.ui-menu .ui-menu-divider {
+    margin: 5px 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    border-width: 1px 0 0 0;
+}
+.ui-menu .ui-state-focus,
+.ui-menu .ui-state-active {
+    margin: -1px;
+    background-color: $base-color-lighter-gray;
+}
+
+/* icon support */
+.ui-menu-icons {
+    position: relative;
+}
+.ui-menu-icons .ui-menu-item {
+    padding-left: 2em;
+}
+
+/* left-aligned */
+.ui-menu .ui-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: .2em;
+    margin: auto 0;
+}
+
+/* right-aligned */
+.ui-menu .ui-menu-icon {
+    left: auto;
+    right: 0;
+}
+
+
+//selectmenu
+.ui-selectmenu-menu {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+
+    .ui-menu {
+        overflow: auto;
+        border: 1px solid $base-color-dark-gray;
+        overflow-x: scroll;
+        padding: 4px;
+        height: 80px;
+        background-color: $base-color-white;
+
+        .ui-selectmenu-optgroup {
+            font-size: 1em;
+            font-weight: bold;
+            line-height: 1.5;
+            padding: 2px 0.4em;
+            margin: 0.5em 0 0 0;
+            height: auto;
+            border: 0;
+        }
+    }
+}
+
+.ui-selectmenu-open {
+    display: block;
+}
+.ui-selectmenu-button {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid $base-color-dark-gray;
+
+    span.ui-icon {
+        width: 16px;
+        height: 16px;
+        right: 0.5em;
+        left: auto;
+        margin-top: -8px;
+        position: absolute;
+        top: 50%;
+    }
+
+    span.ui-selectmenu-text {
+        text-align: left;
+        padding: 0.4em 2.1em 0.4em 1em;
+        display: block;
+        line-height: 1.4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.ui-state-disabled {
+    background-color: $base-color-disable-white;
+}

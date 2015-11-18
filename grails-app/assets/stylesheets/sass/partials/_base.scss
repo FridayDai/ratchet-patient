@@ -235,6 +235,14 @@ ul {
     color: $base-color-red;
 }
 
+.success {
+    color: $base-color-success;
+}
+
+.ui-hidden {
+    display: none !important;
+}
+
 //todo this will be change later
 .ui-helper-hidden {
     display: none;
@@ -315,6 +323,8 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: $base-color-mid-gray;
+    opacity: 0.4;
 }
 
 .btn,

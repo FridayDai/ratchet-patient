@@ -78,6 +78,7 @@ function Task() {
 
     this.formSubmit = function () {
         var $questionLists = this.select('formSelector').find('.question-list');
+        var $specialQuestionLists = this.select('formSelector').find('.question-list-special');
         var isValid = true;
 
         if (Utility.isIE()) {
@@ -94,6 +95,10 @@ function Task() {
                 isValid = false;
             }
         }, this);
+
+        if (_.isFunction(this.specialQuestionsValid)) {
+            _.each($specialQuestionLists, this.specialQuestionsValid, this);
+        }
 
         if (!isValid) {
             this.scrollToTopError();
@@ -166,7 +171,7 @@ function Task() {
 
         $target
             .closest(this.attr.choiceItemSelector)
-            .find('.rc-choice-hidden')
+            .find('[type="radio"].rc-choice-hidden')
             .prop('checked', true);
 
         this.setTip();

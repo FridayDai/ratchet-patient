@@ -1,0 +1,343 @@
+.ui-dialog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    padding: 0;
+    outline: 0;
+    font-family: $base-font-family;
+
+    @include breakpoint('mobile') {
+        border-radius: 2%;
+    }
+
+    .ui-dialog-titlebar {
+        position: relative;
+        padding: 10px;
+        border: 0;
+        border-bottom: 5px solid rgba(0, 0, 0, .2);
+        background: $base-color-white;
+
+        .ui-dialog-title {
+            margin-left: 10px;
+            color: #4d4d4d;
+            font-weight: 400;
+        }
+
+        .ui-button {
+            margin-right: 10px;
+            border: 0;
+
+            &:hover,
+            &:focus {
+                color: $base-color-dark-grey;
+                background-color: transparent;
+            }
+        }
+    }
+
+    .ui-dialog-title {
+        overflow: hidden;
+        float: left;
+        width: 90%;
+        margin: .1em 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .ui-dialog-titlebar-close {
+        position: absolute;
+        top: 50%;
+        right: .3em;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0;
+        padding: 1px;
+    }
+
+    .ui-dialog-content {
+        position: relative;
+        overflow: auto;
+        overflow-x: hidden;
+//        height: auto !important;
+        padding: .5em 1em;
+        border: 0;
+        background-color: $base-color-white;
+    }
+
+    .ui-dialog-buttonpane {
+        margin-top: 0;
+        padding: 0;
+        border: 0;
+        background-image: none;
+        text-align: left;
+
+        .ui-dialog-buttonset {
+            float: none;
+            background: $base-color-white;
+            text-align: center;
+
+            @include breakpoint('mobile') {
+                border-top: 1px solid $base-color-lighter-black;
+            }
+        }
+
+        button {
+            margin: 20px 12px 25px;
+            cursor: pointer;
+            border: 1px solid $base-color-dark-grey;
+            color: $base-color-dark-grey;
+
+            @include breakpoint('mobile') {
+                height: 42px;
+                width: 100%;
+                margin: 0;
+                border: 0;
+            }
+
+            span {
+                color: $base-color-dark-grey;
+            }
+
+            &:hover,
+            &:focus {
+                color: $base-color-white;
+                background-color: $base-color-dark-grey;
+
+                span {
+                    color: $base-color-white;
+                }
+            }
+        }
+
+        button:disabled {
+            border: 1px solid $base-color-dark-grey;
+            color: $base-color-dark-grey;
+
+            &:hover,
+            &:focus {
+                color: $base-color-dark-grey;
+                background-color: $base-color-white;
+
+                span {
+                    color: $base-color-dark-grey;
+                }
+            }
+        }
+
+        .ui-state-focus {
+            z-index: 9999;
+            color: #000;
+            background: none;
+        }
+    }
+
+    .ui-resizable-se {
+        right: -5px;
+        bottom: -5px;
+        width: 12px;
+        height: 12px;
+        background-position: 16px 16px;
+    }
+
+    .ui-autocomplete.ui-widget-content {
+        max-width: 254px;
+    }
+
+    .dialog-footer-panel {
+        border-top: 2px solid #CCCCCC;
+        padding: 10px 20px;
+    }
+}
+
+.ui-draggable {
+
+    .ui-dialog-titlebar {
+        cursor: move;
+    }
+}
+
+.ui-button-text-only {
+    .ui-button-text {
+        padding: 0;
+    }
+}
+
+.ui-icon-closethick {
+    display: none;
+}
+
+.window-warning-title {
+    color: $base-color-white;
+    font-weight: 400;
+    font-size: 19px;
+    text-align: center;
+}
+
+.window-warning {
+    margin-top: 20px;
+    color: $base-color-white;
+    font-weight: 300;
+    text-align: center;
+}
+
+.window-error-title {
+    color: $base-color-white;
+    font-weight: 400;
+    text-align: center;
+}
+
+.window-error,
+.window-error-message {
+    margin-top: 13px;
+    color: $base-color-white;
+    text-align: center;
+    font-weight: 300;
+}
+
+.window-deactivate-msg {
+    margin-top: 13px;
+    color: $base-color-white;
+    font-weight: 400;
+    text-align: center;
+}
+
+.ui-dialog-buttonset .ui-button {
+    min-width: 120px;
+    height: 35px;
+    background: none;
+
+    .ui-button-text {
+        font-weight: 400;
+    }
+}
+
+.ui-dialog-buttonpane {
+    margin-top: 20px;
+}
+
+.ui-dialog-titlebar-close {
+    display: inline-block;
+
+    &:before {
+        font-family: 'Ionicons';
+        display: inline-block;
+        content: '\f2d7';
+    }
+}
+
+.ui-size {
+    min-width: 450px;
+
+    .btn-position {
+
+        &:before {
+            content: none;
+        }
+    }
+
+    .ui-dialog-titlebar {
+        border: 1px solid $base-color-warn;
+        background-color: $base-color-warn;
+
+        .ui-dialog-title {
+            display: none;
+        }
+    }
+
+    .ui-dialog-content {
+        border: 1px solid $base-color-warn;
+        background-color: $base-color-warn;
+
+    }
+
+    .ui-dialog-buttonpane {
+        background-color: $base-color-warn;
+
+        .ui-dialog-buttonset {
+            border: 1px solid $base-color-warn;
+            background-color: $base-color-warn;
+            padding: 10px;
+        }
+
+        button {
+            border: 1px solid $base-color-white;
+            color: $base-color-white;
+
+            span {
+                color: $base-color-white;
+            }
+        }
+
+        .btn-agree {
+            border: 1px solid $base-color-error;
+            //            background: $base-color-red;
+            background-color: $base-color-error;
+
+            &:focus,
+            &:hover {
+                border: 1px solid $base-color-dark-red;
+                color: $base-color-white;
+                background-color: $base-color-dark-red;
+            }
+
+            + .ui-button {
+
+                &:focus,
+                &:hover {
+                    color: $base-color-warn;
+                    background-color: $base-color-white;
+
+                    span {
+                        color: $base-color-warn;
+                    }
+                }
+
+            }
+        }
+
+        .btn-ok {
+            margin: 24px;
+
+            &:hover {
+                color: $base-color-warn;
+                background-color: $base-color-white;
+
+                span {
+                    color: $base-color-warn;
+                }
+            }
+        }
+    }
+
+    .ui-icon-show {
+        &:before {
+            margin: auto;
+            content: '\f100';
+            color: $base-color-white;
+            font-weight: lighter;
+            font-size: 27px;
+            font-family: ionicons;
+        }
+    }
+}
+
+.ui-dialog-titlebar {
+    .ui-dialog-titlebar-close {
+        .ui-button-text {
+            display: none;
+        }
+    }
+}
+
+.msg-info {
+    z-index: 999999;
+    min-width: 200px;
+    padding: 20px 32px;
+    color: #fff;
+    background: #288fa4;
+    opacity: 0.75;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: #6d8a93 2px 2px 8px;
+}
