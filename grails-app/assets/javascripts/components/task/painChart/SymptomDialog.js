@@ -4,12 +4,13 @@ var Utility = require('../../../utils/Utility');
 
 function SymptomDialog() {
     this.attributes({
-        checkBoxGroupSelector: '.msg-center'
+        checkBoxGroupSelector: '.msg-center',
+        partNameSelector: '#part-name'
     });
 
     this.options({
         title: 'SELECT SYMPTOMS',
-        width: 428,
+        width: 430,
         buttons: [{
             text: 'Save',
             click: function () {
@@ -38,6 +39,9 @@ function SymptomDialog() {
                 var checkbox = "input[value='{0}']".format(ele);
                 checkBoxGroup.find(checkbox).prop('checked', true);
             });
+        }
+        if(data.name) {
+            this.select('partNameSelector').text(data.name);
         }
     };
 

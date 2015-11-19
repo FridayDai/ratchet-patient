@@ -88,7 +88,7 @@
                         <div id="draw-board" class="draw-board">
                             <span class="chart-content chart-left">
                                 <div class="chart-title">Front</div>
-                                <g:render template="/task/content/template/neckFont"></g:render>
+                                <g:render template="/task/content/template/neckFront"></g:render>
                             </span>
 
                             <span class="chart-content">
@@ -135,16 +135,16 @@
                     </div>
 
                     <div id="svg-choice-result">
-                        <input type="hidden" class="right-upper-font" name="choices.0" value=""/>
-                        <input type="hidden" class="left-upper-font" name="choices.1" value=""/>
-                        <input type="hidden" class="right-lower-font" name="choices.2" value=""/>
-                        <input type="hidden" class="left-lower-font" name="choices.3" value=""/>
+                        <input type="hidden" class="Front-Right-Shoulder" name="choices.0" value=""/>
+                        <input type="hidden" class="Front-Left-Shoulder" name="choices.1" value=""/>
+                        <input type="hidden" class="Front-Right-Arm" name="choices.2" value=""/>
+                        <input type="hidden" class="Front-Left-Arm" name="choices.3" value=""/>
 
-                        <input type="hidden" class="left-lower-back" name="choices.4" value=""/>
-                        <input type="hidden" class="right-lower-back" name="choices.5" value=""/>
-                        <input type="hidden" class="middle-neck-back" name="choices.6" value=""/>
-                        <input type="hidden" class="left-upper-back" name="choices.7" value=""/>
-                        <input type="hidden" class="right-upper-back" name="choices.8" value=""/>
+                        <input type="hidden" class="Back-Left-Arm" name="choices.4" value=""/>
+                        <input type="hidden" class="Back-Right-Arm" name="choices.5" value=""/>
+                        <input type="hidden" class="Neck" name="choices.6" value=""/>
+                        <input type="hidden" class="Back-Left-Shoulder" name="choices.7" value=""/>
+                        <input type="hidden" class="Back-Right-Shoulder" name="choices.8" value=""/>
                     </div>
                 </div>
 
@@ -286,7 +286,7 @@
                                 <ul class="list horizontal-list">
                                     <g:set var="choice"
                                            value="['Never', 'Monthly', 'Weekly', 'Daily', 'Hourly', 'Constant']"/>
-                                    <g:each var="j" in="${0..<5}">
+                                    <g:each var="j" in="${0..<6}">
                                         <li class="answer">
                                             <div class="text">${choice[j]}</div>
                                             <label class="choice">
@@ -325,7 +325,7 @@
             </form>
 
             <div id="symptom-choice-dialog" class="warn ui-hidden">
-                <div class="msg-header">Select one or more of the symptoms for your <strong>Back Left Arm</strong></div>
+                <div class="msg-header">Select one or more of the symptoms for your <strong id="part-name">Part</strong></div>
 
                 <div class="msg-center code">
                     <div class="one-choice">

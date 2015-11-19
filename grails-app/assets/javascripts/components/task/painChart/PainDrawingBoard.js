@@ -4,7 +4,7 @@ var snap = require('snapsvg');
 function PainDrawingBoard() {
 
     this.attributes({
-        armPartSelector: '.part-arm-group',
+        armPartSelector: '.part-group',
         svgResultGroupSelector: '#svg-choice-result'
     });
 
@@ -20,13 +20,13 @@ function PainDrawingBoard() {
 
         snap(path).attr({
             fill: p
-        }).removeClass('arm-part').addClass('active-arm');
+        }).removeClass('human-part').addClass('active-part');
     };
 
     this.initArmPattern = function (path) {
         snap(path).attr({
             fill: 'none'
-        }).addClass('arm-part').removeClass('active-arm');
+        }).addClass('human-part').removeClass('active-part');
     };
 
     this.removeCurrentText = function (element) {
@@ -39,7 +39,8 @@ function PainDrawingBoard() {
         var parameter = $ele.data("parameter");
         var gx = parameter[0];
         var gy = parameter[1];
-        var offset = parameter[2];
+        var offset = parameter[2] || 0;
+        var rowLength = parameter[3] || 2;
 
         this.removeCurrentText(element);
 
@@ -52,8 +53,8 @@ function PainDrawingBoard() {
                 "text-anchor": "middle",
                 "font-size": "13px"
             });
-            var x = gx + Math.floor(i % 2) * 20 + Math.floor(i / 2) * offset;
-            var y = gy + Math.floor(i / 2) * 20;
+            var x = gx + Math.floor(i % rowLength) * 20 + Math.floor(i / rowLength) * offset;
+            var y = gy + Math.floor(i / rowLength) * 20;
             snapElement.g(square, inlineText).attr({
                 transform: snap.format("tanslate({x},{y})", {x: x, y: y})
             });
@@ -103,11 +104,11 @@ function PainDrawingBoard() {
         });
 
         if(toggle.checked) {
-            _.forEach($('.part-arm-group'), function(ele) {
+            _.forEach($('.part-group'), function(ele) {
                 self.removeCurrentText(ele);
             });
 
-            _.forEach($('.active-arm'), function(ele) {
+            _.forEach($('.active-part'), function(ele) {
                 self.initArmPattern(ele);
             });
         }
@@ -118,10 +119,12 @@ function PainDrawingBoard() {
 
         var self = e.target;
         this.snapSvg = $(self).closest('svg').get(0);
-        this.armPart = $(self).closest('.part-arm-group').get(0);
-        var eleClass = ".{0}".format(this.armPart.firstElementChild.id);
+        this.armPart = $(self).closest('.part-group').get(0);
+        var id = this.armPart.firstElementChild.id;
+        var eleClass = ".{0}".format(id);
         var checkedTags = this.select('svgResultGroupSelector').find(eleClass).val();
-        this.trigger('showSymptomDialog', {tags: checkedTags});
+        var partName = id.replace(/-/g, ' ');
+        this.trigger('showSymptomDialog', {tags: checkedTags, name: partName});
     };
 
     this.onSymptomSelectedSuccess = function (e, data) {
