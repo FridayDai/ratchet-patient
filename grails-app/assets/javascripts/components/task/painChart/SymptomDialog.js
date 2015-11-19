@@ -31,7 +31,7 @@ function SymptomDialog() {
     this.prepareForShow = function (data) {
         var checkBoxGroup = this.select('checkBoxGroupSelector');
         checkBoxGroup.find("input:checked").prop('checked', false);
-        var resultValue = $(".{0}".format(data.id)).val();
+        var resultValue = data.tags;
         if(resultValue) {
             var symptomTags = resultValue.split(',');
             _.forEach(symptomTags, function(ele) {

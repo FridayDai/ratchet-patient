@@ -43,6 +43,11 @@
             background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
+        .rc-choice-hidden:disabled + .rc-radio,
+        .rc-choice-hidden:disabled + .rc-radio:hover:before {
+            background-color: #bbb !important;
+        }
+
         .ui-dialog .ui-dialog-buttonpane button {
             border-color: ${     client.primaryColorHex?:'#0f137d'     };
         }
@@ -68,79 +73,79 @@
     <div class="pain-chart-neck task-content">
         <div class="task-list-wrapper container">
 
-            <div class="question-list-special pain-draw" data-optional="${'true'.toBoolean()}">
-                <div class="question">
-                    <h3>Pain Drawing</h3>
-
-                    <p>Click on the area where you feel pain and select the type of symptom(s) you feel in that area</p>
-                </div>
-
-                <div class="answer-list chart-style">
-                    <div id="draw-board" class="draw-board">
-                        <span class="chart-content chart-left">
-                            <div class="chart-title">Font</div>
-                            <g:render template="/task/content/template/neckFont"></g:render>
-                        </span>
-
-                        <span class="chart-content">
-                            <div class="chart-title">Back</div>
-                            <g:render template="/task/content/template/neckBack"></g:render>
-                        </span>
-
-                        <div class="chart-direction">
-                            <div>Symptoms:</div>
-
-                            <div class="group-direction">
-                                <span class="icon-direction">N</span>
-                                <label>Numbness</label>
-                            </div>
-
-                            <div class="group-direction">
-                                <span class="icon-direction">A</span>
-                                <label>Ache</label>
-                            </div>
-
-                            <div class="group-direction">
-                                <span class="icon-direction">S</span>
-                                <label>Stabbing</label>
-                            </div>
-
-                            <div class="group-direction">
-                                <span class="icon-direction">B</span>
-                                <label>Burning</label>
-                            </div>
-
-                            <div class="group-direction">
-                                <span class="icon-direction">C</span>
-                                <label>Cramping</label>
-                            </div>
-
-                            <div class="group-direction">
-                                <span class="icon-direction">P</span>
-                                <label>Pins & Needles</label>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
             <form action="" method="post">
                 <input type="hidden" name="code" value="${taskCode}"/>
                 <input type="hidden" name="taskType" value="${Task?.type}"/>
 
-                <div id="svg-choice-result">
-                    <input type="hidden" class="right-upper-font" name="choices.0" value=""/>
-                    <input type="hidden" class="left-upper-font" name="choices.1" value=""/>
-                    <input type="hidden" class="right-lower-font" name="choices.2" value=""/>
-                    <input type="hidden" class="left-lower-font" name="choices.3" value=""/>
+                <div id="pain-drawing-board" class="question-list-special pain-draw" data-optional="${'true'.toBoolean()}">
+                    <div class="question">
+                        <h3>Pain Drawing</h3>
 
-                    <input type="hidden" class="left-lower-back" name="choices.4" value=""/>
-                    <input type="hidden" class="right-lower-back" name="choices.5" value=""/>
-                    <input type="hidden" class="middle-neck-back" name="choices.6" value=""/>
-                    <input type="hidden" class="left-upper-back" name="choices.7" value=""/>
-                    <input type="hidden" class="right-upper-back" name="choices.8" value=""/>
+                        <p>Click on the area where you feel pain and select the type of symptom(s) you feel in that area</p>
+                    </div>
+
+                    <div class="answer-list chart-style">
+                        <div id="draw-board" class="draw-board">
+                            <span class="chart-content chart-left">
+                                <div class="chart-title">Front</div>
+                                <g:render template="/task/content/template/neckFont"></g:render>
+                            </span>
+
+                            <span class="chart-content">
+                                <div class="chart-title">Back</div>
+                                <g:render template="/task/content/template/neckBack"></g:render>
+                            </span>
+
+                            <div class="chart-direction">
+                                <div>Symptoms:</div>
+
+                                <div class="group-direction">
+                                    <span class="icon-direction">N</span>
+                                    <label>Numbness</label>
+                                </div>
+
+                                <div class="group-direction">
+                                    <span class="icon-direction">A</span>
+                                    <label>Ache</label>
+                                </div>
+
+                                <div class="group-direction">
+                                    <span class="icon-direction">S</span>
+                                    <label>Stabbing</label>
+                                </div>
+
+                                <div class="group-direction">
+                                    <span class="icon-direction">B</span>
+                                    <label>Burning</label>
+                                </div>
+
+                                <div class="group-direction">
+                                    <span class="icon-direction">C</span>
+                                    <label>Cramping</label>
+                                </div>
+
+                                <div class="group-direction">
+                                    <span class="icon-direction">P</span>
+                                    <label>Pins & Needles</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="svg-choice-result">
+                        <input type="hidden" class="right-upper-font" name="choices.0" value=""/>
+                        <input type="hidden" class="left-upper-font" name="choices.1" value=""/>
+                        <input type="hidden" class="right-lower-font" name="choices.2" value=""/>
+                        <input type="hidden" class="left-lower-font" name="choices.3" value=""/>
+
+                        <input type="hidden" class="left-lower-back" name="choices.4" value=""/>
+                        <input type="hidden" class="right-lower-back" name="choices.5" value=""/>
+                        <input type="hidden" class="middle-neck-back" name="choices.6" value=""/>
+                        <input type="hidden" class="left-upper-back" name="choices.7" value=""/>
+                        <input type="hidden" class="right-upper-back" name="choices.8" value=""/>
+                    </div>
                 </div>
 
                 <div id="pain-percent-question" class="question-list-special">

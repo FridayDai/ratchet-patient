@@ -1,10 +1,11 @@
 var flight = require('flight');
 var snap = require('snapsvg');
 
-function humanSvg() {
+function PainDrawingBoard() {
 
     this.attributes({
-        armPartSelector: '.part-arm-group'
+        armPartSelector: '.part-arm-group',
+        svgResultGroupSelector: '#svg-choice-result'
     });
 
     this.activeArmPattern = function (path) {
@@ -62,7 +63,16 @@ function humanSvg() {
 
     this.changeInputValue = function (path, value) {
         var resultClass = ".{0}".format(path.id);
-        $('#svg-choice-result').find(resultClass).val(value);
+
+        if (value && value.length > 0) {
+            this.select('svgResultGroupSelector').find(resultClass).addClass('active').val(value);
+        } else {
+            this.select('svgResultGroupSelector').find(resultClass).removeClass('active').val(value);
+        }
+    };
+
+    this.checkAllInputValue = function () {
+        return  this.select('svgResultGroupSelector').find('.active').length === 0;
     };
 
     this.toggleAllHumanBody = function(e, toggle) {
@@ -109,20 +119,26 @@ function humanSvg() {
         var self = e.target;
         this.snapSvg = $(self).closest('svg').get(0);
         this.armPart = $(self).closest('.part-arm-group').get(0);
-        this.trigger('showSymptomDialog', {id: this.armPart.firstElementChild.id});
+        var eleClass = ".{0}".format(this.armPart.firstElementChild.id);
+        var checkedTags = this.select('svgResultGroupSelector').find(eleClass).val();
+        this.trigger('showSymptomDialog', {tags: checkedTags});
     };
 
     this.onSymptomSelectedSuccess = function (e, data) {
         var path = $(this.armPart).find('path').get(0);
         this.changeInputValue(path, data.tags);
-        this.addSymptomsText(this.armPart, data.tags);
 
         if (data.tags && data.tags.length > 0) {
+            this.trigger('painChartActive');
             this.activeArmPattern(path);
+            this.addSymptomsText(this.armPart, data.tags);
         } else {
             this.initArmPattern(path);
+            this.removeCurrentText(this.armPart);
+            if(this.checkAllInputValue()) {
+                this.trigger('activePainToggle');
+            }
         }
-
     };
 
     this.after('initialize', function () {
@@ -138,4 +154,4 @@ function humanSvg() {
 
 }
 
-module.exports = flight.component(humanSvg);
+module.exports = flight.component(PainDrawingBoard);

@@ -7,23 +7,6 @@ function PainPercentPanel() {
         selectMenuSelector: '.select-menu'
     });
 
-    this.toggleSelectMenu = function (toggle) {
-        if (toggle.checked) {
-            this.select('selectMenuSelector').selectmenu("disable");
-            this.clearResultError();
-            this.clearErrorStatus();
-        } else {
-            this.select('selectMenuSelector').selectmenu("enable");
-        }
-
-    };
-
-    this.togglePainChartAndSelect = function (e) {
-        var toggle = e.target;
-        this.trigger('toggleAllHumanBody', toggle);
-        this.toggleSelectMenu(toggle);
-    };
-
     this.clearErrorStatus = function () {
         var $question = $('#pain-percent-question');
 
@@ -47,6 +30,30 @@ function PainPercentPanel() {
         if (!$question.hasClass('error')) {
             $question.removeClass('success').addClass('error');
         }
+    };
+
+    this.toggleSelectMenu = function (toggle) {
+        if (toggle.checked) {
+            this.select('selectMenuSelector').selectmenu("disable");
+            this.clearResultError();
+            this.clearErrorStatus();
+        } else {
+            this.select('selectMenuSelector').selectmenu("enable");
+        }
+    };
+
+    this.togglePainChartAndSelect = function (e) {
+        var toggle = e.target;
+        this.trigger('toggleAllHumanBody', toggle);
+        this.toggleSelectMenu(toggle);
+    };
+
+    this.disablePainToggleButton = function () {
+        this.select('painToggleSelector').prop('disabled', true);
+    };
+
+    this.enablePainToggleButton = function () {
+        this.select('painToggleSelector').prop('disabled', false);
     };
 
     this.initSelectMenu = function () {
@@ -77,6 +84,9 @@ function PainPercentPanel() {
         this.on('change', {
             painToggleSelector: this.togglePainChartAndSelect
         });
+
+        this.on(document, 'painChartActive', this.disablePainToggleButton);
+        this.on(document, 'activePainToggle', this.enablePainToggleButton);
     });
 
 }
