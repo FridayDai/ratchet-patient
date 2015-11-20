@@ -111,9 +111,6 @@
             }
 
             .answer {
-                @include breakpoint('mobile') {
-                    display: none;
-                }
                 .choice {
                     margin-left: 23px;
                 }
@@ -426,7 +423,10 @@
     top: -2px ;
     left: -2px ;
     border-radius: 0;
-
+    @include breakpoint('mobile') {
+        width: 28px;
+        height: 28px;
+    }
 }
 
 .rc-checkbox {
@@ -434,19 +434,24 @@
     height: 32px;
     border-radius: 0;
 
-    &:hover:before {
+    &.rc-radio:hover:before {
         top: -2px !important;
         left: -2px !important;
         border-radius: 0 !important;
+
+        @include breakpoint('mobile') {
+            width: 28px;
+            height: 28px;
+        }
+    }
+    @include breakpoint('mobile') {
+        width: 24px;
+        height: 24px;
     }
 }
 
 //for dialog
 .ui-dialog {
-    .ui-dialog-titlebar {
-        display: none;
-    }
-
     .ui-dialog-content {
         padding: 1em 1em;
     }
@@ -458,6 +463,7 @@
 }
 
 .msg-center {
+    max-height: 275px;
     padding: 6px 6px 0;
 
     .one-choice {

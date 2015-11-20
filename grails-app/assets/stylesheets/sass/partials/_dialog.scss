@@ -18,6 +18,9 @@
         border-bottom: 5px solid rgba(0, 0, 0, .2);
         background: $base-color-white;
 
+        @include breakpoint('mobile') {
+            border-bottom: 0;
+        }
         .ui-dialog-title {
             margin-left: 10px;
             color: #4d4d4d;
@@ -59,7 +62,7 @@
         position: relative;
         overflow: auto;
         overflow-x: hidden;
-//        height: auto !important;
+        //        height: auto !important;
         padding: .5em 1em;
         border: 0;
         background-color: $base-color-white;
@@ -95,18 +98,10 @@
                 border: 0;
             }
 
-            span {
-                color: $base-color-dark-grey;
-            }
-
             &:hover,
             &:focus {
                 color: $base-color-white;
                 background-color: $base-color-dark-grey;
-
-                span {
-                    color: $base-color-white;
-                }
             }
         }
 
@@ -168,7 +163,6 @@
 }
 
 .window-warning-title {
-    color: $base-color-white;
     font-weight: 400;
     font-size: 19px;
     text-align: center;
@@ -176,7 +170,6 @@
 
 .window-warning {
     margin-top: 20px;
-    color: $base-color-white;
     font-weight: 300;
     text-align: center;
 }
@@ -226,8 +219,12 @@
     }
 }
 
+// dialog warn
 .ui-size {
     min-width: 450px;
+    @include breakpoint('mobile') {
+        min-width: 320px;
+    }
 
     .btn-position {
 
@@ -239,6 +236,9 @@
     .ui-dialog-titlebar {
         border: 1px solid $base-color-warn;
         background-color: $base-color-warn;
+        @include breakpoint('mobile') {
+            display: none;
+        }
 
         .ui-dialog-title {
             display: none;
@@ -248,7 +248,14 @@
     .ui-dialog-content {
         border: 1px solid $base-color-warn;
         background-color: $base-color-warn;
+        color: $base-color-white;
+        @include breakpoint('mobile') {
+            display: none;
+            border: 0;
+            background-color: $base-color-white;
+            color: $base-color-black;
 
+        }
     }
 
     .ui-dialog-buttonpane {
@@ -258,14 +265,31 @@
             border: 1px solid $base-color-warn;
             background-color: $base-color-warn;
             padding: 10px;
+
+            @include breakpoint('mobile') {
+                padding: 0;
+                border: 0;
+                background-color: $base-color-white;
+            }
         }
 
         button {
             border: 1px solid $base-color-white;
             color: $base-color-white;
+            @include breakpoint('mobile') {
+                color: $base-color-blue;
+                border: 0;
+                border-top: 1px solid $base-color-lighter-black;
+                background-color: $base-color-white;
 
-            span {
-                color: $base-color-white;
+                &:focus {
+                    color: $base-color-blue;
+                    background-color: $base-color-white;
+                }
+
+                &:hover {
+                    background-color: $base-color-blue;
+                }
             }
         }
 
@@ -273,6 +297,20 @@
             border: 1px solid $base-color-error;
             //            background: $base-color-red;
             background-color: $base-color-error;
+            @include breakpoint('mobile') {
+                color: $base-color-error;
+                border: 0;
+                border-top: 1px solid $base-color-lighter-black;
+                background-color: $base-color-white;
+
+                &:focus {
+                    background-color: $base-color-white;
+                }
+                &:hover {
+                    color: $base-color-white;
+                    background-color: $base-color-blue;
+                }
+            }
 
             &:focus,
             &:hover {
@@ -318,6 +356,9 @@
             font-weight: lighter;
             font-size: 27px;
             font-family: ionicons;
+            @include breakpoint('mobile') {
+                content: '';
+            }
         }
     }
 }

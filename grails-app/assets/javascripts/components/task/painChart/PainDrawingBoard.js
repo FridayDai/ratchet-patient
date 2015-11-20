@@ -62,6 +62,12 @@ function PainDrawingBoard() {
 
     };
 
+    this.removeAllInputValue = function () {
+        _.forEach(this.select('svgResultGroupSelector').find('.active'), function(ele) {
+            $(ele).removeClass('active').val('');
+        });
+    };
+
     this.changeInputValue = function (path, value) {
         var resultClass = ".{0}".format(path.id);
 
@@ -73,7 +79,7 @@ function PainDrawingBoard() {
     };
 
     this.checkAllInputValue = function () {
-        return  this.select('svgResultGroupSelector').find('.active').length === 0;
+        return  this.select('svgResultGroupSelector').find('.active').length > 0;
     };
 
     this.toggleAllHumanBody = function(e, toggle) {
@@ -111,6 +117,8 @@ function PainDrawingBoard() {
             _.forEach($('.active-part'), function(ele) {
                 self.initArmPattern(ele);
             });
+
+            self.removeAllInputValue();
         }
     };
 
@@ -119,8 +127,8 @@ function PainDrawingBoard() {
 
         var self = e.target;
         this.snapSvg = $(self).closest('svg').get(0);
-        this.armPart = $(self).closest('.part-group').get(0);
-        var id = this.armPart.firstElementChild.id;
+        this.humanPart = $(self).closest('.part-group').get(0);
+        var id = this.humanPart.firstElementChild.id;
         var eleClass = ".{0}".format(id);
         var checkedTags = this.select('svgResultGroupSelector').find(eleClass).val();
         var partName = id.replace(/-/g, ' ');
@@ -128,20 +136,21 @@ function PainDrawingBoard() {
     };
 
     this.onSymptomSelectedSuccess = function (e, data) {
-        var path = $(this.armPart).find('path').get(0);
+        var path = $(this.humanPart).find('path').get(0);
         this.changeInputValue(path, data.tags);
 
         if (data.tags && data.tags.length > 0) {
-            this.trigger('painChartActive');
             this.activeArmPattern(path);
-            this.addSymptomsText(this.armPart, data.tags);
+            this.addSymptomsText(this.humanPart, data.tags);
         } else {
             this.initArmPattern(path);
-            this.removeCurrentText(this.armPart);
-            if(this.checkAllInputValue()) {
-                this.trigger('activePainToggle');
-            }
+            this.removeCurrentText(this.humanPart);
         }
+    };
+
+    this.onCheckActiveStatus = function () {
+        var result = this.checkAllInputValue();
+        this.trigger('painActiveCheckResponse', {active: result});
     };
 
     this.after('initialize', function () {
@@ -150,8 +159,8 @@ function PainDrawingBoard() {
             armPartSelector: this.onArmClicked
         });
 
+        this.on(document, 'painActiveCheckRequest', this.onCheckActiveStatus);
         this.on(document, 'symptomSelectedSuccess', this.onSymptomSelectedSuccess);
-
         this.on(document, 'toggleAllHumanBody', this.toggleAllHumanBody);
     });
 

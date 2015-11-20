@@ -48,15 +48,12 @@
             background-color: #bbb !important;
         }
 
-        .ui-dialog .ui-dialog-buttonpane button {
+        .modal+.ui-dialog-buttonpane button {
             border-color: ${     client.primaryColorHex?:'#0f137d'     };
-        }
-
-        .ui-dialog-buttonset .ui-button .ui-button-text {
             color: ${     client.primaryColorHex?:'#0f137d'     };
         }
 
-        .ui-button-text-only:hover,  .ui-button-text-only:focus {
+        .modal+.ui-dialog-buttonpane button:hover,  .modal .ui-dialog-buttonpane button:focus {
             background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
@@ -322,7 +319,7 @@
                 </div>
             </form>
 
-            <div id="symptom-choice-dialog" class="warn ui-hidden">
+            <div id="symptom-choice-dialog" class="modal ui-hidden">
                 <div class="msg-header">Select one or more of the symptoms for your <strong id="part-name">Part</strong></div>
 
                 <div class="msg-center code">
@@ -370,7 +367,7 @@
                 </div>
             </div>
 
-            <div id="number-mobile-dialog" class="warn ui-hidden">
+            <div id="number-mobile-dialog" class="modal ui-hidden">
                 <div class="msg-header">Please select a number</div>
 
                 <div class="msg-center code">

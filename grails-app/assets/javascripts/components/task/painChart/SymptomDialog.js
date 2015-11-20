@@ -9,7 +9,7 @@ function SymptomDialog() {
     });
 
     this.options({
-        title: 'SELECT SYMPTOMS',
+        title: 'PAIN SYMPTOMS',
         width: 430,
         buttons: [{
             text: 'Save',
@@ -17,7 +17,6 @@ function SymptomDialog() {
                 this.saveSymptomTags();
             }
         }]
-
     });
 
     this.onShow = function (e, data) {
