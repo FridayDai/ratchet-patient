@@ -4,19 +4,19 @@ var Utility = require('../../../utils/Utility');
 
 function SymptomDialog() {
     this.attributes({
-        checkBoxGroupSelector: '.msg-center'
+        checkBoxGroupSelector: '.msg-center',
+        partNameSelector: '#part-name'
     });
 
     this.options({
-        title: 'SELECT SYMPTOMS',
-        width: 428,
+        title: 'PAIN SYMPTOMS',
+        width: 430,
         buttons: [{
             text: 'Save',
             click: function () {
                 this.saveSymptomTags();
             }
         }]
-
     });
 
     this.onShow = function (e, data) {
@@ -31,13 +31,16 @@ function SymptomDialog() {
     this.prepareForShow = function (data) {
         var checkBoxGroup = this.select('checkBoxGroupSelector');
         checkBoxGroup.find("input:checked").prop('checked', false);
-        var resultValue = $(".{0}".format(data.id)).val();
+        var resultValue = data.tags;
         if(resultValue) {
             var symptomTags = resultValue.split(',');
             _.forEach(symptomTags, function(ele) {
                 var checkbox = "input[value='{0}']".format(ele);
                 checkBoxGroup.find(checkbox).prop('checked', true);
             });
+        }
+        if(data.name) {
+            this.select('partNameSelector').text(data.name);
         }
     };
 

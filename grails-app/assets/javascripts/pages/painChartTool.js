@@ -4,7 +4,7 @@ require('../components/layout/Main');
 var flight = require('flight');
 var WithPage = require('../components/common/WithPage');
 var Task = require('../components/shared/functional/Task');
-var ChartPanel = require('../components/task/painChart/HumanSvg');
+var ChartPanel = require('../components/task/painChart/PainDrawingBoard');
 var SymptomDialog = require('../components/task/painChart/SymptomDialog');
 var NumberDialog = require('../components/task/painChart/SelectNumberDialog');
 var PainPercentPanel = require('../components/task/painChart/PainPercentPanel');
@@ -14,7 +14,7 @@ var ERROR_SCORE_LABEL = '<span class="error-label">This amount entered does not 
 function painChartTask() {
 
     this.attributes({
-        chartPanelSelector: '#draw-board',
+        chartPanelSelector: '#pain-drawing-board',
         symptomDialogSelector: '#symptom-choice-dialog',
         numberDialogSelector: '#number-mobile-dialog',
         painPercentSelector: '#pain-percent-question'

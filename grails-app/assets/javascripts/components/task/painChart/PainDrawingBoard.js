@@ -1,10 +1,11 @@
 var flight = require('flight');
 var snap = require('snapsvg');
 
-function humanSvg() {
+function PainDrawingBoard() {
 
     this.attributes({
-        armPartSelector: '.part-arm-group'
+        armPartSelector: '.part-group',
+        svgResultGroupSelector: '#svg-choice-result'
     });
 
     this.activeArmPattern = function (path) {
@@ -19,13 +20,13 @@ function humanSvg() {
 
         snap(path).attr({
             fill: p
-        }).removeClass('arm-part').addClass('active-arm');
+        }).removeClass('human-part').addClass('active-part');
     };
 
     this.initArmPattern = function (path) {
         snap(path).attr({
             fill: 'none'
-        }).addClass('arm-part').removeClass('active-arm');
+        }).addClass('human-part').removeClass('active-part');
     };
 
     this.removeCurrentText = function (element) {
@@ -38,7 +39,8 @@ function humanSvg() {
         var parameter = $ele.data("parameter");
         var gx = parameter[0];
         var gy = parameter[1];
-        var offset = parameter[2];
+        var offset = parameter[2] || 0;
+        var rowLength = parameter[3] || 2;
 
         this.removeCurrentText(element);
 
@@ -51,8 +53,8 @@ function humanSvg() {
                 "text-anchor": "middle",
                 "font-size": "13px"
             });
-            var x = gx + Math.floor(i % 2) * 20 + Math.floor(i / 2) * offset;
-            var y = gy + Math.floor(i / 2) * 20;
+            var x = gx + Math.floor(i % rowLength) * 20 + Math.floor(i / rowLength) * offset;
+            var y = gy + Math.floor(i / rowLength) * 20;
             snapElement.g(square, inlineText).attr({
                 transform: snap.format("tanslate({x},{y})", {x: x, y: y})
             });
@@ -60,9 +62,24 @@ function humanSvg() {
 
     };
 
+    this.removeAllInputValue = function () {
+        _.forEach(this.select('svgResultGroupSelector').find('.active'), function(ele) {
+            $(ele).removeClass('active').val('');
+        });
+    };
+
     this.changeInputValue = function (path, value) {
         var resultClass = ".{0}".format(path.id);
-        $('#svg-choice-result').find(resultClass).val(value);
+
+        if (value && value.length > 0) {
+            this.select('svgResultGroupSelector').find(resultClass).addClass('active').val(value);
+        } else {
+            this.select('svgResultGroupSelector').find(resultClass).removeClass('active').val(value);
+        }
+    };
+
+    this.checkAllInputValue = function () {
+        return  this.select('svgResultGroupSelector').find('.active').length > 0;
     };
 
     this.toggleAllHumanBody = function(e, toggle) {
@@ -93,13 +110,15 @@ function humanSvg() {
         });
 
         if(toggle.checked) {
-            _.forEach($('.part-arm-group'), function(ele) {
+            _.forEach($('.part-group'), function(ele) {
                 self.removeCurrentText(ele);
             });
 
-            _.forEach($('.active-arm'), function(ele) {
+            _.forEach($('.active-part'), function(ele) {
                 self.initArmPattern(ele);
             });
+
+            self.removeAllInputValue();
         }
     };
 
@@ -108,21 +127,30 @@ function humanSvg() {
 
         var self = e.target;
         this.snapSvg = $(self).closest('svg').get(0);
-        this.armPart = $(self).closest('.part-arm-group').get(0);
-        this.trigger('showSymptomDialog', {id: this.armPart.firstElementChild.id});
+        this.humanPart = $(self).closest('.part-group').get(0);
+        var id = this.humanPart.firstElementChild.id;
+        var eleClass = ".{0}".format(id);
+        var checkedTags = this.select('svgResultGroupSelector').find(eleClass).val();
+        var partName = id.replace(/-/g, ' ');
+        this.trigger('showSymptomDialog', {tags: checkedTags, name: partName});
     };
 
     this.onSymptomSelectedSuccess = function (e, data) {
-        var path = $(this.armPart).find('path').get(0);
+        var path = $(this.humanPart).find('path').get(0);
         this.changeInputValue(path, data.tags);
-        this.addSymptomsText(this.armPart, data.tags);
 
         if (data.tags && data.tags.length > 0) {
             this.activeArmPattern(path);
+            this.addSymptomsText(this.humanPart, data.tags);
         } else {
             this.initArmPattern(path);
+            this.removeCurrentText(this.humanPart);
         }
+    };
 
+    this.onCheckActiveStatus = function () {
+        var result = this.checkAllInputValue();
+        this.trigger('painActiveCheckResponse', {active: result});
     };
 
     this.after('initialize', function () {
@@ -131,11 +159,11 @@ function humanSvg() {
             armPartSelector: this.onArmClicked
         });
 
+        this.on(document, 'painActiveCheckRequest', this.onCheckActiveStatus);
         this.on(document, 'symptomSelectedSuccess', this.onSymptomSelectedSuccess);
-
         this.on(document, 'toggleAllHumanBody', this.toggleAllHumanBody);
     });
 
 }
 
-module.exports = flight.component(humanSvg);
+module.exports = flight.component(PainDrawingBoard);

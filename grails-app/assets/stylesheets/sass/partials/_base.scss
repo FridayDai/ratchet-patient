@@ -366,10 +366,6 @@ ul {
 .ui-button {
     border: 1px solid $base-color-dark-grey;
 
-    .ui-button-text {
-        color: $base-color-dark-grey;
-    }
-
     &:hover {
         border: 0;
         background-color: darken($base-color-dark-grey, 10%);

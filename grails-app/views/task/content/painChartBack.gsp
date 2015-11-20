@@ -56,6 +56,7 @@
         .modal+.ui-dialog-buttonpane button:hover,  .modal .ui-dialog-buttonpane button:focus {
             background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
+
         </style>
 
         <g:if test="${isInClinic}">
@@ -84,12 +85,12 @@
                         <div id="draw-board" class="draw-board">
                             <span class="chart-content chart-left">
                                 <div class="chart-title">Front</div>
-                                <g:render template="/task/content/template/neckFront"></g:render>
+                                <g:render template="/task/content/template/backFront"></g:render>
                             </span>
 
                             <span class="chart-content">
                                 <div class="chart-title">Back</div>
-                                <g:render template="/task/content/template/neckBack"></g:render>
+                                <g:render template="/task/content/template/backBack"></g:render>
                             </span>
 
                             <div class="chart-direction">
@@ -131,22 +132,19 @@
                     </div>
 
                     <div id="svg-choice-result">
-                        <input type="hidden" class="Front-Right-Shoulder" name="choices.0" value=""/>
-                        <input type="hidden" class="Front-Left-Shoulder" name="choices.1" value=""/>
-                        <input type="hidden" class="Front-Right-Arm" name="choices.2" value=""/>
-                        <input type="hidden" class="Front-Left-Arm" name="choices.3" value=""/>
+                        <input type="hidden" class="Front-Right-Leg" name="choices.0" value=""/>
+                        <input type="hidden" class="Front-Left-Leg" name="choices.1" value=""/>
 
-                        <input type="hidden" class="Back-Left-Arm" name="choices.4" value=""/>
-                        <input type="hidden" class="Back-Right-Arm" name="choices.5" value=""/>
-                        <input type="hidden" class="Neck" name="choices.6" value=""/>
-                        <input type="hidden" class="Back-Left-Shoulder" name="choices.7" value=""/>
-                        <input type="hidden" class="Back-Right-Shoulder" name="choices.8" value=""/>
+                        <input type="hidden" class="Back" name="choices.2" value=""/>
+                        <input type="hidden" class="Buttock" name="choices.3" value=""/>
+                        <input type="hidden" class="Back-Right-Leg" name="choices.4" value=""/>
+                        <input type="hidden" class="Back-Left-Leg" name="choices.5" value=""/>
                     </div>
                 </div>
 
                 <div id="pain-percent-question" class="question-list-special">
                     <div class="question">
-                        <div>What percent of your pain is NECK pain vs. SHOULDER pain vs. ARM pain?</div>
+                        <div>What percent of your pain is BACK pain vs. BUTTOCK pain vs. LEG pain?</div>
 
                         <div><i>The amount from each area should add up to 100%</i></div>
                     </div>
@@ -154,7 +152,7 @@
                     <div class="answer-list odi-style">
                         <div class="select-contain">
                             <span class="select-group">
-                                <select class="select-menu" name="choices.9">
+                                <select class="select-menu" name="choices.6">
                                     <option value="0">0</option>
                                     <option value="10">10</option>
                                     <option value="20">20</option>
@@ -166,12 +164,12 @@
                                     <option value="80">80</option>
                                     <option value="90">90</option>
                                 </select>
-                                <span class="select-percent">%Neck<span>+</span></span>
+                                <span class="select-percent">%Back<span>+</span></span>
 
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.10">
+                                <select class="select-menu" name="choices.7">
                                     <option value="0">0</option>
                                     <option value="10">10</option>
                                     <option value="20">20</option>
@@ -183,11 +181,11 @@
                                     <option value="80">80</option>
                                     <option value="90">90</option>
                                 </select>
-                                <span class="select-percent">%Shoulder<span>+</span></span>
+                                <span class="select-percent">%Buttock<span>+</span></span>
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.11">
+                                <select class="select-menu" name="choices.8">
                                     <option value="0">0</option>
                                     <option value="10">10</option>
                                     <option value="20">20</option>
@@ -199,7 +197,7 @@
                                     <option value="80">80</option>
                                     <option value="90">90</option>
                                 </select>
-                                <span class="select-percent">%Arm</span>
+                                <span class="select-percent">%Leg</span>
                                 <span class="select-percent-result">
                                     = <span id="select-percent-number" class="select-percent-number">
                                     <span id="select-percent-score">-</span> /100</span>
@@ -209,9 +207,10 @@
 
                         </div>
                         <li class="answer">
-                            <div class="text">I have no neck, shoulder or arm pain</div>
+                            <div class="text">
+                                I have no back, buttock or leg pain</div>
                             <label class="choice">
-                                <input id="no-pain-toggle" type="checkbox" name="choices.12" value="on"
+                                <input id="no-pain-toggle" type="checkbox" name="choices.9" value="on"
                                        class="rc-choice-hidden"/>
                                 <span class="rc-radio rc-checkbox primary-radio-color"></span>
                             </label>
@@ -227,13 +226,13 @@
 
                 <g:each var="i" in="${(0..<3)}">
                     <g:if test="${i == 0}">
-                        <g:set var="question" value="['neck pain', 'back of the neck']"/>
+                        <g:set var="question" value="['back pain', 'above the buttocks']"/>
                     </g:if>
                     <g:elseif test="${i == 1}">
-                        <g:set var="question" value="['shoulder pain', 'including the shoulder blades']"/>
+                        <g:set var="question" value="['buttock pain', 'in the gluteal folds (butt cheeks)']"/>
                     </g:elseif>
                     <g:else>
-                        <g:set var="question" value="['arm pain', 'including the hands']"/>
+                        <g:set var="question" value="['leg pain', 'front / back of legs (below the buttocks)']"/>
                     </g:else>
 
                     <div class="section-list">
@@ -263,7 +262,7 @@
                                             </div>
                                             <label class="choice choice-number choice-number-${j}">
                                                 <input type="radio" class="rc-choice-hidden"
-                                                       name="choices.${13 + 2 * i}"
+                                                       name="choices.${10 + 2 * i}"
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -287,7 +286,7 @@
                                             <div class="text">${choice[j]}</div>
                                             <label class="choice">
                                                 <input type="radio" class="rc-choice-hidden"
-                                                       name="choices.${13 + 2 * i + 1}"
+                                                       name="choices.${10 + 2 * i + 1}"
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
