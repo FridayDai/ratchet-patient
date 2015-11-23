@@ -237,7 +237,7 @@
 
                     <div class="section-list">
                         <div class="section-title">
-                            <strong class="capitalize">${question[0]}</strong> - ${question[1]}
+                            <strong class="capitalize">${question[0]}</strong> - <i>${question[1]}</i>
                         </div>
 
                         <div class="question-list">
