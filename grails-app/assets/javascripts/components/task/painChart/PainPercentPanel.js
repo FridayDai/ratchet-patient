@@ -5,7 +5,8 @@ var Notifications = require('../../common/Notification');
 function PainPercentPanel() {
     this.attributes({
         painToggleSelector: '#no-pain-toggle',
-        selectMenuSelector: '.select-menu'
+        selectMenuSelector: '.select-menu',
+        resultNumberSelector: '#select-percent-number'
     });
 
     this.clearErrorStatus = function () {
@@ -19,21 +20,25 @@ function PainPercentPanel() {
         }
     };
 
+    this.initSelectMenuButtonText = function () {
+        this.select('selectMenuSelector').selectmenu("option", "defaultButtonText", "- -");
+    };
+
     this.initResult = function () {
-        var $question = $('#select-percent-number');
+        var $question = this.select('resultNumberSelector');
         $question.removeClass('error success');
         $question.find('span').text('-');
     };
 
     this.clearResultError = function () {
-        var $question = $('#select-percent-number');
+        var $question = this.select('resultNumberSelector');
         if ($question.hasClass('error')) {
             $question.removeClass('error').addClass('success');
         }
     };
 
     this.addResultError = function () {
-        var $question = $('#select-percent-number');
+        var $question = this.select('resultNumberSelector');
         if (!$question.hasClass('error')) {
             $question.removeClass('success').addClass('error');
         }
@@ -45,6 +50,7 @@ function PainPercentPanel() {
             this.clearResultError();
             this.clearErrorStatus();
             this.initResult();
+            this.initSelectMenuButtonText();
         } else {
             this.select('selectMenuSelector').selectmenu("enable");
         }
@@ -90,7 +96,7 @@ function PainPercentPanel() {
         });
     };
 
-    this.askForAcitveStatus = function () {
+    this.askForActiveStatus = function () {
         this.trigger('painActiveCheckRequest');
     };
 
@@ -120,7 +126,7 @@ function PainPercentPanel() {
         this.initSelectMenu();
 
         this.on('change', {
-            painToggleSelector: this.askForAcitveStatus
+            painToggleSelector: this.askForActiveStatus
         });
 
         this.on(document, 'painActiveCheckResponse', this.togglePainChartAndSelect);

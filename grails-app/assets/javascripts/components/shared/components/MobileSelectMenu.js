@@ -24,6 +24,43 @@ function MobileSelectMenu() {
                     this._setText( this.buttonText, text );
                 }
             },
+            _setOption: function( key, value ) {
+                if ( key === "icons" ) {
+                    this.button.find( "span.ui-icon" )
+                        .removeClass( this.options.icons.button )
+                        .addClass( value.button );
+                }
+
+                this._super( key, value );
+
+                if ( key === "appendTo" ) {
+                    this.menuWrap.appendTo( this._appendTo() );
+                }
+
+                if ( key === "disabled" ) {
+                    this.menuInstance.option( "disabled", value );
+                    this.button
+                        .toggleClass( "ui-state-disabled", value )
+                        .attr( "aria-disabled", value );
+
+                    this.element.prop( "disabled", value );
+                    if ( value ) {
+                        this.button.attr( "tabindex", -1 );
+                        this.close();
+                    } else {
+                        this.button.attr( "tabindex", 0 );
+                    }
+                }
+
+                if ( key === "width" ) {
+                    this._resizeButton();
+                }
+
+                if (key === "defaultButtonText") {
+                    this.element[0].selectedIndex = 0;
+                    this._setText( this.buttonText, value );
+                }
+            },
             _buttonEvents: {
 
                 // Prevent text selection from being reset when interacting with the selectmenu (#10144)
