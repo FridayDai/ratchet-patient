@@ -10,7 +10,7 @@ function SymptomDialog() {
 
     this.options({
         title: 'PAIN SYMPTOMS',
-        width: 430,
+        width: 440,
         buttons: [{
             text: 'Save',
             click: function () {

@@ -77,7 +77,7 @@
                     <div class="question">
                         <h3>Pain Drawing</h3>
 
-                        <p>Click on the area where you feel pain and select the type of symptom(s) you feel in that area</p>
+                        <p>Click on the area where you feel pain and select the type of symptom(s) you feel in that area.</p>
                     </div>
 
                     <div class="answer-list chart-style">
@@ -368,7 +368,7 @@
                 </div>
             </div>
 
-            <div id="number-mobile-dialog" class="modal ui-hidden">
+            <div id="number-mobile-dialog" data-title="NECK PAIN" class="modal ui-hidden">
                 <div class="msg-header">Please select a number</div>
 
                 <div class="msg-center code">

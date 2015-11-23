@@ -112,7 +112,10 @@
 
             .answer {
                 .choice {
-                    margin-left: 23px;
+                    margin-left: 30px;
+                    @include breakpoint('mobile') {
+                        margin-left: 20px;
+                    }
                 }
             }
         }
@@ -451,23 +454,15 @@
 }
 
 //for dialog
-.ui-dialog {
-    .ui-dialog-content {
-        padding: 1em 1em;
-    }
-}
-
-.msg-header {
-    padding: 4px;
-    font-size: 16px;
-}
-
 .msg-center {
     max-height: 275px;
-    padding: 6px 6px 0;
+    padding: 16px 6px 0;
 
     .one-choice {
-        padding: 8px 0;
+        padding: 10px 0;
+        @include breakpoint('mobile') {
+            padding: 8px 0;
+        }
 
         input {
             margin-right: 10px;

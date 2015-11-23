@@ -7,7 +7,7 @@ function SelectNumberDialog() {
     });
 
     this.options({
-        title: 'SELECT NUMBER',
+        title: $('#number-mobile-dialog').data('title'),
         width: 320,
         buttons: [{
             text: 'Save',

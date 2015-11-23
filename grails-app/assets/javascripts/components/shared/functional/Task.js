@@ -78,7 +78,6 @@ function Task() {
 
     this.formSubmit = function () {
         var $questionLists = this.select('formSelector').find('.question-list');
-        var $specialQuestionLists = this.select('formSelector').find('.question-list-special');
         var isValid = true;
 
         if (Utility.isIE()) {
@@ -95,10 +94,6 @@ function Task() {
                 isValid = false;
             }
         }, this);
-
-        if (_.isFunction(this.specialQuestionsValid)) {
-            _.each($specialQuestionLists, this.specialQuestionsValid, this);
-        }
 
         if (!isValid) {
             this.scrollToTopError();

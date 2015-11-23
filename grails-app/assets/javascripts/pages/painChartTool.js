@@ -4,6 +4,7 @@ require('../components/layout/Main');
 var flight = require('flight');
 var WithPage = require('../components/common/WithPage');
 var Task = require('../components/shared/functional/Task');
+var Utility = require('../utils/Utility');
 var ChartPanel = require('../components/task/painChart/PainDrawingBoard');
 var SymptomDialog = require('../components/task/painChart/SymptomDialog');
 var NumberDialog = require('../components/task/painChart/SelectNumberDialog');
@@ -58,16 +59,49 @@ function painChartTask() {
         return +score === 100;
     };
 
-    this.specialQuestionsValid = function (questionEl) {
-        var $question = $(questionEl);
+    this.formSubmit = function () {
+        var $questionLists = this.select('formSelector').find('.question-list');
+        var $specialQuestionLists = this.select('formSelector').find('.question-list-special');
+        var isValid = true;
 
-        if (!this.isSelectScoreChecked($question)) {
-            this.errorQuestions.push($question);
-            this.setSelectErrorStatus($question);
-
-            isValid = false;
+        if (Utility.isIE()) {
+            this.isFormSubmit = true;
         }
-    }
+
+        _.each($questionLists, function (questionEl) {
+            var $question = $(questionEl);
+
+            if (!this.isQuestionChecked($question)) {
+                this.errorQuestions.push($question);
+                this.setErrorStatus($question);
+
+                isValid = false;
+            }
+        }, this);
+
+        _.each($specialQuestionLists, function (questionEl) {
+            var $question = $(questionEl);
+
+            if (!this.isSelectScoreChecked($question)) {
+                this.errorQuestions.push($question);
+                this.setSelectErrorStatus($question);
+
+                isValid = false;
+            }
+        }, this);
+
+        if (!isValid) {
+            this.scrollToTopError();
+            this.errorQuestions.length = 0;
+
+            event.returnValue = false;
+            return false;
+        }
+
+        this.disableSubmitButton();
+
+        this.isFormSubmit = true;
+    };
 
 
 }

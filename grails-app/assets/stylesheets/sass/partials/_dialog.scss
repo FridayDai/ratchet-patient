@@ -7,20 +7,13 @@
     outline: 0;
     font-family: $base-font-family;
 
-    @include breakpoint('mobile') {
-        border-radius: 2%;
-    }
-
     .ui-dialog-titlebar {
         position: relative;
-        padding: 10px;
+        padding: 14px 10px;
         border: 0;
         border-bottom: 5px solid rgba(0, 0, 0, .2);
         background: $base-color-white;
 
-        @include breakpoint('mobile') {
-            border-bottom: 0;
-        }
         .ui-dialog-title {
             margin-left: 10px;
             color: #4d4d4d;
@@ -63,9 +56,18 @@
         overflow: auto;
         overflow-x: hidden;
         //        height: auto !important;
-        padding: .5em 1em;
+        padding: 1em 1.5em;
         border: 0;
         background-color: $base-color-white;
+
+        @include breakpoint('desktop') {
+           font-size: 16px;
+        }
+
+        @include breakpoint('lg-desktop') {
+            font-size: 16px;
+        }
+
     }
 
     .ui-dialog-buttonpane {
@@ -79,10 +81,6 @@
             float: none;
             background: $base-color-white;
             text-align: center;
-
-            @include breakpoint('mobile') {
-                border-top: 1px solid $base-color-lighter-black;
-            }
         }
 
         button {
@@ -90,12 +88,8 @@
             cursor: pointer;
             border: 1px solid $base-color-dark-grey;
             color: $base-color-dark-grey;
-
             @include breakpoint('mobile') {
-                height: 42px;
-                width: 100%;
-                margin: 0;
-                border: 0;
+               width: 88%;
             }
 
             &:hover,
@@ -224,10 +218,10 @@
     min-width: 450px;
     @include breakpoint('mobile') {
         min-width: 320px;
+        border-radius: 2%;
     }
 
     .btn-position {
-
         &:before {
             content: none;
         }
@@ -277,6 +271,9 @@
             border: 1px solid $base-color-white;
             color: $base-color-white;
             @include breakpoint('mobile') {
+                height: 42px;
+                width: 100%;
+                margin: 0;
                 color: $base-color-blue;
                 border: 0;
                 border-top: 1px solid $base-color-lighter-black;
