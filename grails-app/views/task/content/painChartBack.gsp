@@ -43,9 +43,8 @@
             background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
-        .rc-choice-hidden:disabled + .rc-radio,
-        .rc-choice-hidden:disabled + .rc-radio:hover:before {
-            background-color: #bbb !important;
+        .rc-choice-hidden:checked + .rc-checkbox {
+            background-color: ${     client.primaryColorHex?:'#0f137d'     };
         }
 
         .modal+.ui-dialog-buttonpane button {
@@ -164,7 +163,7 @@
                                     <option value="80">80</option>
                                     <option value="90">90</option>
                                 </select>
-                                <span class="select-percent">%Back<span>+</span></span>
+                                <span class="select-percent">% Back <span>+</span></span>
 
                             </span>
 
@@ -181,7 +180,7 @@
                                     <option value="80">80</option>
                                     <option value="90">90</option>
                                 </select>
-                                <span class="select-percent">%Buttock<span>+</span></span>
+                                <span class="select-percent">% Buttock <span>+</span></span>
                             </span>
 
                             <span class="select-group">
@@ -197,7 +196,7 @@
                                     <option value="80">80</option>
                                     <option value="90">90</option>
                                 </select>
-                                <span class="select-percent">%Leg</span>
+                                <span class="select-percent">% Leg </span>
                                 <span class="select-percent-result">
                                     = <span id="select-percent-number" class="select-percent-number">
                                     <span id="select-percent-score">-</span> /100</span>
@@ -212,7 +211,7 @@
                             <label class="choice">
                                 <input id="no-pain-toggle" type="checkbox" name="choices.9" value="on"
                                        class="rc-choice-hidden"/>
-                                <span class="rc-radio rc-checkbox primary-radio-color"></span>
+                                <span class="rc-checkbox primary-radio-color"></span>
                             </label>
                         </li>
                     </div>

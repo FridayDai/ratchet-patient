@@ -65,9 +65,9 @@
     display: none;
 
     .ui-menu {
-        overflow: auto;
         border: 1px solid $base-color-dark-gray;
-        overflow-x: scroll;
+        overflow-x: hidden;
+        overflow-y: scroll;
         padding: 4px;
         height: 80px;
         background-color: $base-color-white;

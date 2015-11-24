@@ -106,6 +106,9 @@
         &.odi-style {
             @include breakpoint('tablet') {
                 @include answer-vertical-list('lg');
+                .answer .text {
+                    margin-top: 8px;
+                }
             }
 
             @include breakpoint('mobile') {
@@ -425,36 +428,6 @@
     }
 }
 
-.rc-choice-hidden:checked + .rc-checkbox:before {
-    top: -2px ;
-    left: -2px ;
-    border-radius: 0;
-    @include breakpoint('mobile') {
-        width: 28px;
-        height: 28px;
-    }
-}
-
-.rc-checkbox {
-    width: 32px;
-    height: 32px;
-    border-radius: 0;
-
-    &.rc-radio:hover:before {
-        top: -2px !important;
-        left: -2px !important;
-        border-radius: 0 !important;
-
-        @include breakpoint('mobile') {
-            width: 28px;
-            height: 28px;
-        }
-    }
-    @include breakpoint('mobile') {
-        width: 24px;
-        height: 24px;
-    }
-}
 
 //for dialog
 .msg-center {
