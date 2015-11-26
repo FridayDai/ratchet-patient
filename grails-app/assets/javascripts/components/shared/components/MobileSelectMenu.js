@@ -13,14 +13,15 @@ function MobileSelectMenu() {
                     if(that.ids.element  === data.id) {
                         that.element[0].selectedIndex = +data.index;
                         that._setText( that.buttonText, data.label );
-                        that._trigger( "select", event);
+                        that._trigger( "select", event, {item: {value: data.label}});
                     }
                 });
             },
             _drawButton: function() {
                 this._super();
                 var text = this.options.defaultButtonText;
-                if(text) {
+
+                if(text && this.element[0].selectedIndex === 0) {
                     this._setText( this.buttonText, text );
                 }
             },

@@ -38,12 +38,6 @@ function SelectNumberDialog() {
         });
         this.close();
     };
-
-    this.after('initialize', function () {
-
-    });
-
-
 }
 
 module.exports = flight.component(WithDialog, SelectNumberDialog);

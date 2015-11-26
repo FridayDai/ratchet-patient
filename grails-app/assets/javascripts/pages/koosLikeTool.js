@@ -58,26 +58,30 @@ function KOOSLike() {
     this.onChoiceItemClicked = function (e) {
         var $target = $(e.target);
 
-        $target.closest(this.attr.choiceItemSelector)
-            .find('.rc-choice-hidden')
-            .prop('checked', true);
+        if (!$target.is('input.rc-choice-hidden')) {
+            $target.closest(this.attr.choiceItemSelector)
+                .find('.rc-choice-hidden')
+                .prop('checked', true);
 
-        this.setTip();
+            this.setTip();
 
-        this.clearErrorStatus($target.closest('.question-list'));
+            this.clearErrorStatus($target.closest('.question-list'));
 
-        var $questionList = $target.closest('.question-list');
-        var sectionId = $questionList.parent(".section-list").attr("value");
-        var $siblings = $questionList.siblings(".question-list");
-        var $checkedQuestions = $siblings.has('[type="radio"]:checked');
+            var $questionList = $target.closest('.question-list');
+            var sectionId = $questionList.parent(".section-list").attr("value");
+            var $siblings = $questionList.siblings(".question-list");
+            var $checkedQuestions = $siblings.has('[type="radio"]:checked');
 
-        // it's need to count self, so this plus 1
-        if(1 + $checkedQuestions.length >= SECTION_ALLOW_MIN_FINISHED[sectionId]) {
-            var optionals = $siblings.filter('.error');
+            // it's need to count self, so this plus 1
+            if (1 + $checkedQuestions.length >= SECTION_ALLOW_MIN_FINISHED[sectionId]) {
+                var optionals = $siblings.filter('.error');
 
-            for(var i= 0, len = optionals.length; i < len; i++) {
-                this.clearErrorStatus(optionals[i]);
+                for (var i = 0, len = optionals.length; i < len; i++) {
+                    this.clearErrorStatus(optionals[i]);
+                }
             }
+
+            this.saveDraftAnswer($target);
         }
     };
 }

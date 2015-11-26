@@ -4,11 +4,11 @@ var snap = require('snapsvg');
 function PainDrawingBoard() {
 
     this.attributes({
-        armPartSelector: '.part-group',
+        bodyPartSelector: '.part-group',
         svgResultGroupSelector: '#svg-choice-result'
     });
 
-    this.activeArmPattern = function (path) {
+    this.addSymptomsBars = function (path) {
         var s = snap(this.snapSvg);
 
         var p = s.path("M10-5-10,15M15,0,0,15M0-5-20,15").attr({
@@ -18,18 +18,24 @@ function PainDrawingBoard() {
         });
         p = p.pattern(0, 0, 10, 10);
 
-        snap(path).attr({
-            fill: p
-        }).removeClass('human-part').addClass('active-part');
+        snap(path)
+            .attr({
+                fill: p
+            })
+            .removeClass('human-part')
+            .addClass('active-part');
     };
 
-    this.initArmPattern = function (path) {
-        snap(path).attr({
-            fill: 'none'
-        }).addClass('human-part').removeClass('active-part');
+    this.removeSymptomsBars = function (path) {
+        snap(path)
+            .attr({
+                fill: 'none'
+            })
+            .addClass('human-part')
+            .removeClass('active-part');
     };
 
-    this.removeCurrentText = function (element) {
+    this.removeSymptomsText = function (element) {
         $(element).find('g').remove();
     };
 
@@ -42,7 +48,7 @@ function PainDrawingBoard() {
         var offset = parameter[2] || 0;
         var rowLength = parameter[3] || 2;
 
-        this.removeCurrentText(element);
+        this.removeSymptomsText(element);
 
         for (var i = 0; i < data.length; i++) {
             var square = snapElement.rect(0, 0, 14, 14).attr({
@@ -59,7 +65,6 @@ function PainDrawingBoard() {
                 transform: snap.format("tanslate({x},{y})", {x: x, y: y})
             });
         }
-
     };
 
     this.removeAllInputValue = function () {
@@ -69,7 +74,7 @@ function PainDrawingBoard() {
     };
 
     this.changeInputValue = function (path, value) {
-        var resultClass = ".{0}".format(path.id);
+        var resultClass = "#{0}-hidden".format(path.id);
 
         if (value && value.length > 0) {
             this.select('svgResultGroupSelector').find(resultClass).addClass('active').val(value);
@@ -111,28 +116,28 @@ function PainDrawingBoard() {
 
         if(toggle.checked) {
             _.forEach($('.part-group'), function(ele) {
-                self.removeCurrentText(ele);
+                self.removeSymptomsText(ele);
             });
 
             _.forEach($('.active-part'), function(ele) {
-                self.initArmPattern(ele);
+                self.removeSymptomsBars(ele);
             });
 
             self.removeAllInputValue();
         }
     };
 
-    this.onArmClicked = function (e) {
+    this.onBodyPartClicked = function (e) {
         e.preventDefault();
 
         var self = e.target;
         this.snapSvg = $(self).closest('svg').get(0);
         this.humanPart = $(self).closest('.part-group').get(0);
         var id = this.humanPart.firstElementChild.id;
-        var eleClass = ".{0}".format(id);
-        var checkedTags = this.select('svgResultGroupSelector').find(eleClass).val();
-        var partName = id.replace(/-/g, ' ');
-        this.trigger('showSymptomDialog', {tags: checkedTags, name: partName});
+        var eleId = "#{0}-hidden".format(id);
+        var checkedTags = this.select('svgResultGroupSelector').find(eleId).val();
+
+        this.trigger('showSymptomDialog', {tags: checkedTags, bodyName: id});
     };
 
     this.onSymptomSelectedSuccess = function (e, data) {
@@ -140,12 +145,26 @@ function PainDrawingBoard() {
         this.changeInputValue(path, data.tags);
 
         if (data.tags && data.tags.length > 0) {
-            this.activeArmPattern(path);
-            this.addSymptomsText(this.humanPart, data.tags);
+            this.addSymptomsToChart(data.bodyName, data.tags);
         } else {
-            this.initArmPattern(path);
-            this.removeCurrentText(this.humanPart);
+            this.removeSymptomsFromChart(data.bodyName);
         }
+    };
+
+    this.addSymptomsToChart = function (bodyName, tags) {
+        var $bodyPath = $('#{0}'.format(bodyName));
+        var $bodyGroup = $bodyPath.closest('.part-group');
+
+        this.addSymptomsBars($bodyPath.get(0));
+        this.addSymptomsText($bodyGroup.get(0), tags);
+    };
+
+    this.removeSymptomsFromChart = function (bodyName) {
+        var $bodyPath = $('#{0}'.format(bodyName));
+        var $bodyGroup = $bodyPath.closest('.part-group');
+
+        this.removeSymptomsBars($bodyPath.get(0));
+        this.removeSymptomsText($bodyGroup.get(0));
     };
 
     this.onCheckActiveStatus = function () {
@@ -153,15 +172,31 @@ function PainDrawingBoard() {
         this.trigger('painActiveCheckResponse', {active: result});
     };
 
+    this.onInitDraftAnswer = function (e, data) {
+        var me = this;
+
+        if (data.noPain) {
+            this.toggleAllHumanBody(null, {checked: true});
+        } else {
+            _.each(data.chartChoices, function (item) {
+                if (item[1]) {
+                    me.addSymptomsToChart(item[0], item[1].split(','));
+                    $('#{0}-hidden'.format(item[0])).addClass('active');
+                }
+            });
+        }
+    };
+
     this.after('initialize', function () {
 
         this.on('click', {
-            armPartSelector: this.onArmClicked
+            bodyPartSelector: this.onBodyPartClicked
         });
 
         this.on(document, 'painActiveCheckRequest', this.onCheckActiveStatus);
         this.on(document, 'symptomSelectedSuccess', this.onSymptomSelectedSuccess);
         this.on(document, 'toggleAllHumanBody', this.toggleAllHumanBody);
+        this.on(document, 'initDraftAnswer', this.onInitDraftAnswer);
     });
 
 }

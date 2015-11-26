@@ -57,6 +57,7 @@
 
         <form action="" method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
+            <input type="hidden" name="taskId" value="${Task.taskId}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
             <div class="task-list-wrapper container">
@@ -87,7 +88,8 @@
                                                            class="rc-choice-hidden"
                                                            name="choices.${question.id}"
                                                            value="${choice.id}.${choice.weight}"
-                                                           <g:if test="${choices && choices["${question.id}"]?.endsWith(choice.weight.toString())}">checked</g:if>/>
+                                                           <g:if test="${(choices && choices["${question.id}"]?.endsWith(choice.weight.toString())) ||
+                                                                   choice.id == question.draftChoice}">checked</g:if>/>
                                                     <span class="rc-radio primary-radio-color"></span>
                                                 </g:if>
                                                 <g:else>
@@ -95,7 +97,8 @@
                                                            class="rc-choice-hidden"
                                                            name="choices.${question.id}"
                                                            value="${choice.id}.${choice.sequence}"
-                                                           <g:if test="${choices && choices["${question.id}"]?.endsWith(choice.sequence)}">checked</g:if>/>
+                                                           <g:if test="${(choices && choices["${question.id}"]?.endsWith(choice.sequence)) ||
+                                                                   choice.id == question.draftChoice}">checked</g:if>/>
                                                     <span class="rc-radio primary-radio-color"></span>
                                                 </g:else>
 

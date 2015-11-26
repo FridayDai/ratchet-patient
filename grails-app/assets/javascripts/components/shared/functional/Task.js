@@ -2,6 +2,7 @@ require('headroom');
 require('jquery-headroom');
 
 var Utility = require('../../../utils/Utility');
+var URLs = require('../../../constants/Urls');
 
 var LEAVE_CONFIRMATION_MSG = "We won't be able to save your progress as the result is time sensitive." +
     "Leaving the task half way will lose your progress.";
@@ -24,11 +25,19 @@ function Task() {
         submitButtonSelector: 'input[type="submit"]',
         choiceItemSelector: '.answer',
         questionLabelSelector: '.question',
-        questionErrorMarkerSelector: '.error-label'
+        questionErrorMarkerSelector: '.error-label',
+        taskIdFieldSelector: '[name="taskId"]',
+        codeFieldSelector: '[name="treatmentCode"]',
+        radioHiddenFieldSelector: '.rc-choice-hidden'
     });
 
     this.initPrivates = function () {
+        var $taskId = this.select('taskIdFieldSelector');
+        var $code = this.select('codeFieldSelector');
+
         this.isFormSubmit = false;
+        this.taskId = $taskId.val().trim();
+        this.code = $code.val().trim();
 
         this.errorQuestions = [];
     };
@@ -164,14 +173,39 @@ function Task() {
     this.onChoiceItemClicked = function (e) {
         var $target = $(e.target);
 
-        $target
-            .closest(this.attr.choiceItemSelector)
-            .find('[type="radio"].rc-choice-hidden')
-            .prop('checked', true);
+        if (!$target.is('input.rc-choice-hidden')) {
+            $target
+                .closest(this.attr.choiceItemSelector)
+                .find('[type="radio"].rc-choice-hidden')
+                .prop('checked', true);
 
-        this.setTip();
+            this.setTip();
 
-        this.clearErrorStatus($target.closest('.question-list'));
+            this.clearErrorStatus($target.closest('.question-list'));
+
+            this.prepareDraftAnswer($target);
+        }
+    };
+
+    this.prepareDraftAnswer = function ($target) {
+        var $answer = $target.closest('.answer');
+        var $hiddenRadio = $answer.find('.rc-choice-hidden');
+        var questionId = $hiddenRadio.attr('name').replace('choices.', '');
+        var answerId = $hiddenRadio.val().replace(/\..*/gi, '');
+
+        this.saveDraftAnswer(questionId, answerId);
+    };
+
+    this.saveDraftAnswer = function (questionId, answerId) {
+        $.ajax({
+            url: URLs.SAVE_DRAFT_ANSWER.format(this.taskId),
+            type: 'POST',
+            data: {
+                code: this.code,
+                questionId: questionId,
+                answerId: answerId
+            }
+        });
     };
 
     this.setTip = (function () {

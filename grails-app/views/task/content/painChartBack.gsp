@@ -69,8 +69,9 @@
     <div class="pain-chart-neck task-content">
         <div class="task-list-wrapper container">
 
-            <form action="" method="post">
+            <form action="" method="post" data-draft="${Draft}" data-no-pain-control="[0, 9]">
                 <input type="hidden" name="code" value="${taskCode}"/>
+                <input type="hidden" name="taskId" value="${Task.taskId}"/>
                 <input type="hidden" name="taskType" value="${Task?.type}"/>
 
                 <div id="pain-drawing-board" class="question-list-special pain-draw" data-optional="${'true'.toBoolean()}">
@@ -131,13 +132,13 @@
                     </div>
 
                     <div id="svg-choice-result">
-                        <input type="hidden" class="Front-Right-Leg" name="choices.0" value=""/>
-                        <input type="hidden" class="Front-Left-Leg" name="choices.1" value=""/>
+                        <input type="hidden" id="Front-Right-Leg-hidden" name="choices.0" value="${Draft?.'0'?:''}"/>
+                        <input type="hidden" id="Front-Left-Leg-hidden" name="choices.1" value="${Draft?.'1'?:''}"/>
 
-                        <input type="hidden" class="Back" name="choices.2" value=""/>
-                        <input type="hidden" class="Buttock" name="choices.3" value=""/>
-                        <input type="hidden" class="Back-Right-Leg" name="choices.4" value=""/>
-                        <input type="hidden" class="Back-Left-Leg" name="choices.5" value=""/>
+                        <input type="hidden" id="Back-hidden" name="choices.2" value="${Draft?.'2'?:''}"/>
+                        <input type="hidden" id="Buttock-hidden" name="choices.3" value="${Draft?.'3'?:''}"/>
+                        <input type="hidden" id="Back-Right-Leg-hidden" name="choices.4" value="${Draft?.'4'?:''}"/>
+                        <input type="hidden" id="Back-Left-Leg-hidden" name="choices.5" value="${Draft?.'5'?:''}"/>
                     </div>
                 </div>
 
@@ -153,15 +154,9 @@
                             <span class="select-group">
                                 <select class="select-menu" name="choices.6">
                                     <option value="0">0</option>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                    <option value="60">60</option>
-                                    <option value="70">70</option>
-                                    <option value="80">80</option>
-                                    <option value="90">90</option>
+                                    <g:each var="j" in="${(1..<10)}">
+                                        <option value="${j * 10}" <g:if test="${Draft?.'6' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                    </g:each>
                                 </select>
                                 <span class="select-percent">% Back <span>+</span></span>
 
@@ -170,15 +165,9 @@
                             <span class="select-group">
                                 <select class="select-menu" name="choices.7">
                                     <option value="0">0</option>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                    <option value="60">60</option>
-                                    <option value="70">70</option>
-                                    <option value="80">80</option>
-                                    <option value="90">90</option>
+                                    <g:each var="j" in="${(1..<10)}">
+                                        <option value="${j * 10}" <g:if test="${Draft?.'7' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                    </g:each>
                                 </select>
                                 <span class="select-percent">% Buttock <span>+</span></span>
                             </span>
@@ -186,15 +175,9 @@
                             <span class="select-group">
                                 <select class="select-menu" name="choices.8">
                                     <option value="0">0</option>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                    <option value="60">60</option>
-                                    <option value="70">70</option>
-                                    <option value="80">80</option>
-                                    <option value="90">90</option>
+                                    <g:each var="j" in="${(1..<10)}">
+                                        <option value="${j * 10}" <g:if test="${Draft?.'8' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                    </g:each>
                                 </select>
                                 <span class="select-percent">% Leg </span>
                                 <span class="select-percent-result">
@@ -202,8 +185,6 @@
                                     <span id="select-percent-score">-</span> /100</span>
                                 </span>
                             </span>
-
-
                         </div>
                         <li class="answer">
                             <div class="text">
@@ -211,7 +192,7 @@
                             <label class="choice">
                                 <input id="no-pain-toggle" type="checkbox" name="choices.9" value="on"
                                        class="rc-choice-hidden"/>
-                                <span class="rc-checkbox primary-radio-color"></span>
+                                <span class="rc-checkbox primary-radio-color pain-toggle"></span>
                             </label>
                         </li>
                     </div>
@@ -262,6 +243,7 @@
                                             <label class="choice choice-number choice-number-${j}">
                                                 <input type="radio" class="rc-choice-hidden"
                                                        name="choices.${10 + 2 * i}"
+                                                    <g:if test="${Draft && Draft[(10 + 2 * i).toString()] == j.toString()}"> checked</g:if>
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -286,6 +268,7 @@
                                             <label class="choice">
                                                 <input type="radio" class="rc-choice-hidden"
                                                        name="choices.${10 + 2 * i + 1}"
+                                                    <g:if test="${Draft && Draft[(10 + 2 * i + 1).toString()] == j.toString()}"> checked</g:if>
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -370,76 +353,14 @@
                 <div class="msg-header">Please select a number</div>
 
                 <div class="msg-center code">
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="0">
-                            0
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="10">
-                            10
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="20">
-                            20
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="30">
-                            30
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="40">
-                            40
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="50">
-                            50
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="60">
-                            60
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="70">
-                            70
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="80">
-                            80
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="90">
-                            90
-                        </label>
-                    </div>
-
+                    <g:each var="j" in="${0..<10}">
+                        <div class="one-choice">
+                            <label>
+                                <input type="radio" name="number" value="${j * 10}">
+                                ${j * 10}
+                            </label>
+                        </div>
+                    </g:each>
                 </div>
             </div>
 

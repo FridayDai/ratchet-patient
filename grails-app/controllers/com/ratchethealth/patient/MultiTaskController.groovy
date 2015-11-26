@@ -88,7 +88,7 @@ class MultiTaskController extends BaseController {
         def task = tasksList[itemIndex]
         def taskTitle = task.title
         def taskCode = task.code
-        def resp
+        def resp, draft = null
 
         if (isInClinic) {
             resp = taskService.getQuestionnaire(token, treatmentCode, taskCode, null)
@@ -111,6 +111,10 @@ class MultiTaskController extends BaseController {
                     break
                 case 4: case 5:
                     questionnaireView = '/task/content/nrs'
+
+                    if (result.draft) {
+                        draft = JSON.parse(JSON.parse(result.draft).yourData)
+                    }
                     break
                 case 7: case 8:
                     questionnaireView = '/task/content/koos'
@@ -121,9 +125,18 @@ class MultiTaskController extends BaseController {
                     //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
                 case 11:
                     questionnaireView = '/task/content/painChartNeck'
+
+                    if (result.draft) {
+                        draft = JSON.parse(JSON.parse(result.draft).yourData)
+                    }
                     break
                 case 12:
                     questionnaireView = '/task/content/painChartBack'
+
+                    if (result.draft) {
+                        draft = JSON.parse(JSON.parse(result.draft).yourData)
+                    }
+                    break
             }
 
             session["questionnaireView${taskCode}"] = questionnaireView
@@ -133,6 +146,7 @@ class MultiTaskController extends BaseController {
                             client: JSON.parse(session.client),
                             isInClinic: isInClinic,
                             Task: result,
+                            Draft: draft,
                             taskTitle: taskTitle,
                             taskCode: taskCode,
                             itemIndex: itemIndex,
@@ -386,6 +400,19 @@ class MultiTaskController extends BaseController {
                 tasksList: tasksList
             ])
         }
+    }
+
+    def saveDraftAnswer() {
+        String token = request.session.token
+        def taskId = params?.taskId
+        def code = params?.code
+        def questionId = params?.questionId
+        def answerId = params?.answerId
+        def complex = params?.complex
+
+        multiTaskService.saveDraftAnswer(token, taskId, code, questionId, answerId, complex)
+
+        render status: 201
     }
 
     def validateSectionChoice(sections, answer) {
