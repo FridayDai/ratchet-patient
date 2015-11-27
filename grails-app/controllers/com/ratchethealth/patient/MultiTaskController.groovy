@@ -301,19 +301,10 @@ class MultiTaskController extends BaseController {
     }
 
     def completeTasks() {
-        String token = request.session.token
         def tasksList = params?.tasksList
         def treatmentCode = params?.treatmentCode
         def tasksListRecord = JSON.parse(tasksList)
         def isInClinic = params?.isInClinic
-        def completedTasksOnly = true
-        def resp
-
-//        if (isInClinic) {
-//            resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, completedTasksOnly)
-//        } else {
-//            resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, completedTasksOnly)
-//        }
 
         render(view: '/clinicTask/tasksList', model: [
             client: JSON.parse(session.client),
