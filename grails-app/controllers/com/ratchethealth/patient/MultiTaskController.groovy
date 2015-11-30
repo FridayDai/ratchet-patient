@@ -301,50 +301,19 @@ class MultiTaskController extends BaseController {
     }
 
     def completeTasks() {
-        String token = request.session.token
         def tasksList = params?.tasksList
         def treatmentCode = params?.treatmentCode
         def tasksListRecord = JSON.parse(tasksList)
         def isInClinic = params?.isInClinic
-        def completedTasksOnly = true
-        def resp
 
-        if (isInClinic) {
-            resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, completedTasksOnly)
-        } else {
-            resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, completedTasksOnly)
-        }
-
-        if (resp.status == 200) {
-            def completeTasksList = JSON.parse(resp.body)
-            def DoneTaskList = []
-            tasksListRecord.each { it->
-                def collectList = completeTasksList.tests
-                for(def i = 0; i< collectList.size(); i++) {
-                    if(it.code == collectList[i].code){
-                        DoneTaskList.add(it)
-                    }
-                }
-            }
-            def uncompleteTasksList = tasksListRecord - DoneTaskList
-            render(view: '/clinicTask/tasksList', model: [
-                client: JSON.parse(session.client),
-                completeTasksList: completeTasksList,
-                doneTaskList: DoneTaskList,
-                uncompleteTasksList: uncompleteTasksList,
-                treatmentCode: treatmentCode,
-                isInClinic: isInClinic,
-                tasksLength: DoneTaskList.size()
-            ])
-        } else {
-            render(view: '/clinicTask/tasksList', model: [
-                client: JSON.parse(session.client),
-                tasksList  : tasksListRecord, treatmentCode: treatmentCode,
-                tasksLength: tasksListRecord.size(),
-                isInClinic: isInClinic
-            ])
-        }
-
+        render(view: '/clinicTask/tasksList', model: [
+            client: JSON.parse(session.client),
+            tasksCompleted: true,
+            doneTaskList: tasksListRecord,
+            treatmentCode: treatmentCode,
+            isInClinic: isInClinic,
+            tasksLength: tasksListRecord.size()
+        ])
     }
 
     def enterPatientEmail() {

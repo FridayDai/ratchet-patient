@@ -93,7 +93,7 @@
             </form>
         </g:if>
 
-        <g:elseif test="${completeTasksList}">
+        <g:elseif test="${tasksCompleted}">
             <div class="task-list-header">
                 <P><strong>Congratulations!</strong></P>
 
