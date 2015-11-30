@@ -71,7 +71,7 @@ function PainPercentPanel() {
         var me = this;
 
         Notifications.confirm({
-            title: 'Are you sure?',
+            title: 'ARE YOU SURE?',
             message: 'Enabling this checkbox will clear the answers above'
         }, {
             buttons: [
