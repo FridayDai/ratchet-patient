@@ -5,7 +5,7 @@
     overflow: hidden;
     padding: 0;
     outline: 0;
-    font-family: $base-font-family;
+    font-family: $base-font-utility;
 
     .ui-dialog-titlebar {
         position: relative;
@@ -243,6 +243,7 @@
         border: 1px solid $base-color-warn;
         background-color: $base-color-warn;
         color: $base-color-white;
+        padding: .5em 1em;
         @include breakpoint('mobile') {
             display: none;
             border: 0;
