@@ -1,6 +1,7 @@
 package com.ratchethealth.patient
 
 import grails.converters.JSON
+import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
 
 class TaskService extends RatchetAPIService {
@@ -21,8 +22,7 @@ class TaskService extends RatchetAPIService {
             if (resp.status == 200 || resp.status == 207) {
                 log.info("Get task success, token: ${token}")
                 return resp
-            }
-            else if (resp.status == 412) {
+            } else if (resp.status == 412) {
                 log.info("Task expired, token: ${token}")
                 return resp
             } else {
@@ -38,7 +38,7 @@ class TaskService extends RatchetAPIService {
 
         withPost(url) { req ->
             def resp = req
-                .asString()
+                    .asString()
 
             if (resp.status == 200) {
                 log.info("Record task start success, token: ${token}")
@@ -66,7 +66,7 @@ class TaskService extends RatchetAPIService {
             if (resp.status == 200) {
                 log.info("Record behaviour success, token: ${token}")
                 true
-            } else if(resp.status == 412) {
+            } else if (resp.status == 412) {
                 String errorMessage = JSON.parse(resp.body.toString())?.error?.errorMessage
                 log.error("Record behaviour error ${errorMessage}")
             }
@@ -181,7 +181,7 @@ class TaskService extends RatchetAPIService {
 
     }
 
-    def submitQuestionnaireWithoutErrorHandle(String token, code, answer) {
+    def submitQuestionnaireWithoutErrorHandle(String token, code, answer, mixedResult) {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
@@ -189,7 +189,10 @@ class TaskService extends RatchetAPIService {
         def browserVersion = userAgentIdentService.getBrowserVersion()
         def OSName = userAgentIdentService.getOperatingSystem()
 
-        String json = JsonOutput.toJson([code: code, answer: answer, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
+        if (mixedResult) {
+            mixedResult = new JsonBuilder(mixedResult).toPrettyString()
+        }
+        String json = JsonOutput.toJson([code: code, answer: answer, mixedResult: mixedResult, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
 
         withPost(url) { req ->
             def resp = req.body(json).asJson()

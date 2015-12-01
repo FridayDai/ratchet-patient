@@ -66,7 +66,6 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
 
-        compile ":compass-sass:0.7"
         runtime ":hibernate4:4.3.6.1", { // or ":hibernate:3.6.10.18"
             excludes 'ehcache-core'
         }
@@ -75,7 +74,6 @@ grails.project.dependency.resolution = {
         // plugins needed at runtime but not for compilation
 //        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
 //        runtime ":database-migration:1.4.0"
-        runtime ":resources:1.2.13"
         compile ":codenarc:0.23"
 
         compile ":browser-detection:2.3.0"

@@ -54,7 +54,7 @@ function EmailCollectionPage() {
 
     this.skipEmailCollection = function () {
         this.select('pathRouteFieldSelector').val(COMPLETE_TASK_FLAG);
-        this.select('emailFieldSelector').prop('required', false);
+        this.select('emailFieldSelector').rules('add', {required: false});
         this.select('submitButtonSelector').prop('disabled', true);
 
         this.formEl.submit();

@@ -40,36 +40,6 @@ class EmailController extends BaseController {
         }
     }
 
-    def emailSetting() {
-        def patientId = params.id
-        render view: "/email/emailSetting", model: [client: JSON.parse(session.client), patientId: patientId]
-    }
-
-    def emailSettingCheck() {
-        String token = request.session.token
-        String id = params.id
-        String last4Number = params.last4Number
-
-        def result = emailService.emailCheck(token, id as long, last4Number.toInteger())
-
-        if (result) {
-            render result as JSON
-        }
-    }
-
-    def subscription() {
-        String token = request.session.token
-        String id = params.id
-        String last4Number = params.last4Number
-        def subscribe = params.boolean("subscribe")
-
-        def result = emailService.subscribe(token, id as long, last4Number.toInteger(), subscribe)
-
-        if (result) {
-            render status: 200
-        }
-    }
-
     def checkPatientEmailExist() {
         String token = request.session.token
         def client = request.session.client

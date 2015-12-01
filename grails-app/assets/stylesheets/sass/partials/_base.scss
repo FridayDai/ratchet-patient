@@ -31,6 +31,7 @@
     }
 }
 
+//~= ionicons v2.0.0, source: http://ionicons.com/cheatsheet.html
 @font-face {
     font-family: 'Ionicons';
     src: url('../../../../fonts/ionicons.eot');
@@ -189,6 +190,44 @@ ul {
     }
 }
 
+.rc-checkbox {
+    position: relative;
+    display: inline-block;
+    box-sizing: content-box;
+    width: 32px;
+    height: 32px;
+    border: 2px solid $base-color-gray;
+    cursor: pointer;
+
+    @include breakpoint('mobile') {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.rc-choice-hidden:checked {
+    & + .rc-checkbox {
+        background-color: $base-color-primary;
+        box-shadow: inset 0 0 0 1px $base-color-white;
+    }
+
+    & + .rc-checkbox:before {
+        display: inline-block;
+        position: absolute;
+        top: -2px;
+        left: 4px;
+        content: '\f383';
+        font-family: 'Ionicons';
+        font-size: 33px;
+        color: $base-color-white;
+
+        @include breakpoint('mobile') {
+            font-size: 25px;
+            left: 3px;
+        }
+    }
+}
+
 .rc-error-label {
     color: $base-color-error-font-red;
 }
@@ -233,6 +272,14 @@ ul {
 
 .error {
     color: $base-color-red;
+}
+
+.success {
+    color: $base-color-success;
+}
+
+.ui-hidden {
+    display: none !important;
 }
 
 //todo this will be change later
@@ -315,6 +362,8 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: $base-color-mid-gray;
+    opacity: 0.4;
 }
 
 .btn,
@@ -356,10 +405,6 @@ ul {
 .ui-button {
     border: 1px solid $base-color-dark-grey;
 
-    .ui-button-text {
-        color: $base-color-dark-grey;
-    }
-
     &:hover {
         border: 0;
         background-color: darken($base-color-dark-grey, 10%);
@@ -369,3 +414,4 @@ ul {
         }
     }
 }
+

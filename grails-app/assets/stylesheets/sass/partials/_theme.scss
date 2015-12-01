@@ -21,6 +21,9 @@ input[type="text"], input[type="textarea"], input[type="email"], input[type="tel
     color: #333;
     background: transparent;
     box-shadow: none;
+    @include breakpoint('mobile') {
+        border: 0;
+    }
 
     a {
         color: $base-color-dark-grey;

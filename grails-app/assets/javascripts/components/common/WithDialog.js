@@ -49,6 +49,10 @@ function WithDialog() {
         this.dialogEl.dialog('option', 'title', title);
     };
 
+    this.changeWidth = function (width) {
+        this.dialogEl.dialog('option', 'width', width);
+    };
+
     this.after('initialize', function () {
         this._initDialog();
     });

@@ -88,10 +88,14 @@ grails.hibernate.osiv.readonly = false
 // asset-pipeline
 grails.assets.excludes = [
         'bower_components/**',
+        'components/**',
+        'constants/**',
+        'libs/**',
+        'pages/**',
+        'utils/**',
         '.sass-cache/**',
         'sass/**',
-        'config.rb',
-        'share/*.js'
+        'config.rb'
 ]
 
 grails.assets.plugin."resources".excludes = ["**"]
@@ -208,7 +212,7 @@ ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvV
 ratchetv2 {
     server {
         url {
-            base = System.getProperty("SERVER_URL") ?: "http://api.release.ratchethealth.com/api/v1"
+            base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
 
             // Client
             client {

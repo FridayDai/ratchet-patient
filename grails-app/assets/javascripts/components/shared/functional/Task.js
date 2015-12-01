@@ -166,7 +166,7 @@ function Task() {
 
         $target
             .closest(this.attr.choiceItemSelector)
-            .find('.rc-choice-hidden')
+            .find('[type="radio"].rc-choice-hidden')
             .prop('checked', true);
 
         this.setTip();

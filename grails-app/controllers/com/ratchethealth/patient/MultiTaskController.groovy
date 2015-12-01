@@ -101,7 +101,7 @@ class MultiTaskController extends BaseController {
             def questionnaireView = ''
 
             //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS
-            // 9.Harris Hip Score 10.Fairley Nasal Symptom
+            // 9.Harris Hip Score 10.Fairley Nasal Symptom 11.Pain Chart Reference - Neck
             switch (result.type) {
                 case 1: case 6: case 10:
                     questionnaireView = '/task/content/dash'
@@ -117,7 +117,13 @@ class MultiTaskController extends BaseController {
                     break
                 case 9:
                     questionnaireView = '/task/content/verticalChoice'
+                    break
                     //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
+                case 11:
+                    questionnaireView = '/task/content/painChartNeck'
+                    break
+                case 12:
+                    questionnaireView = '/task/content/painChartBack'
             }
 
             session["questionnaireView${taskCode}"] = questionnaireView
@@ -142,6 +148,10 @@ class MultiTaskController extends BaseController {
     }
 
     def submitTasks() {
+        if(params.hardcodeTask) {
+            forward(action: "submitSpecialTask", params: [params: params])
+            return
+        }
         String token = request.session.token
         def itemIndex = params?.itemIndex
         def tasksList = params?.tasksList
@@ -224,7 +234,7 @@ class MultiTaskController extends BaseController {
             answer.each {
                 it.choices = convertChoice(taskType, it.choices)
             }
-            taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer)
+            taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer, null)
 
             if (itemIndexRecord < tasksListRecord.size()) {
                 forward(action: 'startTasks', params: [
@@ -252,51 +262,58 @@ class MultiTaskController extends BaseController {
         }
     }
 
-    def completeTasks() {
+    def submitSpecialTask() {
         String token = request.session.token
+        def itemIndex = params?.itemIndex
+        def tasksList = params?.tasksList
+        def tasksListRecord = JSON.parse(tasksList)
+        def itemIndexRecord = params?.int('itemIndex')
+        def isInClinic = params?.isInClinic
+
+        def treatmentCode = params?.treatmentCode
+        def emailStatus = params?.emailStatus
+        def choices = params.choices
+        def code = params.code
+
+        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices)
+        if (itemIndexRecord < tasksListRecord.size()) {
+            forward(action: 'startTasks', params: [
+                    itemIndex: itemIndex,
+                    treatmentCode: treatmentCode,
+                    tasksList: tasksList,
+                    isInClinic: isInClinic
+            ])
+        } else {
+            if(isInClinic && RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
+                forward(action: 'enterPatientEmail', params: [
+                        treatmentCode: treatmentCode,
+                        tasksList: tasksList,
+                        isInClinic: isInClinic
+                ])
+            } else {
+                forward(action: 'completeTasks', params: [
+                        treatmentCode: treatmentCode,
+                        tasksList: tasksList,
+                        isInClinic: isInClinic
+                ])
+            }
+        }
+    }
+
+    def completeTasks() {
         def tasksList = params?.tasksList
         def treatmentCode = params?.treatmentCode
         def tasksListRecord = JSON.parse(tasksList)
         def isInClinic = params?.isInClinic
-        def completedTasksOnly = true
-        def resp
 
-        if (isInClinic) {
-            resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, completedTasksOnly)
-        } else {
-            resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, completedTasksOnly)
-        }
-
-        if (resp.status == 200) {
-            def completeTasksList = JSON.parse(resp.body)
-            def DoneTaskList = []
-            tasksListRecord.each { it->
-                def collectList = completeTasksList.tests
-                for(def i = 0; i< collectList.size(); i++) {
-                    if(it.code == collectList[i].code){
-                        DoneTaskList.add(it)
-                    }
-                }
-            }
-            def uncompleteTasksList = tasksListRecord - DoneTaskList
-            render(view: '/clinicTask/tasksList', model: [
-                client: JSON.parse(session.client),
-                completeTasksList: completeTasksList,
-                doneTaskList: DoneTaskList,
-                uncompleteTasksList: uncompleteTasksList,
-                treatmentCode: treatmentCode,
-                isInClinic: isInClinic,
-                tasksLength: DoneTaskList.size()
-            ])
-        } else {
-            render(view: '/clinicTask/tasksList', model: [
-                client: JSON.parse(session.client),
-                tasksList  : tasksListRecord, treatmentCode: treatmentCode,
-                tasksLength: tasksListRecord.size(),
-                isInClinic: isInClinic
-            ])
-        }
-
+        render(view: '/clinicTask/tasksList', model: [
+            client: JSON.parse(session.client),
+            tasksCompleted: true,
+            doneTaskList: tasksListRecord,
+            treatmentCode: treatmentCode,
+            isInClinic: isInClinic,
+            tasksLength: tasksListRecord.size()
+        ])
     }
 
     def enterPatientEmail() {
