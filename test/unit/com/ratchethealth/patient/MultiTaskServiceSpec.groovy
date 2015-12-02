@@ -18,7 +18,7 @@ class MultiTaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.getTreatmentTasksWithTreatmentCode('token', 'code', true)
+        def result = service.getTreatmentTasksWithTreatmentCode('token', 'code', true, 'subDomain')
 
         then:
         result.status == 200
@@ -35,7 +35,7 @@ class MultiTaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.getTreatmentTasksWithTreatmentCode('token', 'code', true)
+        def result = service.getTreatmentTasksWithTreatmentCode('token', 'code', true, 'subDomain')
 
         then:
         result.status == 404
@@ -52,7 +52,7 @@ class MultiTaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.getTreatmentTasksWithCombinedTasksCode('token', 'code', true)
+        def result = service.getTreatmentTasksWithCombinedTasksCode('token', 'code', true, 'subDomain')
 
         then:
         result.status == 200
@@ -69,7 +69,7 @@ class MultiTaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.getTreatmentTasksWithCombinedTasksCode('token', 'code', true)
+        def result = service.getTreatmentTasksWithCombinedTasksCode('token', 'code', true, 'subDomain')
 
         then:
         result.status == 404
