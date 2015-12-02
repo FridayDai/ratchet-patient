@@ -31,12 +31,14 @@ class MultiTaskController extends BaseController {
         String token = request.session.token
         def treatmentCode = params?.treatmentCode
         def isInClinic = params?.isInClinic
+        def serverName = request.getServerName()
+        def subDomain = serverName.substring(0, serverName.indexOf('.'))
         def resp
 
         if (isInClinic) {
-            resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null)
+            resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null, subDomain)
         } else {
-            resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, null)
+            resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, null, subDomain)
         }
 
         if (resp.status == 200) {
