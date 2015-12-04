@@ -1,3 +1,4 @@
+<%@ page import="com.ratchethealth.patient.RatchetStatusCode" %>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
 <g:set var="scriptPath" value="dist/koosLikeTool.bundle.js"/>
 <g:set var="cssPath" value="task/koos"/>
@@ -67,7 +68,12 @@
                 <% def firstTitle = "" %>
                 <% def secondTitle = "" %>
                 <g:each var="section" in="${Task.sections}" status="i">
+
                     <div class="section-list" value="${section.id}">
+                        <div class="answer-limit-tip">
+                            Please answer at least ${RatchetStatusCode.choicesLimit[section.id]} questions from the following.
+                        </div>
+
                         <g:if test="${section.title.startsWith("<h3>Symptoms") || section.title.startsWith("<h3>Pain")}">
                             <% def splitTitle%>
                             <% splitTitle = section.title.split(/\(#\)/) %>
@@ -80,8 +86,6 @@
                         <g:else>
                             <div class="section-title">${raw(section.title)}</div>
                         </g:else>
-
-
 
                         <g:each var="question" in="${section.questions}" status="j">
 
@@ -131,6 +135,10 @@
                                 </div>
                             </div>
                         </g:each>
+
+                        <div class="answer-limit-tip tip-bottom">
+                            Please answer at least ${RatchetStatusCode.choicesLimit[section.id]} questions from the following.
+                        </div>
                     </div>
                 </g:each>
             </div>
