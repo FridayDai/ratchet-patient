@@ -123,13 +123,13 @@ function KOOSLike() {
             //console.log(ele.getBoundingClientRect().top);
             var top = ele.getBoundingClientRect().top;
             if (top < 0 || top > windowHeight) {
-                return
+                return;
             }
             if (Math.abs(top - headerBottom) > 0 && Math.abs(top - headerBottom) < 10) {
                 $('#header .tip-wrap').remove();
                 $(ele).clone().addClass('tip-container').appendTo('#header').wrap("<div class='tip-wrap'></div>");
             }
-        })
+        });
     };
 
     this.after('initialize', function () {
