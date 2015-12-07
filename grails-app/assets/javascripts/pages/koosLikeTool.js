@@ -118,12 +118,14 @@ function KOOSLike() {
 
     this.showTipInSection = function () {
         var top = $('body').scrollTop();
+        var firstLimitTop = $('form .answer-limit-tip:first').offset().top;
+        var tipHeight = 33;
         var bottom = $('#header')[0].getBoundingClientRect().bottom || $('#header').height();
         var headerBaseline = top + bottom;
         var headerTip = $('#header .tip-wrap');
         var self = this;
 
-        if (top < 230) {
+        if (top < (firstLimitTop - bottom + tipHeight)) {
             headerTip.remove();
             return;
         }
@@ -177,7 +179,7 @@ function KOOSLike() {
 
         if (!Utility.isMobile()) {
             this.initHeaderTip();
-            this.on(document, 'scroll', this.showTipInSection);
+            this.on(window, 'scroll', this.showTipInSection);
         }
     });
 }
