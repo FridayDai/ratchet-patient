@@ -103,13 +103,9 @@ function Task() {
         });
     };
 
-    this.formSubmit = function (e) {
+    this.isValid = function () {
         var $questionLists = this.select('formSelector').find('.question-list');
         var isValid = true;
-
-        if (Utility.isIE()) {
-            this.isFormSubmit = true;
-        }
 
         _.each($questionLists, function (questionEl) {
             var $question = $(questionEl);
@@ -122,7 +118,15 @@ function Task() {
             }
         }, this);
 
-        if (!isValid) {
+        return isValid;
+    };
+
+    this.formSubmit = function () {
+        if (Utility.isIE()) {
+            this.isFormSubmit = true;
+        }
+
+        if (!this.isValid()) {
             this.scrollToTopError();
             this.errorQuestions.length = 0;
 

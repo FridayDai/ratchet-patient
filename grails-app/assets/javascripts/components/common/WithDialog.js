@@ -1,4 +1,4 @@
-require('../../libs/dialog/dialog');
+require('../../libs/dialog');
 
 var flight = require('flight');
 var WithOptions = require('./WithOptions');

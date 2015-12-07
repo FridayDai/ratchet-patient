@@ -1,0 +1,280 @@
+@import '../../partials/task_content';
+@import '../../partials/theme';
+@import '../../partials/selectmenu';
+@import '../../partials/dialog';
+@import '../../partials/datepicker';
+
+.new-patient-questionnaire {
+    @include breakpoint('tablet') {
+        padding-top: 250px;
+
+        @include answer-vertical-list('lg');
+
+        .answer {
+            .text {
+                min-height: 0;
+                margin: 0 0 0 85px;
+                line-height: 29px;
+            }
+        }
+    }
+
+    @include breakpoint('mobile') {
+        @include answer-vertical-list('small');
+    }
+
+    .rc-radio {
+        width: 25px;
+        height: 25px;
+
+        @include breakpoint('mobile') {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .rc-choice-hidden:checked + .rc-radio:before {
+        width: 21px;
+        height: 21px;
+
+        @include breakpoint('mobile') {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .question-list {
+        @include breakpoint('tablet') {
+            margin-bottom: 40px;
+        }
+    }
+
+    .question {
+        color: #333;
+        background-color: #fff;
+
+        @include breakpoint('tablet') {
+            margin-bottom: 5px;
+            padding: 30px 40px;
+            font-size: 18px;
+        }
+    }
+
+    .answer-list {
+        @include breakpoint('tablet') {
+            padding: 15px 20px;
+            background-color: #fff;
+        }
+
+        &.textarea {
+            padding: 30px 60px;
+        }
+    }
+
+    textarea {
+        width: 100%;
+        height: 120px;
+        padding: 15px;
+        font-size: 16px;
+        background-color: #fbfbfb;
+        border-color: #b1b1b1;
+    }
+
+    .specify-input {
+        margin-left: 20px;
+        padding: 5px 10px;
+        font-size: 16px;
+        background-color: #fbfbfb;
+        border: 1px solid #b1b1b1;
+    }
+
+    .sub-question {
+        margin-top: 20px;
+    }
+
+    .sub-question-list {
+        padding: 10px 60px 30px;
+        background-color: #fff
+    }
+
+    .sub-question-title,
+    .sub-question-answer-list,
+    .sub-question-time {
+        display: inline-block;
+    }
+
+    .sub-question-title {
+        font-size: 16px;
+    }
+
+    .question-12 {
+        .sub-question-title {
+            width: 100px;
+        }
+    }
+
+    .question-22 {
+        .sub-question-title {
+            width: 200px;
+        }
+
+        .sub-question-answer-list {
+            width: 800px;
+        }
+    }
+
+    .question-23 {
+        .answer {
+            position: relative;
+
+            .text {
+                position: absolute;
+                vertical-align: top;
+            }
+        }
+
+        .multi-date-container {
+            margin-left: 230px;
+        }
+    }
+
+    .question-3 {
+        .specify-input {
+            margin-left: 10px;
+            width: 110px;
+        }
+    }
+
+    .specify-part {
+        margin-left: 30px;
+    }
+
+    .sub-question-answer-list {
+        width: 600px;
+        vertical-align: top;
+    }
+
+    .sub-question-answer {
+        display: inline-block;
+        margin-right: -20px;
+        padding-left: 20px;
+        text-align: center;
+        vertical-align: top;
+
+        &.columns-3 {
+            width: 33.333333%;
+        }
+
+        &.columns-4 {
+            width: 25%;
+        }
+
+        .text {
+            margin-bottom: 10px;
+        }
+    }
+
+    .sub-question-time {
+        vertical-align: top;
+    }
+
+    .sub-question-time-title {
+        margin-bottom: 10px;
+    }
+
+    .extension-question-list {
+        padding: 0 40px;
+        font-size: 16px;
+
+        .half-list {
+            display: inline-block;
+            width: 49%;
+        }
+
+        .description {
+            margin: 25px 0 15px;
+        }
+
+        .extension-question {
+            margin: 30px 0;
+        }
+
+        .extension-question-title {
+            margin-bottom: 5px;
+        }
+
+        .answer {
+            padding: 10px 15px 10px 0;
+
+            .text {
+                font-size: 15px;
+                margin-left: 55px;
+            }
+            .choice {
+                top: 10px;
+                margin-left: 10px;
+            }
+        }
+
+        textarea, input[type="text"] {
+            font-size: 15px;
+        }
+
+        .specify-input {
+            width: 300px;
+        }
+
+        .whole-line.specify-input {
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+
+    .extension-question.disabled {
+        color: #999;
+        opacity: 0.6;
+    }
+
+    .date-picker {
+        height: 30px;
+    }
+
+    .question-list {
+        &.error {
+            .rc-radio {
+                border-color: #bbb;
+            }
+
+            .error-field {
+                border-color: $base-color-error-circle-red;
+            }
+        }
+    }
+}
+
+.ui-selectmenu-menu .ui-menu {
+    height: 176px;
+}
+
+.ui-selectmenu-button {
+    background-color: #fbfbfb;
+    border-color: #b1b1b1;
+}
+
+.ui-menu .ui-menu-item {
+    padding-left: 15px;
+}
+
+.select-menu-default-text {
+    color: #999;
+}
+
+.multi-date-picker-add-button {
+    font-size: 16px;
+    line-height: 31px;
+    cursor: pointer;
+
+    &:hover {
+        color: #333;
+    }
+}

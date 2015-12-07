@@ -1,4 +1,4 @@
-require('../../../libs/jquery-validation/jquery.validate.js');
+require('../../../libs/jquery.validate.js');
 
 var STRINGs = require('../../../constants/Strings');
 var URLs = require('../../../constants/Urls');

@@ -37,7 +37,7 @@ function painChartTask() {
         },
         {
             selector: 'numberDialogSelector',
-            event: 'showMobileNumberDialog',
+            event: 'showMobileSelectMenuDialog',
             dialog: NumberDialog
         }
     ]);
@@ -180,6 +180,8 @@ function painChartTask() {
 
         this.on(document, 'symptomSelectedSuccess', this.onSymptomSelectedSuccess);
         this.on(document, 'painPercentSelectSuccess', this.onPainPercentSelectSuccess);
+
+        Utility.hideProcessing();
     });
 }
 

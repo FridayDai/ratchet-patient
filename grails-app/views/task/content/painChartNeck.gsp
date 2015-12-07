@@ -371,6 +371,7 @@
         </div>
     </div>
 
+    <g:render template="/shared/pageMask"></g:render>
     </body>
     </html>
     <content tag="GA">
