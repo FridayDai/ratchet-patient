@@ -31,7 +31,7 @@ function nrsLikeTool() {
 }
 
 flight.component(
-    SaveComplexDraftAnswer,
     Task,
+    SaveComplexDraftAnswer,
     nrsLikeTool
 ).attachTo('#main');
