@@ -69,7 +69,7 @@
                 <% def secondTitle = "" %>
                 <g:each var="section" in="${Task.sections}" status="i">
 
-                    <div class="section-list" value="${section.id}">
+                    <div id="section-id-${section.id}" class="section-list" value="${section.id}">
                         <div class="answer-limit-tip">
                             Please answer at least ${RatchetStatusCode.choicesLimit[section.id]} questions from the following.
                         </div>
@@ -135,10 +135,6 @@
                                 </div>
                             </div>
                         </g:each>
-
-                        <div class="answer-limit-tip tip-bottom">
-                            Please answer at least ${RatchetStatusCode.choicesLimit[section.id]} questions from the following.
-                        </div>
                     </div>
                 </g:each>
             </div>

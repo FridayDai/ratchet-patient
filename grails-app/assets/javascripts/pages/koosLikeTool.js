@@ -58,20 +58,42 @@ function KOOSLike() {
         this.isFormSubmit = true;
     };
 
-    this.headerTipError = function($questionList) {
+    this.headerTipError = function ($questionList) {
         $('#header .tip-wrap').remove();
         var tip = $questionList.parent(".section-list").find('.answer-limit-tip:first');
         tip.clone().addClass('tip-container').appendTo('#header').wrap("<div class='tip-wrap'></div>");
     };
 
-    this.getNotFinishedQuestions = function ($sectionList) {
+    this.getNotFinishedQuestions = function ($sectionList, noErrorTip) {
         var sectionId = $sectionList.attr("value");
         var finishedQuestionList = $sectionList.find('.question-list').has('[type="radio"]:checked');
         if (finishedQuestionList.length < SECTION_ALLOW_MIN_FINISHED[sectionId]) {
-            $sectionList.find('.answer-limit-tip').addClass('error');
+            if (!noErrorTip) {
+                $sectionList.find('.answer-limit-tip').addClass('error');
+            }
             return $sectionList.find('.question-list').not(finishedQuestionList);
         } else {
             $sectionList.find('.answer-limit-tip').addClass('success').text(SECTION_SUCCESS_STRING);
+        }
+    };
+
+    this.checkLimitAnswer = function ($questionList) {
+        var sectionId = $questionList.parent(".section-list").attr("value");
+        var $siblings = $questionList.siblings(".question-list");
+        var $sectionList = $questionList.closest('.section-list');
+        var $checkedQuestions = $siblings.has('[type="radio"]:checked');
+
+        // it's need to count self, so this plus 1
+        if (1 + $checkedQuestions.length >= SECTION_ALLOW_MIN_FINISHED[sectionId]) {
+            var optionals = $siblings.filter('.error');
+            for (var i = 0, len = optionals.length; i < len; i++) {
+                this.clearErrorStatus(optionals[i]);
+            }
+
+            //change the section tip to success
+            $sectionList.find('.answer-limit-tip').addClass('success').text(SECTION_SUCCESS_STRING);
+            //change the header fix tip to success
+            $('#header').find('.answer-limit-tip').addClass('success').text(SECTION_SUCCESS_STRING);
         }
     };
 
@@ -88,52 +110,73 @@ function KOOSLike() {
             this.clearErrorStatus($target.closest('.question-list'));
 
             var $questionList = $target.closest('.question-list');
-            var sectionId = $questionList.parent(".section-list").attr("value");
-            var $siblings = $questionList.siblings(".question-list");
-            var $sectionList = $questionList.closest('.section-list');
-            var $checkedQuestions = $siblings.has('[type="radio"]:checked');
-
-            // it's need to count self, so this plus 1
-            if (1 + $checkedQuestions.length >= SECTION_ALLOW_MIN_FINISHED[sectionId]) {
-                var optionals = $siblings.filter('.error');
-                for (var i = 0, len = optionals.length; i < len; i++) {
-                    this.clearErrorStatus(optionals[i]);
-                }
-
-                //change the section tip to success
-                $sectionList.find('.answer-limit-tip').addClass('success').text(SECTION_SUCCESS_STRING);
-                //change the header fix tip to success
-                $('#header').find('.answer-limit-tip').addClass('success').text(SECTION_SUCCESS_STRING);
-            }
+            this.checkLimitAnswer($questionList);
 
             this.prepareDraftAnswer($target);
         }
     };
 
     this.showTipInSection = function () {
-        var windowHeight = window.innerHeight;
-        var headerBottom = $('#header')[0].getBoundingClientRect().bottom;
+        var top = $('body').scrollTop();
+        var bottom = $('#header')[0].getBoundingClientRect().bottom || $('#header').height();
+        var headerBaseline = top + bottom;
+        var headerTip = $('#header .tip-wrap');
+        var self = this;
 
-        if(document.body.scrollTop < 230) {
-            $('#header .tip-wrap').remove();
+        if (top < 230) {
+            headerTip.remove();
             return;
         }
 
-        _.each($('.koos .answer-limit-tip'), function (ele) {
-            //console.log(ele.getBoundingClientRect().top);
-            var top = ele.getBoundingClientRect().top;
-            if (top < 0 || top > windowHeight) {
-                return;
-            }
-            if (Math.abs(top - headerBottom) > 0 && Math.abs(top - headerBottom) < 10) {
-                $('#header .tip-wrap').remove();
-                $(ele).clone().addClass('tip-container').appendTo('#header').wrap("<div class='tip-wrap'></div>");
+        _.forEach(this.sectionsOffset, function (section, sectionId) {
+            if (self.sectionToken[sectionId] && headerBaseline > section.top && headerBaseline < section.bottom) {
+                setTimeout(function () {
+                    var answerTip = $("#{0}".format(sectionId)).find('.answer-limit-tip');
+
+                    headerTip.remove();
+                    answerTip.clone().addClass('tip-container')
+                        .appendTo('#header').wrap("<div class='tip-wrap'></div>");
+
+                    self.sectionToken[sectionId] = true;
+                    //this section toke is idle.
+                }, 10);
+
+                self.sectionToken[sectionId] = false;
+                //this section token is in using.
             }
         });
     };
 
+    this.initHeaderTip = function () {
+        var token = {};
+        var sectionListOffset = {};
+        _.forEach($(".section-list"), function (ele) {
+            var sectionId = ele.id;
+            var top = $(ele).offset().top;
+            var bottom = top + $(ele).outerHeight();
+            sectionListOffset[sectionId] = {
+                top: top,
+                bottom: bottom
+            };
+            token[sectionId] = true;
+        });
+        this.sectionsOffset = sectionListOffset;
+        this.sectionToken = token;
+    };
+
+    this.initDraftAnswer = function () {
+        var $sectionLists = this.select('formSelector').find('.section-list');
+        _.each($sectionLists, function (sectionListEl) {
+            var $sectionList = $(sectionListEl);
+            this.getNotFinishedQuestions($sectionList, true);
+        }, this);
+    };
+
     this.after('initialize', function () {
+        this.initDraftAnswer();
+
         if (!Utility.isMobile()) {
+            this.initHeaderTip();
             this.on(document, 'scroll', this.showTipInSection);
         }
     });
