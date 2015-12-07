@@ -58,7 +58,7 @@ function createDialog($content, options) {
         resizable: false,
         width: 350,
         modal: true,
-        dialogClass: 'ui-size'
+        dialogClass: 'ui-dialog-warning'
     }, options));
 
     return $content;
