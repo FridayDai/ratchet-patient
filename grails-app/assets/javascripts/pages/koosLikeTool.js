@@ -149,6 +149,10 @@ function KOOSLike() {
         });
     };
 
+    this.listenScroll = function() {
+        $(window).scroll(_.bind(this.showTipInSection, this));
+    };
+
     this.initHeaderTip = function () {
         var token = {};
         var sectionListOffset = {};
@@ -179,7 +183,7 @@ function KOOSLike() {
 
         if (!Utility.isMobile()) {
             this.initHeaderTip();
-            this.on(window, 'scroll', this.showTipInSection);
+            this.listenScroll();
         }
     });
 }
