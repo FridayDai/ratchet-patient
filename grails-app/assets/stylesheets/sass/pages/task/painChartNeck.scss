@@ -16,7 +16,7 @@
         margin-bottom: 40px;
 
         @include breakpoint('mobile') {
-            margin-bottom: 0;
+            margin-bottom: 10px;
         }
 
         .question {

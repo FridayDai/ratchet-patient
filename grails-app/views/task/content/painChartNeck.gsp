@@ -73,7 +73,7 @@
                 <input type="hidden" name="taskId" value="${Task.taskId}"/>
                 <input type="hidden" name="taskType" value="${Task?.type}"/>
 
-                <div id="pain-drawing-board" class="question-list-special pain-draw" data-optional="${'true'.toBoolean()}">
+                <div id="pain-drawing-board" class="question-list-special pain-draw" data-chart="${'true'.toBoolean()}">
                     <div class="question">
                         <h3>Pain Drawing</h3>
 
@@ -143,7 +143,7 @@
                     </div>
                 </div>
 
-                <div id="pain-percent-question" class="question-list-special">
+                <div id="pain-percent-question" class="question-list-special" data-select="${'true'.toBoolean()}">
                     <div class="question">
                         <div>What percent of your pain is NECK pain vs. SHOULDER pain vs. ARM pain?</div>
 

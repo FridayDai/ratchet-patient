@@ -26,6 +26,17 @@ function PainDrawingBoard() {
             .addClass('active-part');
     };
 
+    this.clearErrorStatus = function ($question) {
+        $question = $($question);
+
+        if ($question.hasClass('error')) {
+            $question
+                .removeClass('error')
+                .find('.error-label')
+                .remove();
+        }
+    };
+
     this.removeSymptomsBars = function (path) {
         snap(path)
             .attr({
@@ -146,6 +157,7 @@ function PainDrawingBoard() {
 
         if (data.tags && data.tags.length > 0) {
             this.addSymptomsToChart(data.bodyName, data.tags);
+            this.clearErrorStatus('#pain-drawing-board');
         } else {
             this.removeSymptomsFromChart(data.bodyName);
         }
@@ -180,6 +192,7 @@ function PainDrawingBoard() {
         } else {
             _.each(data.chartChoices, function (item) {
                 if (item[1]) {
+                    me.snapSvg = $('#{0}'.format(item[0])).closest('svg').get(0);
                     me.addSymptomsToChart(item[0], item[1].split(','));
                     $('#{0}-hidden'.format(item[0])).addClass('active');
                 }

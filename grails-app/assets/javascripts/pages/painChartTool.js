@@ -20,7 +20,8 @@ function painChartTask() {
         symptomDialogSelector: '#symptom-choice-dialog',
         numberDialogSelector: '#number-mobile-dialog',
         painPercentSelector: '#pain-percent-question',
-        chartChoicesSelector: '#svg-choice-result input'
+        chartChoicesSelector: '#svg-choice-result input',
+        svgResultGroupSelector: '#svg-choice-result'
     });
 
     this.children({
@@ -52,13 +53,24 @@ function painChartTask() {
             .append(ERROR_SCORE_LABEL);
     };
 
-    this.isSelectScoreChecked = function ($question) {
-        if ($question.data('optional') === true || $question.find('#no-pain-toggle:checked').length > 0) {
+    this.checkAllInputValue = function () {
+        return  this.select('svgResultGroupSelector').find('.active').length > 0;
+    };
+
+    this.isSpecialQuestionChecked = function ($question) {
+        if($question.find('#no-pain-toggle:checked').length > 0) {
             return true;
         }
 
-        var score = $question.find('#select-percent-score').text().trim();
-        return +score === 100;
+        if ($question.data('chart') === true && !this.checkAllInputValue()) {
+            this.setErrorStatus($question);
+            return false;
+        }
+        if( $question.data('select') === true && +$question.find('#select-percent-score').text().trim() !== 100){
+            this.setSelectErrorStatus($question);
+            return false;
+        }
+        return true;
     };
 
     this.formSubmit = function () {
@@ -70,23 +82,21 @@ function painChartTask() {
             this.isFormSubmit = true;
         }
 
+        _.each($specialQuestionLists, function (questionEl) {
+            var $question = $(questionEl);
+
+            if (!this.isSpecialQuestionChecked($question)) {
+                this.errorQuestions.push($question);
+                isValid = false;
+            }
+        }, this);
+
         _.each($questionLists, function (questionEl) {
             var $question = $(questionEl);
 
             if (!this.isQuestionChecked($question)) {
                 this.errorQuestions.push($question);
                 this.setErrorStatus($question);
-
-                isValid = false;
-            }
-        }, this);
-
-        _.each($specialQuestionLists, function (questionEl) {
-            var $question = $(questionEl);
-
-            if (!this.isSelectScoreChecked($question)) {
-                this.errorQuestions.push($question);
-                this.setSelectErrorStatus($question);
 
                 isValid = false;
             }
