@@ -190,7 +190,7 @@ class TaskService extends RatchetAPIService {
         def OSName = userAgentIdentService.getOperatingSystem()
 
         if (mixedResult) {
-            mixedResult = new JsonBuilder(mixedResult).toPrettyString()
+            mixedResult = new JsonBuilder(mixedResult).toString()
         }
         String json = JsonOutput.toJson([code: code, answer: answer, mixedResult: mixedResult, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
 

@@ -58,7 +58,7 @@ function painChartTask() {
     };
 
     this.isSpecialQuestionChecked = function ($question) {
-        if($question.find('#no-pain-toggle:checked').length > 0) {
+        if($('#no-pain-toggle:checked').length > 0) {
             return true;
         }
 

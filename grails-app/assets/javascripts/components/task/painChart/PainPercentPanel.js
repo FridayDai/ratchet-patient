@@ -11,14 +11,14 @@ function PainPercentPanel() {
     });
 
     this.clearErrorStatus = function () {
-        var $question = $('#pain-percent-question');
-
-        if ($question.hasClass('error')) {
-            $question
-                .removeClass('error')
-                .find('.error-label')
-                .remove();
-        }
+        _.each($('.question-list-special'), function(question) {
+            if ($(question).hasClass('error')) {
+                $(question)
+                    .removeClass('error')
+                    .find('.error-label')
+                    .remove();
+            }
+        });
     };
 
     this.initSelectMenuButtonText = function () {
