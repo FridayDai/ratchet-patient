@@ -117,7 +117,7 @@ function KOOSLike() {
     };
 
     this.showTipInSection = function () {
-        var top = $('body').scrollTop();
+        var top = $('html,body').scrollTop();
         var firstLimitTop = $('form .answer-limit-tip:first').offset().top;
         var tipHeight = 33;
         var bottom = $('#header')[0].getBoundingClientRect().bottom || $('#header').height();
