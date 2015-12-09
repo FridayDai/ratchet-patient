@@ -122,7 +122,8 @@ function KOOSLike() {
         var lastScrollTop = target.data('lastScrollTop') || 0;
         var tipHeight = (scrollTop > lastScrollTop)? 0 : 33; //with tip height, up get top, down get bottom.
 
-        //getBoundingClientRect don't work with safari in iPad. So, I use this method to get dynamic header height in the viewport
+        //getBoundingClientRect don't work with safari in iPad.
+        // So, I use this method to get dynamic header height in the viewport
         var bottom = $('#header').height() - (scrollTop - $('#header').offset().top);
 
         var headerBaseline = scrollTop + bottom;
