@@ -133,7 +133,8 @@ function painChartTask() {
 
         this.trigger('initDraftAnswer', {
             chartChoices: choices,
-            noPain: this.draftAnswer.noPain
+            noPain: this.draftAnswer.noPain,
+            draft: this.draftAnswer
         });
     };
 

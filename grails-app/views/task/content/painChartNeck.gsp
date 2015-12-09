@@ -143,7 +143,7 @@
                     </div>
                 </div>
 
-                <div id="pain-percent-question" class="question-list-special" data-select="${'true'.toBoolean()}">
+                <div id="pain-percent-question" class="question-list-special" data-select="${true}" data-percentage-keys="[9, 10, 11]">
                     <div class="question">
                         <div>What percent of your pain is NECK pain vs. SHOULDER pain vs. ARM pain?</div>
 
@@ -154,8 +154,7 @@
                         <div class="select-contain">
                             <span class="select-group">
                                 <select class="select-menu" name="choices.9">
-                                    <option value="0">0</option>
-                                    <g:each var="j" in="${(1..<10)}">
+                                    <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'9' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
@@ -165,8 +164,7 @@
 
                             <span class="select-group">
                                 <select class="select-menu" name="choices.10">
-                                    <option value="0">0</option>
-                                    <g:each var="j" in="${(1..<10)}">
+                                    <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'10' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
@@ -175,8 +173,7 @@
 
                             <span class="select-group">
                                 <select class="select-menu" name="choices.11">
-                                    <option value="0">0</option>
-                                    <g:each var="j" in="${(1..<10)}">
+                                    <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'11' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>

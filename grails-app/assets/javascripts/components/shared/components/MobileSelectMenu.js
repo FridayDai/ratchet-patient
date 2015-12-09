@@ -21,7 +21,7 @@ function MobileSelectMenu() {
                 this._super();
                 var text = this.options.defaultButtonText;
 
-                if(text && this.element[0].selectedIndex === 0) {
+                if(text && this.element.find('option').filter('[selected]').length === 0) {
                     this._setText( this.buttonText, text );
                 }
             },
