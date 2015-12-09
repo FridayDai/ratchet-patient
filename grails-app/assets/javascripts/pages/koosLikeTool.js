@@ -116,16 +116,22 @@ function KOOSLike() {
         }
     };
 
-    this.showTipInSection = function () {
-        var top = $(window).scrollTop();
-        var firstLimitTop = $('form .answer-limit-tip:first').offset().top;
-        var tipHeight = 33;
-        var bottom = $('#header')[0].getBoundingClientRect().bottom || $('#header').height();
-        var headerBaseline = top + bottom;
+    this.showTipInSection = function (e) {
+        var scrollTop = $(window).scrollTop();
+        var target = $(e.currentTarget);
+        var lastScrollTop = target.data('lastScrollTop') || 0;
+        var tipHeight = (scrollTop > lastScrollTop)? 0 : 33; //with tip height, up get top, down get bottom.
+
+        //getBoundingClientRect don't work with safari in iPad.
+        // So, I use this method to get dynamic header height in the viewport
+        var bottom = $('#header').height() - (scrollTop - $('#header').offset().top);
+
+        var headerBaseline = scrollTop + bottom;
         var headerTip = $('#header .tip-wrap');
+        var firstLimitTop = $('form .answer-limit-tip:first').offset().top;
         var self = this;
 
-        if (top < (firstLimitTop - bottom + tipHeight)) {
+        if (scrollTop < (firstLimitTop - bottom + tipHeight)) {
             headerTip.remove();
             return;
         }
@@ -147,6 +153,8 @@ function KOOSLike() {
                 //this section token is in using.
             }
         });
+
+        target.data('lastScrollTop', scrollTop);
     };
 
     this.listenScroll = function() {
