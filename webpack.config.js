@@ -34,7 +34,8 @@ module.exports = {
             "jquery-ui-selectmenu": "bower_components/jquery-ui/ui/selectmenu.js",
             headroom: "bower_components/headroom.js/dist/headroom.js",
             "jquery-headroom": "bower_components/headroom.js/dist/jQuery.headroom.js",
-            "snapsvg": "bower_components/Snap.svg/dist/snap.svg.js"
+            "snapsvg": "bower_components/Snap.svg/dist/snap.svg.js",
+            "velocity": "bower_components/velocity/velocity.js"
         }
     },
     module: {

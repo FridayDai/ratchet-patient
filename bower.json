@@ -22,6 +22,7 @@
     "toast-grid": "~1.0.0",
     "jquery-form": "~3.46.0",
     "lodash": "~3.10.1",
-    "Snap.svg": "snap.svg#~0.4.1"
+    "Snap.svg": "snap.svg#~0.4.1",
+    "velocity": "~1.2.3"
   }
 }
