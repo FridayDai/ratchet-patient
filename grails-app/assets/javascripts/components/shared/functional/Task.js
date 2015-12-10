@@ -65,7 +65,7 @@ function Task() {
                     $header.velocity({top: -top}, {duration: 200});
                 }, 0);
             }
-        }
+        };
     })();
 
     this.initHeadroom = function () {
