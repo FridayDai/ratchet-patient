@@ -43,7 +43,7 @@ function Task() {
         this.errorQuestions = [];
     };
 
-    this.moveHeader = (function () {
+    this.toggleHeader = (function () {
         var top = 0;
         var $header = $('#header');
         var $maintenance = $('#maintenance');
@@ -79,11 +79,11 @@ function Task() {
                 up: 20
             },
             offset: 205,
-            onPin: function () {
-                me.moveHeader(true);
+            onTop: function () {
+                me.toggleHeader(true);
             },
-            onUnpin: function () {
-                me.moveHeader();
+            onNotTop: function () {
+                me.toggleHeader();
             }
         });
     };
