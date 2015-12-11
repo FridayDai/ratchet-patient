@@ -9,7 +9,13 @@ var Utility = require('../utils/Utility');
 var SECTION_ALLOW_MIN_FINISHED = [0, 0, 0, 0, 0, 4, 5, 9, 3, 2, 3, 5, 9, 2, 2];
 var SECTION_SUCCESS_STRING = "Great! You’ve completed the minimum required questions for this section.";
 
+var TIP_WRAP_TEMP = '<div class="tip-wrap"><div class="answer-limit-tip tip-container"></div></div>';
+
 function KOOSLike() {
+    this.attributes({
+        fixedTipWrapSelector: '#header .answer-limit-tip'
+    });
+
     this.scrollToTopError = function () {
         var first = this.errorQuestions[0];
         this.headerTipError(first);
@@ -59,9 +65,13 @@ function KOOSLike() {
     };
 
     this.headerTipError = function ($questionList) {
-        $('#header .tip-wrap').remove();
-        var tip = $questionList.parent(".section-list").find('.answer-limit-tip:first');
-        tip.clone().addClass('tip-container').appendTo('#header').wrap("<div class='tip-wrap'></div>");
+        var $tip = $questionList.parent(".section-list").find('.answer-limit-tip:first');
+        var tipText = $tip.text().trim();
+
+        this.select('fixedTipSelector')
+            .text(tipText)
+            .attr('class', $tip.attr('class'))
+            .addClass('tip-container');
     };
 
     this.getNotFinishedQuestions = function ($sectionList, noErrorTip) {
@@ -116,66 +126,118 @@ function KOOSLike() {
         }
     };
 
-    this.showTipInSection = function (e) {
-        var scrollTop = $(window).scrollTop();
-        var target = $(e.currentTarget);
-        var lastScrollTop = target.data('lastScrollTop') || 0;
-        var tipHeight = (scrollTop > lastScrollTop)? 0 : 33; //with tip height, up get top, down get bottom.
-
-        //getBoundingClientRect don't work with safari in iPad.
-        // So, I use this method to get dynamic header height in the viewport
-        var bottom = $('#header').height() - (scrollTop - $('#header').offset().top);
-
-        var headerBaseline = scrollTop + bottom;
-        var headerTip = $('#header .tip-wrap');
-        var firstLimitTop = $('form .answer-limit-tip:first').offset().top;
-        var self = this;
-
-        if (scrollTop < (firstLimitTop - bottom + tipHeight)) {
-            headerTip.remove();
-            return;
-        }
-
-        _.forEach(this.sectionsOffset, function (section, sectionId) {
-            if (self.sectionToken[sectionId] && headerBaseline > section.top && headerBaseline < section.bottom) {
-                setTimeout(function () {
-                    var answerTip = $("#{0}".format(sectionId)).find('.answer-limit-tip');
-
-                    headerTip.remove();
-                    answerTip.clone().addClass('tip-container')
-                        .appendTo('#header').wrap("<div class='tip-wrap'></div>");
-
-                    self.sectionToken[sectionId] = true;
-                    //this section toke is idle.
-                }, 10);
-
-                self.sectionToken[sectionId] = false;
-                //this section token is in using.
-            }
-        });
-
-        target.data('lastScrollTop', scrollTop);
-    };
-
-    this.listenScroll = function() {
-        $(window).scroll(_.bind(this.showTipInSection, this));
-    };
-
     this.initHeaderTip = function () {
-        var token = {};
-        var sectionListOffset = {};
+        this.sectionsOffset = {};
+
         _.forEach($(".section-list"), function (ele) {
+            var $section = $(ele);
+            var $tip = $section.find('.answer-limit-tip');
+            var tipHeight = $tip.outerHeight();
             var sectionId = ele.id;
-            var top = $(ele).offset().top;
-            var bottom = top + $(ele).outerHeight();
-            sectionListOffset[sectionId] = {
+            var top = $section.offset().top;
+            var bottom = top + $section.outerHeight(true);
+
+            this.sectionsOffset[sectionId] = {
+                self: $section,
+                $tip: $tip,
+                tipBottom: top + tipHeight,
                 top: top,
                 bottom: bottom
             };
-            token[sectionId] = true;
+        }, this);
+
+        $(TIP_WRAP_TEMP)
+            .appendTo(this.select('headerPanelSelector'))
+            .hide();
+
+        this.showTipInSection = (function () {
+            var $header = $('#header');
+            var $fixedTipWrap = $header.find('.tip-wrap');
+            var $fixedTip = $fixedTipWrap.find('.answer-limit-tip');
+            var $firstTip = $('form .answer-limit-tip:first');
+            var firstTipBottom = $firstTip.offset().top + $firstTip.outerHeight();
+            var $hiddenTip = null;
+
+            return function () {
+                var windowScrollTop = $(window).scrollTop();
+
+                // Since header will auto move up and down, so we should reduce moved up number
+                var currentHeaderTopMoved = Number($header.css('top').replace('px', ''), 10);
+                var headerHeight = $header.height() + currentHeaderTopMoved;
+                var fixedTipHeight = $fixedTipWrap.outerHeight();
+                var fixedTipTop = 0;
+                var fixedTipBottom = 0;
+
+                if (Utility.isMobile()) {
+                    if ($fixedTipWrap.is(':visible')) {
+                        fixedTipTop = windowScrollTop;
+                        fixedTipBottom = fixedTipTop + fixedTipHeight;
+                    } else {
+                        fixedTipTop = windowScrollTop;
+                        fixedTipBottom = fixedTipTop;
+                    }
+                } else {
+                    if ($fixedTipWrap.is(':visible')) {
+                        fixedTipBottom = windowScrollTop + headerHeight;
+                        fixedTipTop = fixedTipBottom - fixedTipHeight;
+                    } else {
+                        fixedTipTop = windowScrollTop + headerHeight;
+                        fixedTipBottom = fixedTipTop;
+                    }
+                }
+
+                if (fixedTipTop < firstTipBottom) {
+                    $fixedTipWrap.hide();
+
+                    if ($hiddenTip) {
+                        $hiddenTip.removeClass('visibility-hide');
+                    }
+
+                    return;
+                }
+
+                _.forEach(this.sectionsOffset, function (section) {
+                    if (fixedTipBottom >= section.top && fixedTipBottom < section.bottom) {
+                        var tipText = section.$tip.text().trim();
+
+                        if (tipText !== $fixedTip.text().trim()) {
+                            $fixedTip
+                                .text(tipText)
+                                .attr('class', section.$tip.attr('class'))
+                                .addClass('tip-container');
+                        }
+
+                        if ($hiddenTip) {
+                            $hiddenTip.removeClass('visibility-hide');
+                        }
+
+                        $hiddenTip = section.$tip.addClass('visibility-hide');
+                        $fixedTipWrap.show();
+                    }
+                });
+            };
+        })();
+    };
+
+    this.listenScroll = function() {
+        var me = this;
+        var now = Date.now();
+        var lastTime = now;
+
+        $(window).scroll(function () {
+            now = Date.now();
+
+            if (now - lastTime > 200) {
+                me.delayShowFixTip();
+                lastTime = now;
+            }
         });
-        this.sectionsOffset = sectionListOffset;
-        this.sectionToken = token;
+
+        this.delayShowFixTip();
+    };
+
+    this.delayShowFixTip = function () {
+        setTimeout(_.bind(this.showTipInSection, this), 0);
     };
 
     this.initDraftAnswer = function () {
@@ -189,10 +251,8 @@ function KOOSLike() {
     this.after('initialize', function () {
         this.initDraftAnswer();
 
-        if (!Utility.isMobile()) {
-            this.initHeaderTip();
-            this.listenScroll();
-        }
+        this.initHeaderTip();
+        this.listenScroll();
     });
 }
 
