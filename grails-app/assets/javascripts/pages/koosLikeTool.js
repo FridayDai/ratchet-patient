@@ -159,14 +159,14 @@ function KOOSLike() {
             var $hiddenTip = null;
 
             return function () {
-                var windowScrollTop = $(window).scrollTop();
+                var windowScrollTop = $(window).scrollTop(),
 
                 // Since header will auto move up and down, so we should reduce moved up number
-                var currentHeaderTopMoved = Number($header.css('top').replace('px', ''), 10);
-                var headerHeight = $header.height() + currentHeaderTopMoved;
-                var fixedTipHeight = $fixedTipWrap.outerHeight();
-                var fixedTipTop = 0;
-                var fixedTipBottom = 0;
+                    currentHeaderTopMoved = Number($header.css('top').replace('px', ''), 10),
+                    headerHeight = $header.height() + currentHeaderTopMoved,
+                    fixedTipHeight = $fixedTipWrap.outerHeight(),
+                    fixedTipTop = 0,
+                    fixedTipBottom = 0;
 
                 if (Utility.isMobile()) {
                     if ($fixedTipWrap.is(':visible')) {
