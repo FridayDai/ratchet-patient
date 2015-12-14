@@ -221,14 +221,17 @@ function KOOSLike() {
     };
 
     this.listenScroll = function() {
-        var me = this;
-        var now = Date.now();
-        var lastTime = now;
+        var me = this,
+            now = Date.now(),
+            lastTime = now,
+            $window = $(window);
 
         $(window).scroll(function () {
             now = Date.now();
 
-            if (now - lastTime > 200) {
+            if ($window.scrollTop() <= 100) {
+                me.delayShowFixTip();
+            } else if(now - lastTime > 200) {
                 me.delayShowFixTip();
                 lastTime = now;
             }
