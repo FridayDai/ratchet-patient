@@ -27,7 +27,7 @@ function KOOSLike() {
         window.scrollTo(0, top);
     };
 
-    this.formSubmit = function () {
+    this.formSubmit = function (e) {
         var $sectionLists = this.select('formSelector').find('.section-list');
         var isValid = true;
 
@@ -55,7 +55,8 @@ function KOOSLike() {
             this.scrollToTopError();
             this.errorQuestions = [];
 
-            event.returnValue = false;
+            e.returnValue = false;
+            e.preventDefault();
             return false;
         }
 

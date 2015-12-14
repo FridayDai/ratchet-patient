@@ -46,6 +46,13 @@
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
             background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
+
+        .task-done-btn[disabled], .task-done-btn[disabled]:hover {
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: #ffffff !important;
+            cursor: default;
+            opacity: 0.3;
+        }
         </style>
 
         <g:if test="${isInClinic}">
@@ -154,7 +161,7 @@
             <input type="hidden" name="emailStatus" value="${emailStatus}">
 
             <div class="task-done-panel">
-                <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
+                <input type="submit" name="submit" class="rc-btn task-done-btn" value="I'm Done">
             </div>
         </form>
     </div>

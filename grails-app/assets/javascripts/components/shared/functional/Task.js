@@ -103,7 +103,7 @@ function Task() {
         });
     };
 
-    this.formSubmit = function () {
+    this.formSubmit = function (e) {
         var $questionLists = this.select('formSelector').find('.question-list');
         var isValid = true;
 
@@ -126,7 +126,8 @@ function Task() {
             this.scrollToTopError();
             this.errorQuestions.length = 0;
 
-            event.returnValue = false;
+            e.returnValue = false;
+            e.preventDefault();
             return false;
         }
 

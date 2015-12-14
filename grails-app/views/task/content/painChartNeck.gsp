@@ -55,6 +55,13 @@
         .modal+.ui-dialog-buttonpane button:hover,  .modal .ui-dialog-buttonpane button:focus {
             background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
+
+        .task-done-btn[disabled], .task-done-btn[disabled]:hover {
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: #ffffff !important;
+            cursor: default;
+            opacity: 0.3;
+        }
         </style>
 
         <g:if test="${isInClinic}">
@@ -294,7 +301,7 @@
                 <input type="hidden" name="hardcodeTask" value="true">
 
                 <div class="task-done-panel">
-                    <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
+                    <input type="submit" name="submit" class="rc-btn task-done-btn" value="I'm Done">
                 </div>
             </form>
 

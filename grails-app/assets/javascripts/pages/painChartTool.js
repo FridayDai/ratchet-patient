@@ -73,7 +73,7 @@ function painChartTask() {
         return true;
     };
 
-    this.formSubmit = function () {
+    this.formSubmit = function (e) {
         var $questionLists = this.select('formSelector').find('.question-list');
         var $specialQuestionLists = this.select('formSelector').find('.question-list-special');
         var isValid = true;
@@ -106,7 +106,8 @@ function painChartTask() {
             this.scrollToTopError();
             this.errorQuestions.length = 0;
 
-            event.returnValue = false;
+            e.returnValue = false;
+            e.preventDefault();
             return false;
         }
 
