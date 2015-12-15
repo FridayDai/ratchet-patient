@@ -30,6 +30,10 @@ class UrlMappings {
             action = [GET: "getTreatmentTasks", POST: "checkPath"]
         }
 
+        "/tasks/$taskId/save-draft-answer"(controller: "multiTask") {
+            action = [POST: "saveDraftAnswer"]
+        }
+
         // Help
         "/patient/assist/$patientId"(controller: "assist", action: "index")
         "/care-giver/assist/$careGiverId"(controller: "assist", action: "assistCareGiver")

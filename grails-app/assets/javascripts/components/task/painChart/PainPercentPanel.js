@@ -6,18 +6,19 @@ function PainPercentPanel() {
     this.attributes({
         painToggleSelector: '#no-pain-toggle',
         selectMenuSelector: '.select-menu',
-        resultNumberSelector: '#select-percent-number'
+        resultNumberSelector: '#select-percent-number',
+        resultScoreSelector: '#select-percent-score'
     });
 
     this.clearErrorStatus = function () {
-        var $question = $('#pain-percent-question');
-
-        if ($question.hasClass('error')) {
-            $question
-                .removeClass('error')
-                .find('.error-label')
-                .remove();
-        }
+        _.each($('.question-list-special'), function(question) {
+            if ($(question).hasClass('error')) {
+                $(question)
+                    .removeClass('error')
+                    .find('.error-label')
+                    .remove();
+            }
+        });
     };
 
     this.initSelectMenuButtonText = function () {
@@ -64,6 +65,11 @@ function PainPercentPanel() {
         } else {
             this.trigger('toggleAllHumanBody', toggle);
             this.toggleSelectMenu(toggle);
+
+            this.triggerPainPercentSelectSuccess(
+                'noPain',
+                toggle.checked ? 1 : 0
+            );
         }
     };
 
@@ -90,6 +96,11 @@ function PainPercentPanel() {
                         $(this).dialog("close");
                         me.trigger('toggleAllHumanBody', toggle);
                         me.toggleSelectMenu(toggle);
+
+                        me.triggerPainPercentSelectSuccess(
+                            'noPain',
+                            toggle.checked ? 1 : 0
+                        );
                     }
                 }
             ]
@@ -102,24 +113,59 @@ function PainPercentPanel() {
 
     this.initSelectMenu = function () {
         var self = this;
+
         this.select('selectMenuSelector').selectmenu({
             width: 70,
             defaultButtonText: '- - ',
-            select: function () {
-                var score = 0;
-                _.forEach($('.select-contain .select-menu'), function (element) {
-                    score = score + Number($(element).val());
-                });
-                var result = $('#select-percent-score');
-                result.text(score);
-                if (score === 100) {
-                    self.clearResultError();
-                    self.clearErrorStatus();
-                } else {
-                    self.addResultError();
-                }
+            select: function (e, ui) {
+                self.sumScore();
+
+                self.triggerPainPercentSelectSuccess(
+                    $(this).attr('name').replace('choices.', ''),
+                    ui.item.value
+                );
             }
         });
+    };
+
+    this.triggerPainPercentSelectSuccess = function (question, answer) {
+        this.trigger('painPercentSelectSuccess', {
+            question: question,
+            answer: answer
+        });
+    };
+
+    this.sumScore = function () {
+        var score = 0;
+
+        _.forEach(this.select('selectMenuSelector'), function (element) {
+            score = score + Number($(element).val());
+        });
+
+
+        this.select('resultScoreSelector').text(score);
+
+        if (score === 100) {
+            this.clearResultError();
+            this.clearErrorStatus();
+        } else {
+            this.addResultError();
+        }
+    };
+
+    this.checkMenuKeys = function (data) {
+        return _.any(this.$node.data('percentageKeys'), function (key) {
+            return key in data;
+        });
+    };
+
+    this.onInitDraftAnswer = function (e, data) {
+        if (data.noPain) {
+            this.select('painToggleSelector').prop('checked', true);
+            this.toggleSelectMenu({checked: true});
+        } else if (this.checkMenuKeys(data.draft)){
+            this.sumScore();
+        }
     };
 
     this.after('initialize', function () {
@@ -130,6 +176,7 @@ function PainPercentPanel() {
         });
 
         this.on(document, 'painActiveCheckResponse', this.togglePainChartAndSelect);
+        this.on(document, 'initDraftAnswer', this.onInitDraftAnswer);
     });
 
 }

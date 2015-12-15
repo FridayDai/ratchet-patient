@@ -1,3 +1,4 @@
+<%@ page import="com.ratchethealth.patient.RatchetStatusCode" %>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
 <g:set var="scriptPath" value="dist/koosLikeTool.bundle.js"/>
 <g:set var="cssPath" value="task/koos"/>
@@ -45,6 +46,13 @@
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
             background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
+
+        .task-done-btn[disabled], .task-done-btn[disabled]:hover {
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: #ffffff !important;
+            cursor: default;
+            opacity: 0.3;
+        }
         </style>
 
         <g:if test="${isInClinic}">
@@ -60,13 +68,19 @@
 
         <form id="koos" name="koos" method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
+            <input type="hidden" name="taskId" value="${Task.taskId}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
             <div class="task-list-wrapper container">
                 <% def firstTitle = "" %>
                 <% def secondTitle = "" %>
                 <g:each var="section" in="${Task.sections}" status="i">
-                    <div class="section-list" value="${section.id}">
+
+                    <div id="section-id-${section.id}" class="section-list" value="${section.id}">
+                        <div class="answer-limit-tip">
+                            Please answer at least ${RatchetStatusCode.choicesLimit[section.id]} questions from the following.
+                        </div>
+
                         <g:if test="${section.title.startsWith("<h3>Symptoms") || section.title.startsWith("<h3>Pain")}">
                             <% def splitTitle%>
                             <% splitTitle = section.title.split(/\(#\)/) %>
@@ -79,8 +93,6 @@
                         <g:else>
                             <div class="section-title">${raw(section.title)}</div>
                         </g:else>
-
-
 
                         <g:each var="question" in="${section.questions}" status="j">
 
@@ -120,7 +132,8 @@
                                                     <input type="radio" class="rc-choice-hidden"
                                                            name="choices.${question.id}"
                                                            value="${choice.id}.${choice.sequence}"
-                                                           <g:if test="${choices && choices["${question.id}"]?.endsWith(choice.sequence)}">checked</g:if>/>
+                                                           <g:if test="${(choices && choices["${question.id}"]?.endsWith(choice.sequence)) ||
+                                                                   choice.id == question.draftChoice}">checked</g:if>/>
                                                     <span class="rc-radio"></span>
                                                 </label>
                                             </li>
@@ -148,7 +161,7 @@
             <input type="hidden" name="emailStatus" value="${emailStatus}">
 
             <div class="task-done-panel">
-                <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
+                <input type="submit" name="submit" class="rc-btn task-done-btn" value="I'm Done">
             </div>
         </form>
     </div>

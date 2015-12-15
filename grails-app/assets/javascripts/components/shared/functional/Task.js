@@ -1,7 +1,9 @@
 require('headroom');
 require('jquery-headroom');
+require('velocity');
 
 var Utility = require('../../../utils/Utility');
+var URLs = require('../../../constants/Urls');
 
 var LEAVE_CONFIRMATION_MSG = "We won't be able to save your progress as the result is time sensitive." +
     "Leaving the task half way will lose your progress.";
@@ -24,18 +26,52 @@ function Task() {
         submitButtonSelector: 'input[type="submit"]',
         choiceItemSelector: '.answer',
         questionLabelSelector: '.question',
-        questionErrorMarkerSelector: '.error-label'
+        questionErrorMarkerSelector: '.error-label',
+        taskIdFieldSelector: '[name="taskId"]',
+        codeFieldSelector: '[name="treatmentCode"]',
+        radioHiddenFieldSelector: '.rc-choice-hidden'
     });
 
     this.initPrivates = function () {
+        var $taskId = this.select('taskIdFieldSelector');
+        var $code = this.select('codeFieldSelector');
+
         this.isFormSubmit = false;
+        this.taskId = $taskId.val().trim();
+        this.code = $code.val().trim();
 
         this.errorQuestions = [];
     };
 
+    this.toggleHeader = (function () {
+        var top = 0;
+        var $header = $('#header');
+        var $maintenance = $('#maintenance');
+        var $mainHeader = $('.main-header');
+
+        return function (reset) {
+            if (!Utility.isMobile()) {
+                if (reset) {
+                    top = 0;
+                } else {
+                    top = $mainHeader.outerHeight();
+
+                    if ($maintenance.is(':visible')) {
+                        top += $maintenance.outerHeight();
+                    }
+                }
+
+                setTimeout(function () {
+                    $header.velocity({top: -top}, {duration: 200});
+                }, 0);
+            }
+        };
+    })();
+
     this.initHeadroom = function () {
+        var me = this;
         var $header = this.select('headerPanelSelector');
-        var $maintenanceTip = this.select('maintenanceTipSelector');
+
 
         $header.headroom({
             tolerance: {
@@ -43,20 +79,11 @@ function Task() {
                 up: 20
             },
             offset: 205,
-            onUnpin: function () {
-                if ($maintenanceTip.length) {
-                    this.classes.unpinned = "headroom--banner--unpinned";
-
-                    if ($header.hasClass('headroom--unpinned')) {
-                        $header.removeClass('headroom--unpinned');
-                    }
-                } else {
-                    this.classes.unpinned = "headroom--unpinned";
-
-                    if ($header.hasClass('headroom--banner--unpinned')) {
-                        $header.removeClass('headroom--banner--unpinned');
-                    }
-                }
+            onTop: function () {
+                me.toggleHeader(true);
+            },
+            onNotTop: function () {
+                me.toggleHeader();
             }
         });
     };
@@ -76,7 +103,7 @@ function Task() {
         });
     };
 
-    this.formSubmit = function () {
+    this.formSubmit = function (e) {
         var $questionLists = this.select('formSelector').find('.question-list');
         var isValid = true;
 
@@ -99,7 +126,8 @@ function Task() {
             this.scrollToTopError();
             this.errorQuestions.length = 0;
 
-            event.returnValue = false;
+            e.returnValue = false;
+            e.preventDefault();
             return false;
         }
 
@@ -164,14 +192,39 @@ function Task() {
     this.onChoiceItemClicked = function (e) {
         var $target = $(e.target);
 
-        $target
-            .closest(this.attr.choiceItemSelector)
-            .find('[type="radio"].rc-choice-hidden')
-            .prop('checked', true);
+        if (!$target.is('input.rc-choice-hidden')) {
+            $target
+                .closest(this.attr.choiceItemSelector)
+                .find('[type="radio"].rc-choice-hidden')
+                .prop('checked', true);
 
-        this.setTip();
+            this.setTip();
 
-        this.clearErrorStatus($target.closest('.question-list'));
+            this.clearErrorStatus($target.closest('.question-list'));
+
+            this.prepareDraftAnswer($target);
+        }
+    };
+
+    this.prepareDraftAnswer = function ($target) {
+        var $answer = $target.closest('.answer');
+        var $hiddenRadio = $answer.find('.rc-choice-hidden');
+        var questionId = $hiddenRadio.attr('name').replace('choices.', '');
+        var answerId = $hiddenRadio.val().replace(/\..*/gi, '');
+
+        this.saveDraftAnswer(questionId, answerId);
+    };
+
+    this.saveDraftAnswer = function (questionId, answerId) {
+        $.ajax({
+            url: URLs.SAVE_DRAFT_ANSWER.format(this.taskId),
+            type: 'POST',
+            data: {
+                code: this.code,
+                questionId: questionId,
+                answerId: answerId
+            }
+        });
     };
 
     this.setTip = (function () {

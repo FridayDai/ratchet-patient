@@ -214,7 +214,7 @@
 }
 
 // dialog warn
-.ui-size {
+.ui-dialog-warning {
     min-width: 450px;
     @include breakpoint('mobile') {
         min-width: 320px;
@@ -235,7 +235,18 @@
         }
 
         .ui-dialog-title {
-            display: none;
+            float: none;
+            display: block;
+            margin: auto;
+            text-align: center;
+
+            &:before {
+                content: '\f100';
+                color: $base-color-white;
+                font-weight: lighter;
+                font-size: 27px;
+                font-family: ionicons;
+            }
         }
     }
 
@@ -342,20 +353,6 @@
                 span {
                     color: $base-color-warn;
                 }
-            }
-        }
-    }
-
-    .ui-icon-show {
-        &:before {
-            margin: auto;
-            content: '\f100';
-            color: $base-color-white;
-            font-weight: lighter;
-            font-size: 27px;
-            font-family: ionicons;
-            @include breakpoint('mobile') {
-                content: '';
             }
         }
     }

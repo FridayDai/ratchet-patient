@@ -72,13 +72,14 @@
 			<p>7-10 = Severe Pain (disabling; unable to perform activities of daily living)</p>
 		</div>
 
-		<form id="nrs" name="nrs" method="post">
+		<form id="nrs" name="nrs" method="post" data-draft="${Draft}">
 			<input type="hidden" name="code" value="${taskCode}"/>
+			<input type="hidden" name="taskId" value="${Task.taskId}"/>
 			<input type="hidden" name="taskType" value="${Task.type}"/>
 
 			<div class="task-list-wrapper container">
 				<g:each var="question" in="${Task.questions}" status="i">
-					<div class="question-list <g:if test="${errors && errors[i]}">error</g:if>">
+					<div class="question-list <g:if test="${errors && errors[i]}">error</g:if>" data-index="${i}">
 						<div class="question primary-color">
 							${raw(question.title)}
 							<g:if test="${errors && errors[i]}">
@@ -115,6 +116,7 @@
 													<g:if test="${i == 0 && choices?.neck == j.toString()}"> checked</g:if>
 													<g:if test="${i == 1 && choices?.arm == j.toString()}"> checked</g:if>
 												</g:if>
+												<g:if test="${Draft && Draft[i.toString()] == j.toString()}"> checked</g:if>
 												   value="${j}"/>
 											<span class="rc-radio"></span>
 										</label>

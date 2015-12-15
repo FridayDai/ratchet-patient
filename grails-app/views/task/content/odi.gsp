@@ -42,6 +42,13 @@
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
             background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
+
+        .task-done-btn[disabled], .task-done-btn[disabled]:hover {
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: #ffffff !important;
+            cursor: default;
+            opacity: 0.3;
+        }
         </style>
 
         <g:if test="${isInClinic}">
@@ -57,6 +64,7 @@
 
         <form action="" method="post">
             <input type="hidden" name="code" value="${taskCode}"/>
+            <input type="hidden" name="taskId" value="${Task.taskId}"/>
             <input type="hidden" name="taskType" value="${Task.type}"/>
 
             <div class="task-list-wrapper container">
@@ -83,7 +91,8 @@
                                                    class="rc-choice-hidden"
                                                    name="choices.${question.id}"
                                                    value="${choice.id}.${choice.sequence}"
-                                                   <g:if test="${choices && choices["${question.id}"]?.endsWith(choice.sequence)}">checked</g:if>/>
+                                                   <g:if test="${(choices && choices["${question.id}"]?.endsWith(choice.sequence)) ||
+                                                           choice.id == question.draftChoice}">checked</g:if>/>
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
                                     </li>
