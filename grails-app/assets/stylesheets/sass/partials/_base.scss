@@ -270,6 +270,14 @@ ul {
     display: block;
 }
 
+.visibility-hide {
+    visibility: hidden;
+}
+
+.visibility-show {
+    visibility: visible;
+}
+
 .error {
     color: $base-color-red;
 }

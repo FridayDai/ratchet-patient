@@ -153,11 +153,17 @@ function PainPercentPanel() {
         }
     };
 
+    this.checkMenuKeys = function (data) {
+        return _.any(this.$node.data('percentageKeys'), function (key) {
+            return key in data;
+        });
+    };
+
     this.onInitDraftAnswer = function (e, data) {
         if (data.noPain) {
             this.select('painToggleSelector').prop('checked', true);
             this.toggleSelectMenu({checked: true});
-        } else {
+        } else if (this.checkMenuKeys(data.draft)){
             this.sumScore();
         }
     };

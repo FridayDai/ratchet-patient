@@ -1,5 +1,6 @@
 require('headroom');
 require('jquery-headroom');
+require('velocity');
 
 var Utility = require('../../../utils/Utility');
 var URLs = require('../../../constants/Urls');
@@ -42,9 +43,35 @@ function Task() {
         this.errorQuestions = [];
     };
 
+    this.toggleHeader = (function () {
+        var top = 0;
+        var $header = $('#header');
+        var $maintenance = $('#maintenance');
+        var $mainHeader = $('.main-header');
+
+        return function (reset) {
+            if (!Utility.isMobile()) {
+                if (reset) {
+                    top = 0;
+                } else {
+                    top = $mainHeader.outerHeight();
+
+                    if ($maintenance.is(':visible')) {
+                        top += $maintenance.outerHeight();
+                    }
+                }
+
+                setTimeout(function () {
+                    $header.velocity({top: -top}, {duration: 200});
+                }, 0);
+            }
+        };
+    })();
+
     this.initHeadroom = function () {
+        var me = this;
         var $header = this.select('headerPanelSelector');
-        var $maintenanceTip = this.select('maintenanceTipSelector');
+
 
         $header.headroom({
             tolerance: {
@@ -52,20 +79,11 @@ function Task() {
                 up: 20
             },
             offset: 205,
-            onUnpin: function () {
-                if ($maintenanceTip.length) {
-                    this.classes.unpinned = "headroom--banner--unpinned";
-
-                    if ($header.hasClass('headroom--unpinned')) {
-                        $header.removeClass('headroom--unpinned');
-                    }
-                } else {
-                    this.classes.unpinned = "headroom--unpinned";
-
-                    if ($header.hasClass('headroom--banner--unpinned')) {
-                        $header.removeClass('headroom--banner--unpinned');
-                    }
-                }
+            onTop: function () {
+                me.toggleHeader(true);
+            },
+            onNotTop: function () {
+                me.toggleHeader();
             }
         });
     };
@@ -85,7 +103,7 @@ function Task() {
         });
     };
 
-    this.formSubmit = function () {
+    this.formSubmit = function (e) {
         var $questionLists = this.select('formSelector').find('.question-list');
         var isValid = true;
 
@@ -108,7 +126,8 @@ function Task() {
             this.scrollToTopError();
             this.errorQuestions.length = 0;
 
-            event.returnValue = false;
+            e.returnValue = false;
+            e.preventDefault();
             return false;
         }
 

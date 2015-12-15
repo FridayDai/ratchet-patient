@@ -55,7 +55,12 @@
         .modal+.ui-dialog-buttonpane button:hover,  .modal .ui-dialog-buttonpane button:focus {
             background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
-
+        .task-done-btn[disabled], .task-done-btn[disabled]:hover {
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: #ffffff !important;
+            cursor: default;
+            opacity: 0.3;
+        }
         </style>
 
         <g:if test="${isInClinic}">
@@ -142,7 +147,7 @@
                     </div>
                 </div>
 
-                <div id="pain-percent-question" class="question-list-special" data-select="${'true'.toBoolean()}">
+                <div id="pain-percent-question" class="question-list-special" data-select="${true}" data-percentage-keys="[6, 7, 8]">
                     <div class="question">
                         <div>What percent of your pain is BACK pain vs. BUTTOCK pain vs. LEG pain?</div>
 
@@ -153,19 +158,16 @@
                         <div class="select-contain">
                             <span class="select-group">
                                 <select class="select-menu" name="choices.6">
-                                    <option value="0">0</option>
-                                    <g:each var="j" in="${(1..<10)}">
+                                    <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'6' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Back <span>+</span></span>
-
                             </span>
 
                             <span class="select-group">
                                 <select class="select-menu" name="choices.7">
-                                    <option value="0">0</option>
-                                    <g:each var="j" in="${(1..<10)}">
+                                    <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'7' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
@@ -174,8 +176,7 @@
 
                             <span class="select-group">
                                 <select class="select-menu" name="choices.8">
-                                    <option value="0">0</option>
-                                    <g:each var="j" in="${(1..<10)}">
+                                    <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'8' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
