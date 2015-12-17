@@ -76,6 +76,9 @@
 
                         <div class="question primary-color">
                             Section ${i + 1}: ${question.title}
+                            <g:if test="${question.optional}">
+                                <span class="optional-label">This question is optional.</span>
+                            </g:if>
                             <g:if test="${errors && errors["${question.id}"]}">
                                 <span class="error-label">This question is required.</span>
                             </g:if>
