@@ -107,6 +107,12 @@
         font-size: 16px;
     }
 
+    .sub-question-title,
+    .sub-question-time-title,
+    .sub-question-answer .text {
+        color: #333;
+    }
+
     .question-12 {
         .sub-question-title {
             width: 100px;
@@ -192,6 +198,7 @@
         }
 
         .description {
+            color: #333;
             margin: 25px 0 15px;
         }
 
@@ -199,8 +206,15 @@
             margin: 30px 0;
         }
 
+        .extension-question.error-field {
+            .extension-question-title {
+                color: $base-color-error-circle-red;
+            }
+        }
+
         .extension-question-title {
             margin-bottom: 5px;
+            color: #333;
         }
 
         .answer {
@@ -241,6 +255,10 @@
 
     .question-list {
         &.error {
+            .sub-question-list {
+                background-color: $base-color-error-background-pink;
+            }
+
             .rc-radio {
                 border-color: #bbb;
             }
@@ -253,7 +271,7 @@
 }
 
 .ui-selectmenu-menu .ui-menu {
-    height: 176px;
+    height: 247px;
 }
 
 .ui-selectmenu-button {
@@ -262,11 +280,16 @@
 }
 
 .ui-menu .ui-menu-item {
-    padding-left: 15px;
+    padding: 8px 10px;
 }
 
 .select-menu-default-text {
     color: #999;
+}
+
+.ui-menu .ui-state-focus,
+.ui-menu .ui-state-active {
+    margin: 0;
 }
 
 .multi-date-picker-add-button {

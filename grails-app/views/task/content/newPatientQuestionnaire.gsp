@@ -66,12 +66,14 @@
                 <input type="hidden" name="taskId" value="${Task.taskId}"/>
                 <input type="hidden" name="taskType" value="${Task?.type}"/>
 
-                <div class="question-list question-1">
+                <div class="question-list question-1" id="question1">
                     <div class="question">1. How did you first hear of us?</div>
 
                     <div class="answer-list">
                         <ul class="list">
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question1 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">Patient of us <input type="text" name="choices.1.1s" class="specify-input" placeholder="Specify"/></div>
                                 <label class="choice">
                                     <input type="radio"
@@ -82,7 +84,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question1 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">Internet</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -93,7 +97,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question1 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">Friend / Family member <input type="text" name="choices.1.3s" class="specify-input" placeholder="Specify"/></div>
                                 <label class="choice">
                                     <input type="radio"
@@ -104,7 +110,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question1 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">Physician</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -115,7 +123,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question1 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">Other <input type="text" name="choices.1.5s" class="specify-input" placeholder="Specify"/></div>
                                 <label class="choice">
                                     <input type="radio"
@@ -129,7 +139,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question2">
                     <div class="question">2. What is the primary reason for you visit?</div>
 
                     <div class="answer-list">
@@ -181,12 +191,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list question-3">
+                <div class="question-list question-3" id="question3">
                     <div class="question">3. How long ago did your current symptoms begin?</div>
 
                     <div class="answer-list">
                         <ul class="list">
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question3 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">Less than 2 weeks ago</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -197,7 +209,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question3 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">2 weeks to less than 8 weeks ago</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -208,7 +222,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question3 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">8 weeks to less than 3 months ago</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -219,7 +235,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question3 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">3 months to less than 6 months ago</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -230,7 +248,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question3 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">6 to 12 months ago</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -255,14 +275,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question4">
                     <div class="question">4. Please describe your current problem / symptoms?</div>
 
                     <div class="answer-list textarea">
                         <textarea name="choices.4" placeholder="Describe symptoms..."></textarea>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question5">
                     <div class="question">5. What is your current work status?</div>
 
                     <div class="answer-list">
@@ -303,7 +323,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question6">
                     <div class="question">6. Is this a work-related injury?</div>
 
                     <div class="answer-list">
@@ -333,7 +353,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question7">
                     <div class="question">7. Have you filed a Worker's Compensation claim for your back / neck symptoms?</div>
 
                     <div class="answer-list">
@@ -352,7 +372,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer need-clear-inputs">
+                            <li class="answer need-clear-inputs"
+                                data-trigger='{"#question7 [type=text]" : "clearOtherInputs"}'
+                            >
                                 <div class="text">No</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -366,7 +388,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question8">
                     <div class="question">8. Have you worked with a lawyer as a result of your injury?</div>
 
                     <div class="answer-list">
@@ -396,12 +418,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list question-9">
+                <div class="question-list question-9" id="question9">
                     <div class="question">9. Did your pain begin after a car accident?</div>
 
                     <div class="answer-list">
                         <ul class="list">
-                            <li class="answer answer-extension-trigger-yes">
+                            <li class="answer answer-extension-trigger-yes"
+                                data-trigger='{"#question9-extension" : "show"}'
+                            >
                                 <div class="text">Yes</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -412,7 +436,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer answer-extension-trigger-no">
+                            <li class="answer answer-extension-trigger-no"
+                                data-trigger='{"#question9-extension" : "hide|reset"}'
+                            >
                                 <div class="text">No</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -424,7 +450,7 @@
                                 </label>
                             </li>
                         </ul>
-                        <div class="extension-question-list hide">
+                        <div class="extension-question-list hide" id="question9-extension">
                             <div class="description">If you were injured in a car accident please carefully fill out the questions below.</div>
                             <div class="extension-question">
                                 <div class="extension-question-title">Date of accident:</div>
@@ -523,7 +549,7 @@
                                 <div class="extension-question-title">Did you suffer any other injuries when you hurt your spine?</div>
                                 <div>
                                     <ul class="list">
-                                        <li class="answer">
+                                        <li class="answer" id="question9-extension7-yes">
                                             <div class="text">Yes <input type="text" name="choices.9.e.7.1s" class="specify-input" placeholder="List injuries"/></div>
                                             <label class="choice">
                                                 <input type="radio"
@@ -534,7 +560,9 @@
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
                                         </li>
-                                        <li class="answer need-clear-inputs">
+                                        <li class="answer need-clear-inputs"
+                                            data-trigger='{"#question9-extension7-yes [type=text]": "clearOtherInputs"}'
+                                        >
                                             <div class="text">No</div>
                                             <label class="choice">
                                                 <input type="radio"
@@ -551,12 +579,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="question-list question-10">
+                <div class="question-list question-10" id="question10">
                     <div class="question">10. Have you ever been involved in a previous car accident?</div>
 
                     <div class="answer-list">
                         <ul class="list">
-                            <li class="answer answer-extension-trigger-yes">
+                            <li class="answer" id="question10-yes"
+                                data-trigger='{"#question10-extension" : "show"}'
+                            >
                                 <div class="text">Yes
                                     <span class="specify-part">
                                         Approximate Date: <input type="text" name="choices.10.1s" class="date-picker" />
@@ -571,7 +601,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer answer-extension-trigger-no need-clear-inputs">
+                            <li class="answer answer-extension-trigger-no need-clear-inputs"
+                                data-trigger='{"#question10-extension" : "hide|reset", "#question10-yes [type=text]": "clearOtherInputs"}'
+                            >
                                 <div class="text">No</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -583,12 +615,12 @@
                                 </label>
                             </li>
                         </ul>
-                        <div class="extension-question-list hide">
+                        <div class="extension-question-list hide" id="question10-extension">
                             <div class="extension-question">
                                 <div class="extension-question-title">Was your back or neck injured?</div>
                                 <div>
                                     <ul class="list">
-                                        <li class="answer">
+                                        <li class="answer" id="question10-extension1-yes">
                                             <div class="text">Yes <input type="text" name="choices.10.e.1.1s" class="specify-input" placeholder="List injuries"/></div>
                                             <label class="choice">
                                                 <input type="radio"
@@ -599,7 +631,9 @@
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
                                         </li>
-                                        <li class="answer need-clear-inputs">
+                                        <li class="answer need-clear-inputs"
+                                            data-trigger='{"#question10-extension1-yes [type=text]" : "clearOtherInputs"}'
+                                        >
                                             <div class="text">No</div>
                                             <label class="choice">
                                                 <input type="radio"
@@ -617,7 +651,9 @@
                                 <div class="extension-question-title">If yes, did the injury resolved?</div>
                                 <div>
                                     <ul class="list">
-                                        <li class="answer" id="accidentInjuryYes">
+                                        <li class="answer" id="accidentInjuryYes"
+                                            data-trigger='{"#accidentInjuryQuestion" : "enable"}'
+                                        >
                                             <div class="text">Yes <input type="text" name="choices.10.e.2.1s" class="specify-input" placeholder="List injuries"/></div>
                                             <label class="choice">
                                                 <input type="radio"
@@ -628,7 +664,9 @@
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
                                         </li>
-                                        <li class="answer need-clear-inputs" id="accidentInjuryNo">
+                                        <li class="answer need-clear-inputs" id="accidentInjuryNo"
+                                            data-trigger='{"#accidentInjuryQuestion" : "reset|disable", "#accidentInjuryYes [type=text]" : "clearOtherInputs"}'
+                                        >
                                             <div class="text">No</div>
                                             <label class="choice">
                                                 <input type="radio"
@@ -649,12 +687,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="question-list question-11">
+                <div class="question-list question-11" id="question11">
                     <div class="question">11. Is your pain due to an injury not covered in the questions above?</div>
 
                     <div class="answer-list">
                         <ul class="list">
-                            <li class="answer answer-extension-trigger-yes">
+                            <li class="answer answer-extension-trigger-yes"
+                                data-trigger='{"#question11-extension" : "show"}'
+                            >
                                 <div class="text">Yes
                                     <span class="specify-part">
                                         Date of injury: <input name="choices.11.1s" type="text" class="date-picker"/>
@@ -668,7 +708,9 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer answer-extension-trigger-no need-clear-inputs">
+                            <li class="answer answer-extension-trigger-no need-clear-inputs"
+                                data-trigger='{"#question11-extension" : "hide|reset", "#question11 [type=text]": "clearOtherInputs"}'
+                            >
                                 <div class="text">No</div>
                                 <label class="choice">
                                     <input type="radio"
@@ -680,7 +722,7 @@
                                 </label>
                             </li>
                         </ul>
-                        <div class="extension-question-list hide">
+                        <div class="extension-question-list hide" id="question11-extension">
                             <div class="extension-question">
                                 <div class="extension-question-title">Describe the injury</div>
                                 <textarea name="choices.11.e.1" placeholder="Describe injury..."></textarea>
@@ -688,7 +730,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="question-list  question-12">
+                <div class="question-list  question-12" id="question12">
                     <div class="question">12. How do each of the following activities affect your pain?</div>
 
                     <div class="sub-question-list">
@@ -701,7 +743,9 @@
                             <div class="sub-question">
                                 <div class="sub-question-title">${subQuestion}</div>
                                 <ul class="sub-question-answer-list">
-                                    <li class="sub-question-answer columns-3 question-12-no-change">
+                                    <li class="sub-question-answer columns-3 question-12-no-change"
+                                        data-trigger='{"#question12Sub${j}Select" : "disable"}'
+                                    >
                                         <div class="text">No Change</div>
                                         <label class="choice">
                                             <input type="radio"
@@ -712,7 +756,9 @@
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
                                     </li>
-                                    <li class="sub-question-answer columns-3 question-12-has-change">
+                                    <li class="sub-question-answer columns-3 question-12-has-change"
+                                        data-trigger='{"#question12Sub${j}Select" : "enable"}'
+                                    >
                                         <div class="text">Relieves pain</div>
                                         <label class="choice">
                                             <input type="radio"
@@ -723,7 +769,9 @@
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
                                     </li>
-                                    <li class="sub-question-answer columns-3 question-12-has-change">
+                                    <li class="sub-question-answer columns-3 question-12-has-change"
+                                        data-trigger='{"#question12Sub${j}Select" : "enable"}'
+                                    >
                                         <div class="text">Increases Pain</div>
                                         <label class="choice">
                                             <input type="radio"
@@ -737,9 +785,9 @@
                                 </ul>
                                 <div class="sub-question-time">
                                     <div class="sub-question-time-title">AFTER HOW LONG?</div>
-                                    <select class="select-menu" name="choices.12.${j}.s">
+                                    <select class="select-menu" name="choices.12.${j}.s" id="question12Sub${j}Select">
                                         <g:each var="time" in="${subQuestion12Time}">
-                                            <option value="">${time}</option>
+                                            <option value="${j}">${time}</option>
                                         </g:each>
                                     </select>
                                 </div>
@@ -747,21 +795,21 @@
                         </g:each>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question13">
                     <div class="question">13. What other activities, motions, or positions affect your symptoms?</div>
 
                     <div class="answer-list textarea">
                         <textarea name="choices.13" placeholder="Describe activities..."></textarea>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question14">
                     <div class="question">14. What do you do to relieve your pain?</div>
 
                     <div class="answer-list textarea">
                         <textarea name="choices.14" placeholder="Describe methods..."></textarea>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question15">
                     <div class="question">15. Bladder function</div>
 
                     <div class="answer-list">
@@ -824,7 +872,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question16">
                     <div class="question">16. Bowel function</div>
 
                     <div class="answer-list">
@@ -865,7 +913,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question17">
                     <div class="question">17. Do you have problems with sexual function?</div>
 
                     <div class="answer-list">
@@ -906,7 +954,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question18">
                     <div class="question">18. Do you have loss of sensation around the groin, genitals or buttocks?</div>
 
                     <div class="answer-list">
@@ -936,7 +984,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question19">
                     <div class="question">19. Weakness in the leg / foot</div>
 
                     <div class="answer-list">
@@ -988,7 +1036,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question20">
                     <div class="question">20. Weakness in the arm / hand</div>
 
                     <div class="answer-list">
@@ -1040,7 +1088,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list">
+                <div class="question-list" id="question21">
                     <div class="question">21. Does your pain interfere with your sleep?</div>
 
                     <div class="answer-list">
@@ -1070,7 +1118,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list question-22">
+                <div class="question-list question-22" id="question22">
                     <div class="question">22. Which of the following treatments have you had and what was the outcome?</div>
 
                     <div class="sub-question-list">
@@ -1128,7 +1176,7 @@
                         </g:each>
                     </div>
                 </div>
-                <div class="question-list question-23" data-optional="true">
+                <div class="question-list question-23" data-optional="true" id="question23">
                     <div class="question">23. Please list the dates of any of the following tests you have had for your current condition in the last 2 years</div>
 
                     <div class="answer-list">

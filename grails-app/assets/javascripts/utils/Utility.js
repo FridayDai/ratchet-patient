@@ -22,5 +22,15 @@ module.exports = {
         if ($process.length > 0) {
             $process.hide();
         }
+    },
+
+    checkArraySelfRun: function (items, fn, scope) {
+        if (_.isArray(items)) {
+            _.each(items, function (item) {
+                fn.call(scope, item)
+            }, scope);
+        } else {
+            fn.call(scope, items);
+        }
     }
 };
