@@ -36,7 +36,7 @@ function ODILike() {
                     $header.velocity({top: -top}, {duration: 200});
                 }, 0);
             } else {
-                if(reset) {
+                if (reset) {
                     $header.find('.tip-wrap')
                         .css('position', 'relative')
                         .find('.answer-limit-tip')
@@ -51,17 +51,44 @@ function ODILike() {
         };
     })();
 
-    this.fixErrorTip = _.once(function () {
+    this.fixErrorTip = _.once(function (answerNumber) {
+        var
+            $limitTip,
+            remainNumber = limitNumber - answerNumber;
+
         $(TIP_WRAP_TEMP)
             .appendTo(this.select('headerPanelSelector'))
             .find('.answer-limit-tip')
             .addClass('error')
-            .text(STRINGs.SECTION_ERROR_STRING.format(limitNumber));
+            .text(STRINGs.SECTION_ERROR_STRING.format(remainNumber));
 
         // In mobile, add info height to put tip, while scroll to top
-        if (Utility.isMobile()){
+        if (Utility.isMobile()) {
             this.select('questionnaireInfoSelector').css('padding', '57px 20px 30px');
         }
+
+        $limitTip = this.select('headerPanelSelector').find('.answer-limit-tip');
+
+        return function () {
+            if (remainNumber > 1) {
+                remainNumber--;
+                $limitTip
+                    .addClass('error')
+                    .text(STRINGs.SECTION_ERROR_STRING.format(remainNumber));
+            } else {
+                //remove all question error status
+                this.select('formSelector').find('.question-list.error').removeClass('error');
+                //change the header fix tip to success
+                $limitTip
+                    .removeClass('error')
+                    .addClass('success')
+                    .text(STRINGs.SECTION_SUCCESS_STRING);
+
+                setTimeout(function () {
+                    $limitTip.fadeOut("slow");
+                }, 1000);
+            }
+        };
 
     });
 
@@ -103,7 +130,7 @@ function ODILike() {
         }
 
         if (!isValid) {
-            this.fixErrorTip();
+            this.checkLimitAnswer = this.fixErrorTip(10 - this.errorQuestions.length);
             this.scrollToTopError();
             this.errorQuestions.length = 0;
 
@@ -117,24 +144,6 @@ function ODILike() {
         this.isFormSubmit = true;
     };
 
-    this.checkLimitAnswer = function () {
-        //if no error, just return.
-        if(this.select('headerPanelSelector').find('.answer-limit-tip').length === 0) {
-            return;
-        }
-
-        var finishedQuestionList = this.select('formSelector').find('.question-list').has('[type="radio"]:checked');
-
-        if (finishedQuestionList.length >= limitNumber) {
-            //remove all question error status
-            this.select('formSelector').find('.question-list.error').removeClass('error');
-            //change the header fix tip to success
-            this.select('headerPanelSelector').find('.answer-limit-tip')
-                .addClass('success')
-                .text(STRINGs.SECTION_SUCCESS_STRING);
-        }
-    };
-
     this.onChoiceItemClicked = function (e) {
         var $target = $(e.target);
 
@@ -145,7 +154,11 @@ function ODILike() {
                 .prop('checked', true);
 
             this.clearErrorStatus($target.closest('.question-list'));
-            this.checkLimitAnswer();
+
+            //only after submit, we will check limit answer.
+            if (_.isFunction(this.checkLimitAnswer)) {
+                this.checkLimitAnswer();
+            }
 
             this.prepareDraftAnswer($target);
         }
