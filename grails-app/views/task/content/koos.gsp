@@ -77,9 +77,6 @@
                 <g:each var="section" in="${Task.sections}" status="i">
 
                     <div id="section-id-${section.id}" class="section-list" value="${section.id}">
-                        <div class="answer-limit-tip">
-                            Please answer at least ${RatchetStatusCode.choicesLimit[section.id]} questions from the following.
-                        </div>
 
                         <g:if test="${section.title.startsWith("<h3>Symptoms") || section.title.startsWith("<h3>Pain")}">
                             <% def splitTitle%>
@@ -133,7 +130,8 @@
                                                            name="choices.${question.id}"
                                                            value="${choice.id}.${choice.sequence}"
                                                            <g:if test="${(choices && choices["${question.id}"]?.endsWith(choice.sequence)) ||
-                                                                   choice.id == question.draftChoice}">checked</g:if>/>
+                                                                   choice.id == question.draftChoice}">checked
+                                                           </g:if>/>
                                                     <span class="rc-radio"></span>
                                                 </label>
                                             </li>

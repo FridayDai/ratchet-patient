@@ -87,6 +87,9 @@ function ODILike() {
                 setTimeout(function () {
                     $limitTip.fadeOut("slow");
                 }, 1000);
+
+                //tear down this memory
+                this.checkLimitAnswer = null;
             }
         };
 
