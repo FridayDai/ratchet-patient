@@ -24,6 +24,11 @@ function KOOSLike() {
             top -= 180;
         }
 
+        var tipWrap = this.select('headerPanelSelector').find('.tip-wrap');
+        if (tipWrap.length > 0) {
+            top -= tipWrap.height();
+        }
+
         window.scrollTo(0, top);
     };
 
