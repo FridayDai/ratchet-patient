@@ -23,11 +23,7 @@ function KOOSLike() {
         if (!Utility.isMobile()) {
             top -= 180;
         }
-
-        var tipWrap = this.select('headerPanelSelector').find('.tip-wrap');
-        if (tipWrap.length > 0) {
-            top -= tipWrap.height();
-        }
+        top -= this.headerTipHeight;
 
         window.scrollTo(0, top);
     };
@@ -218,10 +214,13 @@ function KOOSLike() {
     };
 
     this.initHeaderTip = _.once(function () {
-        $(TIP_WRAP_TEMP)
+        var tipText = STRINGs.SECTION_ERROR_STRING.format(1);
+        var tip = $(TIP_WRAP_TEMP)
             .appendTo(this.select('headerPanelSelector'))
             .find('.answer-limit-tip')
-            .hide();
+            .text(tipText);
+        this.headerTipHeight = tip.height();
+        tip.hide();
 
         this.showErrorTip = this.showTipInSection();
         this.listenScroll();
