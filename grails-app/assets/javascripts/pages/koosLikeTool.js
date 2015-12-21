@@ -127,8 +127,8 @@ function KOOSLike() {
                 .addClass('error')
                 .text(STRINGs.SECTION_ERROR_STRING.format(remainNumber));
         } else {
-            //remove all question error status
-            this.select('formSelector').find('.question-list.error').removeClass('error');
+            //remove this section's questions error status
+            $section.find('.question-list.error').removeClass('error');
             //change the header fix tip to success
             $limitTip
                 .removeClass('error')
