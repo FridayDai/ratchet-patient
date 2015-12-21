@@ -129,10 +129,9 @@
                                                     <input type="radio" class="rc-choice-hidden"
                                                            name="choices.${question.id}"
                                                            value="${choice.id}.${choice.sequence}"
-                                                           %{--<g:if test="${(choices && choices["${question.id}"]?.endsWith(choice.sequence)) ||--}%
-                                                                   %{--choice.id == question.draftChoice}">checked--}%
-                                                           %{--</g:if>--}%
-                                                    />
+                                                           <g:if test="${(choices && choices["${question.id}"]?.endsWith(choice.sequence)) ||
+                                                                   choice.id == question.draftChoice}">checked
+                                                           </g:if>/>
                                                     <span class="rc-radio"></span>
                                                 </label>
                                             </li>
