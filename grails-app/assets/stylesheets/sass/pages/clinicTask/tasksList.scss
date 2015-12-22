@@ -30,10 +30,11 @@
     .task-done {
         &:before {
             position: absolute;
-            top: 30%;
+            top: 25%;
             left: 10px;
-            content: '√';
-            font-size: 22px;
+            content: '\f383';
+            font-family: 'Ionicons';
+            font-size: 27px;
             color: $base-color-white;
         }
     }
