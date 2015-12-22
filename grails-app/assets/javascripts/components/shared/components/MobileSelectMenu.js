@@ -22,6 +22,7 @@ function MobileSelectMenu() {
                 var text = this.options.defaultButtonText;
 
                 if(text && this.element.find('option').filter('[selected]').length === 0) {
+                    this.element[0].selectedIndex = -1;
                     this._setText( this.buttonText, text );
                 }
             },
@@ -58,7 +59,7 @@ function MobileSelectMenu() {
                 }
 
                 if (key === "defaultButtonText") {
-                    this.element[0].selectedIndex = 0;
+                    this.element[0].selectedIndex = -1;
                     this._setText( this.buttonText, value );
                 }
             },
