@@ -83,7 +83,11 @@ function MobileSelectMenu() {
 
                 click: function( event ) {
                     if(Utility.isMobile()) {
-                        this.element.trigger("showMobileNumberDialog", {id: this.ids.element});
+                        this.element.trigger("showMobileNumberDialog",
+                            {
+                                id: this.ids.element,
+                                title: $(this.element).data('title')
+                            });
                         this.close(event);
                     } else {
                         this._setSelection();

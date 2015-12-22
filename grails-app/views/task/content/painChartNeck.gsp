@@ -160,7 +160,7 @@
                     <div class="answer-list odi-style">
                         <div class="select-contain">
                             <span class="select-group">
-                                <select class="select-menu" name="choices.9">
+                                <select class="select-menu" name="choices.9" data-title="NECK PAIN">
                                     <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'9' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
@@ -170,7 +170,7 @@
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.10">
+                                <select class="select-menu" name="choices.10" data-title="SHOULDER PAIN">
                                     <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'10' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
@@ -179,7 +179,7 @@
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.11">
+                                <select class="select-menu" name="choices.11" data-title="ARM PAIN">
                                     <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'11' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>

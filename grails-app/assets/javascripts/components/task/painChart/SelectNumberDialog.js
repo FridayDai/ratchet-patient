@@ -26,6 +26,7 @@ function SelectNumberDialog() {
 
     this.prepareForShow = function (data) {
         this.selectId = data.id;
+        this.changeTitle(data.title);
         this.select('checkBoxGroupSelector').find("input:checked").prop('checked', false);
     };
 
