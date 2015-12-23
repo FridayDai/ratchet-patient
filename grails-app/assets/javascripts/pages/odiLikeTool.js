@@ -150,20 +150,26 @@ function ODILike() {
     this.onChoiceItemClicked = function (e) {
         var $target = $(e.target);
 
+        var checkedChoiceBefore = $target
+            .closest('.answer-list')
+           .find('[type="radio"].rc-choice-hidden:checked');
+
         if (!$target.is('input.rc-choice-hidden')) {
             $target
                 .closest(this.attr.choiceItemSelector)
                 .find('[type="radio"].rc-choice-hidden')
                 .prop('checked', true);
 
-            this.clearErrorStatus($target.closest('.question-list'));
-
-            //only after submit, we will check limit answer.
-            if (_.isFunction(this.checkLimitAnswer)) {
-                this.checkLimitAnswer();
-            }
-
             this.prepareDraftAnswer($target);
+
+            if(checkedChoiceBefore.length === 0) {
+                this.clearErrorStatus($target.closest('.question-list'));
+
+                //only after submit, we will check limit answer.
+                if (_.isFunction(this.checkLimitAnswer)) {
+                    this.checkLimitAnswer();
+                }
+            }
         }
     };
 
