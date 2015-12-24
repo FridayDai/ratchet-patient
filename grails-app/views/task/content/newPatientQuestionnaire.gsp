@@ -81,7 +81,7 @@
                             <li class="answer"
                                 data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Patient of us <input type="text" name="choices.1-1s" class="specify-input" placeholder="Specify" value="${Draft?.'1-1s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 1.toString()}">disabled</g:if> /></div>
+                                <div class="text">Patient of us <input type="text" name="choices.1-1s" class="specify-input" placeholder="Specify" maxlength="255" value="${Draft?.'1-1s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 1.toString()}">disabled</g:if> /></div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -109,7 +109,7 @@
                             <li class="answer"
                                 data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Friend / Family member <input type="text" name="choices.1-3s" class="specify-input" placeholder="Specify" value="${Draft?.'1-3s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 3.toString()}">disabled</g:if> /></div>
+                                <div class="text">Friend / Family member <input type="text" name="choices.1-3s" class="specify-input" placeholder="Specify" maxlength="255" value="${Draft?.'1-3s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 3.toString()}">disabled</g:if> /></div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -137,7 +137,7 @@
                             <li class="answer"
                                 data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Other <input type="text" name="choices.1-5s" class="specify-input" placeholder="Specify" value="${Draft?.'1-5s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 5.toString()}">disabled</g:if> /></div>
+                                <div class="text">Other <input type="text" name="choices.1-5s" class="specify-input" placeholder="Specify" maxlength="255" value="${Draft?.'1-5s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 5.toString()}">disabled</g:if> /></div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -313,7 +313,7 @@
                     <div class="question">4. Please describe your current problem / symptoms?</div>
 
                     <div class="answer-list textarea">
-                        <textarea name="choices.4" placeholder="Describe symptoms...">${Draft?.'4'}</textarea>
+                        <textarea name="choices.4" placeholder="Describe symptoms..." maxlength="5000">${Draft?.'4'}</textarea>
                     </div>
                 </div>
                 <div class="question-list" id="question5">
@@ -505,11 +505,11 @@
                             </div>
                             <div class="extension-question error-notice-field">
                                 <div class="extension-question-title">Briefly describe the details of the accident:</div>
-                                <textarea name="choices.9-e-2" placeholder="Describe accident...">${Draft?.'9-e-2'}</textarea>
+                                <textarea name="choices.9-e-2" placeholder="Describe accident..." maxlength="5000">${Draft?.'9-e-2'}</textarea>
                             </div>
                             <div class="extension-question error-notice-field">
                                 <div class="extension-question-title">Describe the pattern of symptoms over the first 1 - 4 weeks after the accident:</div>
-                                <textarea name="choices.9-e-3" placeholder="Describe symptoms...">${Draft?.'9-e-3'}</textarea>
+                                <textarea name="choices.9-e-3" placeholder="Describe symptoms..." maxlength="5000">${Draft?.'9-e-3'}</textarea>
                             </div>
                             <div class="extension-question radio-group error-notice-field">
                                 <div class="extension-question-title">When did you first notice symptoms?</div>
@@ -592,18 +592,18 @@
                             </div>
                             <div class="extension-question error-notice-field">
                                 <div class="extension-question-title">When did you first report these to a doctor?</div>
-                                <div><input type="text" name="choices.9-e-5" class="specify-input whole-line" placeholder="Specify" value="${Draft?.'9-e-5'}"></div>
+                                <div><input type="text" name="choices.9-e-5" class="specify-input whole-line" placeholder="Specify" maxlength="255" value="${Draft?.'9-e-5'}"></div>
                             </div>
                             <div class="extension-question">
                                 <div class="extension-question-title">If there was a delay between the symptoms starting and your first report, please explain:</div>
-                                <textarea name="choices.9-e-6" placeholder="Describe symptoms...">${Draft?.'9-e-6'}</textarea>
+                                <textarea name="choices.9-e-6" placeholder="Describe symptoms..." maxlength="5000">${Draft?.'9-e-6'}</textarea>
                             </div>
                             <div class="extension-question radio-choice error-notice-field">
                                 <div class="extension-question-title">Did you suffer any other injuries when you hurt your spine?</div>
                                 <div>
                                     <ul class="list">
                                         <li class="answer" id="question9-extension7-yes">
-                                            <div class="text">Yes <input type="text" name="choices.9-e-7-1s" class="specify-input" placeholder="List injuries" value="${Draft?.'9-e-7-1s'}"/></div>
+                                            <div class="text">Yes <input type="text" name="choices.9-e-7-1s" class="specify-input" placeholder="List injuries" maxlength="255" value="${Draft?.'9-e-7-1s'}"/></div>
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
@@ -679,7 +679,7 @@
                                 <div>
                                     <ul class="list">
                                         <li class="answer" id="question10-extension1-yes">
-                                            <div class="text">Yes <input type="text" name="choices.10-e-1-1s" class="specify-input" placeholder="List injuries" value="${Draft?.'10-e-1-1s'}"/></div>
+                                            <div class="text">Yes <input type="text" name="choices.10-e-1-1s" class="specify-input" placeholder="List injuries" maxlength="255" value="${Draft?.'10-e-1-1s'}"/></div>
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
@@ -714,7 +714,7 @@
                                         <li class="answer" id="accidentInjuryYes"
                                             data-trigger='{"#accidentInjuryQuestion" : "enable"}'
                                         >
-                                            <div class="text">Yes <input type="text" name="choices.10-e-2-1s" class="specify-input" placeholder="List injuries" value="${Draft?.'10-e-2-1s'}"/></div>
+                                            <div class="text">Yes <input type="text" name="choices.10-e-2-1s" class="specify-input" placeholder="List injuries" maxlength="255" value="${Draft?.'10-e-2-1s'}"/></div>
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
@@ -744,7 +744,7 @@
                             </div>
                             <div class="extension-question error-notice-field <g:if test="${Draft?.'10-e-2-c' == 2.toString()}">disabled</g:if>" id="accidentInjuryQuestion">
                                 <div class="extension-question-title">If that injury did <strong>NOT</strong> resolve, what treatment(s), if any, did you require on an ongoing basis?</div>
-                                <textarea name="choices.10-e-3" placeholder="Physical therapy and acupuncture" <g:if test="${Draft?.'10-e-2-c' == 2.toString()}">disabled</g:if>>${Draft?.'10-e-3'}</textarea>
+                                <textarea name="choices.10-e-3" placeholder="Physical therapy and acupuncture" maxlength="5000" <g:if test="${Draft?.'10-e-2-c' == 2.toString()}">disabled</g:if>>${Draft?.'10-e-3'}</textarea>
                             </div>
                         </div>
                     </div>
@@ -791,7 +791,7 @@
                         <div class="extension-question-list <g:if test="${Draft?.'11-c' != 1.toString()}">hide</g:if>" id="question11-extension">
                             <div class="extension-question error-notice-field">
                                 <div class="extension-question-title">Describe the injury</div>
-                                <textarea name="choices.11-e-1" placeholder="Describe injury...">${Draft?.'11-e-1'}</textarea>
+                                <textarea name="choices.11-e-1" placeholder="Describe injury..." maxlength="5000">${Draft?.'11-e-1'}</textarea>
                             </div>
                         </div>
                     </div>
@@ -871,14 +871,14 @@
                     <div class="question">13. What other activities, motions, or positions affect your symptoms?</div>
 
                     <div class="answer-list textarea">
-                        <textarea name="choices.13" placeholder="Describe activities...">${Draft?.'13'}</textarea>
+                        <textarea name="choices.13" placeholder="Describe activities..." maxlength="5000">${Draft?.'13'}</textarea>
                     </div>
                 </div>
                 <div class="question-list" id="question14">
                     <div class="question">14. What do you do to relieve your pain?</div>
 
                     <div class="answer-list textarea">
-                        <textarea name="choices.14" placeholder="Describe methods...">${Draft?.'14'}</textarea>
+                        <textarea name="choices.14" placeholder="Describe methods..." maxlength="5000">${Draft?.'14'}</textarea>
                     </div>
                 </div>
                 <div class="question-list" id="question15">
