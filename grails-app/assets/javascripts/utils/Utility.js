@@ -27,7 +27,7 @@ module.exports = {
     checkArraySelfRun: function (items, fn, scope) {
         if (_.isArray(items)) {
             _.each(items, function (item) {
-                fn.call(scope, item)
+                fn.call(scope, item);
             }, scope);
         } else {
             fn.call(scope, items);

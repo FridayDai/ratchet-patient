@@ -1,6 +1,7 @@
 require("jquery-ui-selectmenu");
 
 var Utility = require('../utils/Utility');
+var DEFAULT_TEXT_WRAP = '<span class="select-menu-default-text"></span>';
 
 $.widget( "ui.selectmenu", $.ui.selectmenu, {
     _create: function() {
@@ -8,6 +9,7 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
         var that = this;
         this.document.on('mobileSelectSuccess', function(event, data) {
             if(that.ids.element  === data.id) {
+                that.element.data('isDefault', false);
                 that.element[0].selectedIndex = +data.index;
                 that._setText( that.buttonText, data.label );
                 that._trigger( "select", event, {item: {value: data.label}});
@@ -16,11 +18,34 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
     },
     _drawButton: function() {
         this._super();
-        var text = this.options.defaultButtonText;
+        var text = this.element.data('defaultText') || this.options.defaultButtonText;
+        var hasSelected  = this.element.find('option').filter('[selected]').length !== 0;
 
-        if(text && this.element[0].selectedIndex === 0) {
-            this.buttonText.html(text);
+        if (hasSelected) {
+            this.element.data('isDefault', false);
+        } else {
+            this.element.data('isDefault', true);
         }
+
+        if(text && !hasSelected) {
+            this.buttonText.html($(DEFAULT_TEXT_WRAP).html(text));
+        }
+    },
+    _select: function( item, event ) {
+        var oldIndex = this.element[ 0 ].selectedIndex;
+
+        // Change native select element
+        this.element[ 0 ].selectedIndex = item.index;
+        this._setText( this.buttonText, item.label );
+        this._setAria( item );
+        this.element.data('isDefault', false);
+        this._trigger( "select", event, { item: item } );
+
+        if ( item.index !== oldIndex ) {
+            this._trigger( "change", event, { item: item } );
+        }
+
+        this.close( event );
     },
     _setOption: function( key, value ) {
         if ( key === "icons" ) {
@@ -48,6 +73,8 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
             } else {
                 this.button.attr( "tabindex", 0 );
             }
+
+            this.element.data('isDefault', value);
         }
 
         if ( key === "width" ) {
@@ -56,7 +83,9 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
 
         if (key === "defaultButtonText") {
             this.element[0].selectedIndex = 0;
-            this.buttonText.html(value);
+
+            value = value || this.element.data('defaultText') || this.options.defaultButtonText;
+            this.buttonText.html($(DEFAULT_TEXT_WRAP).html(value));
         }
     },
     _buttonEvents: {
@@ -79,7 +108,7 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
 
         click: function( event ) {
             if(Utility.isMobile()) {
-                this.element.trigger("showMobileSelectMenuDialog", {id: this.ids.element});
+                this.element.trigger(this.element.data('mobileDialogEvent'), {id: this.ids.element});
                 this.close(event);
             } else {
                 this._setSelection();

@@ -121,7 +121,7 @@ function Task() {
         return isValid;
     };
 
-    this.formSubmit = function () {
+    this.formSubmit = function (e) {
         if (Utility.isIE()) {
             this.isFormSubmit = true;
         }
@@ -179,11 +179,14 @@ function Task() {
     };
 
     this.scrollToTopError = function () {
-        var first = this.errorQuestions[0];
-        var top = first.offset().top;
+        var first = this.errorQuestions[0],
+            $header = this.select('headerPanelSelector'),
+            headerMovedTop = parseInt($header.css('top').replace('px', ''), 10),
+            visibleHeaderTop = $header.height() + headerMovedTop,
+            top = first.offset().top;
 
         if (!Utility.isMobile()) {
-            top -= 180;
+            top -= visibleHeaderTop;
         }
 
         window.scrollTo(0, top);

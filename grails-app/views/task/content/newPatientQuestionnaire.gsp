@@ -45,6 +45,13 @@
             height: 21px!important;
         }
 
+        @media only screen and (max-width: 767px) {
+            .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
+                width: 20px!important;
+                height: 20px!important;
+            }
+        }
+
         .rc-choice-hidden:checked + .rc-checkbox {
             background-color: ${     client.primaryColorHex?:'#0f137d'     };
         }
@@ -72,66 +79,71 @@
                     <div class="answer-list">
                         <ul class="list">
                             <li class="answer"
-                                data-trigger='{"#question1 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Patient of us <input type="text" name="choices.1.1s" class="specify-input" placeholder="Specify"/></div>
+                                <div class="text">Patient of us <input type="text" name="choices.1-1s" class="specify-input" placeholder="Specify" value="${Draft?.'1-1s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 1.toString()}">disabled</g:if> /></div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.1.c"
+                                           name="choices.1-c"
                                            value="1"
+                                           <g:if test="${Draft?.'1-c' == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question1 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
                                 <div class="text">Internet</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.1.c"
+                                           name="choices.1-c"
                                            value="2"
+                                           <g:if test="${Draft?.'1-c' == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question1 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Friend / Family member <input type="text" name="choices.1.3s" class="specify-input" placeholder="Specify"/></div>
+                                <div class="text">Friend / Family member <input type="text" name="choices.1-3s" class="specify-input" placeholder="Specify" value="${Draft?.'1-3s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 3.toString()}">disabled</g:if> /></div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.1.c"
+                                           name="choices.1-c"
                                            value="3"
+                                           <g:if test="${Draft?.'1-c' == 3.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question1 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
                                 <div class="text">Physician</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.1.c"
+                                           name="choices.1-c"
                                            value="4"
+                                           <g:if test="${Draft?.'1-c' == 4.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question1 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Other <input type="text" name="choices.1.5s" class="specify-input" placeholder="Specify"/></div>
+                                <div class="text">Other <input type="text" name="choices.1-5s" class="specify-input" placeholder="Specify" value="${Draft?.'1-5s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 5.toString()}">disabled</g:if> /></div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.1.c"
+                                           name="choices.1-c"
                                            value="5"
+                                           <g:if test="${Draft?.'1-c' == 5.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -151,6 +163,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.2"
                                            value="1"
+                                           <g:if test="${Draft?.'2' == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -162,6 +175,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.2"
                                            value="2"
+                                           <g:if test="${Draft?.'2' == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -173,6 +187,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.2"
                                            value="3"
+                                           <g:if test="${Draft?.'2' == 3.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -184,6 +199,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.2"
                                            value="4"
+                                           <g:if test="${Draft?.'2' == 4.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -197,77 +213,95 @@
                     <div class="answer-list">
                         <ul class="list">
                             <li class="answer"
-                                data-trigger='{"#question3 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question3 select" : "reset"}'
                             >
                                 <div class="text">Less than 2 weeks ago</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.3.c"
+                                           name="choices.3-c"
                                            value="1"
+                                           <g:if test="${Draft?.'3-c' == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question3 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question3 select" : "reset"}'
                             >
                                 <div class="text">2 weeks to less than 8 weeks ago</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.3.c"
+                                           name="choices.3-c"
                                            value="2"
+                                           <g:if test="${Draft?.'3-c' == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question3 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question3 select" : "reset"}'
                             >
                                 <div class="text">8 weeks to less than 3 months ago</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.3.c"
+                                           name="choices.3-c"
                                            value="3"
+                                           <g:if test="${Draft?.'3-c' == 3.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question3 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question3 select" : "reset"}'
                             >
                                 <div class="text">3 months to less than 6 months ago</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.3.c"
+                                           name="choices.3-c"
                                            value="4"
+                                           <g:if test="${Draft?.'3-c' == 4.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question3 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question3 select" : "reset"}'
                             >
                                 <div class="text">6 to 12 months ago</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.3.c"
+                                           name="choices.3-c"
                                            value="5"
+                                           <g:if test="${Draft?.'3-c' == 5.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                             <li class="answer">
-                                <div class="text">More than 12 months ago. <input type="text" name="choices.3.6s" class="specify-input" placeholder="Enter year" /> years ago.</div>
+                                <div class="text">
+                                    <span class="inline-text">More than 12 months ago.</span>
+                                    <span class="single-line">
+                                        <select class="select-menu" name="choices.3-6s" data-default-text="Enter year" data-mobile-dialog-event="showEnterYearMobileDialog">
+                                            <g:each var="time" in="${(1..10)}">
+                                                <option value="${time}" <g:if test="${Draft?."3-6s" == time.toString()}">selected</g:if>>${time}</option>
+                                            </g:each>
+                                            <option value="15" <g:if test="${Draft?."3-6s" == 15.toString()}">selected</g:if>>15</option>
+                                            <option value="20" <g:if test="${Draft?."3-6s" == 20.toString()}">selected</g:if>>20</option>
+                                        </select>
+                                        <span class="inline-text">years ago.</span>
+                                    </span>
+                                </div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.3.c"
+                                           name="choices.3-c"
                                            value="6"
+                                           <g:if test="${Draft?.'3-c' == 6.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -279,7 +313,7 @@
                     <div class="question">4. Please describe your current problem / symptoms?</div>
 
                     <div class="answer-list textarea">
-                        <textarea name="choices.4" placeholder="Describe symptoms..."></textarea>
+                        <textarea name="choices.4" placeholder="Describe symptoms...">${Draft?.'4'}</textarea>
                     </div>
                 </div>
                 <div class="question-list" id="question5">
@@ -294,6 +328,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.5"
                                            value="1"
+                                           <g:if test="${Draft?.'5' == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -305,6 +340,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.5"
                                            value="2"
+                                           <g:if test="${Draft?.'5' == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -316,6 +352,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.5"
                                            value="3"
+                                           <g:if test="${Draft?.'5' == 3.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -335,6 +372,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.6"
                                            value="1"
+                                           <g:if test="${Draft?.'6' == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -346,6 +384,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.6"
                                            value="2"
+                                           <g:if test="${Draft?.'6' == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -353,7 +392,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list" id="question7">
+                <div class="question-list question-7" id="question7">
                     <div class="question">7. Have you filed a Worker's Compensation claim for your back / neck symptoms?</div>
 
                     <div class="answer-list">
@@ -361,13 +400,16 @@
                             <li class="answer">
                                 <div class="text">Yes
                                     <span class="specify-part">
-                                        Approximate Date: <input type="text" name="choices.7.1s" class="date-picker" />
-                                    </span></div>
+                                        <span class="label">Approximate Date:</span>
+                                        <input type="text" name="choices.7-1s" class="date-picker" readonly value="${Draft?.'7-1s'}"/>
+                                    </span>
+                                </div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.7.c"
+                                           name="choices.7-c"
                                            value="1"
+                                           <g:if test="${Draft?.'7-c' == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -379,8 +421,9 @@
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.7.c"
+                                           name="choices.7-c"
                                            value="2"
+                                           <g:if test="${Draft?.'7-c' == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -400,6 +443,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.8"
                                            value="1"
+                                           <g:if test="${Draft?.'8' == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -411,6 +455,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.8"
                                            value="2"
+                                           <g:if test="${Draft?.'8' == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -430,8 +475,9 @@
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.9.c"
+                                           name="choices.9-c"
                                            value="1"
+                                           <g:if test="${Draft?.'9-c' == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -443,28 +489,29 @@
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.9.c"
+                                           name="choices.9-c"
                                            value="2"
+                                           <g:if test="${Draft?.'9-c' == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                         </ul>
-                        <div class="extension-question-list hide" id="question9-extension">
+                        <div class="extension-question-list <g:if test="${Draft?.'9-c' != 1.toString()}">hide</g:if>" id="question9-extension">
                             <div class="description">If you were injured in a car accident please carefully fill out the questions below.</div>
-                            <div class="extension-question">
+                            <div class="extension-question error-notice-field">
                                 <div class="extension-question-title">Date of accident:</div>
-                                <div><input type="text" name="choices.9.e.1" placeholder="Pick Date" class="date-picker" /></div>
+                                <div><input type="text" name="choices.9-e-1" placeholder="Pick Date" class="date-picker" readonly value="${Draft?.'9-e-1'}"/></div>
                             </div>
-                            <div class="extension-question">
+                            <div class="extension-question error-notice-field">
                                 <div class="extension-question-title">Briefly describe the details of the accident:</div>
-                                <textarea name="choices.9.e.2" placeholder="Describe accident..."></textarea>
+                                <textarea name="choices.9-e-2" placeholder="Describe accident...">${Draft?.'9-e-2'}</textarea>
                             </div>
-                            <div class="extension-question">
+                            <div class="extension-question error-notice-field">
                                 <div class="extension-question-title">Describe the pattern of symptoms over the first 1 - 4 weeks after the accident:</div>
-                                <textarea name="choices.9.e.3" placeholder="Describe symptoms..."></textarea>
+                                <textarea name="choices.9-e-3" placeholder="Describe symptoms...">${Draft?.'9-e-3'}</textarea>
                             </div>
-                            <div class="extension-question">
+                            <div class="extension-question radio-group error-notice-field">
                                 <div class="extension-question-title">When did you first notice symptoms?</div>
                                 <ul class="half-list">
                                     <li class="answer half-list-answer">
@@ -472,8 +519,9 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.9.e.4"
+                                                   name="choices.9-e-4"
                                                    value="1"
+                                                   <g:if test="${Draft?.'9-e-4' == 1.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
@@ -483,8 +531,9 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.9.e.4"
+                                                   name="choices.9-e-4"
                                                    value="2"
+                                                   <g:if test="${Draft?.'9-e-4' == 2.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
@@ -494,8 +543,9 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.9.e.4"
+                                                   name="choices.9-e-4"
                                                    value="3"
+                                                   <g:if test="${Draft?.'9-e-4' == 3.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
@@ -507,8 +557,9 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.9.e.4"
+                                                   name="choices.9-e-4"
                                                    value="4"
+                                                   <g:if test="${Draft?.'9-e-4' == 4.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
@@ -518,8 +569,9 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.9.e.4"
+                                                   name="choices.9-e-4"
                                                    value="5"
+                                                   <g:if test="${Draft?.'9-e-4' == 5.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
@@ -529,33 +581,35 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.9.e.4"
+                                                   name="choices.9-e-4"
                                                    value="6"
+                                                   <g:if test="${Draft?.'9-e-4' == 6.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="extension-question">
+                            <div class="extension-question error-notice-field">
                                 <div class="extension-question-title">When did you first report these to a doctor?</div>
-                                <div><input type="text" name="choices.9.e.5" class="specify-input whole-line" placeholder="Specify"></div>
+                                <div><input type="text" name="choices.9-e-5" class="specify-input whole-line" placeholder="Specify" value="${Draft?.'9-e-5'}"></div>
                             </div>
                             <div class="extension-question">
                                 <div class="extension-question-title">If there was a delay between the symptoms starting and your first report, please explain:</div>
-                                <textarea name="choices.9.e.6" placeholder="Describe symptoms..."></textarea>
+                                <textarea name="choices.9-e-6" placeholder="Describe symptoms...">${Draft?.'9-e-6'}</textarea>
                             </div>
-                            <div class="extension-question">
+                            <div class="extension-question radio-choice error-notice-field">
                                 <div class="extension-question-title">Did you suffer any other injuries when you hurt your spine?</div>
                                 <div>
                                     <ul class="list">
                                         <li class="answer" id="question9-extension7-yes">
-                                            <div class="text">Yes <input type="text" name="choices.9.e.7.1s" class="specify-input" placeholder="List injuries"/></div>
+                                            <div class="text">Yes <input type="text" name="choices.9-e-7-1s" class="specify-input" placeholder="List injuries" value="${Draft?.'9-e-7-1s'}"/></div>
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
-                                                       name="choices.9.e.7.c"
+                                                       name="choices.9-e-7-c"
                                                        value="1"
+                                                       <g:if test="${Draft?.'9-e-7-c' == 1.toString()}">checked</g:if>
                                                 />
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
@@ -567,8 +621,9 @@
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
-                                                       name="choices.9.e.7.c"
+                                                       name="choices.9-e-7-c"
                                                        value="2"
+                                                       <g:if test="${Draft?.'9-e-7-c' == 2.toString()}">checked</g:if>
                                                 />
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
@@ -587,16 +642,18 @@
                             <li class="answer" id="question10-yes"
                                 data-trigger='{"#question10-extension" : "show"}'
                             >
-                                <div class="text">Yes
+                                <div class="text text-yes"><span class="inline-text">Yes</span>
                                     <span class="specify-part">
-                                        Approximate Date: <input type="text" name="choices.10.1s" class="date-picker" />
+                                        <span class="label">Approximate Date:</span>
+                                        <input type="text" name="choices.10-1s" class="date-picker" readonly value="${Draft?.'10-1s'}"/>
                                     </span>
                                 </div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.10.c"
+                                           name="choices.10-c"
                                            value="1"
+                                           <g:if test="${Draft?.'10-c' == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -608,25 +665,27 @@
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.10.c"
+                                           name="choices.10-c"
                                            value="2"
+                                           <g:if test="${Draft?.'10-c' == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                         </ul>
-                        <div class="extension-question-list hide" id="question10-extension">
-                            <div class="extension-question">
+                        <div class="extension-question-list <g:if test="${Draft?.'10-c' != 1.toString()}">hide</g:if>" id="question10-extension">
+                            <div class="extension-question radio-choice error-notice-field">
                                 <div class="extension-question-title">Was your back or neck injured?</div>
                                 <div>
                                     <ul class="list">
                                         <li class="answer" id="question10-extension1-yes">
-                                            <div class="text">Yes <input type="text" name="choices.10.e.1.1s" class="specify-input" placeholder="List injuries"/></div>
+                                            <div class="text">Yes <input type="text" name="choices.10-e-1-1s" class="specify-input" placeholder="List injuries" value="${Draft?.'10-e-1-1s'}"/></div>
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
-                                                       name="choices.10.e.1.c"
+                                                       name="choices.10-e-1-c"
                                                        value="1"
+                                                       <g:if test="${Draft?.'10-e-1-c' == 1.toString()}">checked</g:if>
                                                 />
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
@@ -638,8 +697,9 @@
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
-                                                       name="choices.10.e.1.c"
+                                                       name="choices.10-e-1-c"
                                                        value="2"
+                                                       <g:if test="${Draft?.'10-e-1-c' == 2.toString()}">checked</g:if>
                                                 />
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
@@ -647,19 +707,20 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="extension-question">
+                            <div class="extension-question radio-choice error-notice-field">
                                 <div class="extension-question-title">If yes, did the injury resolved?</div>
                                 <div>
                                     <ul class="list">
                                         <li class="answer" id="accidentInjuryYes"
                                             data-trigger='{"#accidentInjuryQuestion" : "enable"}'
                                         >
-                                            <div class="text">Yes <input type="text" name="choices.10.e.2.1s" class="specify-input" placeholder="List injuries"/></div>
+                                            <div class="text">Yes <input type="text" name="choices.10-e-2-1s" class="specify-input" placeholder="List injuries" value="${Draft?.'10-e-2-1s'}"/></div>
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
-                                                       name="choices.10.e.2.c"
+                                                       name="choices.10-e-2-c"
                                                        value="1"
+                                                       <g:if test="${Draft?.'10-e-2-c' == 1.toString()}">checked</g:if>
                                                 />
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
@@ -671,8 +732,9 @@
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
-                                                       name="choices.10.e.2.c"
+                                                       name="choices.10-e-2-c"
                                                        value="2"
+                                                       <g:if test="${Draft?.'10-e-2-c' == 2.toString()}">checked</g:if>
                                                 />
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
@@ -680,9 +742,9 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="extension-question" id="accidentInjuryQuestion">
+                            <div class="extension-question error-notice-field <g:if test="${Draft?.'10-e-2-c' == 2.toString()}">disabled</g:if>" id="accidentInjuryQuestion">
                                 <div class="extension-question-title">If that injury did <strong>NOT</strong> resolve, what treatment(s), if any, did you require on an ongoing basis?</div>
-                                <textarea name="choices.10.e.3" placeholder="Physical therapy and acupuncture"></textarea>
+                                <textarea name="choices.10-e-3" placeholder="Physical therapy and acupuncture" <g:if test="${Draft?.'10-e-2-c' == 2.toString()}">disabled</g:if>>${Draft?.'10-e-3'}</textarea>
                             </div>
                         </div>
                     </div>
@@ -697,13 +759,16 @@
                             >
                                 <div class="text">Yes
                                     <span class="specify-part">
-                                        Date of injury: <input name="choices.11.1s" type="text" class="date-picker"/>
-                                    </span></div>
+                                        <span class="label">Date of injury:</span>
+                                        <input name="choices.11-1s" type="text" class="date-picker" readonly value="${Draft?.'11-1s'}"/>
+                                    </span>
+                                </div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.11.c"
+                                           name="choices.11-c"
                                            value="1"
+                                           <g:if test="${Draft?.'11-c' == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -715,22 +780,23 @@
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
-                                           name="choices.11.c"
+                                           name="choices.11-c"
                                            value="2"
+                                           <g:if test="${Draft?.'11-c' == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
                         </ul>
-                        <div class="extension-question-list hide" id="question11-extension">
-                            <div class="extension-question">
+                        <div class="extension-question-list <g:if test="${Draft?.'11-c' != 1.toString()}">hide</g:if>" id="question11-extension">
+                            <div class="extension-question error-notice-field">
                                 <div class="extension-question-title">Describe the injury</div>
-                                <textarea name="choices.11.e.1" placeholder="Describe injury..."></textarea>
+                                <textarea name="choices.11-e-1" placeholder="Describe injury...">${Draft?.'11-e-1'}</textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="question-list  question-12" id="question12">
+                <div class="question-list question-12" id="question12">
                     <div class="question">12. How do each of the following activities affect your pain?</div>
 
                     <div class="sub-question-list">
@@ -743,51 +809,57 @@
                             <div class="sub-question">
                                 <div class="sub-question-title">${subQuestion}</div>
                                 <ul class="sub-question-answer-list">
-                                    <li class="sub-question-answer columns-3 question-12-no-change"
-                                        data-trigger='{"#question12Sub${j}Select" : "disable"}'
+                                    <li class="sub-question-answer columns-3 question-12-no-change column-1st"
+                                        data-trigger='{"#question12Sub${j}Select" : "disable|mobileHideSelect"}'
                                     >
                                         <div class="text">No Change</div>
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.12.${j}.c"
+                                                   name="choices.12-${j}-c"
                                                    value="1"
+                                                   <g:if test="${Draft?."12-${j}-c" == 1.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
                                     </li>
-                                    <li class="sub-question-answer columns-3 question-12-has-change"
-                                        data-trigger='{"#question12Sub${j}Select" : "enable"}'
+                                    <li class="sub-question-answer columns-3 question-12-has-change column-2nd"
+                                        data-trigger='{"#question12Sub${j}Select" : "enable|mobileShowSelectAtOwn"}'
                                     >
                                         <div class="text">Relieves pain</div>
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.12.${j}.c"
+                                                   name="choices.12-${j}-c"
                                                    value="2"
+                                                   <g:if test="${Draft?."12-${j}-c" == 2.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
                                     </li>
-                                    <li class="sub-question-answer columns-3 question-12-has-change"
-                                        data-trigger='{"#question12Sub${j}Select" : "enable"}'
+                                    <li class="sub-question-answer columns-3 question-12-has-change column-3rd"
+                                        data-trigger='{"#question12Sub${j}Select" : "enable|mobileShowSelectAtOwn"}'
                                     >
                                         <div class="text">Increases Pain</div>
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.12.${j}.c"
+                                                   name="choices.12-${j}-c"
                                                    value="3"
+                                                   <g:if test="${Draft?."12-${j}-c" == 3.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
                                     </li>
                                 </ul>
-                                <div class="sub-question-time">
+                                <div class="sub-question-time error-notice-field">
                                     <div class="sub-question-time-title">AFTER HOW LONG?</div>
-                                    <select class="select-menu" name="choices.12.${j}.s" id="question12Sub${j}Select">
-                                        <g:each var="time" in="${subQuestion12Time}">
-                                            <option value="${j}">${time}</option>
+                                    <select class="select-menu" name="choices.12-${j}-s" id="question12Sub${j}Select"
+                                        data-default-text="Pick Time" data-mobile-dialog-event="showPickTimeMobileDialog"
+                                            <g:if test="${Draft?."12-${j}-c" == 1.toString()}">disabled</g:if>
+                                    >
+                                        <g:each var="time" in="${subQuestion12Time}" status="h">
+                                            <option value="${h}" <g:if test="${Draft?."12-${j}-s" == h.toString()}">selected</g:if>>${time}</option>
                                         </g:each>
                                     </select>
                                 </div>
@@ -799,14 +871,14 @@
                     <div class="question">13. What other activities, motions, or positions affect your symptoms?</div>
 
                     <div class="answer-list textarea">
-                        <textarea name="choices.13" placeholder="Describe activities..."></textarea>
+                        <textarea name="choices.13" placeholder="Describe activities...">${Draft?.'13'}</textarea>
                     </div>
                 </div>
                 <div class="question-list" id="question14">
                     <div class="question">14. What do you do to relieve your pain?</div>
 
                     <div class="answer-list textarea">
-                        <textarea name="choices.14" placeholder="Describe methods..."></textarea>
+                        <textarea name="choices.14" placeholder="Describe methods...">${Draft?.'14'}</textarea>
                     </div>
                 </div>
                 <div class="question-list" id="question15">
@@ -821,6 +893,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.15"
                                            value="1"
+                                           <g:if test="${Draft?."15" == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -832,6 +905,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.15"
                                            value="2"
+                                           <g:if test="${Draft?."15" == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -843,6 +917,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.15"
                                            value="3"
+                                           <g:if test="${Draft?."15" == 3.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -854,6 +929,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.15"
                                            value="4"
+                                           <g:if test="${Draft?."15" == 4.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -865,6 +941,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.15"
                                            value="5"
+                                           <g:if test="${Draft?."15" == 5.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -884,6 +961,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.16"
                                            value="1"
+                                           <g:if test="${Draft?."16" == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -895,6 +973,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.16"
                                            value="2"
+                                           <g:if test="${Draft?."16" == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -906,6 +985,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.16"
                                            value="3"
+                                           <g:if test="${Draft?."16" == 3.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -925,6 +1005,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.17"
                                            value="1"
+                                           <g:if test="${Draft?."17" == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -936,6 +1017,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.17"
                                            value="2"
+                                           <g:if test="${Draft?."17" == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -947,6 +1029,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.17"
                                            value="3"
+                                           <g:if test="${Draft?."17" == 3.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -966,6 +1049,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.18"
                                            value="1"
+                                           <g:if test="${Draft?."18" == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -977,6 +1061,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.18"
                                            value="2"
+                                           <g:if test="${Draft?."18" == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -996,6 +1081,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.19"
                                            value="1"
+                                           <g:if test="${Draft?."19" == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -1007,6 +1093,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.19"
                                            value="2"
+                                           <g:if test="${Draft?."19" == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -1018,6 +1105,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.19"
                                            value="3"
+                                           <g:if test="${Draft?."19" == 3.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -1029,6 +1117,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.19"
                                            value="4"
+                                           <g:if test="${Draft?."19" == 4.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -1048,6 +1137,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.20"
                                            value="1"
+                                           <g:if test="${Draft?."20" == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -1059,6 +1149,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.20"
                                            value="2"
+                                           <g:if test="${Draft?."20" == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -1070,6 +1161,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.20"
                                            value="3"
+                                           <g:if test="${Draft?."20" == 3.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -1081,6 +1173,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.20"
                                            value="4"
+                                           <g:if test="${Draft?."20" == 4.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -1100,6 +1193,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.21"
                                            value="1"
+                                           <g:if test="${Draft?."21" == 1.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -1111,6 +1205,7 @@
                                            class="rc-choice-hidden"
                                            name="choices.21"
                                            value="2"
+                                           <g:if test="${Draft?."21" == 2.toString()}">checked</g:if>
                                     />
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
@@ -1132,8 +1227,9 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.22.${j}"
+                                                   name="choices.22-${j}"
                                                    value="1"
+                                                   <g:if test="${Draft?."22-${j}" == 1.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
@@ -1143,8 +1239,9 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.22.${j}"
+                                                   name="choices.22-${j}"
                                                    value="2"
+                                                   <g:if test="${Draft?."22-${j}" == 2.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
@@ -1154,8 +1251,9 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.22.${j}"
+                                                   name="choices.22-${j}"
                                                    value="3"
+                                                   <g:if test="${Draft?."22-${j}" == 3.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
@@ -1165,8 +1263,9 @@
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
-                                                   name="choices.22.${j}"
+                                                   name="choices.22-${j}"
                                                    value="4"
+                                                   <g:if test="${Draft?."22-${j}" ==4.toString()}">checked</g:if>
                                             />
                                             <span class="rc-radio primary-radio-color"></span>
                                         </label>
@@ -1181,35 +1280,35 @@
 
                     <div class="answer-list">
                         <ul class="list">
-                            <li class="answer">
-                                <input type="hidden" name="choices.23.1">
+                            <li class="sub-question">
+                                <input type="hidden" name="choices.23-1" value="${Draft?.'23-1'}">
                                 <div class="text">Regular x-rays</div>
-                                <div class="multi-date-container"></div>
+                                <div class="multi-date-container" data-init="${Draft?.'23-1'}"></div>
                             </li>
-                            <li class="answer">
-                                <input type="hidden" name="choices.23.2">
+                            <li class="sub-question">
+                                <input type="hidden" name="choices.23-2" value="${Draft?.'23-2'}">
                                 <div class="text">MRI</div>
-                                <div class="multi-date-container"></div>
+                                <div class="multi-date-container" data-init="${Draft?.'23-2'}"></div>
                             </li>
-                            <li class="answer">
-                                <input type="hidden" name="choices.23.3">
+                            <li class="sub-question">
+                                <input type="hidden" name="choices.23-3" value="${Draft?.'23-3'}">
                                 <div class="text">CT scan</div>
-                                <div class="multi-date-container"></div>
+                                <div class="multi-date-container" data-init="${Draft?.'23-3'}"></div>
                             </li>
-                            <li class="answer">
-                                <input type="hidden" name="choices.23.4">
+                            <li class="sub-question">
+                                <input type="hidden" name="choices.23-4" value="${Draft?.'23-4'}">
                                 <div class="text">Myelogram</div>
-                                <div class="multi-date-container"></div>
+                                <div class="multi-date-container" data-init="${Draft?.'23-4'}"></div>
                             </li>
-                            <li class="answer">
-                                <input type="hidden" name="choices.23.5">
+                            <li class="sub-question">
+                                <input type="hidden" name="choices.23-5" value="${Draft?.'23-5'}">
                                 <div class="text">Bone scan</div>
-                                <div class="multi-date-container"></div>
+                                <div class="multi-date-container" data-init="${Draft?.'23-5'}"></div>
                             </li>
-                            <li class="answer">
-                                <input type="hidden" name="choices.23.6">
+                            <li class="sub-question">
+                                <input type="hidden" name="choices.23-6" value="${Draft?.'23-6'}">
                                 <div class="text">EMG/NCV</div>
-                                <div class="multi-date-container"></div>
+                                <div class="multi-date-container" data-init="${Draft?.'23-6'}"></div>
                             </li>
                         </ul>
                     </div>
@@ -1233,6 +1332,50 @@
                     <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
                 </div>
             </form>
+            <div id="mobile-date-picker-dialog" class="modal ui-hidden">
+                <div class="inline-date-picker"></div>
+            </div>
+            <div id="mobile-enter-year-dialog" class="modal ui-hidden" data-title="Select year">
+                <div class="answer-list">
+                    <ul class="list">
+                        <g:each var="j" in="${1..<13}">
+                            <li class="answer">
+                                <div class="text"><g:if test="${j > 10}">${5 * j - 40}</g:if><g:else>${j}</g:else> year<g:if test="${j > 1}">s</g:if></div>
+                                <label class="choice">
+                                    <input type="radio"
+                                           data-index="${j - 1}"
+                                           class="rc-choice-hidden"
+                                           name="mobileEnterYear"
+                                           value="<g:if test="${j > 10}">${5 * j - 40}</g:if><g:else>${j}</g:else>"
+                                    />
+                                    <span class="rc-radio primary-radio-color"></span>
+                                </label>
+                            </li>
+                        </g:each>
+                    </ul>
+                </div>
+            </div>
+            <div id="mobile-pick-time-dialog" class="modal ui-hidden" data-title="Select a length of time">
+                <div class="answer-list">
+                    <ul class="list">
+                        <g:set var="timeArr" value="['5 minutes', '15 minutes', '30 minutes', '1 hour', '2 hours', '4 hours', '8 hours']" />
+                        <g:each var="time" in="${timeArr}" status="index">
+                            <li class="answer">
+                                <div class="text">${time}</div>
+                                <label class="choice">
+                                    <input type="radio"
+                                            data-index="${index}"
+                                           class="rc-choice-hidden"
+                                           name="mobileEnterYear"
+                                           value="${index}"
+                                    />
+                                    <span class="rc-radio primary-radio-color"></span>
+                                </label>
+                            </li>
+                        </g:each>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
