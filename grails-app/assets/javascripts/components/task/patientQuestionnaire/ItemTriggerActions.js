@@ -104,7 +104,7 @@ function ItemTriggerActions() {
         }
     };
 
-    this.triggerMobileHideSelect = function ($target) {
+    this.triggerMobileHideSelectAction = function ($target) {
         var $selectMenuButton;
 
         if (Utility.isMobile()) {
@@ -114,7 +114,7 @@ function ItemTriggerActions() {
         }
     };
 
-    this.triggerMobileShowSelectAtOwn = function ($target, $currentItem) {
+    this.triggerMobileShowSelectAtOwnAction = function ($target, $currentItem) {
         var $selectMenuButton;
 
         if (Utility.isMobile()) {

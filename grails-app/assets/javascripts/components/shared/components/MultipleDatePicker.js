@@ -24,7 +24,7 @@ function MultipleDatePicker() {
         disabled: false
     });
 
-    this.initComponent = function () {
+    this.initComponent = function (options) {
         this.data = [];
 
         this.$node
@@ -35,14 +35,14 @@ function MultipleDatePicker() {
 
         $(ADD_DATE_TEMP)
             .find('input')
-            .datepicker({
+            .datepicker(_.assign({
                 dateFormat: 'MM d, yy',
                 onSelect: function (dateText) {
                     this.fixFocusIE = true;
 
                     me.addDate(dateText, true);
                 }
-            })
+            }, options))
             .end()
             .click(function () {
                 if (!me.attr.disabled) {
@@ -156,8 +156,8 @@ function MultipleDatePicker() {
         }
     };
 
-    this.after('initialize', function () {
-        this.initComponent();
+    this.after('initialize', function (elem, options) {
+        this.initComponent(options);
 
         this.on(document, 'rc.mkeMultipleDatePickerDisable', this.onDisable);
         this.on(document, 'rc.mkeMultipleDatePickerEnable', this.onEnable);

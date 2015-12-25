@@ -159,8 +159,18 @@ function newPatientQuestionnaireTool() {
     });
 
     this.children({
-        datePickerSelector: DatePicker,
-        multipleDatePickerSelector: MultipleDatePicker
+        datePickerSelector: {
+            child: DatePicker,
+            attributes: {
+                maxDate: 0
+            }
+        },
+        multipleDatePickerSelector: {
+            child: MultipleDatePicker,
+            attributes: {
+                maxDate: 0
+            }
+        }
     });
 
     this.dialogs([

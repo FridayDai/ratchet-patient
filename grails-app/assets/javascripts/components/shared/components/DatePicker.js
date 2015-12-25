@@ -4,10 +4,10 @@ var flight = require('flight');
 var Utility = require('../../../utils/Utility');
 
 function DatePicker() {
-    this._initDatePicker = function () {
+    this._initDatePicker = function (options) {
         var me = this;
 
-        this.datePicker = this.$node.datepicker({
+        this.datePicker = this.$node.datepicker(_.assign({
             dateFormat: 'MM d, yy',
             beforeShow: function () {
                 if (Utility.isMobile()) {
@@ -24,7 +24,7 @@ function DatePicker() {
 
                 me.triggerSelectEvent(val);
             }
-        });
+        }, options));
     };
 
     this.onMobileDateReturned = function (e, data) {
@@ -42,8 +42,8 @@ function DatePicker() {
         });
     };
 
-    this.after('initialize', function () {
-        this._initDatePicker();
+    this.after('initialize', function (elem, options) {
+        this._initDatePicker(options);
 
         this.on(document, 'rc.returnMobileDatePickerValue', this.onMobileDateReturned);
     });
