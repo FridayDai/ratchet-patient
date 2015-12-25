@@ -9,6 +9,7 @@ var WithPage = require('../components/common/WithPage');
 var Task = require('../components/shared/functional/Task');
 var SaveComplexDraftAnswer = require('../components/shared/functional/SaveComplexDraftAnswer');
 var ItemTriggerActions = require('../components/task/patientQuestionnaire/ItemTriggerActions');
+var ValidationHandlers = require('../components/task/patientQuestionnaire/ValidationHandlers');
 var DatePicker = require('../components/shared/components/DatePicker');
 var MultipleDatePicker = require('../components/shared/components/MultipleDatePicker');
 var MobileDatePickerDialog = require('../components/shared/components/MobileDatePickerDialog');
@@ -512,6 +513,7 @@ flight.component(
     Task,
     WithPage,
     ItemTriggerActions,
+    ValidationHandlers,
     SaveComplexDraftAnswer,
     newPatientQuestionnaireTool
 ).attachTo('#main');
