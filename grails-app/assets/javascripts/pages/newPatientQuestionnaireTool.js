@@ -397,7 +397,7 @@ function newPatientQuestionnaireTool() {
             return true;
         }
 
-        this['check{0}Valid'.format(_.capitalize(typeSelector.type))].call(this, $item);
+        return this['check{0}Valid'.format(_.capitalize(typeSelector.type))].call(this, $item);
     };
 
     this.clearItemError = function ($question, str) {
