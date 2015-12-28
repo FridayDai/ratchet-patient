@@ -11,7 +11,7 @@ function PainPercentPanel() {
     });
 
     this.clearErrorStatus = function () {
-        _.each($('.question-list-special'), function(question) {
+        _.each($('.question-list-special'), function (question) {
             if ($(question).hasClass('error')) {
                 $(question)
                     .removeClass('error')
@@ -57,10 +57,23 @@ function PainPercentPanel() {
         }
     };
 
+    this.menuHasSelected = function () {
+        var allSelect = this.select('selectMenuSelector');
+        var valid = false;
+
+        _.forEach(allSelect, function (ele) {
+            if ($(ele).find('option:selected').length !== 0) {
+                valid = true;
+            }
+        });
+        return valid;
+    };
+
     this.togglePainChartAndSelect = function (e, data) {
         var toggle = this.select('painToggleSelector').get(0);
+        var selectedCheck = this.menuHasSelected();
 
-        if (data.active === true) {
+        if (data.active === true || selectedCheck) {
             this.showNoPainNotification(toggle);
         } else {
             this.trigger('toggleAllHumanBody', toggle);
@@ -77,7 +90,7 @@ function PainPercentPanel() {
         var me = this;
 
         Notifications.confirm({
-            title: 'ARE YOU SURE?',
+            title: 'Are you sure?',
             message: 'Enabling this checkbox will clear the answers above'
         }, {
             buttons: [
@@ -153,11 +166,17 @@ function PainPercentPanel() {
         }
     };
 
+    this.checkMenuKeys = function (data) {
+        return _.any(this.$node.data('percentageKeys'), function (key) {
+            return key in data;
+        });
+    };
+
     this.onInitDraftAnswer = function (e, data) {
         if (data.noPain) {
             this.select('painToggleSelector').prop('checked', true);
             this.toggleSelectMenu({checked: true});
-        } else {
+        } else if (this.checkMenuKeys(data.draft)) {
             this.sumScore();
         }
     };

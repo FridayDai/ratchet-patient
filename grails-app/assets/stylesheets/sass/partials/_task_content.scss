@@ -110,6 +110,19 @@
         margin-bottom: 20px;
     }
 
+    .optional-label {
+        display: inline-block;
+        padding: 5px;
+        margin-left: 3px;
+        font-size: 14px;
+        background-color: $base-color-lighter-gray;
+        color: $base-color-medium-gray;
+
+        @include breakpoint('mobile') {
+            margin: 0;
+        }
+    }
+
     &.error {
         .question {
             background-color: $base-color-error-background-pink;

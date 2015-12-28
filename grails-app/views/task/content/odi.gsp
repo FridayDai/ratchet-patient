@@ -42,6 +42,13 @@
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
             background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
+
+        .task-done-btn[disabled], .task-done-btn[disabled]:hover {
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: #ffffff !important;
+            cursor: default;
+            opacity: 0.3;
+        }
         </style>
 
         <g:if test="${isInClinic}">
@@ -69,6 +76,9 @@
 
                         <div class="question primary-color">
                             Section ${i + 1}: ${question.title}
+                            <g:if test="${question.optional}">
+                                <span class="optional-label">This question is optional.</span>
+                            </g:if>
                             <g:if test="${errors && errors["${question.id}"]}">
                                 <span class="error-label">This question is required.</span>
                             </g:if>

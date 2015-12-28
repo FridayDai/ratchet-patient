@@ -21,7 +21,8 @@ function MobileSelectMenu() {
                 this._super();
                 var text = this.options.defaultButtonText;
 
-                if(text && this.element[0].selectedIndex === 0) {
+                if(text && this.element.find('option').filter('[selected]').length === 0) {
+                    this.element[0].selectedIndex = -1;
                     this._setText( this.buttonText, text );
                 }
             },
@@ -58,7 +59,7 @@ function MobileSelectMenu() {
                 }
 
                 if (key === "defaultButtonText") {
-                    this.element[0].selectedIndex = 0;
+                    this.element[0].selectedIndex = -1;
                     this._setText( this.buttonText, value );
                 }
             },
@@ -82,7 +83,11 @@ function MobileSelectMenu() {
 
                 click: function( event ) {
                     if(Utility.isMobile()) {
-                        this.element.trigger("showMobileNumberDialog", {id: this.ids.element});
+                        this.element.trigger("showMobileNumberDialog",
+                            {
+                                id: this.ids.element,
+                                title: $(this.element).data('title')
+                            });
                         this.close(event);
                     } else {
                         this._setSelection();

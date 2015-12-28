@@ -210,9 +210,9 @@ class MultiTaskController extends BaseController {
         }
 
         //validation
-        if (taskType == '7' || taskType == '8') {
-            //only check for (7.KOOS 8.HOOS)
-            errors = validateSectionChoice(sections, answer)
+        if ( taskType=='2' || taskType=='3' || taskType == '7' || taskType == '8') {
+            //for complex validation, only valid in js.(2.ODI 3.NDI 7.KOOS 8.HOOS)
+            errors = [];
         } else {
             errors = validateChoice(taskType, choices, optionals)
         }
@@ -386,21 +386,21 @@ class MultiTaskController extends BaseController {
         render status: 201
     }
 
-    def validateSectionChoice(sections, answer) {
-        def errors = [:]
-        answer.each {
-            def sectionId = it.sectionId
-            if (it.choices.size() < RatchetStatusCode.choicesLimit[sectionId.toInteger()]) {
-                def sectionChoices = sections[sectionId] ?: []
-                def checkedChoices = it.choices.keySet() ?: []
-                def list = sectionChoices - checkedChoices
-                list.each {
-                    errors[it] = 1
-                }
-            }
-        }
-        return errors
-    }
+//    def validateSectionChoice(sections, answer) {
+//        def errors = [:]
+//        answer.each {
+//            def sectionId = it.sectionId
+//            if (it.choices.size() < RatchetStatusCode.choicesLimit[sectionId.toInteger()]) {
+//                def sectionChoices = sections[sectionId] ?: []
+//                def checkedChoices = it.choices.keySet() ?: []
+//                def list = sectionChoices - checkedChoices
+//                list.each {
+//                    errors[it] = 1
+//                }
+//            }
+//        }
+//        return errors
+//    }
 
     def validateChoice(type, choices, optionals) {
         def errors = [:]
