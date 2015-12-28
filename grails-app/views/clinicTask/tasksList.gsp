@@ -36,6 +36,16 @@
             window.history.forward();
         </script>
         </g:if>
+
+        <g:if test="${isSingleTask}">
+            <script language="javascript" type="text/javascript">
+                (function closeTab(){
+                    window.opener=null;
+                    window.open('','_self');
+                    window.setTimeout("window.close()",4000);
+                })();
+            </script>
+        </g:if>
     </head>
 
     <body>
@@ -107,6 +117,13 @@
                     </g:else>
                 </p>
             </div>
+
+            <g:if test="${isSingleTask}">
+                <div class="task-title primary-background-color">
+                    <div class="task-done-or-not task-done"></div>
+                    ${taskTitle}
+                </div>
+            </g:if>
 
             <g:each in="${doneTaskList}" var="${completeTask}">
 

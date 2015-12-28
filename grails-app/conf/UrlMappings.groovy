@@ -34,6 +34,14 @@ class UrlMappings {
             action = [POST: "saveDraftAnswer"]
         }
 
+        //SingleTask
+        "/$accountId/tasks/$title/$code"(controller: "singleTask") {
+            action = [GET: "singleTask", POST: "submitSingleTask"]
+        }
+     /*   //SingleTask
+        "/$accountId/tasks/$title/$code"(controller: "task", action: "index")*/
+
+
         // Help
         "/patient/assist/$patientId"(controller: "assist", action: "index")
         "/care-giver/assist/$careGiverId"(controller: "assist", action: "assistCareGiver")

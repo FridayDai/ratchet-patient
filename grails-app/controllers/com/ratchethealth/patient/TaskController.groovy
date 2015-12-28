@@ -1,6 +1,6 @@
 package com.ratchethealth.patient
 
-import com.ratchethealth.patient.commands.UserCommand
+//import com.ratchethealth.patient.commands.UserCommand
 import grails.converters.JSON
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
@@ -42,7 +42,7 @@ class TaskController extends BaseController {
         }
     }
 
-    def phoneNumberValidate(UserCommand user) {
+  /*  def phoneNumberValidate(UserCommand user) {
         String token = request.session.token
         def patientName = params.patientName
         def code = params.code
@@ -122,7 +122,7 @@ class TaskController extends BaseController {
             }
         }
     }
-
+*/
     def start() {
         String token = request.session.token
         def patientName = params.patientName

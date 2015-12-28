@@ -162,6 +162,34 @@ class TaskService extends RatchetAPIService {
         }
     }
 
+    def submitSingleTask(String token, code, answer, accountId) {
+        String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
+
+        url = String.format(url, code)
+        def browserName = userAgentIdentService.getBrowser()
+        def browserVersion = userAgentIdentService.getBrowserVersion()
+        def OSName = userAgentIdentService.getOperatingSystem()
+
+        String json = JsonOutput.toJson([code: code, answer: answer, browserName: browserName, browserVersion: browserVersion, OSName: OSName, accountId: accountId])
+
+        withPost(url) { req ->
+            def resp = req.body(json).asJson()
+
+            if (resp.status == 200 || resp.status == 207) {
+                log.info("Submit questionnaire success, token: ${token}")
+//                def result = JSON.parse(resp.body.toString())
+//                result
+                return resp
+            } else if (resp.status == 412) {
+                def result = JSON.parse(resp.body)
+                log.error("Task expire exception: ${result?.error?.errorMessage}, token: ${token}.")
+                return resp
+            } else {
+                handleError(resp)
+            }
+        }
+    }
+
     def getTaskResult(String token, code) {
         def getTestResultUrl = grailsApplication.config.ratchetv2.server.url.task.testResult
 
