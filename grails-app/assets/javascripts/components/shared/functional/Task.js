@@ -182,11 +182,17 @@ function Task() {
         var first = this.errorQuestions[0],
             $header = this.select('headerPanelSelector'),
             headerMovedTop = parseInt($header.css('top').replace('px', ''), 10),
-            visibleHeaderTop = $header.height() + headerMovedTop,
+            headerHeight = $header.height(),
+            visibleHeaderTop = headerHeight + headerMovedTop,
             top = first.offset().top;
 
         if (!Utility.isMobile()) {
-            top -= visibleHeaderTop;
+            // If top < 205, than header will show all of it
+            if (top - visibleHeaderTop < 205) {
+                top -= headerHeight;
+            } else {
+                top -= visibleHeaderTop;
+            }
         }
 
         window.scrollTo(0, top);
