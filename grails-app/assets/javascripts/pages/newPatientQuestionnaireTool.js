@@ -74,9 +74,7 @@ var VALIDATION = {
     '#question10': {
         required: 'radio:[name="choices.10-c"]',
         depends: {
-            'radio:[name="choices.10-e-1-c"][value=1]': 'text:[name="choices.10-e-1-1s"]',
-            'radio:[name="choices.10-e-2-c"][value=1]': [
-                'text:[name="choices.10-e-2-1s"]',
+            'radio:[name="choices.10-e-2-c"][value=2]': [
                 'text:[name="choices.10-e-3"]'
             ],
             'radio:[name="choices.10-c"][value=1]': [

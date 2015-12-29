@@ -642,7 +642,7 @@
                             <li class="answer" id="question10-yes"
                                 data-trigger='{"#question10-extension" : "show"}'
                             >
-                                <div class="text text-yes"><span class="inline-text">Yes</span>
+                                <div class="text text-yes">Yes
                                     <span class="specify-part">
                                         <span class="label">Approximate Date:</span>
                                         <input type="text" name="choices.10-1s" class="date-picker" readonly value="${Draft?.'10-1s'}"/>
@@ -679,7 +679,7 @@
                                 <div>
                                     <ul class="list">
                                         <li class="answer" id="question10-extension1-yes">
-                                            <div class="text">Yes <input type="text" name="choices.10-e-1-1s" class="specify-input" placeholder="List injuries" maxlength="255" value="${Draft?.'10-e-1-1s'}"/></div>
+                                            <div class="text">Yes</div>
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
@@ -690,9 +690,7 @@
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
                                         </li>
-                                        <li class="answer need-clear-inputs"
-                                            data-trigger='{"#question10-extension1-yes [type=text]" : "clearOtherInputs"}'
-                                        >
+                                        <li class="answer need-clear-inputs">
                                             <div class="text">No</div>
                                             <label class="choice">
                                                 <input type="radio"
@@ -712,9 +710,9 @@
                                 <div>
                                     <ul class="list">
                                         <li class="answer" id="accidentInjuryYes"
-                                            data-trigger='{"#accidentInjuryQuestion" : "enable"}'
+                                            data-trigger='{"#accidentInjuryQuestion" : "reset|disable"}'
                                         >
-                                            <div class="text">Yes <input type="text" name="choices.10-e-2-1s" class="specify-input" placeholder="List injuries" maxlength="255" value="${Draft?.'10-e-2-1s'}"/></div>
+                                            <div class="text">Yes</div>
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
@@ -726,7 +724,7 @@
                                             </label>
                                         </li>
                                         <li class="answer need-clear-inputs" id="accidentInjuryNo"
-                                            data-trigger='{"#accidentInjuryQuestion" : "reset|disable", "#accidentInjuryYes [type=text]" : "clearOtherInputs"}'
+                                            data-trigger='{"#accidentInjuryQuestion" : "enable"}'
                                         >
                                             <div class="text">No</div>
                                             <label class="choice">
