@@ -1,11 +1,9 @@
 @import '../../partials/task_content';
 @import '../../partials/theme';
-@import '../../partials/selectmenu';
 @import '../../partials/dialog';
 @import '../../partials/datepicker';
-@import '../../partials/multiple_data_picker';
 
-.new-patient-questionnaire {
+.return-patient-questionnaire {
     @include breakpoint('tablet') {
         padding-top: 250px;
 
@@ -36,7 +34,8 @@
         }
     }
 
-    .rc-radio {
+    .rc-radio,
+    .rc-checkbox {
         width: 25px;
         height: 25px;
 
@@ -46,13 +45,44 @@
         }
     }
 
-    .rc-choice-hidden:checked + .rc-radio:before {
+    .rc-choice-hidden:checked + .rc-radio:before,
+    .rc-choice-hidden:checked + .rc-checkbox:before {
+        top: 2px;
+        left: 2px;
         width: 21px;
         height: 21px;
+        border-radius: 50%;
+        content: '';
 
         @include breakpoint('mobile') {
             width: 20px;
             height: 20px;
+        }
+    }
+
+    .rc-checkbox {
+        border-radius: 50%;
+    }
+
+    .rc-choice-hidden:checked {
+        & + .rc-checkbox {
+            background: none;
+            box-shadow: none;
+        }
+
+        & + .rc-checkbox:after {
+            display: inline-block;
+            position: absolute;
+            top: 3px;
+            left: 6px;
+            content: '\f383';
+            font-family: 'Ionicons';
+            font-size: 18px;
+            color: $base-color-white;
+
+            @include breakpoint('mobile') {
+                font-size: 17px;
+            }
         }
     }
 
@@ -90,18 +120,23 @@
 
     textarea {
         width: 100%;
-        height: 120px;
         font-size: 16px;
         background-color: #fbfbfb;
         border-color: #b1b1b1;
 
         @include breakpoint('mobile') {
+            height: 160px;
             padding: 10px;
         }
 
         @include breakpoint('tablet') {
+            height: 120px;
             padding: 15px;
         }
+    }
+
+    input[disabled] {
+        background-color: #e6e6e6;
     }
 
     .specify-input {
@@ -133,12 +168,6 @@
         }
     }
 
-    .sub-question-title,
-    .sub-question-answer-list,
-    .sub-question-time {
-        display: inline-block;
-    }
-
     .sub-question-title {
         font-size: 16px;
     }
@@ -147,210 +176,6 @@
     .sub-question-time-title,
     .sub-question-answer .text {
         color: #333;
-    }
-
-    .question-1 {
-        input[disabled] {
-            background-color: #e6e6e6;
-        }
-    }
-
-    .question-7,
-    .question-10,
-    .question-11 {
-        .specify-part {
-            @include breakpoint('mobile') {
-                display: block;
-                margin: 15px 0 0 -50px;
-            }
-
-            input {
-                @include breakpoint('mobile') {
-                    display: block;
-                    width: 100%;
-                }
-            }
-        }
-    }
-
-    .question-10 {
-        @include breakpoint('mobile') {
-            .text-yes {
-                position: static;
-            }
-
-            .inline-text {
-                position: static;
-            }
-        }
-
-        @include breakpoint('tablet') {
-            .text-yes, .specify-part {
-                position: relative;
-                display: inline-block;
-            }
-
-            .inline-text {
-                position: absolute;
-                vertical-align: top;
-            }
-
-            .multi-date-label {
-                left: 30px;
-            }
-
-            .multi-date-picker-item {
-                line-height: 17px;
-                font-size: 14px;
-            }
-
-            .multi-date-container {
-                margin-left: 220px;
-            }
-        }
-    }
-
-    .question-12 {
-        .sub-question-title {
-            @include breakpoint('tablet') {
-                width: 100px;
-            }
-        }
-
-        .sub-question-answer-list {
-            @include breakpoint('tablet') {
-                width: 425px;
-                margin: 0 -30px;
-
-                .column-1st {
-                    width: 30%;
-                }
-            }
-
-            @include breakpoint('desktop') {
-                width: 500px;
-                margin: 0;
-            }
-
-            @include breakpoint('lg-desktop') {
-                width: 600px;
-            }
-        }
-
-        .ui-selectmenu-button {
-            @include breakpoint('mobile') {
-                width: calc(100% - 10px)!important;
-                margin: 15px 0 0 10px;
-            }
-
-            @include breakpoint('tablet') {
-                width: 150px!important;
-            }
-
-            @include breakpoint('desktop') {
-                width: 200px!important;
-            }
-        }
-    }
-
-    .question-22 {
-        .sub-question-title {
-            @include breakpoint('tablet') {
-                width: 110px;
-            }
-
-            @include breakpoint('desktop') {
-                width: 200px;
-            }
-        }
-
-        .sub-question-answer-list {
-            @include breakpoint('tablet') {
-                width: 570px;
-                margin: 0 -30px;
-            }
-
-            @include breakpoint('desktop') {
-                width: 640px;
-            }
-
-            @include breakpoint('lg-desktop') {
-                width: 800px;
-            }
-        }
-    }
-
-    .question-23 {
-        @include breakpoint('tablet') {
-            .sub-question {
-                position: relative;
-
-                .text {
-                    min-height: 0;
-                    margin: 0 0 0 20px;
-                    line-height: 29px;
-                    display: inline-block;
-                    color: #333;
-                    font-size: 16px;
-                    position: absolute;
-                    vertical-align: top;
-                }
-            }
-
-            .multi-date-container {
-
-                margin-left: 200px;
-            }
-        }
-
-        @include breakpoint('mobile') {
-            .sub-question {
-                .text {
-                    padding: 20px;
-                    background-color: #fff;
-                    font-size: 16px;
-                    font-weight: 700;
-                }
-            }
-        }
-    }
-
-    .question-3 {
-        .specify-input {
-            margin-left: 10px;
-            width: 110px;
-        }
-
-        .ui-selectmenu-button {
-            width: 120px!important;
-            font-size: 14px;
-        }
-
-        .ui-selectmenu-text {
-            padding: 5px 10px;
-        }
-
-        .inline-text {
-            vertical-align: top;
-        }
-
-        .single-line {
-            @include breakpoint('mobile') {
-                display: block;
-                margin-top: 15px;
-            }
-
-            .inline-text {
-                @include breakpoint('mobile') {
-                    display: inline-block;
-                    margin-top: 6px;
-                }
-            }
-        }
-    }
-
-    .specify-part {
-        margin-left: 30px;
     }
 
     .sub-question-answer-list {
@@ -365,34 +190,6 @@
         }
     }
 
-    .sub-question-answer {
-        display: inline-block;
-        margin-right: -20px;
-        padding-left: 20px;
-        text-align: center;
-        vertical-align: top;
-
-        &.columns-3 {
-            width: 33.333333%;
-        }
-
-        &.columns-4 {
-            width: 25%;
-        }
-
-        .text {
-            margin-bottom: 10px;
-        }
-    }
-
-    .sub-question-time {
-        vertical-align: top;
-    }
-
-    .sub-question-time-title {
-        margin-bottom: 10px;
-    }
-
     .extension-question-list {
         @include breakpoint('mobile') {
             padding: 0;
@@ -401,6 +198,7 @@
         @include breakpoint('tablet') {
             padding: 0 40px;
         }
+
         font-size: 16px;
 
         .half-list {
@@ -411,28 +209,14 @@
 
             @include breakpoint('tablet') {
                 display: inline-block;
-                width: 49%;
-            }
-        }
-
-        .description {
-            color: #333;
-
-            @include breakpoint('mobile') {
-                padding: 15px;
-                margin: 0;
-                border-bottom: 1px solid #d9d9d9;
-            }
-
-            @include breakpoint('tablet') {
-                margin: 25px 0 15px;
+                width: 30%;
             }
         }
 
         .extension-question {
             @include breakpoint('mobile') {
                 margin: 0;
-                padding: 15px 10px;
+                padding: 15px 10px 0;
                 border-bottom: 1px solid #d9d9d9;
             }
             @include breakpoint('tablet') {
@@ -483,13 +267,14 @@
         }
 
         .answer {
-            padding: 10px 15px 10px 0;
+            padding: 10px 0;
 
             .text {
                 font-size: 15px;
 
                 @include breakpoint('mobile') {
                     margin-left: 0;
+                    padding-left: 50px;
                 }
 
                 @include breakpoint('tablet') {
@@ -498,14 +283,7 @@
             }
             .choice {
                 top: 10px;
-
-                @include breakpoint('mobile') {
-                    margin-left: 20px;
-                }
-
-                @include breakpoint('tablet') {
-                    margin-left: 10px;
-                }
+                margin-left: 10px;
             }
         }
 
@@ -559,12 +337,17 @@
     }
 
     .error-notice-field.error-field {
-        .sub-question-time-title {
+        .sub-question-time-title,
+        .sub-question-title {
             color: $base-color-error-circle-red;
         }
     }
 
     @include breakpoint('mobile') {
+        .explain-part {
+            display: none;
+        }
+
         .sub-question {
             margin-top: 0;
         }
@@ -617,48 +400,85 @@
             display: none;
         }
     }
-}
 
-.mobile-dialog {
-    @include breakpoint('mobile') {
-        @include answer-vertical-list('small');
-    }
+    .specify-part {
+        @include breakpoint('mobile') {
+            display: block;
+            margin: 15px 0 0 -50px;
+            font-size: 14px;
+        }
 
-    .answer {
-        color: #333;
-
-        .text {
+        input {
             @include breakpoint('mobile') {
+                display: block;
                 width: 100%;
-                padding-left: 60px;
-                margin-left: 0;
+                margin-top: 5px;
             }
         }
     }
 }
 
-.ui-selectmenu-menu .ui-menu {
-    height: 247px;
+#question1 {
+    .specify-input {
+        @include breakpoint('tablet') {
+            width: 500px;
+        }
+    }
 }
 
-.ui-selectmenu-button {
-    background-color: #fbfbfb;
-    border-color: #b1b1b1;
+#question3-extension {
+    .specify-part {
+        @include breakpoint('tablet') {
+            margin-left: 20px;
+        }
+    }
 }
 
-.ui-menu .ui-menu-item {
-    padding: 8px 10px;
-}
+#question4 {
+    .sub-question {
+        @include breakpoint('tablet') {
+            margin-bottom: 40px;
+        }
+    }
 
-.select-menu-default-text {
-    color: #999;
-}
+    .sub-question-title {
+        padding-bottom: 15px;
+        font-weight: 700;
+    }
 
-.ui-menu .ui-state-focus,
-.ui-menu .ui-state-active {
-    margin: 0;
-}
+    .sub-question-answer {
+        padding: 10px 0;
 
-.ui-selectmenu-text {
-    color: #333;
+        &.answer-none {
+            @include breakpoint('tablet') {
+                margin-top: 15px;
+            }
+        }
+
+        .text {
+            @include breakpoint('tablet') {
+                margin-left: 45px;
+            }
+        }
+
+        .choice {
+            top: 10px;
+
+            @include breakpoint('tablet') {
+                margin-left: 0;
+            }
+
+            &.disabled {
+                .rc-checkbox {
+                    background-color: #c3c3c3;
+                }
+            }
+        }
+    }
+
+    .textarea-container{
+        @include breakpoint('mobile') {
+            padding: 20px;
+        }
+    }
 }

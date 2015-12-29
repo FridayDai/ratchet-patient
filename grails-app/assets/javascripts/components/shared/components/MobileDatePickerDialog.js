@@ -10,7 +10,7 @@ function MobileDatePickerDialog() {
     this.options({
         title: 'Add Date',
         width: 440,
-        dialogClass: 'mobile-date-picker-dialog',
+        dialogClass: 'mobile-date-picker-dialog mobile-dialog',
         buttons: [{
             text: 'Save',
             click: function () {

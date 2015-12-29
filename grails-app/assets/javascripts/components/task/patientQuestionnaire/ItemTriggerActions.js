@@ -18,6 +18,10 @@ function ItemTriggerActions() {
             $target.selectmenu('option', 'disabled', false);
         } else if ($target.is('[type=text], textarea')) {
             $target.prop('disabled', false);
+        } else if ($target.is('[type=checkbox]')) {
+            $target
+                .parent()
+                .removeClass('disabled');
         } else if ($target.is('.multi-date-container')) {
             this.enableMultipleDate($target);
         } else {
@@ -37,6 +41,13 @@ function ItemTriggerActions() {
             this.clearInvolvedFieldsInDraft($target);
         } else if ($target.is('[type=text], textarea')) {
             $target.prop('disabled', true);
+
+            this.clearInvolvedFieldsInDraft($target);
+        } else if ($target.is('[type=checkbox]')) {
+            $target
+                .prop('checked', false)
+                .parent()
+                .addClass('disabled');
 
             this.clearInvolvedFieldsInDraft($target);
         } else if ($target.is('.multi-date-container')) {

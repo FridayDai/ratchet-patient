@@ -69,12 +69,11 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
             this.element.prop( "disabled", value );
             if ( value ) {
                 this.button.attr( "tabindex", -1 );
+                this.element.data('isDefault', true);
                 this.close();
             } else {
                 this.button.attr( "tabindex", 0 );
             }
-
-            this.element.data('isDefault', value);
         }
 
         if ( key === "width" ) {

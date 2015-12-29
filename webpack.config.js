@@ -18,6 +18,7 @@ module.exports = {
         odiLikeTool: "./pages/odiLikeTool.js",
         verticalChoiceTool: "./pages/verticalChoiceTool.js",
         newPatientQuestionnaireTool: "./pages/newPatientQuestionnaireTool.js",
+        returnPatientQuestionnaireTool: "./pages/returnPatientQuestionnaireTool.js",
         painChartTool: "./pages/painChartTool.js"
     },
     output: {

@@ -49,6 +49,19 @@ function ValidationHandlers() {
         }
     };
 
+    this.checkCheckboxValid = function ($item) {
+        if ($item.filter(':checked').length > 0) {
+            return true;
+        } else {
+            $item
+                .next()
+                .addClass('error-field')
+                .closest('.error-notice-field')
+                .addClass('error-field');
+            return false;
+        }
+    };
+
     this.clearTextareaError = this.clearTextError = function ($item) {
         $item
             .removeClass('error-field')
@@ -76,6 +89,14 @@ function ValidationHandlers() {
         $item
             .parent()
             .find('.multi-date-container')
+            .removeClass('error-field');
+    };
+
+    this.clearCheckboxError = function ($item) {
+        $item
+            .next()
+            .removeClass('error-field')
+            .closest('.error-notice-field')
             .removeClass('error-field');
     };
 }

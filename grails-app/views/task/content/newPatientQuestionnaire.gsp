@@ -1388,11 +1388,3 @@
         </script>
     </content>
 </g:applyLayout>
-
-
-
-
-
-
-
-

@@ -1,23 +1,10 @@
-require('../components/common/initSetup');
-require('../components/layout/Main');
-require('velocity');
-require('velocity-ui');
 require('../libs/MobileSelectMenu');
 
 var flight = require('flight');
-var WithPage = require('../components/common/WithPage');
-var Task = require('../components/shared/functional/Task');
-var SaveComplexDraftAnswer = require('../components/shared/functional/SaveComplexDraftAnswer');
-var ItemTriggerActions = require('../components/task/patientQuestionnaire/ItemTriggerActions');
-var ValidationHandlers = require('../components/task/patientQuestionnaire/ValidationHandlers');
-var DatePicker = require('../components/shared/components/DatePicker');
 var MultipleDatePicker = require('../components/shared/components/MultipleDatePicker');
-var MobileDatePickerDialog = require('../components/shared/components/MobileDatePickerDialog');
+var PatientQuestionnaireTool = require('../components/task/patientQuestionnaire/PatientQuestionnaireTool');
 var MobileSelectMenuDialog = require('../components/shared/components/MobileSelectMenuDialog');
 var Utility = require('../utils/Utility');
-
-var QUESTION_REQUIRE_ERROR_LABEL = '<span class="error-label">This question is required.</span>';
-var FIELD_REQUIRE_ERROR_LABEL = '<span class="error-label">Please complete required fields.</span>';
 
 var QUESTION_12_VALIDATION = {};
 for (var i = 0; i < 9; i++) {
@@ -73,6 +60,7 @@ var VALIDATION = {
     '#question9': {
         required: 'radio:[name="choices.9-c"]',
         depends: {
+            'radio:[name="choices.9-e-7-c"][value=1]': 'text:[name="choices.9-e-7-1s"]',
             'radio:[name="choices.9-c"][value=1]': [
                 'text:[name="choices.9-e-1"]',
                 'textarea:[name="choices.9-e-2"]',
@@ -80,22 +68,21 @@ var VALIDATION = {
                 'radio:[name="choices.9-e-4"]',
                 'text:[name="choices.9-e-5"]',
                 'radio:[name="choices.9-e-7-c"]'
-            ],
-            'radio:[name="choices.9-e-7-c"][value=1]': 'text:[name="choices.9-e-7-1s"]'
+            ]
         }
     },
     '#question10': {
         required: 'radio:[name="choices.10-c"]',
         depends: {
-            'radio:[name="choices.10-c"][value=1]': [
-                'text:[name="choices.10-1s"]',
-                'radio:[name="choices.10-e-1-c"]',
-                'radio:[name="choices.10-e-2-c"]'
-            ],
             'radio:[name="choices.10-e-1-c"][value=1]': 'text:[name="choices.10-e-1-1s"]',
             'radio:[name="choices.10-e-2-c"][value=1]': [
                 'text:[name="choices.10-e-2-1s"]',
                 'text:[name="choices.10-e-3"]'
+            ],
+            'radio:[name="choices.10-c"][value=1]': [
+                'text:[name="choices.10-1s"]',
+                'radio:[name="choices.10-e-1-c"]',
+                'radio:[name="choices.10-e-2-c"]'
             ]
         }
     },
@@ -145,26 +132,14 @@ var VALIDATION = {
 
 function newPatientQuestionnaireTool() {
     this.attributes({
-        startQuestionValidation: false,
-
-        textItemSelector: '.specify-input, textarea',
-        choiceItemSelector: '.answer, .sub-question-answer',
         selectMenuSelector: '.select-menu',
-        datePickerSelector: '.date-picker',
         multipleDatePickerSelector: '.multi-date-container',
-        mobileDatePickerDialogSelector: '#mobile-date-picker-dialog',
         mobileEnterYearDialogSelector: '#mobile-enter-year-dialog',
         mobilePickTimeDialogSelector: '#mobile-pick-time-dialog',
         question12ChoiceSelector: '.question-12 .sub-question-answer'
     });
 
     this.children({
-        datePickerSelector: {
-            child: DatePicker,
-            attributes: {
-                maxDate: 0
-            }
-        },
         multipleDatePickerSelector: {
             child: MultipleDatePicker,
             attributes: {
@@ -175,10 +150,6 @@ function newPatientQuestionnaireTool() {
 
     this.dialogs([
         {
-            selector: 'mobileDatePickerDialogSelector',
-            event: 'rc.showMobileDatePickerDialog',
-            dialog: MobileDatePickerDialog
-        }, {
             selector: 'mobileEnterYearDialogSelector',
             event: 'showEnterYearMobileDialog',
             dialog: MobileSelectMenuDialog
@@ -188,81 +159,6 @@ function newPatientQuestionnaireTool() {
             dialog: MobileSelectMenuDialog
         }
     ]);
-
-    this.onTextInput = function (e) {
-        var $target = $(e.target),
-            $question = $target.closest('.question-list');
-
-        this.validateQuestion($question);
-    };
-
-    this.onChoiceItemClicked = function (e) {
-        var $target = $(e.target),
-            $choiceItem = $target.closest(this.attr.choiceItemSelector);
-
-        if (!$target.is('input.rc-choice-hidden')) {
-            $choiceItem
-                .find('[type="radio"].rc-choice-hidden')
-                .prop('checked', true);
-
-            this.checkTriggerTarget($choiceItem);
-
-            var $question = $target.closest('.question-list');
-
-            this.validateQuestion($question);
-
-            this.prepareDraftAnswer($target);
-        }
-    };
-
-    this.onDatePickerSelected = function (e, data) {
-        var $question = data.$elem.closest('.question-list');
-        var $answer = data.$elem.closest(this.attr.choiceItemSelector);
-        var $hiddenRadio = $answer.find('.rc-choice-hidden');
-        var questionId = data.$elem.attr('name').replace('choices.', '');
-
-        if ($hiddenRadio.length > 0 && !$hiddenRadio.prop('checked')) {
-            $hiddenRadio.prop('checked', true);
-
-            var hiddenQuestionId = $hiddenRadio.attr('name').replace('choices.', '');
-
-            this.draftAnswer[hiddenQuestionId] = $hiddenRadio.val();
-        }
-
-        this.validateQuestion($question);
-
-        this.draftAnswer[questionId] = data.value;
-
-        this.saveDraftAnswer();
-    };
-
-    this.validateQuestion = function ($question) {
-        if (this.checkQuestionValidation($question, VALIDATION['#' + $question.attr('id')])) {
-            this.clearErrorStatus($question);
-        } else {
-            this.setErrorStatus($question);
-        }
-    };
-
-    this.checkTriggerTarget = function ($item) {
-        var triggerData = $item.data('trigger');
-
-        if (!triggerData) {
-            return;
-        }
-
-        _.each(triggerData, function (actions, target) {
-            var $target = $(target);
-
-            _.each(actions.split('|'), function (action) {
-                this.runTriggerAction($target, action, $item);
-            }, this);
-        }, this);
-    };
-
-    this.runTriggerAction = function ($target, action, $currentItem) {
-        this['trigger{0}Action'.format(_.capitalize(action))].call(this, $target, $currentItem);
-    };
 
     this.initSelectMenu = function () {
         var self = this;
@@ -279,178 +175,6 @@ function newPatientQuestionnaireTool() {
                 self.saveDraftAnswer();
             }
         });
-    };
-
-    this.setErrorStatus = function ($question) {
-        if(!$question.hasClass('error')) {
-            $question.addClass('error');
-        }
-
-        $question
-            .find('.error-label')
-            .remove();
-
-        var $title = $question.find('.question');
-
-        if ($question.data('questionRequiredValid')) {
-            $title.append(FIELD_REQUIRE_ERROR_LABEL);
-        } else {
-            $title.append(QUESTION_REQUIRE_ERROR_LABEL);
-        }
-    };
-
-    this.clearErrorStatus = function ($question) {
-        $question = $($question);
-
-        if ($question.hasClass('error')) {
-            $question
-                .removeClass('error')
-                .find('.error-label')
-                .remove();
-        }
-    };
-
-    this.isValid = function () {
-        var isValid = true;
-
-        this.attr.startQuestionValidation = true;
-
-        _.each(VALIDATION, function (condition, questionSelector) {
-            var $question = $(questionSelector);
-
-            if (!this.checkQuestionValidation($question, condition)) {
-                this.errorQuestions.push($question);
-                this.setErrorStatus($question);
-
-                isValid = false;
-            }
-        }, this);
-
-        return isValid;
-    };
-
-    this.checkQuestionValidation = function ($question, condition) {
-        if (!condition || !this.attr.startQuestionValidation) {
-            return true;
-        }
-
-        var required = condition.required;
-        var requiredValid = true;
-
-        if (required) {
-            Utility.checkArraySelfRun(required, function (selector) {
-                if (!this.checkItemValid($question, selector)) {
-                    requiredValid = false;
-                }
-            }, this);
-        }
-
-        $question.data('questionRequiredValid', requiredValid);
-
-        var depends = condition.depends;
-        var dependsValid = true;
-
-        if (requiredValid) {
-            if (required) {
-                this.clearRequiredItemError($question, required);
-            }
-
-            _.each(depends, function (items, dependOn) {
-                if (!this.checkDependOnTurnOn($question, dependOn)) {
-                    Utility.checkArraySelfRun(items, function (item) {
-                        this.clearItemError($question, item);
-                    }, this);
-
-                    return;
-                }
-
-                Utility.checkArraySelfRun(items, function (item) {
-                    this.clearItemError($question, item);
-
-                    if (!this.checkItemValid($question, item)) {
-                        dependsValid = false;
-                    }
-                }, this);
-            }, this);
-        }
-
-        return requiredValid && dependsValid;
-    };
-
-    this.getTypeAndSelector = function (str) {
-        var regexp = /(.*):(.*)/,
-            arr = str.match(regexp),
-            type = arr[1],
-            selector = arr[2];
-
-        return {
-            type: type,
-            selector: selector
-        };
-    };
-
-    this.checkItemValid = function ($parent, str) {
-        var typeSelector = this.getTypeAndSelector(str),
-            $item = $parent.find(typeSelector.selector);
-
-        if ($item.prop('disabled')) {
-            return true;
-        }
-
-        return this['check{0}Valid'.format(_.capitalize(typeSelector.type))].call(this, $item);
-    };
-
-    this.clearItemError = function ($question, str) {
-        var typeSelector = this.getTypeAndSelector(str),
-            $item = $question.find(typeSelector.selector);
-
-        this['clear{0}Error'.format(_.capitalize(typeSelector.type))].call(this, $item);
-    };
-
-    this.checkDependOnTurnOn = function ($question, dependOn) {
-        var typeSelector = this.getTypeAndSelector(dependOn),
-            $item = $question.find(typeSelector.selector);
-
-        switch (typeSelector.type) {
-            case 'radio':
-                return $item.prop('checked');
-
-            case 'group':
-                return true;
-
-            case 'text':
-            case 'textarea':
-                return !!$item.val();
-        }
-    };
-
-    this.clearRequiredItemError = function ($question, requiredSelector) {
-        Utility.checkArraySelfRun(requiredSelector, function (str) {
-            var typeSelector = this.getTypeAndSelector(str),
-                $item = $question.find(typeSelector.selector);
-
-            switch (typeSelector.type) {
-                case 'text':
-                case 'textarea':
-                    $item.removeClass('error-field');
-                    break;
-
-                case 'radio':
-                    $item
-                        .next()
-                        .removeClass('error-field');
-                    break;
-            }
-        }, this);
-    };
-
-    this.onTextBlur = function (e) {
-        var $target = $(e.target);
-        var questionId = $target.attr('name').replace('choices.', '');
-
-        this.draftAnswer[questionId] = $target.val();
-
-        this.saveDraftAnswer();
     };
 
     this.onMultipleDatePickerChanged = function (e, data) {
@@ -472,20 +196,6 @@ function newPatientQuestionnaireTool() {
         this.saveDraftAnswer();
     };
 
-    this.initDraftAnswer = function () {
-        this.draftAnswer = this.select('formSelector').data('draft') || {};
-    };
-
-    this.prepareDraftAnswer = function ($target) {
-        var $answer = $target.closest(this.attr.choiceItemSelector);
-        var $hiddenRadio = $answer.find('.rc-choice-hidden');
-        var questionId = $hiddenRadio.attr('name').replace('choices.', '');
-
-        this.draftAnswer[questionId] = $hiddenRadio.val();
-
-        this.saveDraftAnswer();
-    };
-
     this.checkQuestion12ChoiceInMobile = function () {
         if (Utility.isMobile()) {
             var $checkedHiddens = this.select('question12ChoiceSelector').find('[type=radio]:checked');
@@ -500,30 +210,20 @@ function newPatientQuestionnaireTool() {
     };
 
     this.after('initialize', function () {
-        this.initSelectMenu();
-        this.initDraftAnswer();
+        // init validation
+        this.VALIDATION = VALIDATION;
 
-        this.on(document, 'rc.datePickerSelect', this.onDatePickerSelected);
+        this.initSelectMenu();
+
         this.on(document, 'rc.multipleDatePickerSelect', this.onMultipleDatePickerChanged);
         this.on(document, 'rc.multipleDatePickerDelete', this.onMultipleDatePickerChanged);
 
-        this.on('input', {
-            textItemSelector: this.onTextInput
-        });
-
-        this.on('.specify-input, textarea', 'blur', this.onTextBlur);
 
         this.checkQuestion12ChoiceInMobile();
-
-        Utility.hideProcessing();
     });
 }
 
 flight.component(
-    Task,
-    WithPage,
-    ItemTriggerActions,
-    ValidationHandlers,
-    SaveComplexDraftAnswer,
+    PatientQuestionnaireTool,
     newPatientQuestionnaireTool
 ).attachTo('#main');

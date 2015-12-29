@@ -147,6 +147,13 @@ class MultiTaskController extends BaseController {
                         draft = JSON.parse(JSON.parse(result.draft).yourData)
                     }
                     break
+                case 14:
+                    questionnaireView = '/task/content/returnPatientQuestionnaire'
+
+                    if (result.draft) {
+                        draft = JSON.parse(JSON.parse(result.draft).yourData)
+                    }
+                    break
             }
 
             session["questionnaireView${taskCode}"] = questionnaireView
