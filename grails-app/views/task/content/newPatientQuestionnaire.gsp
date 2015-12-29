@@ -152,7 +152,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question2">
-                    <div class="question">2. What is the primary reason for you visit?</div>
+                    <div class="question">2. What is the primary reason for your visit?</div>
 
                     <div class="answer-list">
                         <ul class="list">
