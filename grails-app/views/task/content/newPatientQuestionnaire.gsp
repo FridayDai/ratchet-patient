@@ -602,8 +602,10 @@
                                 <div class="extension-question-title">Did you suffer any other injuries when you hurt your spine?</div>
                                 <div>
                                     <ul class="list">
-                                        <li class="answer" id="question9-extension7-yes">
-                                            <div class="text">Yes <input type="text" name="choices.9-e-7-1s" class="specify-input" placeholder="List injuries" maxlength="255" value="${Draft?.'9-e-7-1s'}"/></div>
+                                        <li class="answer" id="question9-extension7-yes"
+                                            data-trigger='{"#question9-extension7-yes [type=text]": "enable"}'
+                                        >
+                                            <div class="text">Yes <input type="text" name="choices.9-e-7-1s" class="specify-input" placeholder="List injuries" maxlength="255" <g:if test="${Draft?.'9-e-7-c' == 2.toString()}">disabled</g:if> value="${Draft?.'9-e-7-1s'}"/></div>
                                             <label class="choice">
                                                 <input type="radio"
                                                        class="rc-choice-hidden"
@@ -615,7 +617,7 @@
                                             </label>
                                         </li>
                                         <li class="answer need-clear-inputs"
-                                            data-trigger='{"#question9-extension7-yes [type=text]": "clearOtherInputs"}'
+                                            data-trigger='{"#question9-extension7-yes [type=text]": "disable"}'
                                         >
                                             <div class="text">No</div>
                                             <label class="choice">
