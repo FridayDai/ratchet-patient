@@ -21,7 +21,7 @@ function KOOSLike() {
         this.headerTipError(first);
         var top = first.offset().top;
         if (!Utility.isMobile()) {
-            top -= 180;
+            top -= 108;//sub header height.
         }
         top -= this.headerTipHeight;
 

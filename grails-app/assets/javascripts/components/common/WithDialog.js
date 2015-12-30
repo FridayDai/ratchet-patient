@@ -1,4 +1,4 @@
-require('../../libs/dialog/dialog');
+require('../../libs/dialog');
 
 var flight = require('flight');
 var WithOptions = require('./WithOptions');
@@ -45,12 +45,21 @@ function WithDialog() {
         this.dialogEl.dialog('close');
     };
 
-    this.changeTitle = function (title) {
+    this.setTitle = this.changeTitle = function (title) {
         this.dialogEl.dialog('option', 'title', title);
     };
 
     this.changeWidth = function (width) {
         this.dialogEl.dialog('option', 'width', width);
+    };
+
+    this.changeHeight = function (height) {
+        this.dialogEl.dialog('option', 'height', height);
+    };
+
+    this.changeSize = function (size) {
+        this.changeHeight(size.height);
+        this.changeWidth(size.width);
     };
 
     this.after('initialize', function () {

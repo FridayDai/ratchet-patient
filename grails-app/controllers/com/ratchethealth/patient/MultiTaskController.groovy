@@ -104,6 +104,7 @@ class MultiTaskController extends BaseController {
 
             //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS
             // 9.Harris Hip Score 10.Fairley Nasal Symptom 11.Pain Chart Reference - Neck
+            // 12.Pain Chart Reference - Beck 13.New Patient Questionnaire Tool
             switch (result.type) {
                 case 1: case 6: case 10:
                     questionnaireView = '/task/content/dash'
@@ -134,6 +135,20 @@ class MultiTaskController extends BaseController {
                     break
                 case 12:
                     questionnaireView = '/task/content/painChartBack'
+
+                    if (result.draft) {
+                        draft = JSON.parse(JSON.parse(result.draft).yourData)
+                    }
+                    break
+                case 13:
+                    questionnaireView = '/task/content/newPatientQuestionnaire'
+
+                    if (result.draft) {
+                        draft = JSON.parse(JSON.parse(result.draft).yourData)
+                    }
+                    break
+                case 14:
+                    questionnaireView = '/task/content/returnPatientQuestionnaire'
 
                     if (result.draft) {
                         draft = JSON.parse(JSON.parse(result.draft).yourData)

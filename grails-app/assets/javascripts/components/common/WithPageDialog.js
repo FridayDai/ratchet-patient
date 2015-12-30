@@ -1,8 +1,10 @@
 var flight = require('flight');
 
 function WithPageDialog() {
+    this._dialogs = [];
+
     this.dialogs = function (options) {
-        this._dialogs = options;
+        this._dialogs = _.union(this._dialogs, options);
     };
 
     this._delegateDialogs = function () {

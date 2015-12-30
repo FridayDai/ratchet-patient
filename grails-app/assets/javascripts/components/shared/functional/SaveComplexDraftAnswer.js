@@ -11,6 +11,10 @@ function SaveComplexDraftAnswer() {
             }
         });
     };
+
+    this.after('initialize', function () {
+        this.draftAnswer = {};
+    });
 }
 
 module.exports = SaveComplexDraftAnswer;
