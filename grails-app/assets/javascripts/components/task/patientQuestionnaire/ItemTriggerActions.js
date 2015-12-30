@@ -1,15 +1,28 @@
 var Utility = require('../../../utils/Utility');
 
 function ItemTriggerActions() {
+    this._hideInProgress = false;
+    this._showInProgress = false;
+
     this.triggerShowAction = function ($target) {
-        if (!$target.is(':visible')) {
-            $target.velocity('transition.slideDownIn');
+        var me = this;
+
+        if (!$target.is(':visible') || this._hideInProgress) {
+            this._showInProgress = true;
+            $target.velocity('transition.slideDownIn', null, function () {
+                me._showInProgress = false;
+            });
         }
     };
 
     this.triggerHideAction = function ($target) {
-        if ($target.is(':visible')) {
-            $target.velocity('transition.slideUpOut');
+        var me = this;
+
+        if (this._showInProgress || $target.is(':visible')) {
+            this._hideInProgress = true;
+            $target.velocity('transition.slideUpOut', null, function () {
+                me._hideInProgress = false;
+            });
         }
     };
 
