@@ -4,6 +4,7 @@ require('velocity');
 require('velocity-ui');
 
 var flight = require('flight');
+var IScroll = require('IScroll');
 var WithPage = require('../../common/WithPage');
 var Task = require('../../shared/functional/Task');
 var SaveComplexDraftAnswer = require('../../shared/functional/SaveComplexDraftAnswer');
@@ -335,6 +336,13 @@ function PatientQuestionnaireTool() {
         this.saveDraftAnswer();
     };
 
+    this.initIScrollForMobileDialog = function () {
+        /*jshint nonew: false */
+        if (Utility.isMobile()) {
+            new IScroll('#main', {click: true});
+        }
+    };
+
     this.after('initialize', function () {
         this.initDraftAnswer();
 
@@ -345,6 +353,10 @@ function PatientQuestionnaireTool() {
         });
 
         this.on('.specify-input, textarea', 'blur', this.onTextBlur);
+
+
+
+        this.initIScrollForMobileDialog();
 
         Utility.hideProcessing();
     });

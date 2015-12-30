@@ -39,7 +39,8 @@ module.exports = {
             "jquery-headroom": "bower_components/headroom.js/dist/jQuery.headroom.js",
             "snapsvg": "bower_components/Snap.svg/dist/snap.svg.js",
             "velocity": "bower_components/velocity/velocity.js",
-            "velocity-ui": "bower_components/velocity/velocity.ui.js"
+            "velocity-ui": "bower_components/velocity/velocity.ui.js",
+            "IScroll": "bower_components/iscroll/build/iscroll-lite.js"
         }
     },
     module: {

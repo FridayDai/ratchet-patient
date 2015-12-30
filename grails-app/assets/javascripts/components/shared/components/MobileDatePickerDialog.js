@@ -1,7 +1,7 @@
 require('../../common/WithDatepicker');
 
 var flight = require('flight');
-var WithDialog = require('../../common/WithDialog');
+var WithMobileDialog = require('../../common/WithMobileDialog');
 
 function MobileDatePickerDialog() {
     this.$datePicker = null;
@@ -20,15 +20,7 @@ function MobileDatePickerDialog() {
     });
 
     this.onShow = function (e, data) {
-        var $window = $(window);
-
-        this.$node.removeClass('ui-hidden');
         this.current$elem = data.$elem;
-
-        this.changeSize({
-            width: $window.width(),
-            height: $window.height()
-        });
 
         if (!this.$datePicker) {
             this.$datePicker = this.$node.find('.inline-date-picker').datepicker({
@@ -36,8 +28,6 @@ function MobileDatePickerDialog() {
                 maxDate: 0
             });
         }
-
-        this.show();
     };
 
     this.selectCurrentDate = function () {
@@ -50,4 +40,4 @@ function MobileDatePickerDialog() {
     };
 }
 
-module.exports = flight.component(WithDialog, MobileDatePickerDialog);
+module.exports = flight.component(WithMobileDialog, MobileDatePickerDialog);

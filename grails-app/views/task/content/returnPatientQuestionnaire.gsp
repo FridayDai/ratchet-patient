@@ -554,7 +554,7 @@
                 </div>
             </form>
             <div id="mobile-date-picker-dialog" class="modal ui-hidden">
-                <div class="inline-date-picker"></div>
+                <div class="inline-date-picker" autofocus></div>
             </div>
         </div>
     </div>

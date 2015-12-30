@@ -1333,10 +1333,10 @@
                 </div>
             </form>
             <div id="mobile-date-picker-dialog" class="modal ui-hidden">
-                <div class="inline-date-picker"></div>
+                <div class="inline-date-picker" autofocus></div>
             </div>
             <div id="mobile-enter-year-dialog" class="modal ui-hidden" data-title="Select year">
-                <div class="answer-list">
+                <div class="answer-list" autofocus>
                     <ul class="list">
                         <g:each var="j" in="${1..<13}">
                             <li class="answer">
@@ -1356,7 +1356,7 @@
                 </div>
             </div>
             <div id="mobile-pick-time-dialog" class="modal ui-hidden" data-title="Select a length of time">
-                <div class="answer-list">
+                <div class="answer-list" autofocus>
                     <ul class="list">
                         <g:set var="timeArr" value="['5 minutes', '15 minutes', '30 minutes', '1 hour', '2 hours', '4 hours', '8 hours']" />
                         <g:each var="time" in="${timeArr}" status="index">

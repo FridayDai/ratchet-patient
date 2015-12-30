@@ -21,17 +21,7 @@ function MobileSelectMenuDialog() {
     };
 
     this.onShow = function (e, data) {
-        var $window = $(window);
-
-        this.$node.removeClass('ui-hidden');
         this.prepareForShow(data);
-
-        this.changeSize({
-            width: $window.width(),
-            height: $window.height()
-        });
-
-        this.show();
     };
 
     this.prepareForShow = function (data) {
