@@ -149,6 +149,25 @@ function ItemTriggerActions() {
         }
     };
 
+    this.triggerCheckboxToggleAction = function ($target, $currentItem) {
+        var $currentCheckbox = $currentItem.find('[type=checkbox]');
+
+        if ($currentCheckbox.prop('checked')) {
+            $target
+                .prop('checked', false)
+                .parent()
+                .addClass('disabled');
+        } else {
+            var $currentCheckboxGroup = $('[name="{0}"]'.format($currentCheckbox.attr('name')));
+
+            if ($currentCheckboxGroup.filter(':checked').length === 0) {
+                $currentCheckboxGroup
+                    .parent()
+                    .removeClass('disabled');
+            }
+        }
+    };
+
     this.disableMultipleDate = function ($multipleDate) {
         $multipleDate.parent().find('[type=hidden]').val('');
 

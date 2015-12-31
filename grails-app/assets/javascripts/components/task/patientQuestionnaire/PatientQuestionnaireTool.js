@@ -60,8 +60,10 @@ function PatientQuestionnaireTool() {
     };
 
     this.onChoiceItemClicked = function (e) {
-        var me = this,
-            $target = $(e.target),
+        e.preventDefault();
+        e.stopPropagation();
+
+        var $target = $(e.target),
             $choiceItem = $target.closest(this.attr.choiceItemSelector);
 
         if (!$target.is('input.rc-choice-hidden')) {
@@ -70,7 +72,7 @@ function PatientQuestionnaireTool() {
                 .prop('checked', true);
 
             var $checkbox = $choiceItem.find('[type="checkbox"].rc-choice-hidden');
-            if ($checkbox.length > 0 && !$target.is('.rc-checkbox')) {
+            if ($checkbox.length > 0) {
                 $checkbox
                     .each(function (index, elem) {
                         var $elem = $(elem);
@@ -85,10 +87,7 @@ function PatientQuestionnaireTool() {
 
             this.validateQuestion($question);
 
-            // SetTimeout for checkbox will auto checked after this function run when JUST click checkbox item
-            setTimeout(function () {
-                me.saveDraftForChoiceItem($target);
-            }, 0);
+            this.saveDraftForChoiceItem($target);
         }
     };
 
