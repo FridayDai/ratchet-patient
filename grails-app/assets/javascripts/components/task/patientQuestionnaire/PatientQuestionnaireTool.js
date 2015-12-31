@@ -272,7 +272,7 @@ function PatientQuestionnaireTool() {
 
         switch (typeSelector.type) {
             case 'radio':
-                return $item.prop('checked');
+                return $item.filter(':checked').length > 0;
 
             case 'group':
                 return true;

@@ -355,7 +355,9 @@
                                 <div class="extension-question-title">Did you take time off from work?</div>
                                 <div>
                                     <ul class="list">
-                                        <li class="answer">
+                                        <li class="answer"
+                                            data-trigger='{"#question3-extension [type=text]" : "enable"}'
+                                        >
                                             <div class="text">Yes
                                                 <span class="specify-part">
                                                     <span class="label">Return date:</span>
