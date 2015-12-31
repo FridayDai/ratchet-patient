@@ -1,4 +1,3 @@
-var flight = require('flight');
 var MobileSelectMenuDialog = require('../../shared/components/MobileSelectMenuDialog');
 
 function MobileEnterYearDialog() {
