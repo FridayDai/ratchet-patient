@@ -53,7 +53,9 @@ function ItemTriggerActions() {
 
             this.clearInvolvedFieldsInDraft($target);
         } else if ($target.is('[type=text], textarea')) {
-            $target.prop('disabled', true);
+            $target
+                .prop('disabled', true)
+                .val('');
 
             this.clearInvolvedFieldsInDraft($target);
         } else if ($target.is('[type=checkbox]')) {

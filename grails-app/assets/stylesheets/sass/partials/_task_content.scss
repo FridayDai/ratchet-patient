@@ -207,3 +207,35 @@
 .multi-select-date-picker {
     display: inline-block;
 }
+
+input[disabled],
+textarea[disabled] {
+    background-image: none;
+    opacity: 0.6;
+
+    &::-webkit-input-placeholder { /* WebKit browsers */
+        color:    #e6e6e6;
+    }
+    &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:    #e6e6e6;
+    }
+    &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:    #e6e6e6;
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color:    #e6e6e6;
+    }
+}
+
+.ui-selectmenu-button.ui-state-disabled {
+    background: #e6e6e6;
+    opacity: 0.6;
+
+    .ui-icon {
+        display: none;
+    }
+
+    .select-menu-default-text {
+        color: #e6e6e6;
+    }
+}

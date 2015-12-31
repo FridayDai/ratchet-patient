@@ -213,7 +213,7 @@
                     <div class="answer-list">
                         <ul class="list">
                             <li class="answer"
-                                data-trigger='{"#question3 select" : "reset"}'
+                                data-trigger='{"#question3 select" : "reset|disable"}'
                             >
                                 <div class="text">Less than 2 weeks ago</div>
                                 <label class="choice">
@@ -227,7 +227,7 @@
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question3 select" : "reset"}'
+                                data-trigger='{"#question3 select" : "reset|disable"}'
                             >
                                 <div class="text">2 weeks to less than 8 weeks ago</div>
                                 <label class="choice">
@@ -241,7 +241,7 @@
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question3 select" : "reset"}'
+                                data-trigger='{"#question3 select" : "reset|disable"}'
                             >
                                 <div class="text">8 weeks to less than 3 months ago</div>
                                 <label class="choice">
@@ -255,7 +255,7 @@
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question3 select" : "reset"}'
+                                data-trigger='{"#question3 select" : "reset|disable"}'
                             >
                                 <div class="text">3 months to less than 6 months ago</div>
                                 <label class="choice">
@@ -269,7 +269,7 @@
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question3 select" : "reset"}'
+                                data-trigger='{"#question3 select" : "reset|disable"}'
                             >
                                 <div class="text">6 to 12 months ago</div>
                                 <label class="choice">
@@ -282,11 +282,13 @@
                                     <span class="rc-radio primary-radio-color"></span>
                                 </label>
                             </li>
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question3 select" : "enable"}'
+                            >
                                 <div class="text">
                                     <span class="inline-text">More than 12 months ago.</span>
                                     <span class="single-line">
-                                        <select class="select-menu" name="choices.3-6s" data-default-text="Enter year" data-mobile-dialog-event="showEnterYearMobileDialog">
+                                        <select class="select-menu" name="choices.3-6s" data-default-text="Enter year" data-mobile-dialog-event="showEnterYearMobileDialog" <g:if test="${Draft?.'3-c' && Draft?.'3-c' != 6.toString()}">disabled</g:if>>
                                             <g:each var="time" in="${(1..10)}">
                                                 <option value="${time}" <g:if test="${Draft?."3-6s" == time.toString()}">selected</g:if>>${time}</option>
                                             </g:each>
@@ -397,11 +399,13 @@
 
                     <div class="answer-list">
                         <ul class="list">
-                            <li class="answer">
+                            <li class="answer"
+                                data-trigger='{"#question7 [type=text]" : "enable"}'
+                            >
                                 <div class="text">Yes
                                     <span class="specify-part">
                                         <span class="label">Approximate Date:</span>
-                                        <input type="text" name="choices.7-1s" class="date-picker" readonly value="${Draft?.'7-1s'}"/>
+                                        <input type="text" name="choices.7-1s" class="date-picker" readonly value="${Draft?.'7-1s'}" <g:if test="${Draft?.'7-c' == 2.toString()}">disabled</g:if>/>
                                     </span>
                                 </div>
                                 <label class="choice">
@@ -415,7 +419,7 @@
                                 </label>
                             </li>
                             <li class="answer need-clear-inputs"
-                                data-trigger='{"#question7 [type=text]" : "clearOtherInputs"}'
+                                data-trigger='{"#question7 [type=text]" : "disable"}'
                             >
                                 <div class="text">No</div>
                                 <label class="choice">
@@ -642,12 +646,12 @@
                     <div class="answer-list">
                         <ul class="list">
                             <li class="answer" id="question10-yes"
-                                data-trigger='{"#question10-extension" : "show"}'
+                                data-trigger='{"#question10-extension" : "show", "#question10-yes [type=text]": "enable"}'
                             >
                                 <div class="text text-yes">Yes
                                     <span class="specify-part">
                                         <span class="label">Approximate Date:</span>
-                                        <input type="text" name="choices.10-1s" class="date-picker" readonly value="${Draft?.'10-1s'}"/>
+                                        <input type="text" name="choices.10-1s" class="date-picker" readonly value="${Draft?.'10-1s'}" <g:if test="${Draft?.'10-c' == 2.toString()}">disabled</g:if>/>
                                     </span>
                                 </div>
                                 <label class="choice">
@@ -661,7 +665,7 @@
                                 </label>
                             </li>
                             <li class="answer answer-extension-trigger-no need-clear-inputs"
-                                data-trigger='{"#question10-extension" : "hide|reset", "#question10-yes [type=text]": "clearOtherInputs"}'
+                                data-trigger='{"#question10-extension" : "hide|reset", "#question10-yes [type=text]": "disable"}'
                             >
                                 <div class="text">No</div>
                                 <label class="choice">
@@ -681,7 +685,7 @@
                                 <div>
                                     <ul class="list">
                                         <li class="answer" id="question10-extension1-yes"
-                                            data-trigger='{"#question10-extension-2" : "show"}'
+                                            data-trigger='{"#question10-extension-2" : "show", "#question10-extension1-yes [type=text]": "disable"}'
                                         >
                                             <div class="text">Yes</div>
                                             <label class="choice">
@@ -695,7 +699,7 @@
                                             </label>
                                         </li>
                                         <li class="answer need-clear-inputs"
-                                            data-trigger='{"#question10-extension-2" : "hide|reset", "#accidentInjuryQuestion" : "hide|reset"}'
+                                            data-trigger='{"#question10-extension-2" : "hide|reset", "#accidentInjuryQuestion" : "hide|reset", "#question10-extension1-yes [type=text]": "disable"}'
                                         >
                                             <div class="text">No</div>
                                             <label class="choice">
@@ -759,12 +763,12 @@
                     <div class="answer-list">
                         <ul class="list">
                             <li class="answer answer-extension-trigger-yes"
-                                data-trigger='{"#question11-extension" : "show"}'
+                                data-trigger='{"#question11-extension" : "show", "#question11 [type=text]": "enable"}'
                             >
                                 <div class="text">Yes
                                     <span class="specify-part">
                                         <span class="label">Date of injury:</span>
-                                        <input name="choices.11-1s" type="text" class="date-picker" readonly value="${Draft?.'11-1s'}"/>
+                                        <input name="choices.11-1s" type="text" class="date-picker" readonly value="${Draft?.'11-1s'}" <g:if test="${Draft?.'11-c' == 2.toString()}">disabled</g:if>/>
                                     </span>
                                 </div>
                                 <label class="choice">
@@ -778,7 +782,7 @@
                                 </label>
                             </li>
                             <li class="answer answer-extension-trigger-no need-clear-inputs"
-                                data-trigger='{"#question11-extension" : "hide|reset", "#question11 [type=text]": "clearOtherInputs"}'
+                                data-trigger='{"#question11-extension" : "hide|reset", "#question11 [type=text]": "disable"}'
                             >
                                 <div class="text">No</div>
                                 <label class="choice">
@@ -830,7 +834,7 @@
                                     <li class="sub-question-answer columns-3 question-12-has-change column-2nd"
                                         data-trigger='{"#question12Sub${j}Select" : "enable|mobileShowSelectAtOwn"}'
                                     >
-                                        <div class="text">Relieves pain</div>
+                                        <div class="text">Relieves Pain</div>
                                         <label class="choice">
                                             <input type="radio"
                                                    class="rc-choice-hidden"
