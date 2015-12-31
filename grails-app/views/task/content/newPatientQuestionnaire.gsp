@@ -680,7 +680,9 @@
                                 <div class="extension-question-title">Was your back or neck injured?</div>
                                 <div>
                                     <ul class="list">
-                                        <li class="answer" id="question10-extension1-yes">
+                                        <li class="answer" id="question10-extension1-yes"
+                                            data-trigger='{"#question10-extension-2" : "show"}'
+                                        >
                                             <div class="text">Yes</div>
                                             <label class="choice">
                                                 <input type="radio"
@@ -692,7 +694,9 @@
                                                 <span class="rc-radio primary-radio-color"></span>
                                             </label>
                                         </li>
-                                        <li class="answer need-clear-inputs">
+                                        <li class="answer need-clear-inputs"
+                                            data-trigger='{"#question10-extension-2" : "hide|reset", "#accidentInjuryQuestion" : "hide|reset"}'
+                                        >
                                             <div class="text">No</div>
                                             <label class="choice">
                                                 <input type="radio"
@@ -707,12 +711,12 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="extension-question radio-choice error-notice-field">
+                            <div class="extension-question radio-choice error-notice-field <g:if test="${Draft?.'10-e-1-c' != 1.toString()}">hide</g:if>" id="question10-extension-2">
                                 <div class="extension-question-title">If yes, did the injury resolved?</div>
                                 <div>
                                     <ul class="list">
                                         <li class="answer" id="accidentInjuryYes"
-                                            data-trigger='{"#accidentInjuryQuestion" : "reset|disable"}'
+                                            data-trigger='{"#accidentInjuryQuestion" : "hide|reset"}'
                                         >
                                             <div class="text">Yes</div>
                                             <label class="choice">
@@ -726,7 +730,7 @@
                                             </label>
                                         </li>
                                         <li class="answer need-clear-inputs" id="accidentInjuryNo"
-                                            data-trigger='{"#accidentInjuryQuestion" : "enable"}'
+                                            data-trigger='{"#accidentInjuryQuestion" : "show"}'
                                         >
                                             <div class="text">No</div>
                                             <label class="choice">
@@ -742,7 +746,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="extension-question error-notice-field <g:if test="${Draft?.'10-e-2-c' == 2.toString()}">disabled</g:if>" id="accidentInjuryQuestion">
+                            <div class="extension-question error-notice-field <g:if test="${Draft?.'10-e-2-c' != 2.toString()}">hide</g:if>" id="accidentInjuryQuestion">
                                 <div class="extension-question-title">If that injury did <strong>NOT</strong> resolve, what treatment(s), if any, did you require on an ongoing basis?</div>
                                 <textarea name="choices.10-e-3" placeholder="Describe treatment..." maxlength="5000" <g:if test="${Draft?.'10-e-2-c' == 2.toString()}">disabled</g:if>>${Draft?.'10-e-3'}</textarea>
                             </div>
