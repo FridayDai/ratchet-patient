@@ -1,4 +1,4 @@
-require('../../libs/jquery-validation/jquery.validate.js');
+require('../../libs/jquery.validate.js');
 require('jForm');
 
 function WithForm() {

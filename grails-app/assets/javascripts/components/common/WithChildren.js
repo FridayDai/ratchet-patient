@@ -1,9 +1,11 @@
 var flight = require('flight');
 
 function WithChildren() {
+    this._children = this._childrenAttrs = {};
+
     this.children = function (options, attributes) {
-        this._children = options;
-        this._childrenAttrs = attributes;
+        this._children = _.assign(this._children, options);
+        this._childrenAttrs = _.assign(this._childrenAttrs, attributes);
     };
 
     this._initChild = function () {

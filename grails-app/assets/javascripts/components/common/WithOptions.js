@@ -20,8 +20,8 @@ function WithOptions() {
             this.defaultOptions = this.defaultOptions();
         }
 
-        if (!this._options && _.isFunction(this.getOptions)) {
-            this._options = this.getOptions();
+        if (!this._options && _.isFunction(this.setOptions)) {
+            this._options = this.setOptions();
         }
 
         this._optionsDef = _.defaultsDeep(_.clone(this._options, true), this.defaultOptions);

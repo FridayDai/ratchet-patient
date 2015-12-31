@@ -35,12 +35,9 @@ class UrlMappings {
         }
 
         //SingleTask
-        "/$accountId/tasks/$title/$code"(controller: "singleTask") {
+        "/$accountId/tasks/$title/$code"(controller: "task") {
             action = [GET: "singleTask", POST: "submitSingleTask"]
         }
-     /*   //SingleTask
-        "/$accountId/tasks/$title/$code"(controller: "task", action: "index")*/
-
 
         // Help
         "/patient/assist/$patientId"(controller: "assist", action: "index")

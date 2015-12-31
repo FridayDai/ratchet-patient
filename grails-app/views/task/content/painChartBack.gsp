@@ -157,7 +157,7 @@
                     <div class="answer-list odi-style">
                         <div class="select-contain">
                             <span class="select-group">
-                                <select class="select-menu" name="choices.6" data-title="BACK PAIN">
+                                <select class="select-menu" name="choices.6" data-title="BACK PAIN" data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'6' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
@@ -166,7 +166,7 @@
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.7" data-title="BUTTOCK PAIN">
+                                <select class="select-menu" name="choices.7" data-title="BUTTOCK PAIN" data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'7' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
@@ -175,7 +175,7 @@
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.8" data-title="LEG PAIN">
+                                <select class="select-menu" name="choices.8" data-title="LEG PAIN" data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}" <g:if test="${Draft?.'8' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
@@ -368,6 +368,7 @@
         </div>
     </div>
 
+    <g:render template="/shared/pageMask"></g:render>
     </body>
     </html>
     <content tag="GA">

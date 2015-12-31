@@ -7,9 +7,7 @@
         .answer {
             position: relative;
             display: block;
-            padding-top: 15px;
-            padding-right: 15px;
-            padding-bottom: 15px;
+            padding: 15px 15px 15px 0;
 
             .text {
                 display: inline-block;
@@ -184,4 +182,28 @@
 
 .capitalize {
     text-transform: capitalize;
+}
+
+//for select
+.ui-selectmenu-button {
+    span.ui-icon {
+        background-image: image-url('sort_both.png');
+    }
+}
+
+.date-picker {
+    height: 30px;
+    width: 200px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #b1b1b1;
+    background: #fbfbfb image-url('calender.png') no-repeat right top;
+}
+
+.date-picker:disabled {
+    background-color: #e6e6e6;
+}
+
+.multi-select-date-picker {
+    display: inline-block;
 }

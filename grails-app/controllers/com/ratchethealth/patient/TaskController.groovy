@@ -1,6 +1,5 @@
 package com.ratchethealth.patient
 
-//import com.ratchethealth.patient.commands.UserCommand
 import grails.converters.JSON
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
@@ -9,11 +8,11 @@ import groovy.json.JsonSlurper
 class TaskController extends BaseController {
     def taskService
 
-    def index() {
+    def singleTask() {
         String token = request.session.token
         def patientName = params.patientName
         def code = params.code
-        def taskTitle = params.taskTitle
+        def taskTitle = params.title
 
         def patientId = taskService.getPatientInfoByTaskCode(token, code).patientPK
 
@@ -21,57 +20,13 @@ class TaskController extends BaseController {
             redirectToComplete(patientName, patientId, taskTitle, code)
         } else {
             taskService.recordBehaviour(token, code)
-            def resp = taskService.getTask(token, code)
+            def resp = taskService.getQuestionnaire(token, null, code, null)
 
             if (resp.status == 200) {
                 def result = JSON.parse(resp.body)
 
-                render view: '/task/intro', model: [
-                        Task     : result,
-                        client   : JSON.parse(session.client),
-                        taskTitle: taskTitle,
-                        taskCode : code
-                ]
-            } else if (resp.status == 207) {
-                session["taskComplete${code}"] = true
-
-                redirectToComplete(patientName, patientId, taskTitle, code)
-            } else if (resp.status == 412) {
-                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
-            }
-        }
-    }
-
-  /*  def phoneNumberValidate(UserCommand user) {
-        String token = request.session.token
-        def patientName = params.patientName
-        def code = params.code
-        def taskTitle = params.taskTitle
-
-        def patientId = taskService.getPatientInfoByTaskCode(token, code).patientPK
-        if (!user.validate()) {
-            def resp = taskService.getTask(token, code)
-
-            if (resp.status == 200) {
-                def task = JSON.parse(resp.body)
-
-                render view: '/task/intro',
-                        model: [client   : JSON.parse(session.client),
-                                Task     : task,
-                                taskTitle: taskTitle,
-                                taskCode : code,
-                                errorMsg : RatchetMessage.TASK_INTRO_INVALID_PHONE_NUMBER
-                        ]
-            }
-        } else {
-            def resp = taskService.getQuestionnaire(token, null, code, user.last4Number)
-
-            if (resp.status == 200) {
-                def result = JSON.parse(resp.body)
                 def questionnaireView = ''
 
-                //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS
-                // 9.Harris Hip Score 10.Fairley Nasal Symptom
                 switch (result.type) {
                     case 1: case 6: case 10:
                         questionnaireView = '/task/content/dash'
@@ -81,48 +36,170 @@ class TaskController extends BaseController {
                         break
                     case 4: case 5:
                         questionnaireView = '/task/content/nrs'
+
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
                         break
                     case 7: case 8:
                         questionnaireView = '/task/content/koos'
                         break
                     case 9:
                         questionnaireView = '/task/content/verticalChoice'
+                        break
                 //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
+                    case 11:
+                        questionnaireView = '/task/content/painChartNeck'
+
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
+                        break
+                    case 12:
+                        questionnaireView = '/task/content/painChartBack'
+
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
+                        break
+                    case 13:
+                        questionnaireView = '/task/content/newPatientQuestionnaire'
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
+                        break
                 }
 
-                session["questionnaireView${code}"] = questionnaireView
-                session["last4Number${code}"] = user.last4Number
-
-                redirect(mapping: 'taskStart', params: [
-                        patientName: patientName,
-                        taskTitle  : taskTitle,
-                        code       : code,
-                        patientId  : result.patientPK
-                ])
-            } else if (resp.status == 207) {
-                session["taskComplete${code}"] = true
-
-                redirectToComplete(patientName, patientId, taskTitle, code)
-            } else if (resp.status == 412) {
-                render view: "/error/taskExpired", model: [client: JSON.parse(session.client)]
-            } else {
-                def taskResp = taskService.getTask(token, code)
-
-                if (taskResp.status == 200) {
-                    def task = JSON.parse(taskResp.body)
-
-                    render view: '/task/intro',
-                            model: [client   : JSON.parse(session.client),
-                                    Task     : task,
-                                    taskTitle: taskTitle,
-                                    taskCode : code,
-                                    errorMsg : RatchetMessage.TASK_INTRO_WRONG_PHONE_NUMBER
-                            ]
-                }
+                render view: questionnaireView, model: [
+                        Task     : result,
+                        client   : JSON.parse(session.client),
+                        taskTitle: taskTitle,
+                        taskCode : code
+                ]
             }
         }
     }
-*/
+
+    def submitSingleTask() {
+
+        if(params.hardcodeTask) {
+            forward(action: "submitSpecialTask", params: [params: params])
+            return
+        }
+
+        String token = request.session.token
+        def patientName = params.patientName
+        def patientId = params.patientId
+        def taskTitle = params.title
+        def code = params.code
+        def taskType = params.taskType
+        def choices = params.choices
+        def optionals = params.optionals
+        def sections = params.sections
+        def answer = []
+        def errors
+        def accountId = params.accountId
+
+        if (sections) {
+            sections.each { key, value ->
+                def section = [:]
+                def options = [:]
+
+                if (value.getClass() == String) {
+                    if (choices) {
+                        options.put(value, choices[value])
+                    }
+                } else {
+                    value.each {
+                        if (choices) {
+                            def val = choices[it]
+                            if (val) {
+                                options.put(it, val)
+                            }
+                        }
+                    }
+                }
+                section.put("sectionId", key)
+                section.put("choices", options)
+                answer.add(section)
+            }
+        } else {
+            def section = [:]
+            section.put("sectionId", null)
+            section.put("choices", choices)
+            answer.add(section)
+        }
+
+        //validation
+        if (taskType == '7' || taskType == '8') {
+            //only check for (7.KOOS 8.HOOS)
+            errors = validateSectionChoice(sections, answer)
+        } else {
+            errors = validateChoice(taskType, choices, optionals)
+        }
+
+        if (errors.size() > 0) {
+            def view = session["questionnaireView${code}"]
+            def last4Number = session["last4Number${code}"]
+            def resp = taskService.getQuestionnaire(token, null, code, last4Number)
+
+            if (resp.status == 200) {
+                def result = JSON.parse(resp.body)
+
+                render view: view,
+                        model: [
+                                client   : JSON.parse(session.client),
+                                patientId: patientId,
+                                Task     : result,
+                                taskTitle: taskTitle,
+                                taskCode : code,
+                                choices  : choices,
+                                errors   : errors
+                        ]
+            }
+        } else {
+            answer.each {
+                it.choices = convertChoice(taskType, it.choices)
+            }
+
+            def resp = taskService.submitSingleTask(token, code, answer, accountId)
+
+            if (resp.status == 200) {
+                def result = JSON.parse(resp.body.toString())
+                saveResultToSession(code, result)
+            }
+
+            if (resp.status == 200 || resp.status == 207) {
+
+                render(view: '/clinicTask/tasksList', model: [
+                        client: JSON.parse(session.client),
+                        tasksCompleted: true,
+                        tasksLength   : 1,
+                        isSingleTask  : true,
+                        taskTitle     : taskTitle
+                ])
+            }
+        }
+    }
+
+    def submitSpecialTask() {
+        String token = request.session.token
+        def taskTitle = params?.title
+        def choices = params.choices
+        def code = params.code
+
+        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices)
+
+        render(view: '/clinicTask/tasksList', model: [
+                client: JSON.parse(session.client),
+                tasksCompleted: true,
+                tasksLength   : 1,
+                isSingleTask  : true,
+                taskTitle     : taskTitle
+        ])
+    }
+
+
     def start() {
         String token = request.session.token
         def patientName = params.patientName

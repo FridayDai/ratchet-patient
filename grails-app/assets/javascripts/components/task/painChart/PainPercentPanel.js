@@ -1,5 +1,6 @@
+require('../../../libs/MobileSelectMenu');
+
 var flight = require('flight');
-var MobileSelectMenu = require('../../shared/components/MobileSelectMenu');
 var Notifications = require('../../common/Notification');
 
 function PainPercentPanel() {
@@ -194,6 +195,6 @@ function PainPercentPanel() {
 
 }
 
-module.exports = flight.component(MobileSelectMenu, PainPercentPanel);
+module.exports = flight.component(PainPercentPanel);
 
 
