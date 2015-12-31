@@ -806,7 +806,7 @@
                         <g:set var="subQuestion12Time" value="['5 minutes', '15 minutes', '30 minutes', '1 hour',
                                                                '2 hours', '4 hours', '8 hours']"/>
                         <g:each in="${subQuestion12}" var="subQuestion" status="j">
-                            <div class="sub-question">
+                            <div class="sub-question error-notice-field">
                                 <div class="sub-question-title">${subQuestion}</div>
                                 <ul class="sub-question-answer-list">
                                     <li class="sub-question-answer columns-3 question-12-no-change column-1st"
@@ -1219,7 +1219,7 @@
                     <div class="sub-question-list">
                         <g:set var="subQuestion22" value="['Massage', 'Physical Therapy', 'Chiropractic Therapy', 'Spinal Injections']"/>
                         <g:each in="${subQuestion22}" var="subQuestion" status="j">
-                            <div class="sub-question">
+                            <div class="sub-question error-notice-field">
                                 <div class="sub-question-title">${subQuestion}</div>
                                 <ul class="sub-question-answer-list">
                                     <li class="sub-question-answer columns-4">
@@ -1280,32 +1280,32 @@
 
                     <div class="answer-list">
                         <ul class="list">
-                            <li class="sub-question">
+                            <li class="sub-question error-notice-field">
                                 <input type="hidden" name="choices.23-1" value="${Draft?.'23-1'}">
                                 <div class="text">Regular x-rays</div>
                                 <div class="multi-date-container" data-init="${Draft?.'23-1'}"></div>
                             </li>
-                            <li class="sub-question">
+                            <li class="sub-question error-notice-field">
                                 <input type="hidden" name="choices.23-2" value="${Draft?.'23-2'}">
                                 <div class="text">MRI</div>
                                 <div class="multi-date-container" data-init="${Draft?.'23-2'}"></div>
                             </li>
-                            <li class="sub-question">
+                            <li class="sub-question error-notice-field">
                                 <input type="hidden" name="choices.23-3" value="${Draft?.'23-3'}">
                                 <div class="text">CT scan</div>
                                 <div class="multi-date-container" data-init="${Draft?.'23-3'}"></div>
                             </li>
-                            <li class="sub-question">
+                            <li class="sub-question error-notice-field">
                                 <input type="hidden" name="choices.23-4" value="${Draft?.'23-4'}">
                                 <div class="text">Myelogram</div>
                                 <div class="multi-date-container" data-init="${Draft?.'23-4'}"></div>
                             </li>
-                            <li class="sub-question">
+                            <li class="sub-question error-notice-field">
                                 <input type="hidden" name="choices.23-5" value="${Draft?.'23-5'}">
                                 <div class="text">Bone scan</div>
                                 <div class="multi-date-container" data-init="${Draft?.'23-5'}"></div>
                             </li>
-                            <li class="sub-question">
+                            <li class="sub-question error-notice-field">
                                 <input type="hidden" name="choices.23-6" value="${Draft?.'23-6'}">
                                 <div class="text">EMG/NCV</div>
                                 <div class="multi-date-container" data-init="${Draft?.'23-6'}"></div>

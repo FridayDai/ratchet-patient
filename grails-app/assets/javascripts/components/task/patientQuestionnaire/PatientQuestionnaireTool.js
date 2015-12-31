@@ -138,6 +138,7 @@ function PatientQuestionnaireTool() {
 
     this.runTriggerAction = function ($target, action, $currentItem) {
         this['trigger{0}Action'.format(_.capitalize(action))].call(this, $target, $currentItem);
+        this.refreshIScroller();
     };
 
     this.setErrorStatus = function ($question) {
@@ -189,6 +190,8 @@ function PatientQuestionnaireTool() {
     };
 
     this.checkQuestionValidation = function ($question, condition) {
+        this.refreshIScroller();
+
         if (!condition || !this.attr.startQuestionValidation) {
             return true;
         }
@@ -339,6 +342,31 @@ function PatientQuestionnaireTool() {
         /*jshint nonew: false */
         if (Utility.isMobile()) {
             this.iscroller = new IScroll('#main', {click: true});
+
+            this.iscroller.on('beforeScrollStart', function () {
+                document.activeElement.blur();
+            });
+
+            this.refreshIScroller();
+        }
+    };
+
+    this.iscrollerInRefresh = false;
+    this._wantIScrollRefresh = 0;
+    this.refreshIScroller = function () {
+        var me = this;
+
+        if (this._wantIScrollRefresh === 0) {
+            this._wantIScrollRefresh = 1;
+        }
+
+        if (this.iscroller && !this.iscrollerInRefresh && this._wantIScrollRefresh === 1) {
+            this.iscrollerInRefresh = true;
+            setTimeout(function () {
+                me.iscroller.refresh();
+                me._wantIScrollRefresh = 0;
+                me.iscrollerInRefresh = false;
+            }, 300);
         }
     };
 
@@ -383,8 +411,6 @@ function PatientQuestionnaireTool() {
         });
 
         this.on('.specify-input, textarea', 'blur', this.onTextBlur);
-
-
 
         this.initIScrollForMobileDialog();
 

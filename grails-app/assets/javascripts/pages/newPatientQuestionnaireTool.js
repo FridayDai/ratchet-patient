@@ -4,6 +4,7 @@ var flight = require('flight');
 var MultipleDatePicker = require('../components/shared/components/MultipleDatePicker');
 var PatientQuestionnaireTool = require('../components/task/patientQuestionnaire/PatientQuestionnaireTool');
 var MobileSelectMenuDialog = require('../components/shared/components/MobileSelectMenuDialog');
+var MobileEnterYearDialog = require('../components/task/newPatientQuestionnaire/MobileEnterYearDialog');
 var Utility = require('../utils/Utility');
 
 var QUESTION_12_VALIDATION = {};
@@ -150,7 +151,7 @@ function newPatientQuestionnaireTool() {
         {
             selector: 'mobileEnterYearDialogSelector',
             event: 'showEnterYearMobileDialog',
-            dialog: MobileSelectMenuDialog
+            dialog: MobileEnterYearDialog
         }, {
             selector: 'mobilePickTimeDialogSelector',
             event: 'showPickTimeMobileDialog',
