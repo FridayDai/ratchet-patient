@@ -617,7 +617,7 @@
                                             </label>
                                         </li>
                                         <li class="answer need-clear-inputs"
-                                            data-trigger='{"#question9-extension7-yes [type=text]": "disable"}'
+                                            data-trigger='{"#question9-extension7-yes [type=text]": "disable|clearOtherInputs"}'
                                         >
                                             <div class="text">No</div>
                                             <label class="choice">
