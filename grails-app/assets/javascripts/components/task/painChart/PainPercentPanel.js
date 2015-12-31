@@ -11,7 +11,7 @@ function PainPercentPanel() {
         resultScoreSelector: '#select-percent-score'
     });
 
-    this.clearErrorStatus = function () {
+    this.clearAllErrorStatus = function () {
         _.each($('.question-list-special'), function (question) {
             if ($(question).hasClass('error')) {
                 $(question)
@@ -20,6 +20,16 @@ function PainPercentPanel() {
                     .remove();
             }
         });
+    };
+
+    this.clearErrorStatus = function () {
+        var question = $('#pain-percent-question');
+            if ($(question).hasClass('error')) {
+                $(question)
+                    .removeClass('error')
+                    .find('.error-label')
+                    .remove();
+            }
     };
 
     this.initSelectMenuButtonText = function () {
@@ -50,7 +60,7 @@ function PainPercentPanel() {
         if (toggle.checked) {
             this.select('selectMenuSelector').selectmenu("disable");
             this.clearResultError();
-            this.clearErrorStatus();
+            this.clearAllErrorStatus();
             this.initResult();
             this.initSelectMenuButtonText();
         } else {
