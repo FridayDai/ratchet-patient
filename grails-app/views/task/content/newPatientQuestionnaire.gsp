@@ -999,7 +999,7 @@
                     <div class="answer-list">
                         <ul class="list">
                             <li class="answer">
-                                <div class="text">Yes</div>
+                                <div class="text">No</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1011,7 +1011,7 @@
                                 </label>
                             </li>
                             <li class="answer">
-                                <div class="text">No</div>
+                                <div class="text">Yes</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1043,7 +1043,7 @@
                     <div class="answer-list">
                         <ul class="list">
                             <li class="answer">
-                                <div class="text">Yes</div>
+                                <div class="text">No</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1055,7 +1055,7 @@
                                 </label>
                             </li>
                             <li class="answer">
-                                <div class="text">No</div>
+                                <div class="text">Yes</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1075,7 +1075,7 @@
                     <div class="answer-list">
                         <ul class="list">
                             <li class="answer">
-                                <div class="text">Yes - right leg</div>
+                                <div class="text">No</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1087,7 +1087,7 @@
                                 </label>
                             </li>
                             <li class="answer">
-                                <div class="text">Yes - left leg</div>
+                                <div class="text">Yes - right leg</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1099,7 +1099,7 @@
                                 </label>
                             </li>
                             <li class="answer">
-                                <div class="text">Yes - both legs</div>
+                                <div class="text">Yes - left leg</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1111,7 +1111,7 @@
                                 </label>
                             </li>
                             <li class="answer">
-                                <div class="text">No</div>
+                                <div class="text">Yes - both legs</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1131,7 +1131,7 @@
                     <div class="answer-list">
                         <ul class="list">
                             <li class="answer">
-                                <div class="text">Yes - right arm</div>
+                                <div class="text">No</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1143,7 +1143,7 @@
                                 </label>
                             </li>
                             <li class="answer">
-                                <div class="text">Yes - left arm</div>
+                                <div class="text">Yes - right arm</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1155,7 +1155,7 @@
                                 </label>
                             </li>
                             <li class="answer">
-                                <div class="text">Yes - both arms</div>
+                                <div class="text">Yes - left arm</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1167,7 +1167,7 @@
                                 </label>
                             </li>
                             <li class="answer">
-                                <div class="text">No</div>
+                                <div class="text">Yes - both arms</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1187,7 +1187,7 @@
                     <div class="answer-list">
                         <ul class="list">
                             <li class="answer">
-                                <div class="text">Yes</div>
+                                <div class="text">No</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -1199,7 +1199,7 @@
                                 </label>
                             </li>
                             <li class="answer">
-                                <div class="text">No</div>
+                                <div class="text">Yes</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
