@@ -338,7 +338,38 @@ function PatientQuestionnaireTool() {
     this.initIScrollForMobileDialog = function () {
         /*jshint nonew: false */
         if (Utility.isMobile()) {
-            new IScroll('#main', {click: true});
+            this.iscroller = new IScroll('#main', {click: true});
+        }
+    };
+
+    this.scrollToTopError = function () {
+        var $firstQuestion = this.errorQuestions[0],
+            $header = this.select('headerPanelSelector'),
+            headerMovedTop = parseInt($header.css('top').replace('px', ''), 10),
+            headerHeight = $header.height(),
+            visibleHeaderTop = headerHeight + headerMovedTop,
+            top,
+            $firstError = $firstQuestion;
+
+        if ($firstQuestion.find('.sub-question').length > 0) {
+            $firstError = $firstQuestion.find('.sub-question.error-field:first');
+        }
+
+        top = $firstError.offset().top;
+
+        if (!Utility.isMobile()) {
+            // If top < 205, than header will show all of it
+            if (top - visibleHeaderTop < 205) {
+                top -= headerHeight;
+            } else {
+                top -= visibleHeaderTop;
+            }
+        }
+
+        if (this.iscroller) {
+            this.iscroller.scrollToElement($firstError.get(0), 1000);
+        } else {
+            window.scrollTo(0, top);
         }
     };
 
