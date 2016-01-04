@@ -752,7 +752,7 @@
                             </div>
                             <div class="extension-question error-notice-field <g:if test="${Draft?.'10-e-2-c' != 2.toString()}">hide</g:if>" id="accidentInjuryQuestion">
                                 <div class="extension-question-title">If that injury did <strong>NOT</strong> resolve, what treatment(s), if any, did you require on an ongoing basis?</div>
-                                <textarea name="choices.10-e-3" placeholder="Describe treatment..." maxlength="5000" <g:if test="${Draft?.'10-e-2-c' == 2.toString()}">disabled</g:if>>${Draft?.'10-e-3'}</textarea>
+                                <textarea name="choices.10-e-3" placeholder="Describe treatment..." maxlength="5000">${Draft?.'10-e-3'}</textarea>
                             </div>
                         </div>
                     </div>
