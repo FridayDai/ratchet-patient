@@ -665,7 +665,7 @@
                                 </label>
                             </li>
                             <li class="answer answer-extension-trigger-no need-clear-inputs"
-                                data-trigger='{"#question10-extension" : "hide|reset", "#question10-yes [type=text]": "disable"}'
+                                data-trigger='{"#question10-extension,#question10-extension-2,#accidentInjuryQuestion" : "hide|reset", "#question10-yes [type=text]": "disable"}'
                             >
                                 <div class="text">No</div>
                                 <label class="choice">
@@ -699,7 +699,7 @@
                                             </label>
                                         </li>
                                         <li class="answer need-clear-inputs"
-                                            data-trigger='{"#question10-extension-2" : "hide|reset", "#accidentInjuryQuestion" : "hide|reset", "#question10-extension1-yes [type=text]": "disable"}'
+                                            data-trigger='{"#question10-extension-2,#accidentInjuryQuestion" : "hide|reset", "#question10-extension1-yes [type=text]": "disable"}'
                                         >
                                             <div class="text">No</div>
                                             <label class="choice">
