@@ -13,6 +13,7 @@ class TaskController extends BaseController {
         def patientName = params.patientName
         def code = params.code
         def taskTitle = params.title
+        def draft = null
 
         def patientId = taskService.getPatientInfoByTaskCode(token, code).patientPK
 
@@ -64,6 +65,13 @@ class TaskController extends BaseController {
                         break
                     case 13:
                         questionnaireView = '/task/content/newPatientQuestionnaire'
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
+                        break
+                    case 14:
+                        questionnaireView = '/task/content/promis'
+
                         if (result.draft) {
                             draft = JSON.parse(JSON.parse(result.draft).yourData)
                         }

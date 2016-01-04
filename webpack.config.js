@@ -19,7 +19,8 @@ module.exports = {
         verticalChoiceTool: "./pages/verticalChoiceTool.js",
         newPatientQuestionnaireTool: "./pages/newPatientQuestionnaireTool.js",
         returnPatientQuestionnaireTool: "./pages/returnPatientQuestionnaireTool.js",
-        painChartTool: "./pages/painChartTool.js"
+        painChartTool: "./pages/painChartTool.js",
+        promisTool: "./pages/promisTool.js"
     },
     output: {
         path: absoluteContext,

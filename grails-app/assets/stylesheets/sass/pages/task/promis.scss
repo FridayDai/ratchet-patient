@@ -1,0 +1,384 @@
+@import '../../partials/task_content';
+
+@include breakpoint('mobile') {
+    @include answer-vertical-list('small');
+}
+
+.tip-wrap {
+    background-color: $base-color-lighter-gray;
+    .answer-limit-tip.tip-bottom {
+        visibility: visible;
+    }
+
+    @include breakpoint('mobile') {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+    }
+}
+
+.answer-limit-tip {
+    margin-top: 29px;
+    padding: 7px 24px;
+    font-size: 16px;
+    background: $base-font-grey;
+    color: $base-color-white;
+
+    &.tip-bottom {
+        visibility: hidden;
+        margin: 0;
+        @include breakpoint('mobile') {
+            display: none;
+        }
+    }
+
+    &.tip-container {
+        margin: 0 auto;
+        @include breakpoint('tablet') {
+            width: 750px;
+        }
+
+        @include breakpoint('desktop') {
+            width: 970px;
+        }
+
+        @include breakpoint('lg-desktop') {
+            width: 1170px;
+        }
+    }
+
+    &.error {
+        background-color: $base-color-red;
+    }
+
+    &.success {
+        background-color: $base-color-success;
+
+        &:before {
+            display: inline-block;
+            margin-right: 6px;
+            font-family: 'Ionicons';
+            content: '\f122';
+            font-size: 16px;
+        }
+    }
+}
+
+.promis {
+    .tip {
+        font-size: 18px;
+        font-weight: 500;
+        display: block;
+        padding-bottom: 40px;
+    }
+
+    .info {
+        padding-top: 55px;
+        border-bottom: 1px solid $base-color-gray;
+
+        br {
+            content: "";
+            display: block;
+            margin: 30px 0;
+        }
+
+        @include breakpoint('mobile') {
+            margin: 0 20px;
+            padding: 50px 0;
+        }
+    }
+
+    .section-list {
+        margin-bottom: 52px;
+    }
+
+    .section-title {
+        padding: 0 0 30px;
+        color: #333;
+        font-size: 16px;
+
+        @include breakpoint('mobile') {
+            padding: 20px;
+        }
+
+        @include breakpoint('tablet') {
+            text-align: left;
+        }
+    }
+
+    .question {
+        background-color: $base-color-white;
+
+        @include breakpoint('tablet') {
+            margin-bottom: 0;
+            padding: 30px 20px 0;
+            font-size: 18px;
+        }
+
+        @include breakpoint('desktop') {
+            padding-left: 45px;
+        }
+
+        @include breakpoint('lg-desktop') {
+            padding-left: 65px;
+        }
+
+        .question-title {
+            font-weight: 600;
+        }
+    }
+
+    .answer-list {
+        @include breakpoint('tablet') {
+            padding: 15px 20px;
+            background-color: $base-color-white;
+        }
+
+        .list {
+            @include breakpoint('tablet') {
+                margin: 10px 0 10px -20px;
+            }
+        }
+
+        &.nrs {
+            @include breakpoint('mobile') {
+                @include answer-vertical-list('small');
+            }
+
+            margin-bottom: 5px;
+
+            .answer-description {
+                @include breakpoint('tablet') {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .list {
+                @include breakpoint('tablet') {
+                    display: inline;
+                    margin: 10px 0 10px -20px;
+                }
+            }
+
+            .answer {
+                @include breakpoint('mobile') {
+                    width: 100%;
+                }
+
+                @include breakpoint('tablet') {
+                    display: inline-block;
+                    box-sizing: border-box;
+                    width: 9.0909090909%;
+                    min-height: 1px;
+                    margin-right: -.35em;
+                    padding-left: 20px;
+                    text-align: center;
+                    vertical-align: top;
+
+                    .text {
+                        display: none;
+                    }
+                }
+            }
+
+            .no-pain {
+                color: #80b666;
+                font-size: 18px;
+
+                @include breakpoint('mobile') {
+                    display: none;
+                }
+
+                @include breakpoint('tablet') {
+                    margin-left: 5px;
+                }
+
+                @include breakpoint('lg-desktop') {
+                    margin-left: 20px;
+                }
+            }
+
+            .severe-pain {
+                float: right;
+                color: #ea5b53;
+                font-size: 18px;
+
+                @include breakpoint('mobile') {
+                    display: none;
+                }
+
+                @include breakpoint('tablet') {
+                    margin-right: 5px;
+                }
+
+                @include breakpoint('lg-desktop') {
+                    margin-right: 20px;
+                }
+            }
+
+            .choice-number {
+                .rc-radio {
+                    text-align: center;
+                }
+
+                .rc-radio:before {
+                    display: inline-block;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    font-size: 20px;
+                    line-height: 40px;
+
+                    @include breakpoint('mobile') {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+
+                .rc-choice-hidden:checked + .rc-radio:before {
+                    @include breakpoint('tablet') {
+                        position: static;
+                        width: 40px;
+                        height: 40px;
+                        color: #fff;
+                        background-color: $base-color-primary;
+                    }
+                }
+            }
+
+            .choice-number-0 {
+                .rc-radio:before {
+                    content: '0' !important;
+                }
+            }
+
+            .choice-number-1 {
+                .rc-radio:before {
+                    content: '1' !important;
+                }
+            }
+
+            .choice-number-2 {
+                .rc-radio:before {
+                    content: '2' !important;
+                }
+            }
+
+            .choice-number-3 {
+                .rc-radio:before {
+                    content: '3' !important;
+                }
+            }
+
+            .choice-number-4 {
+                .rc-radio:before {
+                    content: '4' !important;
+                }
+            }
+
+            .choice-number-5 {
+                .rc-radio:before {
+                    content: '5' !important;
+                }
+            }
+
+            .choice-number-6 {
+                .rc-radio:before {
+                    content: '6' !important;
+                }
+            }
+
+            .choice-number-7 {
+                .rc-radio:before {
+                    content: '7' !important;
+                }
+            }
+
+            .choice-number-8 {
+                .rc-radio:before {
+                    content: '8' !important;
+                }
+            }
+
+            .choice-number-9 {
+                .rc-radio:before {
+                    content: '9' !important;
+                }
+            }
+
+            .choice-number-10 {
+                .rc-radio:before {
+                    content: '10' !important;
+                }
+            }
+
+            .choice-number[class*="choice-number-"] {
+                .rc-radio:before {
+                    @include breakpoint('mobile') {
+                        content: '' !important;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .answer {
+        @include breakpoint('mobile') {
+            width: 100%;
+        }
+
+        @include breakpoint('tablet') {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 20%;
+            min-height: 1px;
+            margin-right: -.35em;
+            padding-left: 20px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .text {
+            @include breakpoint('tablet') {
+                margin: 10px 0;
+            }
+        }
+    }
+
+    // Special handle for 2 line choices
+    .answer-list-29,
+    .answer-list-30 {
+        .text {
+            @include breakpoint('tablet') {
+                height: 34px;
+                margin-bottom: 5px;
+            }
+        }
+
+    }
+
+    .answer-list-29 {
+        .text {
+            @include breakpoint('desktop') {
+                height: 17px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .answer-list-30 {
+        .text {
+            @include breakpoint('lg-desktop') {
+                height: 17px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .task-done-panel {
+        padding-bottom: 50px;
+    }
+}

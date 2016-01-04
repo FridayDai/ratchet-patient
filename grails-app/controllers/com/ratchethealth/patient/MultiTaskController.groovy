@@ -148,7 +148,7 @@ class MultiTaskController extends BaseController {
                     }
                     break
                 case 14:
-                    questionnaireView = '/task/content/returnPatientQuestionnaire'
+                    questionnaireView = '/task/content/promis'
 
                     if (result.draft) {
                         draft = JSON.parse(JSON.parse(result.draft).yourData)
