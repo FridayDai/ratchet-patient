@@ -102,58 +102,52 @@ class MultiTaskController extends BaseController {
             def result = JSON.parse(resp.body)
             def questionnaireView = ''
 
-            //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS
-            // 9.Harris Hip Score 10.Fairley Nasal Symptom 11.Pain Chart Reference - Neck
-            // 12.Pain Chart Reference - Beck 13.New Patient Questionnaire Tool
             switch (result.type) {
-                case 1: case 6: case 10:
+                case RatchetConstants.ToolEnum.DASH.value:
+                case RatchetConstants.ToolEnum.QUICK_DASH.value:
+                case RatchetConstants.ToolEnum.FAIRLEY_NASAL_SYMPTOM.value:
                     questionnaireView = '/task/content/dash'
                     break
-                case 2: case 3:
+
+                case RatchetConstants.ToolEnum.ODI.value:
+                case RatchetConstants.ToolEnum.NDI.value:
                     questionnaireView = '/task/content/odi'
                     break
-                case 4: case 5:
-                    questionnaireView = '/task/content/nrs'
 
-                    if (result.draft) {
-                        draft = JSON.parse(JSON.parse(result.draft).yourData)
-                    }
+                case RatchetConstants.ToolEnum.NRS_BACK.value:
+                case RatchetConstants.ToolEnum.NRS_NECK.value:
+                    questionnaireView = '/task/content/nrs'
                     break
-                case 7: case 8:
+
+                case RatchetConstants.ToolEnum.KOOS.value:
+                case RatchetConstants.ToolEnum.HOOS.value:
                     questionnaireView = '/task/content/koos'
                     break
-                case 9:
+
+                case RatchetConstants.ToolEnum.HARRIS_HIP_SCORE.value:
                     questionnaireView = '/task/content/verticalChoice'
                     break
+
                     //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
-                case 11:
+                case RatchetConstants.ToolEnum.PAIN_CHART_REFERENCE_NECK.value:
                     questionnaireView = '/task/content/painChartNeck'
-
-                    if (result.draft) {
-                        draft = JSON.parse(JSON.parse(result.draft).yourData)
-                    }
                     break
-                case 12:
+
+                case RatchetConstants.ToolEnum.PAIN_CHART_REFERENCE_BACK.value:
                     questionnaireView = '/task/content/painChartBack'
-
-                    if (result.draft) {
-                        draft = JSON.parse(JSON.parse(result.draft).yourData)
-                    }
                     break
-                case 13:
+
+                case RatchetConstants.ToolEnum.NEW_PATIENT_QUESTIONNAIRE.value:
                     questionnaireView = '/task/content/newPatientQuestionnaire'
-
-                    if (result.draft) {
-                        draft = JSON.parse(JSON.parse(result.draft).yourData)
-                    }
                     break
-                case 14:
+
+                case RatchetConstants.ToolEnum.RETURN_PATIENT_QUESTIONNAIRE.value:
                     questionnaireView = '/task/content/returnPatientQuestionnaire'
-
-                    if (result.draft) {
-                        draft = JSON.parse(JSON.parse(result.draft).yourData)
-                    }
                     break
+            }
+
+            if (result.draft) {
+                draft = JSON.parse(JSON.parse(result.draft).yourData)
             }
 
             session["questionnaireView${taskCode}"] = questionnaireView
@@ -225,11 +219,14 @@ class MultiTaskController extends BaseController {
         }
 
         //validation
-        if ( taskType=='2' || taskType=='3' || taskType == '7' || taskType == '8') {
-            //for complex validation, only valid in js.(2.ODI 3.NDI 7.KOOS 8.HOOS)
+        if ( taskType == RatchetConstants.ToolEnum.ODI.value ||
+                taskType == RatchetConstants.ToolEnum.NDI.value ||
+                taskType == RatchetConstants.ToolEnum.KOOS.value ||
+                taskType == RatchetConstants.ToolEnum.HOOS.value) {
+
             errors = [];
         } else {
-            errors = validateChoice(taskType, choices, optionals)
+            errors = validateChoice(taskType as int, choices, optionals)
         }
 
         if (errors.size() > 0) {
@@ -263,7 +260,7 @@ class MultiTaskController extends BaseController {
             }
         } else {
             answer.each {
-                it.choices = convertChoice(taskType, it.choices)
+                it.choices = convertChoice(taskType as int, it.choices)
             }
             taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer, null)
 
@@ -401,26 +398,10 @@ class MultiTaskController extends BaseController {
         render status: 201
     }
 
-//    def validateSectionChoice(sections, answer) {
-//        def errors = [:]
-//        answer.each {
-//            def sectionId = it.sectionId
-//            if (it.choices.size() < RatchetStatusCode.choicesLimit[sectionId.toInteger()]) {
-//                def sectionChoices = sections[sectionId] ?: []
-//                def checkedChoices = it.choices.keySet() ?: []
-//                def list = sectionChoices - checkedChoices
-//                list.each {
-//                    errors[it] = 1
-//                }
-//            }
-//        }
-//        return errors
-//    }
-
     def validateChoice(type, choices, optionals) {
         def errors = [:]
 
-        if (type == '4') {
+        if (type == RatchetConstants.ToolEnum.NRS_BACK.value) {
             // 4.NRS-BACK
             if (choices?.back == null) {
                 errors[0] = 1
@@ -428,7 +409,7 @@ class MultiTaskController extends BaseController {
             if (choices?.leg == null) {
                 errors[1] = 1
             }
-        } else if (type == '5') {
+        } else if (type == RatchetConstants.ToolEnum.NRS_NECK.value) {
             // 5.NRS-NECK
             if (choices?.neck == null) {
                 errors[0] = 1
@@ -449,7 +430,8 @@ class MultiTaskController extends BaseController {
     }
 
     def convertChoice(type, choices) {
-        if (type == '4' || type == '5') {
+        if (type == RatchetConstants.ToolEnum.NRS_BACK.value ||
+                type == RatchetConstants.ToolEnum.NRS_NECK.value) {
             return choices
         } else {
             def newType = [:]

@@ -73,20 +73,30 @@ class TaskController extends BaseController {
                 //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS
                 // 9.Harris Hip Score 10.Fairley Nasal Symptom
                 switch (result.type) {
-                    case 1: case 6: case 10:
+                    case RatchetConstants.ToolEnum.DASH.value:
+                    case RatchetConstants.ToolEnum.QUICK_DASH.value:
+                    case RatchetConstants.ToolEnum.FAIRLEY_NASAL_SYMPTOM.value:
                         questionnaireView = '/task/content/dash'
                         break
-                    case 2: case 3:
+
+                    case RatchetConstants.ToolEnum.ODI.value:
+                    case RatchetConstants.ToolEnum.NDI.value:
                         questionnaireView = '/task/content/odi'
                         break
-                    case 4: case 5:
+
+                    case RatchetConstants.ToolEnum.NRS_BACK.value:
+                    case RatchetConstants.ToolEnum.NRS_NECK.value:
                         questionnaireView = '/task/content/nrs'
                         break
-                    case 7: case 8:
+
+                    case RatchetConstants.ToolEnum.KOOS.value:
+                    case RatchetConstants.ToolEnum.HOOS.value:
                         questionnaireView = '/task/content/koos'
                         break
-                    case 9:
+
+                    case RatchetConstants.ToolEnum.HARRIS_HIP_SCORE.value:
                         questionnaireView = '/task/content/verticalChoice'
+                        break
                 //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
                 }
 
@@ -264,14 +274,16 @@ class TaskController extends BaseController {
             def slurper = new JsonSlurper()
             completeTask = slurper.parseText(session["result${code}"])
             if (completeTask.nrsScore) {
-                if (completeTask.type == 4 || completeTask.type == 5) {
+                if (completeTask.type == RatchetConstants.ToolEnum.NRS_BACK.value ||
+                        completeTask.type == RatchetConstants.ToolEnum.NRS_NECK.value) {
                     completeTask = splitNrsScore(completeTask)
                 }
             }
         } else {
             completeTask = taskService.getTaskResult(token, code)
             if (completeTask.nrsScore) {
-                if (completeTask.type == 4 || completeTask.type == 5) {
+                if (completeTask.type == RatchetConstants.ToolEnum.NRS_BACK.value ||
+                        completeTask.type == RatchetConstants.ToolEnum.NRS_NECK.value) {
                     completeTask = splitNrsScore(completeTask)
                 }
             }
@@ -338,7 +350,7 @@ class TaskController extends BaseController {
     def splitNrsScore(completeTask) {
         def nrsScoreString = '{' + completeTask.nrsScore + '}'
         def nrsScoreJson = JSON.parse(nrsScoreString)
-        if (completeTask.type == 4) {
+        if (completeTask.type == RatchetConstants.ToolEnum.NRS_BACK.value) {
             completeTask.nrsScore1 = nrsScoreJson.back
             completeTask.nrsScore2 = nrsScoreJson.leg
         } else {

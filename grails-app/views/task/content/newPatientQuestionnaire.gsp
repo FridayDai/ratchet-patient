@@ -295,7 +295,7 @@
                                             <option value="15" <g:if test="${Draft?."3-6s" == 15.toString()}">selected</g:if>>15</option>
                                             <option value="20" <g:if test="${Draft?."3-6s" == 20.toString()}">selected</g:if>>20</option>
                                         </select>
-                                        <span class="inline-text">years ago.</span>
+                                        <span class="inline-text">year(s) ago.</span>
                                     </span>
                                 </div>
                                 <label class="choice">

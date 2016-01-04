@@ -1,3 +1,4 @@
+<%@ page import="com.ratchethealth.patient.RatchetConstants"%>
 <%@ page import="com.ratchethealth.patient.RatchetStatusCode" %>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
 <g:set var="scriptPath" value="dist/koosLikeTool.bundle.js"/>
@@ -94,10 +95,10 @@
                         <g:each var="question" in="${section.questions}" status="j">
 
                             <g:if test="${secondTitle && firstTitle && firstTitle.startsWith("<h3>Symptoms")}">
-                                <g:if test="${Task.type == 7 && j == 5}">
+                                <g:if test="${Task.type == RatchetConstants.ToolEnum.KOOS.value && j == 5}">
                                     <div class="section-title">${raw(secondTitle)}</div>
                                 </g:if>
-                                <g:elseif test="${Task.type == 8 && j == 3}">
+                                <g:elseif test="${Task.type == RatchetConstants.ToolEnum.HOOS.value && j == 3}">
                                     <div class="section-title">${raw(secondTitle)}</div>
                                 </g:elseif>
                             </g:if>

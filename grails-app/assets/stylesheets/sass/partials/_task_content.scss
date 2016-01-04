@@ -187,7 +187,7 @@
 //for select
 .ui-selectmenu-button {
     span.ui-icon {
-        background-image: image-url('sort_both.png');
+        background-image: image-url('sort_both.png', false, false);
     }
 }
 
@@ -197,7 +197,7 @@
     padding: 5px 10px;
     font-size: 14px;
     border: 1px solid #b1b1b1;
-    background: #fbfbfb image-url('calender.png') no-repeat right top;
+    background: #fbfbfb image-url('calender.png', false, false) no-repeat right top;
 }
 
 .date-picker:disabled {
