@@ -1002,7 +1002,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question17">
-                    <div class="question">17. Do you have problems with sexual function?</div>
+                    <div class="question">17. Problem with sexual function:</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -1046,7 +1046,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question18">
-                    <div class="question">18. Do you have loss of sensation around the groin, genitals or buttocks?</div>
+                    <div class="question">18. Loss of sensation around the groin, genitals, or buttocks?</div>
 
                     <div class="answer-list">
                         <ul class="list">
