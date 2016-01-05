@@ -476,7 +476,7 @@
                                 'bruise easily',
                                 'abnormal lumps',
                                 'painful breasts',
-                                'change of skin color',
+                                'change in skin color',
                                 'change in hair or nails'
                         ]], ['Neurologic', [
                                 'headache / migraine',
