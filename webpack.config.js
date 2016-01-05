@@ -14,6 +14,7 @@ module.exports = {
         emailCollection: "./pages/emailCollection.js",
         dashLikeTool: "./pages/dashLikeTool.js",
         koosLikeTool: "./pages/koosLikeTool.js",
+        koosJRLikeTool: "./pages/koosJRLikeTool.js",
         nrsLikeTool: "./pages/nrsLikeTool.js",
         odiLikeTool: "./pages/odiLikeTool.js",
         verticalChoiceTool: "./pages/verticalChoiceTool.js",
