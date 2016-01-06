@@ -119,13 +119,14 @@
 
                             <g:else>
                                 <div class="question-list <g:if test="${errors && errors["${question?.id}"]}">error</g:if>">
-
                                     <div class="question">
                                         <span class="question-title">Global ${question.order}.</span> ${raw(question.title)}
                                         <g:if test="${errors && errors["${question?.id}"]}">
                                             <span class="error-label">This question is required.</span>
                                         </g:if>
                                     </div>
+
+                                    <g:hiddenField name="sections.${section.id}" value="${question?.id}"></g:hiddenField>
 
                                     <div class="answer-list nrs">
                                         <div class="answer-description">
@@ -144,8 +145,8 @@
                                                     </div>
                                                     <label class="choice choice-number choice-number-${k}">
                                                         <input type="radio" class="rc-choice-hidden"
-                                                               name="choices.${10 + 2 * i}"
-                                                            <g:if test="${Draft != null && Draft[(10 + 2 * i).toString()] == k.toString()}">checked</g:if>
+                                                               name="choices.${question?.id}"
+                                                            <g:if test="${Draft != null && Draft[${question?.id}.toString()] == k.toString()}">checked</g:if>
                                                                value="${k}"/>
                                                         <span class="rc-radio"></span>
                                                     </label>

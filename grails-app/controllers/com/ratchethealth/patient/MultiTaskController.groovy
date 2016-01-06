@@ -225,7 +225,7 @@ class MultiTaskController extends BaseController {
         }
 
         //validation
-        if ( taskType=='2' || taskType=='3' || taskType == '7' || taskType == '8') {
+        if ( taskType=='2' || taskType=='3' || taskType == '7' || taskType == '8' || taskType == '14') {
             //for complex validation, only valid in js.(2.ODI 3.NDI 7.KOOS 8.HOOS)
             errors = [];
         } else {
