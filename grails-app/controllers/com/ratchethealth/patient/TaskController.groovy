@@ -42,7 +42,10 @@ class TaskController extends BaseController {
                             draft = JSON.parse(JSON.parse(result.draft).yourData)
                         }
                         break
-                    case 7: case 8:
+                    case 7:
+                    case 8:
+                    case 15:
+                    case 1000:
                         questionnaireView = '/task/content/koos'
                         break
                     case 9:
