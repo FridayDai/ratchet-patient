@@ -188,7 +188,7 @@ class MultiTaskController extends BaseController {
         def patientId = params?.patientId
         def taskTitle = params.taskTitle
         def code = params.code
-        def taskType = params.taskType
+        def taskType = params.taskType as int
         def choices = params.choices
         def optionals = params.optionals
         def sections = params.sections
@@ -226,7 +226,7 @@ class MultiTaskController extends BaseController {
 
             errors = [];
         } else {
-            errors = validateChoice(taskType as int, choices, optionals)
+            errors = validateChoice(taskType, choices, optionals)
         }
 
         if (errors.size() > 0) {
@@ -260,7 +260,7 @@ class MultiTaskController extends BaseController {
             }
         } else {
             answer.each {
-                it.choices = convertChoice(taskType as int, it.choices)
+                it.choices = convertChoice(taskType, it.choices)
             }
             taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer, null)
 
