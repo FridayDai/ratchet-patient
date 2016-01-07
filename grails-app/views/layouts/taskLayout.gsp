@@ -2,10 +2,12 @@
 	<html>
 	<head>
 		<title><g:layoutTitle/></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 		<g:layoutHead/>
 	</head>
 
 	<body>
+	<div class="main-container">
 	<g:render template="/shared/taskHeader" />
 
 	<g:layoutBody/>
@@ -16,6 +18,7 @@
         </div>
 
     </g:if>
+	</div>
 	<g:render template="/shared/googleAnalytics" />
 	<g:pageProperty name="page.GA" />
 	</body>

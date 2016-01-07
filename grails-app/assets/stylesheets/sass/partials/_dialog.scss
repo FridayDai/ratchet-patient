@@ -5,7 +5,7 @@
     overflow: hidden;
     padding: 0;
     outline: 0;
-    font-family: $base-font-utility;
+    font: $base-font-utility;
 
     .ui-dialog-titlebar {
         position: relative;
@@ -160,6 +160,11 @@
     font-weight: 400;
     font-size: 19px;
     text-align: center;
+    text-transform: uppercase;
+
+    @include breakpoint('mobile') {
+        text-transform: none;
+    }
 }
 
 .window-warning {
@@ -376,4 +381,16 @@
     font-size: 16px;
     text-align: center;
     box-shadow: #6d8a93 2px 2px 8px;
+}
+
+.mobile-dialog {
+    .ui-dialog-content {
+        padding: 0;
+    }
+
+    .ui-dialog-titlebar {
+        .ui-dialog-title {
+            font-weight: 700;
+        }
+    }
 }

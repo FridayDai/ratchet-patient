@@ -1,3 +1,4 @@
+<%@ page import="com.ratchethealth.patient.RatchetConstants"%>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
 <g:set var="scriptPath" value="dist/odiLikeTool.bundle.js"/>
 <g:set var="cssPath" value="task/odi"/>
@@ -76,6 +77,9 @@
 
                         <div class="question primary-color">
                             Section ${i + 1}: ${question.title}
+                            <g:if test="${question.optional}">
+                                <span class="optional-label">This question is optional.</span>
+                            </g:if>
                             <g:if test="${errors && errors["${question.id}"]}">
                                 <span class="error-label">This question is required.</span>
                             </g:if>
@@ -122,7 +126,7 @@
             </div>
         </form>
 
-        <g:if test="${Task.type == 2}">
+        <g:if test="${Task.type == RatchetConstants.ToolEnum.ODI.value}">
             <div class="task-copyright text-center">
                 <span>ODI © Jeremy Fairbank, 1980.</span>
                 <span class="inline-right">All Rights Reserved.</span>

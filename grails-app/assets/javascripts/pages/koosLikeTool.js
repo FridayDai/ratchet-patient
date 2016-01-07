@@ -5,9 +5,9 @@ var flight = require('flight');
 var Task = require('../components/shared/functional/Task');
 
 var Utility = require('../utils/Utility');
+var STRINGs = require('../constants/Strings');
 
 var SECTION_ALLOW_MIN_FINISHED = [0, 0, 0, 0, 0, 4, 5, 9, 3, 2, 3, 5, 9, 2, 2];
-var SECTION_SUCCESS_STRING = "Great! You’ve completed the minimum required questions for this section.";
 
 var TIP_WRAP_TEMP = '<div class="tip-wrap"><div class="answer-limit-tip tip-container"></div></div>';
 
@@ -21,15 +21,26 @@ function KOOSLike() {
         this.headerTipError(first);
         var top = first.offset().top;
         if (!Utility.isMobile()) {
-            top -= 180;
+            top -= 108;//sub header height.
         }
+        top -= this.headerTipHeight;
 
         window.scrollTo(0, top);
+    };
+
+    this.setErrorStatus = function ($question) {
+        if ($question.hasClass('error')) {
+            return;
+        }
+
+        $question.addClass('error');
     };
 
     this.formSubmit = function (e) {
         var $sectionLists = this.select('formSelector').find('.section-list');
         var isValid = true;
+        // restore error section.
+        this.sectionsOffset = {};
 
         if (Utility.isIE()) {
             this.isFormSubmit = true;
@@ -37,10 +48,26 @@ function KOOSLike() {
 
         _.each($sectionLists, function (sectionListEl) {
             var $sectionList = $(sectionListEl);
-            var $notFinishedQuestions = this.getNotFinishedQuestions($sectionList);
+            var limitNumber = SECTION_ALLOW_MIN_FINISHED[$sectionList.attr("value")];
+            var remainNumber = 0;
 
-            if ($notFinishedQuestions) {
-                _.each($notFinishedQuestions, function (notFinishedQuestionEl) {
+            var questions = this.getQuestions($sectionList, limitNumber);
+
+            if (!questions.enough) {
+                var sectionId = sectionListEl.id;
+                var top = $sectionList.offset().top;
+                var bottom = top + $sectionList.outerHeight(true);
+                remainNumber = limitNumber - questions.finishedNumber;
+
+                this.sectionsOffset[sectionId] = {
+                    self: $sectionList,
+                    top: top,
+                    bottom: bottom,
+                    remainNumber: remainNumber
+                };
+
+                //set question error.
+                _.each(questions.noFinishedQuestions, function (notFinishedQuestionEl) {
                     var $notFinishedQuestion = $(notFinishedQuestionEl);
 
                     this.errorQuestions.push($notFinishedQuestion);
@@ -52,6 +79,7 @@ function KOOSLike() {
         }, this);
 
         if (!isValid) {
+            this.initHeaderTip();
             this.scrollToTopError();
             this.errorQuestions = [];
 
@@ -75,152 +103,137 @@ function KOOSLike() {
             .addClass('tip-container');
     };
 
-    this.getNotFinishedQuestions = function ($sectionList, noErrorTip) {
-        var sectionId = $sectionList.attr("value");
+    this.getQuestions = function ($sectionList, limitNumber) {
+
         var finishedQuestionList = $sectionList.find('.question-list').has('[type="radio"]:checked');
-        if (finishedQuestionList.length < SECTION_ALLOW_MIN_FINISHED[sectionId]) {
-            if (!noErrorTip) {
-                $sectionList.find('.answer-limit-tip').addClass('error');
-            }
-            return $sectionList.find('.question-list').not(finishedQuestionList);
-        } else {
-            $sectionList.find('.answer-limit-tip').addClass('success').text(SECTION_SUCCESS_STRING);
-        }
+        var finishedNumber = finishedQuestionList.length;
+
+        return {
+            finishedNumber: finishedNumber,
+            noFinishedQuestions: $sectionList.find('.question-list').not(finishedQuestionList),
+            enough: finishedNumber >= limitNumber
+        };
     };
 
-    this.checkLimitAnswer = function ($questionList) {
-        var sectionId = $questionList.parent(".section-list").attr("value");
-        var $siblings = $questionList.siblings(".question-list");
-        var $sectionList = $questionList.closest('.section-list');
-        var $checkedQuestions = $siblings.has('[type="radio"]:checked');
+    this.checkLimitAnswer = function ($section) {
+        if (this.sectionsOffset) {
+            var $limitTip = $('#header').find('.answer-limit-tip');
+            var sectionId = $section[0].id;
+            var sectionOffset = this.sectionsOffset[sectionId];
+            var remainNumber = sectionOffset.remainNumber;
 
-        // it's need to count self, so this plus 1
-        if (1 + $checkedQuestions.length >= SECTION_ALLOW_MIN_FINISHED[sectionId]) {
-            var optionals = $siblings.filter('.error');
-            for (var i = 0, len = optionals.length; i < len; i++) {
-                this.clearErrorStatus(optionals[i]);
+            if (remainNumber > 1) {
+                this.sectionsOffset[sectionId].remainNumber = --remainNumber;
+
+                $limitTip
+                    .addClass('error')
+                    .text(STRINGs.SECTION_ERROR_STRING.format(remainNumber));
+            } else {
+                //remove this section's questions error status
+                $section.find('.question-list.error').removeClass('error');
+                //change the header fix tip to success
+                $limitTip
+                    .removeClass('error')
+                    .addClass('success')
+                    .text(STRINGs.SECTION_SUCCESS_STRING);
+
+                setTimeout(function () {
+                    $limitTip.fadeOut("slow", function () {
+                        $(this).removeClass('success');
+                    });
+                }, 1000);
+
+                delete this.sectionsOffset[sectionId];
+                //tear down the memory.
+                if (this.sectionsOffset.length === 0) {
+                    this.showErrorTip = null;
+                }
             }
-
-            //change the section tip to success
-            $sectionList.find('.answer-limit-tip').addClass('success').text(SECTION_SUCCESS_STRING);
-            //change the header fix tip to success
-            $('#header').find('.answer-limit-tip').addClass('success').text(SECTION_SUCCESS_STRING);
         }
     };
 
     this.onChoiceItemClicked = function (e) {
         var $target = $(e.target);
+        var checkedChoiceBefore = $target
+            .closest('.answer-list')
+            .find('[type="radio"].rc-choice-hidden:checked');
 
         if (!$target.is('input.rc-choice-hidden')) {
             $target.closest(this.attr.choiceItemSelector)
                 .find('.rc-choice-hidden')
                 .prop('checked', true);
 
-            this.setTip();
-
-            this.clearErrorStatus($target.closest('.question-list'));
-
-            var $questionList = $target.closest('.question-list');
-            this.checkLimitAnswer($questionList);
-
             this.prepareDraftAnswer($target);
+
+            if(checkedChoiceBefore.length === 0) {
+                this.clearErrorStatus($target.closest('.question-list'));
+
+                this.checkLimitAnswer($target.closest('.section-list'));
+            }
         }
     };
 
-    this.initHeaderTip = function () {
-        this.sectionsOffset = {};
+    this.showTipInSection = function () {
+        var $header = $('#header');
+        var $fixedTipWrap = $header.find('.tip-wrap');
+        var $fixedTip = $fixedTipWrap.find('.answer-limit-tip');
+        var self = this;
 
-        _.forEach($(".section-list"), function (ele) {
-            var $section = $(ele);
-            var $tip = $section.find('.answer-limit-tip');
-            var tipHeight = $tip.outerHeight();
-            var sectionId = ele.id;
-            var top = $section.offset().top;
-            var bottom = top + $section.outerHeight(true);
+        return function () {
+            var windowScrollTop = $(window).scrollTop(),
+            // Since header will auto move up and down, so we should reduce moved up number
+                currentHeaderTopMoved = Number($header.css('top').replace('px', ''), 10),
+                headerHeight = $header.height() + currentHeaderTopMoved,
+                fixedTipHeight = $fixedTipWrap.outerHeight(),
+                fixedTipTop = 0,
+                fixedTipBottom = 0;
 
-            this.sectionsOffset[sectionId] = {
-                self: $section,
-                $tip: $tip,
-                tipBottom: top + tipHeight,
-                top: top,
-                bottom: bottom
-            };
-        }, this);
-
-        $(TIP_WRAP_TEMP)
-            .appendTo(this.select('headerPanelSelector'))
-            .hide();
-
-        this.showTipInSection = (function () {
-            var $header = $('#header');
-            var $fixedTipWrap = $header.find('.tip-wrap');
-            var $fixedTip = $fixedTipWrap.find('.answer-limit-tip');
-            var $firstTip = $('form .answer-limit-tip:first');
-            var firstTipBottom = $firstTip.offset().top + $firstTip.outerHeight();
-            var $hiddenTip = null;
-
-            return function () {
-                var windowScrollTop = $(window).scrollTop(),
-
-                // Since header will auto move up and down, so we should reduce moved up number
-                    currentHeaderTopMoved = Number($header.css('top').replace('px', ''), 10),
-                    headerHeight = $header.height() + currentHeaderTopMoved,
-                    fixedTipHeight = $fixedTipWrap.outerHeight(),
-                    fixedTipTop = 0,
-                    fixedTipBottom = 0;
-
-                if (Utility.isMobile()) {
-                    if ($fixedTipWrap.is(':visible')) {
-                        fixedTipTop = windowScrollTop;
-                        fixedTipBottom = fixedTipTop + fixedTipHeight;
-                    } else {
-                        fixedTipTop = windowScrollTop;
-                        fixedTipBottom = fixedTipTop;
-                    }
+            if (Utility.isMobile()) {
+                if ($fixedTip.is(':visible')) {
+                    fixedTipTop = windowScrollTop;
+                    fixedTipBottom = fixedTipTop + fixedTipHeight;
                 } else {
-                    if ($fixedTipWrap.is(':visible')) {
-                        fixedTipBottom = windowScrollTop + headerHeight;
-                        fixedTipTop = fixedTipBottom - fixedTipHeight;
-                    } else {
-                        fixedTipTop = windowScrollTop + headerHeight;
-                        fixedTipBottom = fixedTipTop;
-                    }
+                    fixedTipTop = windowScrollTop;
+                    fixedTipBottom = fixedTipTop;
                 }
-
-                if (fixedTipTop < firstTipBottom) {
-                    $fixedTipWrap.hide();
-
-                    if ($hiddenTip) {
-                        $hiddenTip.removeClass('visibility-hide');
-                    }
-
-                    return;
+            } else {
+                if ($fixedTip.is(':visible')) {
+                    fixedTipBottom = windowScrollTop + headerHeight;
+                    fixedTipTop = fixedTipBottom - fixedTipHeight;
+                } else {
+                    fixedTipTop = windowScrollTop + headerHeight;
+                    fixedTipBottom = fixedTipTop;
                 }
+            }
 
-                _.forEach(this.sectionsOffset, function (section) {
-                    if (fixedTipBottom >= section.top && fixedTipBottom < section.bottom) {
-                        var tipText = section.$tip.text().trim();
-
-                        if (tipText !== $fixedTip.text().trim()) {
-                            $fixedTip
-                                .text(tipText)
-                                .attr('class', section.$tip.attr('class'))
-                                .addClass('tip-container');
-                        }
-
-                        if ($hiddenTip) {
-                            $hiddenTip.removeClass('visibility-hide');
-                        }
-
-                        $hiddenTip = section.$tip.addClass('visibility-hide');
-                        $fixedTipWrap.show();
-                    }
-                });
-            };
-        })();
+            //section error
+            $fixedTip.hide();
+            _.forEach(self.sectionsOffset, function (section) {
+                if (fixedTipBottom >= section.top && fixedTipBottom < section.bottom) {
+                    var tipText = STRINGs.SECTION_ERROR_STRING.format(section.remainNumber);
+                    $fixedTip
+                        .text(tipText)
+                        .addClass('error')
+                        .show();
+                }
+            });
+        };
     };
 
-    this.listenScroll = function() {
+    this.initHeaderTip = _.once(function () {
+        var tipText = STRINGs.SECTION_ERROR_STRING.format(1);
+        var tip = $(TIP_WRAP_TEMP)
+            .appendTo(this.select('headerPanelSelector'))
+            .find('.answer-limit-tip')
+            .text(tipText);
+        this.headerTipHeight = tip.height();
+        tip.hide();
+
+        this.showErrorTip = this.showTipInSection();
+        this.listenScroll();
+    }, this);
+
+    this.listenScroll = function () {
         var me = this,
             now = Date.now(),
             lastTime = now,
@@ -231,7 +244,7 @@ function KOOSLike() {
 
             if ($window.scrollTop() <= 100) {
                 me.delayShowFixTip();
-            } else if(now - lastTime > 200) {
+            } else if (now - lastTime > 200) {
                 me.delayShowFixTip();
                 lastTime = now;
             }
@@ -241,23 +254,8 @@ function KOOSLike() {
     };
 
     this.delayShowFixTip = function () {
-        setTimeout(_.bind(this.showTipInSection, this), 0);
+        setTimeout(_.bind(this.showErrorTip, this), 0);
     };
-
-    this.initDraftAnswer = function () {
-        var $sectionLists = this.select('formSelector').find('.section-list');
-        _.each($sectionLists, function (sectionListEl) {
-            var $sectionList = $(sectionListEl);
-            this.getNotFinishedQuestions($sectionList, true);
-        }, this);
-    };
-
-    this.after('initialize', function () {
-        this.initDraftAnswer();
-
-        this.initHeaderTip();
-        this.listenScroll();
-    });
 }
 
 flight.component(Task, KOOSLike).attachTo('#main');

@@ -1,4 +1,4 @@
-require('../../libs/dialog/dialog');
+require('../../libs/dialog');
 
 function getNotificationContent() {
     var divArr = [

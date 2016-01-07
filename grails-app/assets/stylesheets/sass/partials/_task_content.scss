@@ -7,9 +7,7 @@
         .answer {
             position: relative;
             display: block;
-            padding-top: 15px;
-            padding-right: 15px;
-            padding-bottom: 15px;
+            padding: 15px 15px 15px 0;
 
             .text {
                 display: inline-block;
@@ -110,6 +108,19 @@
         margin-bottom: 20px;
     }
 
+    .optional-label {
+        display: inline-block;
+        padding: 5px;
+        margin-left: 3px;
+        font-size: 14px;
+        background-color: $base-color-lighter-gray;
+        color: $base-color-medium-gray;
+
+        @include breakpoint('mobile') {
+            margin: 0;
+        }
+    }
+
     &.error {
         .question {
             background-color: $base-color-error-background-pink;
@@ -171,4 +182,60 @@
 
 .capitalize {
     text-transform: capitalize;
+}
+
+//for select
+.ui-selectmenu-button {
+    span.ui-icon {
+        background-image: image-url('sort_both.png', false, false);
+    }
+}
+
+.date-picker {
+    height: 30px;
+    width: 200px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #b1b1b1;
+    background: #fbfbfb image-url('calender.png', false, false) no-repeat right top;
+}
+
+.date-picker:disabled {
+    background-color: #e6e6e6;
+}
+
+.multi-select-date-picker {
+    display: inline-block;
+}
+
+input[disabled],
+textarea[disabled] {
+    background-image: none;
+    opacity: 0.6;
+
+    &::-webkit-input-placeholder { /* WebKit browsers */
+        color:    #e6e6e6;
+    }
+    &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:    #e6e6e6;
+    }
+    &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:    #e6e6e6;
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color:    #e6e6e6;
+    }
+}
+
+.ui-selectmenu-button.ui-state-disabled {
+    background: #e6e6e6;
+    opacity: 0.6;
+
+    .ui-icon {
+        display: none;
+    }
+
+    .select-menu-default-text {
+        color: #e6e6e6;
+    }
 }

@@ -1,3 +1,4 @@
+<%@ page import="com.ratchethealth.patient.RatchetConstants"%>
 <%@ page import="com.ratchethealth.patient.RatchetStatusCode" %>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
 <g:set var="scriptPath" value="dist/koosLikeTool.bundle.js"/>
@@ -77,9 +78,6 @@
                 <g:each var="section" in="${Task.sections}" status="i">
 
                     <div id="section-id-${section.id}" class="section-list" value="${section.id}">
-                        <div class="answer-limit-tip">
-                            Please answer at least ${RatchetStatusCode.choicesLimit[section.id]} questions from the following.
-                        </div>
 
                         <g:if test="${section.title.startsWith("<h3>Symptoms") || section.title.startsWith("<h3>Pain")}">
                             <% def splitTitle%>
@@ -97,10 +95,10 @@
                         <g:each var="question" in="${section.questions}" status="j">
 
                             <g:if test="${secondTitle && firstTitle && firstTitle.startsWith("<h3>Symptoms")}">
-                                <g:if test="${Task.type == 7 && j == 5}">
+                                <g:if test="${Task.type == RatchetConstants.ToolEnum.KOOS.value && j == 5}">
                                     <div class="section-title">${raw(secondTitle)}</div>
                                 </g:if>
-                                <g:elseif test="${Task.type == 8 && j == 3}">
+                                <g:elseif test="${Task.type == RatchetConstants.ToolEnum.HOOS.value && j == 3}">
                                     <div class="section-title">${raw(secondTitle)}</div>
                                 </g:elseif>
                             </g:if>
@@ -133,7 +131,8 @@
                                                            name="choices.${question.id}"
                                                            value="${choice.id}.${choice.sequence}"
                                                            <g:if test="${(choices && choices["${question.id}"]?.endsWith(choice.sequence)) ||
-                                                                   choice.id == question.draftChoice}">checked</g:if>/>
+                                                                   choice.id == question.draftChoice}">checked
+                                                           </g:if>/>
                                                     <span class="rc-radio"></span>
                                                 </label>
                                             </li>

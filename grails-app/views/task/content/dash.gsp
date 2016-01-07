@@ -1,3 +1,4 @@
+<%@ page import="com.ratchethealth.patient.RatchetConstants"%>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
 <g:set var="scriptPath" value="dist/dashLikeTool.bundle.js"/>
 <g:set var="cssPath" value="task/dash"/>
@@ -79,7 +80,7 @@
 						<div class="question-list <g:if test="${errors && errors["${question.id}"]}">error</g:if>">
 							<input type="hidden" name="optionals.${question.id}"
 								   value="${question.optional ? '0' : '1'}"/>
-							<g:if test="${Task.type == 10}">
+							<g:if test="${Task.type == RatchetConstants.ToolEnum.FAIRLEY_NASAL_SYMPTOM.value}">
 							<g:hiddenField name="sections.${section.id}" value="${question.id}" />
 							</g:if>
 							<div class="question">
@@ -131,7 +132,7 @@
 			</div>
 		</form>
 
-		<g:if test="${Task.type != 10}">
+		<g:if test="${Task.type != RatchetConstants.ToolEnum.FAIRLEY_NASAL_SYMPTOM.value}">
         <div class="task-copyright text-center">
             <span>&#169 Institute for Work & Health 2006.</span>
             <span class="inline-right">All rights reserved.</span>

@@ -1,5 +1,6 @@
+require('../../../libs/MobileSelectMenu');
+
 var flight = require('flight');
-var MobileSelectMenu = require('../../shared/components/MobileSelectMenu');
 var Notifications = require('../../common/Notification');
 
 function PainPercentPanel() {
@@ -10,8 +11,8 @@ function PainPercentPanel() {
         resultScoreSelector: '#select-percent-score'
     });
 
-    this.clearErrorStatus = function () {
-        _.each($('.question-list-special'), function(question) {
+    this.clearAllErrorStatus = function () {
+        _.each($('.question-list-special'), function (question) {
             if ($(question).hasClass('error')) {
                 $(question)
                     .removeClass('error')
@@ -19,6 +20,16 @@ function PainPercentPanel() {
                     .remove();
             }
         });
+    };
+
+    this.clearErrorStatus = function () {
+        var question = $('#pain-percent-question');
+            if ($(question).hasClass('error')) {
+                $(question)
+                    .removeClass('error')
+                    .find('.error-label')
+                    .remove();
+            }
     };
 
     this.initSelectMenuButtonText = function () {
@@ -49,7 +60,7 @@ function PainPercentPanel() {
         if (toggle.checked) {
             this.select('selectMenuSelector').selectmenu("disable");
             this.clearResultError();
-            this.clearErrorStatus();
+            this.clearAllErrorStatus();
             this.initResult();
             this.initSelectMenuButtonText();
         } else {
@@ -57,10 +68,23 @@ function PainPercentPanel() {
         }
     };
 
+    this.menuHasSelected = function () {
+        var allSelect = this.select('selectMenuSelector');
+        var valid = false;
+
+        _.forEach(allSelect, function (ele) {
+            if ($(ele).find('option:selected').length !== 0) {
+                valid = true;
+            }
+        });
+        return valid;
+    };
+
     this.togglePainChartAndSelect = function (e, data) {
         var toggle = this.select('painToggleSelector').get(0);
+        var selectedCheck = this.menuHasSelected();
 
-        if (data.active === true) {
+        if (data.active === true || selectedCheck) {
             this.showNoPainNotification(toggle);
         } else {
             this.trigger('toggleAllHumanBody', toggle);
@@ -77,7 +101,7 @@ function PainPercentPanel() {
         var me = this;
 
         Notifications.confirm({
-            title: 'ARE YOU SURE?',
+            title: 'Are you sure?',
             message: 'Enabling this checkbox will clear the answers above'
         }, {
             buttons: [
@@ -163,7 +187,7 @@ function PainPercentPanel() {
         if (data.noPain) {
             this.select('painToggleSelector').prop('checked', true);
             this.toggleSelectMenu({checked: true});
-        } else if (this.checkMenuKeys(data.draft)){
+        } else if (this.checkMenuKeys(data.draft)) {
             this.sumScore();
         }
     };
@@ -181,6 +205,6 @@ function PainPercentPanel() {
 
 }
 
-module.exports = flight.component(MobileSelectMenu, PainPercentPanel);
+module.exports = flight.component(PainPercentPanel);
 
 

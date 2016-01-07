@@ -103,13 +103,9 @@ function Task() {
         });
     };
 
-    this.formSubmit = function (e) {
+    this.isValid = function () {
         var $questionLists = this.select('formSelector').find('.question-list');
         var isValid = true;
-
-        if (Utility.isIE()) {
-            this.isFormSubmit = true;
-        }
 
         _.each($questionLists, function (questionEl) {
             var $question = $(questionEl);
@@ -122,7 +118,15 @@ function Task() {
             }
         }, this);
 
-        if (!isValid) {
+        return isValid;
+    };
+
+    this.formSubmit = function (e) {
+        if (Utility.isIE()) {
+            this.isFormSubmit = true;
+        }
+
+        if (!this.isValid()) {
             this.scrollToTopError();
             this.errorQuestions.length = 0;
 
@@ -175,11 +179,20 @@ function Task() {
     };
 
     this.scrollToTopError = function () {
-        var first = this.errorQuestions[0];
-        var top = first.offset().top;
+        var first = this.errorQuestions[0],
+            $header = this.select('headerPanelSelector'),
+            headerMovedTop = parseInt($header.css('top').replace('px', ''), 10),
+            headerHeight = $header.height(),
+            visibleHeaderTop = headerHeight + headerMovedTop,
+            top = first.offset().top;
 
         if (!Utility.isMobile()) {
-            top -= 180;
+            // If top < 205, than header will show all of it
+            if (top - visibleHeaderTop < 205) {
+                top -= headerHeight;
+            } else {
+                top -= visibleHeaderTop;
+            }
         }
 
         window.scrollTo(0, top);

@@ -1,0 +1,51 @@
+.tip-wrap {
+    background-color: $base-color-lighter-gray;
+
+    @include breakpoint('mobile') {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+    }
+}
+
+.answer-limit-tip {
+    width: 100%;
+    margin-top: 29px;
+    padding: 7px 24px;
+    font-size: 16px;
+    background: $base-font-grey;
+    color: $base-color-white;
+
+    &.tip-container {
+        margin: 0 auto;
+        @include breakpoint('tablet') {
+            width: 750px;
+        }
+
+        @include breakpoint('desktop') {
+            width: 970px;
+        }
+
+        @include breakpoint('lg-desktop') {
+            width: 1170px;
+        }
+    }
+
+    &.error {
+        background-color: $base-color-red;
+    }
+
+    &.success {
+        background-color: $base-color-success;
+
+        &:before {
+            display: inline-block;
+            margin-right: 6px;
+            font-family: 'Ionicons';
+            content: '\f122';
+            font-size: 16px;
+        }
+    }
+}

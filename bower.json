@@ -23,6 +23,7 @@
     "jquery-form": "~3.46.0",
     "lodash": "~3.10.1",
     "Snap.svg": "snap.svg#~0.4.1",
-    "velocity": "~1.2.3"
+    "velocity": "~1.2.3",
+    "iscroll": "~5.1.3"
   }
 }

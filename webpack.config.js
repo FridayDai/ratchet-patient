@@ -17,6 +17,8 @@ module.exports = {
         nrsLikeTool: "./pages/nrsLikeTool.js",
         odiLikeTool: "./pages/odiLikeTool.js",
         verticalChoiceTool: "./pages/verticalChoiceTool.js",
+        newPatientQuestionnaireTool: "./pages/newPatientQuestionnaireTool.js",
+        returnPatientQuestionnaireTool: "./pages/returnPatientQuestionnaireTool.js",
         painChartTool: "./pages/painChartTool.js"
     },
     output: {
@@ -32,10 +34,13 @@ module.exports = {
             jForm: "bower_components/jquery-form/jquery.form.js",
             "jquery-ui-dialog": "bower_components/jquery-ui/ui/dialog.js",
             "jquery-ui-selectmenu": "bower_components/jquery-ui/ui/selectmenu.js",
+            "jquery-ui-datepicker": "bower_components/jquery-ui/ui/datepicker.js",
             headroom: "bower_components/headroom.js/dist/headroom.js",
             "jquery-headroom": "bower_components/headroom.js/dist/jQuery.headroom.js",
             "snapsvg": "bower_components/Snap.svg/dist/snap.svg.js",
-            "velocity": "bower_components/velocity/velocity.js"
+            "velocity": "bower_components/velocity/velocity.js",
+            "velocity-ui": "bower_components/velocity/velocity.ui.js",
+            "IScroll": "libs/iscroll/iscroll-lite.js"
         }
     },
     module: {

@@ -43,9 +43,14 @@
     font-style: normal;
 }
 
-body {
+body,
+textarea {
     margin: 0;
     font: $base-font-utility;
+}
+
+textarea {
+    border: 1px solid #b1b1b1;
 }
 
 a {
@@ -421,5 +426,28 @@ ul {
             color: $base-color-white;
         }
     }
+}
+
+.msg-process-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99999;
+    background-color: $base-color-white;
+    opacity: .6;
+}
+
+.msg-process-loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999999;
+    width: 40px;
+    height: 40px;
+    background: image-url('loading.gif', false, false) no-repeat 0 0;
+    background-size: cover;
+    font-size: 40px;
 }
 
