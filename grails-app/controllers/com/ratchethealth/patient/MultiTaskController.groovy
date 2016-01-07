@@ -49,20 +49,20 @@ class MultiTaskController extends BaseController {
             def patientId = tasksListResp.patientId
             if (tasksList) {
                 render view: '/clinicTask/tasksList', model: [
-                    client: JSON.parse(session.client),
-                    tasksList: tasksList,
-                    treatmentCode: treatmentCode,
-                    patientFirstName: firstName,
-                    emailStatus: emailStatus,
-                    patientId: patientId,
-                    isInClinic: isInClinic,
-                    tasksLength: tasksList.size()
+                        client          : JSON.parse(session.client),
+                        tasksList       : tasksList,
+                        treatmentCode   : treatmentCode,
+                        patientFirstName: firstName,
+                        emailStatus     : emailStatus,
+                        patientId       : patientId,
+                        isInClinic      : isInClinic,
+                        tasksLength     : tasksList.size()
                 ]
             } else {
                 render view: '/clinicTask/tasksList', model: [
-                    client: JSON.parse(session.client),
-                    patientFirstName: firstName,
-                    isInClinic: isInClinic
+                        client          : JSON.parse(session.client),
+                        patientFirstName: firstName,
+                        isInClinic      : isInClinic
                 ]
             }
         } else if (isInClinic) {
@@ -121,6 +121,8 @@ class MultiTaskController extends BaseController {
 
                 case RatchetConstants.ToolEnum.KOOS.value:
                 case RatchetConstants.ToolEnum.HOOS.value:
+                case 15:
+                case 1000:
                     questionnaireView = '/task/content/koos'
                     break
 
@@ -128,7 +130,7 @@ class MultiTaskController extends BaseController {
                     questionnaireView = '/task/content/verticalChoice'
                     break
 
-                    //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
+            //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
                 case RatchetConstants.ToolEnum.PAIN_CHART_REFERENCE_NECK.value:
                     questionnaireView = '/task/content/painChartNeck'
                     break
@@ -142,6 +144,7 @@ class MultiTaskController extends BaseController {
                     break
                 case 14:
                     questionnaireView = '/task/content/promis'
+                    break
 
                 case RatchetConstants.ToolEnum.RETURN_PATIENT_QUESTIONNAIRE.value:
                     questionnaireView = '/task/content/returnPatientQuestionnaire'
@@ -156,17 +159,17 @@ class MultiTaskController extends BaseController {
 
             render view: questionnaireView,
                     model: [
-                            client: JSON.parse(session.client),
-                            isInClinic: isInClinic,
-                            Task: result,
-                            Draft: draft,
-                            taskTitle: taskTitle,
-                            taskCode: taskCode,
-                            itemIndex: itemIndex,
-                            tasksList: tasksList,
+                            client     : JSON.parse(session.client),
+                            isInClinic : isInClinic,
+                            Task       : result,
+                            Draft      : draft,
+                            taskTitle  : taskTitle,
+                            taskCode   : taskCode,
+                            itemIndex  : itemIndex,
+                            tasksList  : tasksList,
                             treatmentCode: treatmentCode,
                             tasksLength: tasksList.size(),
-                            patientId: patientId,
+                            patientId  : patientId,
                             emailStatus: emailStatus
                     ]
         } else if (resp.status == 404) {
@@ -175,7 +178,7 @@ class MultiTaskController extends BaseController {
     }
 
     def submitTasks() {
-        if(params.hardcodeTask) {
+        if (params.hardcodeTask) {
             forward(action: "submitSpecialTask", params: [params: params])
             return
         }
@@ -202,7 +205,7 @@ class MultiTaskController extends BaseController {
                 def section = [:]
                 def options = [:]
                 value.each {
-                    if(choices){
+                    if (choices) {
                         def val = choices[it]
                         if (val) {
                             options.put(it, val)
@@ -221,230 +224,235 @@ class MultiTaskController extends BaseController {
         }
 
         //validation
-        if ( taskType == RatchetConstants.ToolEnum.ODI.value ||
+        if (taskType == RatchetConstants.ToolEnum.ODI.value ||
                 taskType == RatchetConstants.ToolEnum.NDI.value ||
                 taskType == RatchetConstants.ToolEnum.KOOS.value ||
                 taskType == RatchetConstants.ToolEnum.HOOS.value) {
 
-            errors = [];
-        } else {
-            errors = validateChoice(taskType, choices, optionals)
-        }
-
-        if (errors.size() > 0) {
-            def view = session["questionnaireView${code}"]
-            def resp
-
-            if (isInClinic) {
-                resp = taskService.getQuestionnaire(token, treatmentCode, code, null)
+            if (taskType == '2' || taskType == '3' || taskType == '7' || taskType == '8' || taskType == '14') {
+                //for complex validation, only valid in js.(2.ODI 3.NDI 7.KOOS 8.HOOS)
+                errors = [];
             } else {
-                resp = taskService.getQuestionnaireWithCombineTaskCode(token, treatmentCode, code)
+                errors = validateChoice(taskType, choices, optionals)
             }
 
-            if (resp.status == 200) {
-                def result = JSON.parse(resp.body)
+            if (errors.size() > 0) {
+                def view = session["questionnaireView${code}"]
+                def resp
 
-                render view: view,
-                        model: [
-                                client: JSON.parse(session.client),
-                                isInClinic: isInClinic,
-                                Task: result,
-                                taskTitle: taskTitle,
-                                taskCode: code,
-                                choices: choices,
-                                itemIndex: (itemIndexRecord - 1),
-                                tasksList: tasksListRecord,
-                                treatmentCode: treatmentCode,
-                                tasksLength: tasksListRecord.size(),
-                                errors: errors,
-                                emailStatus: emailStatus
-                        ]
-            }
-        } else {
-            answer.each {
-                it.choices = convertChoice(taskType, it.choices)
-            }
-            taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer, null)
+                if (isInClinic) {
+                    resp = taskService.getQuestionnaire(token, treatmentCode, code, null)
+                } else {
+                    resp = taskService.getQuestionnaireWithCombineTaskCode(token, treatmentCode, code)
+                }
 
-            if (itemIndexRecord < tasksListRecord.size()) {
-                forward(action: 'startTasks', params: [
-                    itemIndex: itemIndex,
-                    treatmentCode: treatmentCode,
-                    tasksList: tasksList,
-                    isInClinic: isInClinic
-                ])
+                if (resp.status == 200) {
+                    def result = JSON.parse(resp.body)
+
+                    render view: view,
+                            model: [
+                                    client       : JSON.parse(session.client),
+                                    isInClinic   : isInClinic,
+                                    Task         : result,
+                                    taskTitle    : taskTitle,
+                                    taskCode     : code,
+                                    choices      : choices,
+                                    itemIndex    : (itemIndexRecord - 1),
+                                    tasksList    : tasksListRecord,
+                                    treatmentCode: treatmentCode,
+                                    tasksLength  : tasksListRecord.size(),
+                                    errors       : errors,
+                                    emailStatus  : emailStatus
+                            ]
+                }
             } else {
-                if(isInClinic && RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
-                    forward(action: 'enterPatientEmail', params: [
-                        patientId: patientId,
-                        treatmentCode: treatmentCode,
-                        tasksList: tasksList,
-                        isInClinic: isInClinic
+                answer.each {
+                    it.choices = convertChoice(taskType, it.choices)
+                }
+                taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer, null)
+
+                if (itemIndexRecord < tasksListRecord.size()) {
+                    forward(action: 'startTasks', params: [
+                            itemIndex    : itemIndex,
+                            treatmentCode: treatmentCode,
+                            tasksList    : tasksList,
+                            isInClinic   : isInClinic
                     ])
                 } else {
-                    forward(action: 'completeTasks', params: [
-                        treatmentCode: treatmentCode,
-                        tasksList: tasksList,
-                        isInClinic: isInClinic
-                    ])
+                    if (isInClinic && RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
+                        forward(action: 'enterPatientEmail', params: [
+                                patientId    : patientId,
+                                treatmentCode: treatmentCode,
+                                tasksList    : tasksList,
+                                isInClinic   : isInClinic
+                        ])
+                    } else {
+                        forward(action: 'completeTasks', params: [
+                                treatmentCode: treatmentCode,
+                                tasksList    : tasksList,
+                                isInClinic   : isInClinic
+                        ])
+                    }
                 }
             }
         }
     }
 
-    def submitSpecialTask() {
-        String token = request.session.token
-        def itemIndex = params?.itemIndex
-        def tasksList = params?.tasksList
-        def tasksListRecord = JSON.parse(tasksList)
-        def itemIndexRecord = params?.int('itemIndex')
-        def isInClinic = params?.isInClinic
+        def submitSpecialTask() {
+            String token = request.session.token
+            def itemIndex = params?.itemIndex
+            def tasksList = params?.tasksList
+            def tasksListRecord = JSON.parse(tasksList)
+            def itemIndexRecord = params?.int('itemIndex')
+            def isInClinic = params?.isInClinic
 
-        def treatmentCode = params?.treatmentCode
-        def emailStatus = params?.emailStatus
-        def choices = params.choices
-        def code = params.code
+            def treatmentCode = params?.treatmentCode
+            def emailStatus = params?.emailStatus
+            def choices = params.choices
+            def code = params.code
 
-        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices)
-        if (itemIndexRecord < tasksListRecord.size()) {
-            forward(action: 'startTasks', params: [
-                    itemIndex: itemIndex,
-                    treatmentCode: treatmentCode,
-                    tasksList: tasksList,
-                    isInClinic: isInClinic
+            taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices)
+            if (itemIndexRecord < tasksListRecord.size()) {
+                forward(action: 'startTasks', params: [
+                        itemIndex    : itemIndex,
+                        treatmentCode: treatmentCode,
+                        tasksList    : tasksList,
+                        isInClinic   : isInClinic
+                ])
+            } else {
+                if (isInClinic && RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
+                    forward(action: 'enterPatientEmail', params: [
+                            treatmentCode: treatmentCode,
+                            tasksList    : tasksList,
+                            isInClinic   : isInClinic
+                    ])
+                } else {
+                    forward(action: 'completeTasks', params: [
+                            treatmentCode: treatmentCode,
+                            tasksList    : tasksList,
+                            isInClinic   : isInClinic
+                    ])
+                }
+            }
+        }
+
+        def completeTasks() {
+            def tasksList = params?.tasksList
+            def treatmentCode = params?.treatmentCode
+            def tasksListRecord = JSON.parse(tasksList)
+            def isInClinic = params?.isInClinic
+
+            render(view: '/clinicTask/tasksList', model: [
+                    client        : JSON.parse(session.client),
+                    tasksCompleted: true,
+                    doneTaskList  : tasksListRecord,
+                    treatmentCode : treatmentCode,
+                    isInClinic    : isInClinic,
+                    tasksLength   : tasksListRecord.size()
             ])
-        } else {
-            if(isInClinic && RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
+        }
+
+        def enterPatientEmail() {
+            def tasksList = params?.tasksList
+            def treatmentCode = params?.treatmentCode
+            def errorMsg = params?.errorMsg
+            def isInClinic = params?.isInClinic
+
+            render view: '/clinicTask/enterEmail', model: [
+                    client       : JSON.parse(session.client),
+                    treatmentCode: treatmentCode,
+                    tasksList    : tasksList,
+                    isInClinic   : isInClinic,
+                    errorMsg     : errorMsg
+            ]
+        }
+
+        def submitPatientEmail() {
+            String token = request.session.token
+            def email = params?.email
+            def tasksList = params?.tasksList
+            def treatmentCode = params?.treatmentCode
+            def isInClinic = params?.isInClinic
+
+            def resp = patientService.updatePatient(token, treatmentCode, email)
+            if (resp.status == 400 || resp.status == 404) {
+                def result = JSON.parse(resp.body)
+
                 forward(action: 'enterPatientEmail', params: [
                         treatmentCode: treatmentCode,
-                        tasksList: tasksList,
-                        isInClinic: isInClinic
+                        tasksList    : tasksList,
+                        isInClinic   : isInClinic,
+                        errorMsg     : result?.error?.errorMessage
                 ])
             } else {
                 forward(action: 'completeTasks', params: [
                         treatmentCode: treatmentCode,
-                        tasksList: tasksList,
-                        isInClinic: isInClinic
+                        isInClinic   : isInClinic,
+                        tasksList    : tasksList
                 ])
             }
         }
-    }
 
-    def completeTasks() {
-        def tasksList = params?.tasksList
-        def treatmentCode = params?.treatmentCode
-        def tasksListRecord = JSON.parse(tasksList)
-        def isInClinic = params?.isInClinic
+        def saveDraftAnswer() {
+            String token = request.session.token
+            def taskId = params?.taskId
+            def code = params?.code
+            def questionId = params?.questionId
+            def answerId = params?.answerId
+            def complex = params?.complex
 
-        render(view: '/clinicTask/tasksList', model: [
-            client: JSON.parse(session.client),
-            tasksCompleted: true,
-            doneTaskList: tasksListRecord,
-            treatmentCode: treatmentCode,
-            isInClinic: isInClinic,
-            tasksLength: tasksListRecord.size()
-        ])
-    }
+            multiTaskService.saveDraftAnswer(token, taskId, code, questionId, answerId, complex)
 
-    def enterPatientEmail() {
-        def tasksList = params?.tasksList
-        def treatmentCode = params?.treatmentCode
-        def errorMsg = params?.errorMsg
-        def isInClinic = params?.isInClinic
-
-        render view: '/clinicTask/enterEmail', model: [
-            client: JSON.parse(session.client),
-            treatmentCode: treatmentCode,
-            tasksList: tasksList,
-            isInClinic: isInClinic,
-            errorMsg: errorMsg
-        ]
-    }
-
-    def submitPatientEmail() {
-        String token = request.session.token
-        def email = params?.email
-        def tasksList = params?.tasksList
-        def treatmentCode = params?.treatmentCode
-        def isInClinic = params?.isInClinic
-
-        def resp = patientService.updatePatient(token, treatmentCode, email)
-        if (resp.status == 400 || resp.status == 404) {
-            def result = JSON.parse(resp.body)
-
-            forward(action: 'enterPatientEmail', params: [
-                treatmentCode: treatmentCode,
-                tasksList: tasksList,
-                isInClinic: isInClinic,
-                errorMsg: result?.error?.errorMessage
-            ])
-        } else {
-            forward(action: 'completeTasks', params: [
-                treatmentCode: treatmentCode,
-                isInClinic: isInClinic,
-                tasksList: tasksList
-            ])
+            render status: 201
         }
-    }
 
-    def saveDraftAnswer() {
-        String token = request.session.token
-        def taskId = params?.taskId
-        def code = params?.code
-        def questionId = params?.questionId
-        def answerId = params?.answerId
-        def complex = params?.complex
+        def validateChoice(type, choices, optionals) {
+            def errors = [:]
 
-        multiTaskService.saveDraftAnswer(token, taskId, code, questionId, answerId, complex)
-
-        render status: 201
-    }
-
-    def validateChoice(type, choices, optionals) {
-        def errors = [:]
-
-        if (type == RatchetConstants.ToolEnum.NRS_BACK.value) {
-            // 4.NRS-BACK
-            if (choices?.back == null) {
-                errors[0] = 1
-            }
-            if (choices?.leg == null) {
-                errors[1] = 1
-            }
-        } else if (type == RatchetConstants.ToolEnum.NRS_NECK.value) {
-            // 5.NRS-NECK
-            if (choices?.neck == null) {
-                errors[0] = 1
-            }
-            if (choices?.arm == null) {
-                errors[1] = 1
-            }
-        } else {
-            // others
-            for (choice in optionals) {
-                if (optionals[choice.key] == '1' && !choices?.containsKey(choice.key)) {
-                    errors[choice.key] = 1
+            if (type == RatchetConstants.ToolEnum.NRS_BACK.value) {
+                // 4.NRS-BACK
+                if (choices?.back == null) {
+                    errors[0] = 1
+                }
+                if (choices?.leg == null) {
+                    errors[1] = 1
+                }
+            } else if (type == RatchetConstants.ToolEnum.NRS_NECK.value) {
+                // 5.NRS-NECK
+                if (choices?.neck == null) {
+                    errors[0] = 1
+                }
+                if (choices?.arm == null) {
+                    errors[1] = 1
+                }
+            } else {
+                // others
+                for (choice in optionals) {
+                    if (optionals[choice.key] == '1' && !choices?.containsKey(choice.key)) {
+                        errors[choice.key] = 1
+                    }
                 }
             }
+
+            return errors
         }
 
-        return errors
-    }
+        def convertChoice(type, choices) {
+            if (type == RatchetConstants.ToolEnum.NRS_BACK.value ||
+                    type == RatchetConstants.ToolEnum.NRS_NECK.value) {
+                return choices
+            } else {
+                def newType = [:]
 
-    def convertChoice(type, choices) {
-        if (type == RatchetConstants.ToolEnum.NRS_BACK.value ||
-                type == RatchetConstants.ToolEnum.NRS_NECK.value) {
-            return choices
-        } else {
-            def newType = [:]
+                choices.entrySet().each { entry ->
+                    def vals = entry.value.split('\\.')
 
-            choices.entrySet().each { entry ->
-                def vals = entry.value.split('\\.')
+                    newType[vals[0]] = vals[1]
+                };
 
-                newType[vals[0]] = vals[1]
-            };
-
-            return newType
+                return newType
+            }
         }
-    }
 }
+
+
