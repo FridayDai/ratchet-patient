@@ -121,8 +121,8 @@ class MultiTaskController extends BaseController {
 
                 case RatchetConstants.ToolEnum.KOOS.value:
                 case RatchetConstants.ToolEnum.HOOS.value:
-                case 15:
-                case 1000:
+                case RatchetConstants.ToolEnum.KOOS_JR.value:
+                case RatchetConstants.ToolEnum.HOOS_JR.value:
                     questionnaireView = '/task/content/koos'
                     break
 
@@ -141,9 +141,6 @@ class MultiTaskController extends BaseController {
 
                 case RatchetConstants.ToolEnum.NEW_PATIENT_QUESTIONNAIRE.value:
                     questionnaireView = '/task/content/newPatientQuestionnaire'
-                    break
-                case 14:
-                    questionnaireView = '/task/content/promis'
                     break
 
                 case RatchetConstants.ToolEnum.RETURN_PATIENT_QUESTIONNAIRE.value:
