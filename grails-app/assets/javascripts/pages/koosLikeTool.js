@@ -116,36 +116,38 @@ function KOOSLike() {
     };
 
     this.checkLimitAnswer = function ($section) {
-        var $limitTip = $('#header').find('.answer-limit-tip');
-        var sectionId = $section[0].id;
-        var sectionOffset = this.sectionsOffset[sectionId];
-        var remainNumber = sectionOffset.remainNumber;
+        if (this.sectionsOffset) {
+            var $limitTip = $('#header').find('.answer-limit-tip');
+            var sectionId = $section[0].id;
+            var sectionOffset = this.sectionsOffset[sectionId];
+            var remainNumber = sectionOffset.remainNumber;
 
-        if (remainNumber > 1) {
-            this.sectionsOffset[sectionId].remainNumber = --remainNumber;
+            if (remainNumber > 1) {
+                this.sectionsOffset[sectionId].remainNumber = --remainNumber;
 
-            $limitTip
-                .addClass('error')
-                .text(STRINGs.SECTION_ERROR_STRING.format(remainNumber));
-        } else {
-            //remove this section's questions error status
-            $section.find('.question-list.error').removeClass('error');
-            //change the header fix tip to success
-            $limitTip
-                .removeClass('error')
-                .addClass('success')
-                .text(STRINGs.SECTION_SUCCESS_STRING);
+                $limitTip
+                    .addClass('error')
+                    .text(STRINGs.SECTION_ERROR_STRING.format(remainNumber));
+            } else {
+                //remove this section's questions error status
+                $section.find('.question-list.error').removeClass('error');
+                //change the header fix tip to success
+                $limitTip
+                    .removeClass('error')
+                    .addClass('success')
+                    .text(STRINGs.SECTION_SUCCESS_STRING);
 
-            setTimeout(function () {
-                $limitTip.fadeOut("slow", function () {
-                    $(this).removeClass('success');
-                });
-            }, 1000);
+                setTimeout(function () {
+                    $limitTip.fadeOut("slow", function () {
+                        $(this).removeClass('success');
+                    });
+                }, 1000);
 
-            delete this.sectionsOffset[sectionId];
-            //tear down the memory.
-            if (this.sectionsOffset.length === 0) {
-                this.showErrorTip = null;
+                delete this.sectionsOffset[sectionId];
+                //tear down the memory.
+                if (this.sectionsOffset.length === 0) {
+                    this.showErrorTip = null;
+                }
             }
         }
     };

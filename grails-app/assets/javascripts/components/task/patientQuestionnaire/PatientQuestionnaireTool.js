@@ -4,6 +4,7 @@ require('velocity');
 require('velocity-ui');
 
 var flight = require('flight');
+var IScroll = require('IScroll');
 var WithPage = require('../../common/WithPage');
 var Task = require('../../shared/functional/Task');
 var SaveComplexDraftAnswer = require('../../shared/functional/SaveComplexDraftAnswer');
@@ -59,8 +60,10 @@ function PatientQuestionnaireTool() {
     };
 
     this.onChoiceItemClicked = function (e) {
-        var me = this,
-            $target = $(e.target),
+        e.preventDefault();
+        e.stopPropagation();
+
+        var $target = $(e.target),
             $choiceItem = $target.closest(this.attr.choiceItemSelector);
 
         if (!$target.is('input.rc-choice-hidden')) {
@@ -69,7 +72,7 @@ function PatientQuestionnaireTool() {
                 .prop('checked', true);
 
             var $checkbox = $choiceItem.find('[type="checkbox"].rc-choice-hidden');
-            if ($checkbox.length > 0 && !$target.is('.rc-checkbox')) {
+            if ($checkbox.length > 0) {
                 $checkbox
                     .each(function (index, elem) {
                         var $elem = $(elem);
@@ -84,10 +87,7 @@ function PatientQuestionnaireTool() {
 
             this.validateQuestion($question);
 
-            // SetTimeout for checkbox will auto checked after this function run when JUST click checkbox item
-            setTimeout(function () {
-                me.saveDraftForChoiceItem($target);
-            }, 0);
+            this.saveDraftForChoiceItem($target);
         }
     };
 
@@ -138,6 +138,7 @@ function PatientQuestionnaireTool() {
 
     this.runTriggerAction = function ($target, action, $currentItem) {
         this['trigger{0}Action'.format(_.capitalize(action))].call(this, $target, $currentItem);
+        this.refreshIScroller();
     };
 
     this.setErrorStatus = function ($question) {
@@ -189,6 +190,8 @@ function PatientQuestionnaireTool() {
     };
 
     this.checkQuestionValidation = function ($question, condition) {
+        this.refreshIScroller();
+
         if (!condition || !this.attr.startQuestionValidation) {
             return true;
         }
@@ -272,7 +275,7 @@ function PatientQuestionnaireTool() {
 
         switch (typeSelector.type) {
             case 'radio':
-                return $item.prop('checked');
+                return $item.filter(':checked').length > 0;
 
             case 'group':
                 return true;
@@ -335,6 +338,69 @@ function PatientQuestionnaireTool() {
         this.saveDraftAnswer();
     };
 
+    this.initIScrollForMobileDialog = function () {
+        /*jshint nonew: false */
+        if (Utility.isMobile()) {
+            this.iscroller = new IScroll('#main', {click: true});
+
+            this.iscroller.on('beforeScrollStart', function () {
+                document.activeElement.blur();
+            });
+
+            this.refreshIScroller();
+        }
+    };
+
+    this.iscrollerInRefresh = false;
+    this._wantIScrollRefresh = 0;
+    this.refreshIScroller = function () {
+        var me = this;
+
+        if (this._wantIScrollRefresh === 0) {
+            this._wantIScrollRefresh = 1;
+        }
+
+        if (this.iscroller && !this.iscrollerInRefresh && this._wantIScrollRefresh === 1) {
+            this.iscrollerInRefresh = true;
+            setTimeout(function () {
+                me.iscroller.refresh();
+                me._wantIScrollRefresh = 0;
+                me.iscrollerInRefresh = false;
+            }, 300);
+        }
+    };
+
+    this.scrollToTopError = function () {
+        var $firstQuestion = this.errorQuestions[0],
+            $header = this.select('headerPanelSelector'),
+            headerMovedTop = parseInt($header.css('top').replace('px', ''), 10),
+            headerHeight = $header.height(),
+            visibleHeaderTop = headerHeight + headerMovedTop,
+            top,
+            $firstError = $firstQuestion;
+
+        if ($firstQuestion.find('.sub-question').length > 0) {
+            $firstError = $firstQuestion.find('.error-field:first').closest('.sub-question');
+        }
+
+        top = $firstError.offset().top;
+
+        if (!Utility.isMobile()) {
+            // If top < 205, than header will show all of it
+            if (top - visibleHeaderTop < 205) {
+                top -= headerHeight;
+            } else {
+                top -= visibleHeaderTop;
+            }
+        }
+
+        if (this.iscroller) {
+            this.iscroller.scrollToElement($firstError.get(0), 1000);
+        } else {
+            window.scrollTo(0, top);
+        }
+    };
+
     this.after('initialize', function () {
         this.initDraftAnswer();
 
@@ -345,6 +411,8 @@ function PatientQuestionnaireTool() {
         });
 
         this.on('.specify-input, textarea', 'blur', this.onTextBlur);
+
+        this.initIScrollForMobileDialog();
 
         Utility.hideProcessing();
     });

@@ -1,3 +1,4 @@
+<%@ page import="com.ratchethealth.patient.RatchetConstants"%>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
 <g:set var="scriptPath" value="dist/verticalChoiceTool.bundle.js"/>
 <g:set var="cssPath" value="task/odi"/>
@@ -90,7 +91,7 @@
                                         <li class="answer">
                                             <div class="text">${choice.content}</div>
                                             <label class="choice">
-                                                <g:if test="${Task.type == 9}">
+                                                <g:if test="${Task.type == RatchetConstants.ToolEnum.HARRIS_HIP_SCORE.value}">
                                                     <input type="radio"
                                                            class="rc-choice-hidden"
                                                            name="choices.${question.id}"
@@ -139,7 +140,7 @@
             </div>
         </form>
 
-        <g:if test="${Task.type == 2}">
+        <g:if test="${Task.type == RatchetConstants.ToolEnum.ODI.value}">
             <div class="task-copyright text-center">
                 <span>ODI © Jeremy Fairbank, 1980.</span>
                 <span class="inline-right">All Rights Reserved.</span>

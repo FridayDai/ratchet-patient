@@ -1,15 +1,28 @@
 var Utility = require('../../../utils/Utility');
 
 function ItemTriggerActions() {
+    this._hideInProgress = false;
+    this._showInProgress = false;
+
     this.triggerShowAction = function ($target) {
-        if (!$target.is(':visible')) {
-            $target.velocity('transition.slideDownIn');
+        var me = this;
+
+        if (!$target.is(':visible') || this._hideInProgress) {
+            this._showInProgress = true;
+            $target.velocity('transition.slideDownIn', null, function () {
+                me._showInProgress = false;
+            });
         }
     };
 
     this.triggerHideAction = function ($target) {
-        if ($target.is(':visible')) {
-            $target.velocity('transition.slideUpOut');
+        var me = this;
+
+        if (this._showInProgress || $target.is(':visible')) {
+            this._hideInProgress = true;
+            $target.velocity('transition.slideUpOut', null, function () {
+                me._hideInProgress = false;
+            });
         }
     };
 
@@ -40,7 +53,9 @@ function ItemTriggerActions() {
 
             this.clearInvolvedFieldsInDraft($target);
         } else if ($target.is('[type=text], textarea')) {
-            $target.prop('disabled', true);
+            $target
+                .prop('disabled', true)
+                .val('');
 
             this.clearInvolvedFieldsInDraft($target);
         } else if ($target.is('[type=checkbox]')) {
@@ -133,6 +148,25 @@ function ItemTriggerActions() {
 
             $currentItem.append($selectMenuButton);
             $selectMenuButton.show();
+        }
+    };
+
+    this.triggerCheckboxToggleAction = function ($target, $currentItem) {
+        var $currentCheckbox = $currentItem.find('[type=checkbox]');
+
+        if ($currentCheckbox.prop('checked')) {
+            $target
+                .prop('checked', false)
+                .parent()
+                .addClass('disabled');
+        } else {
+            var $currentCheckboxGroup = $('[name="{0}"]'.format($currentCheckbox.attr('name')));
+
+            if ($currentCheckboxGroup.filter(':checked').length === 0) {
+                $currentCheckboxGroup
+                    .parent()
+                    .removeClass('disabled');
+            }
         }
     };
 

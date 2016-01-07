@@ -1,9 +1,9 @@
 var flight = require('flight');
-var WithDialog = require('./WithDialog');
+var WithMobileDialog = require('./WithMobileDialog');
 
 function WithMobileRadioDialog() {
     flight.compose.mixin(this, [
-        WithDialog
+        WithMobileDialog
     ]);
 
     this.attributes({

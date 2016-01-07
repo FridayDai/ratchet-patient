@@ -355,7 +355,9 @@
                                 <div class="extension-question-title">Did you take time off from work?</div>
                                 <div>
                                     <ul class="list">
-                                        <li class="answer">
+                                        <li class="answer"
+                                            data-trigger='{"#question3-extension [type=text]" : "enable"}'
+                                        >
                                             <div class="text">Yes
                                                 <span class="specify-part">
                                                     <span class="label">Return date:</span>
@@ -474,7 +476,7 @@
                                 'bruise easily',
                                 'abnormal lumps',
                                 'painful breasts',
-                                'change of skin color',
+                                'change in skin color',
                                 'change in hair or nails'
                         ]], ['Neurologic', [
                                 'headache / migraine',
@@ -490,12 +492,13 @@
                                 'unusual stress in work life'
                         ]]]}"/>
                         <g:each in="${subQuestion4}" var="subQuestion" status="j">
+                            <g:set var="exceptNoneChecked" value="${false}" />
                             <div class="sub-question error-notice-field">
                                 <div class="sub-question-title">${subQuestion[0]}</div>
                                 <ul class="sub-question-answer-list">
                                     <g:each in="${subQuestion[1]}" var="subAnswer" status="index">
                                     <li class="answer sub-question-answer answer-multiple answer-multiple-${j}"
-                                        data-trigger='{"#question4 .answer-none-${j} [type=checkbox]" : "disable", "#question4 .answer-multiple-${j} [type=checkbox]" : "enable"}'
+                                        data-trigger='{"#question4 .answer-none-${j} [type=checkbox]" : "checkboxToggle", "#question4 .answer-multiple-${j} [type=checkbox]" : "enable"}'
                                     >
                                         <div class="text">${subAnswer}</div>
                                         <label class="choice <g:if test="${Draft?."4-${j}"?.indexOf((subQuestion[1].size() + 1).toString()) > -1}">disabled</g:if>">
@@ -503,17 +506,17 @@
                                                    class="rc-choice-hidden"
                                                    name="choices.4-${j}"
                                                    value="${index + 1}"
-                                                   <g:if test="${Draft?."4-${j}"?.indexOf((index + 1).toString()) > -1}">checked</g:if>
+                                                   <g:if test="${Draft?."4-${j}"?.indexOf((index + 1).toString()) > -1}">checked<g:set var="exceptNoneChecked" value="${true}" /></g:if>
                                             />
                                             <span class="rc-checkbox primary-radio-color"></span>
                                         </label>
                                     </li>
                                     </g:each>
                                     <li class="answer sub-question-answer answer-none answer-none-${j}"
-                                        data-trigger='{"#question4 .answer-multiple-${j} [type=checkbox]" : "disable", "#question4 .answer-none-${j} [type=checkbox]" : "enable"}'
+                                        data-trigger='{"#question4 .answer-multiple-${j} [type=checkbox]" : "checkboxToggle", "#question4 .answer-none-${j} [type=checkbox]" : "enable"}'
                                     >
                                         <div class="text">none of the above</div>
-                                        <label class="choice <g:if test="${Draft?."4-${j}"?.indexOf((subQuestion[1].size() + 1).toString()) == -1}">disabled</g:if>">
+                                        <label class="choice <g:if test="${exceptNoneChecked}">disabled</g:if>">
                                             <input type="checkbox"
                                                    class="rc-choice-hidden"
                                                    name="choices.4-${j}"
@@ -529,7 +532,7 @@
                         <div class="sub-question">
                             <div class="sub-question-title">Other:</div>
                             <div class="textarea-container">
-                                <textarea placeholder="List symptoms..." maxlength="5000">${Draft?."4-14"}</textarea>
+                                <textarea placeholder="List symptoms..." maxlength="5000" name="choices.4-14">${Draft?."4-14"}</textarea>
                             </div>
                         </div>
                     </div>
@@ -554,7 +557,7 @@
                 </div>
             </form>
             <div id="mobile-date-picker-dialog" class="modal ui-hidden">
-                <div class="inline-date-picker"></div>
+                <div class="inline-date-picker" autofocus></div>
             </div>
         </div>
     </div>
