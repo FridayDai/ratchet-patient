@@ -145,8 +145,8 @@
                                                     </div>
                                                     <label class="choice choice-number choice-number-${k}">
                                                         <input type="radio" class="rc-choice-hidden"
-                                                               name="choices.${question?.id}"
-                                                            <g:if test="${Draft != null && Draft[${question?.id}.toString()] == k.toString()}">checked</g:if>
+                                                               name="choices.pain"
+                                                            <g:if test="${Draft != null && Draft["${choices.pain}"] == k.toString()}">checked</g:if>
                                                                value="${k}"/>
                                                         <span class="rc-radio"></span>
                                                     </label>

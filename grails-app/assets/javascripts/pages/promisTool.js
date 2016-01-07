@@ -23,7 +23,7 @@ function promisTool() {
     };
 
     this.checkAllInputValue = function () {
-        return  this.select('svgResultGroupSelector').find('.active').length > 0;
+        return this.select('svgResultGroupSelector').find('.active').length > 0;
     };
 
     this.formSubmit = function (e) {
@@ -59,30 +59,26 @@ function promisTool() {
         this.isFormSubmit = true;
     };
 
-    this.initDraftAnswer = function () {
-        this.draftAnswer = this.select('formSelector').data('draft') || {};
+    this.onChoiceItemClicked = function (e) {
+        var $target = $(e.target);
+        var checkedChoiceBefore = $target
+            .closest('.answer-list')
+            .find('[type="radio"].rc-choice-hidden:checked');
+
+        if (!$target.is('input.rc-choice-hidden')) {
+            $target.closest(this.attr.choiceItemSelector)
+                .find('.rc-choice-hidden')
+                .prop('checked', true);
+
+            this.prepareDraftAnswer($target);
+
+            if (checkedChoiceBefore.length === 0) {
+                this.clearErrorStatus($target.closest('.question-list'));
+            }
+        }
     };
-
-    this.prepareDraftAnswer = function ($target) {
-        var $questionList = $target.closest('.question-list');
-        var $answer = $target.closest('.answer');
-        var $hiddenRadio = $answer.find('.rc-choice-hidden');
-        var index = $questionList.data('index');
-
-        this.draftAnswer[index] = $hiddenRadio.val();
-
-        this.saveDraftAnswer();
-    };
-
-    this.after('initialize', function () {
-        this.initDraftAnswer();
-
-        Utility.hideProcessing();
-    });
 }
-
 flight.component(
     Task,
-    SaveComplexDraftAnswer,
     promisTool
 ).attachTo('#main');
