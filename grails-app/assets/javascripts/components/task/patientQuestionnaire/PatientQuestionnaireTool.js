@@ -380,7 +380,7 @@ function PatientQuestionnaireTool() {
             $firstError = $firstQuestion;
 
         if ($firstQuestion.find('.sub-question').length > 0) {
-            $firstError = $firstQuestion.find('.sub-question.error-field:first');
+            $firstError = $firstQuestion.find('.error-field:first').closest('.sub-question');
         }
 
         top = $firstError.offset().top;

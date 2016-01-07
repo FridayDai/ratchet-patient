@@ -78,10 +78,12 @@ var VALIDATION = {
             'radio:[name="choices.10-e-2-c"][value=2]': [
                 'text:[name="choices.10-e-3"]'
             ],
+            'radio:[name="choices.10-e-1-c"][value=1]': [
+                'radio:[name="choices.10-e-2-c"]'
+            ],
             'radio:[name="choices.10-c"][value=1]': [
                 'text:[name="choices.10-1s"]',
-                'radio:[name="choices.10-e-1-c"]',
-                'radio:[name="choices.10-e-2-c"]'
+                'radio:[name="choices.10-e-1-c"]'
             ]
         }
     },
