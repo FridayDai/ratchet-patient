@@ -122,7 +122,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.getQuestionnaire('token', 1, 1, 1)
+        def result = service.getQuestionnaire('token', 1, 1)
         def resultJson = JSON.parse(result.body)
 
         then:
@@ -144,7 +144,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.getQuestionnaire('token', 1, 1, 1)
+        def result = service.getQuestionnaire('token', 1, 1)
         def resultJson = JSON.parse(result.body)
 
         then:
@@ -161,7 +161,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        service.getQuestionnaire('token', 1, 1, 1)
+        service.getQuestionnaire('token', 1, 1)
 
         then:
         ServerException e = thrown()
@@ -183,7 +183,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        def resp = service.submitQuestionnaire('token', 1, 1)
+        def resp = service.submitQuestionnaire('token', 1, 1, 1)
         def result = JSON.parse(resp.body.toString())
 
         then:
@@ -200,7 +200,7 @@ class TaskServiceSpec extends Specification {
         }
 
         when:
-        service.submitQuestionnaire('token', 1, 1)
+        service.submitQuestionnaire('token', 1, 1, 1)
 
         then:
         ServerException e = thrown()

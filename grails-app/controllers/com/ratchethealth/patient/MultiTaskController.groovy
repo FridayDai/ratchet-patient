@@ -2,7 +2,7 @@ package com.ratchethealth.patient
 
 import grails.converters.JSON
 
-class MultiTaskController extends BaseController {
+class MultiTaskController extends TaskController {
 
     def multiTaskService
     def taskService
@@ -33,6 +33,7 @@ class MultiTaskController extends BaseController {
         def isInClinic = params?.isInClinic
         def serverName = request.getServerName()
         def subDomain = serverName.substring(0, serverName.indexOf('.'))
+        def client = JSON.parse(session.client)
         def resp
 
         if (isInClinic) {
@@ -49,7 +50,7 @@ class MultiTaskController extends BaseController {
             def patientId = tasksListResp.patientId
             if (tasksList) {
                 render view: '/clinicTask/tasksList', model: [
-                        client          : JSON.parse(session.client),
+                        client          : client,
                         tasksList       : tasksList,
                         treatmentCode   : treatmentCode,
                         patientFirstName: firstName,
@@ -60,18 +61,18 @@ class MultiTaskController extends BaseController {
                 ]
             } else {
                 render view: '/clinicTask/tasksList', model: [
-                        client          : JSON.parse(session.client),
+                        client          : client,
                         patientFirstName: firstName,
                         isInClinic      : isInClinic
                 ]
             }
         } else if (isInClinic) {
             if (resp.status == 404) {
-                render view: '/clinicTask/codeValidation', model: [client: JSON.parse(session.client), errorMsg: RatchetMessage.IN_CLINIC_INCORRECT_TREATMENT_CODE]
+                render view: '/clinicTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_INCORRECT_TREATMENT_CODE]
             } else if (resp.status == 412) {
-                render view: '/clinicTask/codeValidation', model: [client: JSON.parse(session.client), errorMsg: RatchetMessage.IN_CLINIC_EXPIRED_TREATMENT_CODE]
+                render view: '/clinicTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_EXPIRED_TREATMENT_CODE]
             } else {
-                render view: '/error/taskExpired', model: [client: JSON.parse(session.client)]
+                render view: '/error/taskExpired', model: [client: client]
             }
         } else {
             taskService.handleError(resp)
@@ -84,94 +85,27 @@ class MultiTaskController extends BaseController {
         def itemIndex = params?.int('itemIndex')
         def isInClinic = params?.isInClinic
         def treatmentCode = params?.treatmentCode
-        def emailStatus = params?.emailStatus
-        def patientId = params?.patientId
 
         def task = tasksList[itemIndex]
-        def taskTitle = task.title
         def taskCode = task.code
-        def resp, draft = null
 
-        if (isInClinic) {
-            resp = taskService.getQuestionnaire(token, treatmentCode, taskCode, null)
-        } else {
-            resp = taskService.getQuestionnaireWithCombineTaskCode(token, treatmentCode, taskCode)
-        }
+        def resp = getQuestionnaire([
+            isInClinic: isInClinic,
+            token: token,
+            treatmentCode: treatmentCode,
+            taskCode: taskCode
+        ])
 
-        if (resp.status == 200) {
-            def result = JSON.parse(resp.body)
-            def questionnaireView = ''
-
-            switch (result.type) {
-                case RatchetConstants.ToolEnum.DASH.value:
-                case RatchetConstants.ToolEnum.QUICK_DASH.value:
-                case RatchetConstants.ToolEnum.FAIRLEY_NASAL_SYMPTOM.value:
-                    questionnaireView = '/task/content/dash'
-                    break
-
-                case RatchetConstants.ToolEnum.ODI.value:
-                case RatchetConstants.ToolEnum.NDI.value:
-                    questionnaireView = '/task/content/odi'
-                    break
-
-                case RatchetConstants.ToolEnum.NRS_BACK.value:
-                case RatchetConstants.ToolEnum.NRS_NECK.value:
-                    questionnaireView = '/task/content/nrs'
-                    break
-
-                case RatchetConstants.ToolEnum.KOOS.value:
-                case RatchetConstants.ToolEnum.HOOS.value:
-                case RatchetConstants.ToolEnum.KOOS_JR.value:
-                case RatchetConstants.ToolEnum.HOOS_JR.value:
-                    questionnaireView = '/task/content/koos'
-                    break
-
-                case RatchetConstants.ToolEnum.HARRIS_HIP_SCORE.value:
-                    questionnaireView = '/task/content/verticalChoice'
-                    break
-
-            //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
-                case RatchetConstants.ToolEnum.PAIN_CHART_REFERENCE_NECK.value:
-                    questionnaireView = '/task/content/painChartNeck'
-                    break
-
-                case RatchetConstants.ToolEnum.PAIN_CHART_REFERENCE_BACK.value:
-                    questionnaireView = '/task/content/painChartBack'
-                    break
-
-                case RatchetConstants.ToolEnum.NEW_PATIENT_QUESTIONNAIRE.value:
-                    questionnaireView = '/task/content/newPatientQuestionnaire'
-                    break
-
-                case RatchetConstants.ToolEnum.RETURN_PATIENT_QUESTIONNAIRE.value:
-                    questionnaireView = '/task/content/returnPatientQuestionnaire'
-                    break
-            }
-
-            if (result.draft) {
-                draft = JSON.parse(JSON.parse(result.draft).yourData)
-            }
-
-            session["questionnaireView${taskCode}"] = questionnaireView
-
-            render view: questionnaireView,
-                    model: [
-                            client     : JSON.parse(session.client),
-                            isInClinic : isInClinic,
-                            Task       : result,
-                            Draft      : draft,
-                            taskTitle  : taskTitle,
-                            taskCode   : taskCode,
-                            itemIndex  : itemIndex,
-                            tasksList  : tasksList,
-                            treatmentCode: treatmentCode,
-                            tasksLength: tasksList.size(),
-                            patientId  : patientId,
-                            emailStatus: emailStatus
-                    ]
-        } else if (resp.status == 404) {
-            render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
-        }
+        startTaskHandler(resp, [
+            taskCode: taskCode,
+            isInClinic: isInClinic,
+            taskTitle: task.title,
+            itemIndex: itemIndex,
+            tasksList: tasksList,
+            treatmentCode: treatmentCode,
+            patientId: params?.patientId,
+            emailStatus: params?.emailStatus
+        ])
     }
 
     def submitTasks() {
@@ -179,93 +113,31 @@ class MultiTaskController extends BaseController {
             forward(action: "submitSpecialTask", params: [params: params])
             return
         }
-        String token = request.session.token
+
         def itemIndex = params?.itemIndex
         def tasksList = params?.tasksList
         def tasksListRecord = JSON.parse(tasksList)
-        def itemIndexRecord = params?.int('itemIndex')
+        def itemIndexRecord = itemIndex as int
         def isInClinic = params?.isInClinic
         def treatmentCode = params?.treatmentCode
         def emailStatus = params?.emailStatus
         def patientId = params?.patientId
         def taskTitle = params.taskTitle
-        def code = params.code
-        def taskType = params.taskType as int
-        def choices = params.choices
-        def optionals = params.optionals
-        def sections = params.sections
-        def answer = []
-        def errors
 
-        if (sections) {
-            sections.each { key, String[] value ->
-                def section = [:]
-                def options = [:]
-                value.each {
-                    if (choices) {
-                        def val = choices[it]
-                        if (val) {
-                            options.put(it, val)
-                        }
-                    }
-                }
-                section.put("sectionId", key)
-                section.put("choices", options)
-                answer.add(section)
-            }
-        } else {
-            def section = [:]
-            section.put("sectionId", null)
-            section.put("choices", choices)
-            answer.add(section)
-        }
-
-        //validation
-        if (taskType == RatchetConstants.ToolEnum.ODI.value ||
-                taskType == RatchetConstants.ToolEnum.NDI.value ||
-                taskType == RatchetConstants.ToolEnum.KOOS.value ||
-                taskType == RatchetConstants.ToolEnum.HOOS.value) {
-            //for complex validation, only valid in js.(2.ODI 3.NDI 7.KOOS 8.HOOS)
-            errors = [];
-        } else {
-            errors = validateChoice(taskType, choices, optionals)
-        }
-
-        if (errors.size() > 0) {
-            def view = session["questionnaireView${code}"]
-            def resp
-
-            if (isInClinic) {
-                resp = taskService.getQuestionnaire(token, treatmentCode, code, null)
-            } else {
-                resp = taskService.getQuestionnaireWithCombineTaskCode(token, treatmentCode, code)
-            }
-
-            if (resp.status == 200) {
-                def result = JSON.parse(resp.body)
-
-                render view: view,
-                        model: [
-                                client       : JSON.parse(session.client),
-                                isInClinic   : isInClinic,
-                                Task         : result,
-                                taskTitle    : taskTitle,
-                                taskCode     : code,
-                                choices      : choices,
-                                itemIndex    : (itemIndexRecord - 1),
-                                tasksList    : tasksListRecord,
-                                treatmentCode: treatmentCode,
-                                tasksLength  : tasksListRecord.size(),
-                                errors       : errors,
-                                emailStatus  : emailStatus
-                        ]
-            }
-        } else {
-            answer.each {
-                it.choices = convertChoice(taskType, it.choices)
-            }
-            taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer, null)
-
+        submitTaskHandler([
+            taskType: params.taskType,
+            code: params.code,
+            token: request.session.token,
+            itemIndex: itemIndex,
+            tasksList: tasksList,
+            isInClinic: isInClinic,
+            treatmentCode: treatmentCode,
+            emailStatus: emailStatus,
+            taskTitle: taskTitle,
+            choices: params.choices,
+            optionals: params.optionals,
+            sections: params.sections
+        ]) { resp ->
             if (itemIndexRecord < tasksListRecord.size()) {
                 forward(action: 'startTasks', params: [
                         itemIndex    : itemIndex,
@@ -290,6 +162,18 @@ class MultiTaskController extends BaseController {
                 }
             }
         }
+    }
+
+    def getQuestionnaire(opts) {
+        if (opts?.isInClinic) {
+            return taskService.getQuestionnaire(opts?.token, opts?.treatmentCode, opts?.code)
+        } else {
+            return taskService.getQuestionnaireWithCombineTaskCode(opts?.token, opts?.treatmentCode, opts?.code)
+        }
+    }
+
+    def submitQuestionnaire(opts) {
+        return taskService.submitQuestionnaireWithoutErrorHandle(opts?.token, opts?.code, opts?.answer, null)
     }
 
     def submitSpecialTask() {
@@ -399,54 +283,6 @@ class MultiTaskController extends BaseController {
 
         render status: 201
     }
-
-    def validateChoice(type, choices, optionals) {
-        def errors = [:]
-
-        if (type == RatchetConstants.ToolEnum.NRS_BACK.value) {
-            // 4.NRS-BACK
-            if (choices?.back == null) {
-                errors[0] = 1
-            }
-            if (choices?.leg == null) {
-                errors[1] = 1
-            }
-        } else if (type == RatchetConstants.ToolEnum.NRS_NECK.value) {
-            // 5.NRS-NECK
-            if (choices?.neck == null) {
-                errors[0] = 1
-            }
-            if (choices?.arm == null) {
-                errors[1] = 1
-            }
-        } else {
-            // others
-            for (choice in optionals) {
-                if (optionals[choice.key] == '1' && !choices?.containsKey(choice.key)) {
-                    errors[choice.key] = 1
-                }
-            }
-        }
-
-        return errors
-    }
-
-    def convertChoice(type, choices) {
-        if (type == RatchetConstants.ToolEnum.NRS_BACK.value ||
-                type == RatchetConstants.ToolEnum.NRS_NECK.value) {
-            return choices
-        } else {
-            def newType = [:]
-
-            choices.entrySet().each { entry ->
-                def vals = entry.value.split('\\.')
-
-                newType[vals[0]] = vals[1]
-            };
-
-            return newType
-        }
-    }
-
-
 }
+
+
