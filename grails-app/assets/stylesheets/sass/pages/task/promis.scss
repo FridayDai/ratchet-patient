@@ -4,6 +4,10 @@
     @include answer-vertical-list('small');
 }
 
+#promis {
+    margin-top: 40px;
+}
+
 .tip-wrap {
     background-color: $base-color-lighter-gray;
     .answer-limit-tip.tip-bottom {
@@ -112,17 +116,21 @@
         background-color: $base-color-white;
 
         @include breakpoint('tablet') {
-            margin-bottom: 0;
-            padding: 30px 20px 0;
+            padding: 30px 30px 20px 0;
             font-size: 18px;
+            margin-bottom: 4px;
         }
 
         @include breakpoint('desktop') {
             padding-left: 45px;
+            margin-bottom: 4px;
+            padding-bottom: 20px;
         }
 
         @include breakpoint('lg-desktop') {
             padding-left: 65px;
+            padding-bottom: 20px;
+            margin-bottom: 4px;
         }
 
         .question-title {
@@ -148,6 +156,7 @@
             }
 
             margin-bottom: 5px;
+            padding: 30px;
 
             .answer-description {
                 @include breakpoint('tablet') {
@@ -344,6 +353,12 @@
         .text {
             @include breakpoint('tablet') {
                 margin: 10px 0;
+                font-size: 15px;
+                font-weight: 500;
+            }
+            @include breakpoint('lg-desktop') {
+                font-size: 15px;
+                font-weight: 500;
             }
         }
     }

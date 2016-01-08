@@ -451,24 +451,7 @@ class MultiTaskController extends BaseController {
     def convertChoice(type, choices) {
         if (type == '4' || type == '5') {
             return choices
-        } else if (type == '14') {
-            def newType = [:]
-
-            choices.entrySet().each { entry ->
-
-                if(entry.key.toInteger() == 179) {
-
-//                    newType.put(entry.key,entry.value)
-                    return
-                }
-                else {
-                    def vals = entry.value.split('\\.')
-
-                    newType[vals[0]] = vals[1]
-                }
-            }
-            return newType
-        } else {
+        }  else {
             def newType = [:]
 
             choices.entrySet().each { entry ->

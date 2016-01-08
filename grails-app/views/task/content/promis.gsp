@@ -134,23 +134,23 @@
                                             <span class="severe-pain">Severe Pain</span>
                                         </div>
                                         <ul class="list">
-                                            <g:each var="k" in="${(0..<11)}">
-                                                <li class="answer">
-                                                    <div class="text">
-                                                        ${k} -
-                                                        <g:if test="${k == 0}">No Pain</g:if>
-                                                        <g:if test="${k >= 1 && k < 4}">Mid Pain</g:if>
-                                                        <g:if test="${k >= 4 && k < 7}">Moderate Pain</g:if>
-                                                        <g:if test="${k >= 7 && k < 11}">Severe Pain</g:if>
-                                                    </div>
-                                                    <label class="choice choice-number choice-number-${k}">
-                                                        <input type="radio" class="rc-choice-hidden"
-                                                               name="choices.pain"
-                                                            <g:if test="${Draft != null && Draft["${choices.pain}"] == k.toString()}">checked</g:if>
-                                                               value="${k}"/>
-                                                        <span class="rc-radio"></span>
-                                                    </label>
-                                                </li>
+                                            <g:each var="choice" in="${question.choices}" status="k">
+                                            <li class="answer">
+                                                <div class="text">
+                                                    ${k} -
+                                                    <g:if test="${k == 0}">No Pain</g:if>
+                                                    <g:if test="${k >= 1 && k < 4}">Mid Pain</g:if>
+                                                    <g:if test="${k >= 4 && k < 7}">Moderate Pain</g:if>
+                                                    <g:if test="${k >= 7 && k < 11}">Severe Pain</g:if>
+                                                </div>
+                                                <label class="choice choice-number choice-number-${k}">
+                                                    <input type="radio" class="rc-choice-hidden"
+                                                           name="choices.${"179"}"
+                                                        <g:if test="${Draft != null && Draft["${choices.pain}"] == k.toString()}">checked</g:if>
+                                                           value="${choice.id}.${choice.sequence}"/>
+                                                    <span class="rc-radio"></span>
+                                                </label>
+                                            </li>
                                             </g:each>
                                         </ul>
                                     </div>
