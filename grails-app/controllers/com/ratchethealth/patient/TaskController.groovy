@@ -28,56 +28,61 @@ class TaskController extends BaseController {
                 def questionnaireView = ''
 
                 switch (result.type) {
-                    case 1: case 6: case 10:
+                    case RatchetConstants.ToolEnum.DASH.value:
+                    case RatchetConstants.ToolEnum.QUICK_DASH.value:
+                    case RatchetConstants.ToolEnum.FAIRLEY_NASAL_SYMPTOM.value:
                         questionnaireView = '/task/content/dash'
                         break
-                    case 2: case 3:
+
+                    case RatchetConstants.ToolEnum.ODI.value:
+                    case RatchetConstants.ToolEnum.NDI.value:
                         questionnaireView = '/task/content/odi'
                         break
-                    case 4: case 5:
-                        questionnaireView = '/task/content/nrs'
 
-                        if (result.draft) {
-                            draft = JSON.parse(JSON.parse(result.draft).yourData)
-                        }
+                    case RatchetConstants.ToolEnum.NRS_BACK.value:
+                    case RatchetConstants.ToolEnum.NRS_NECK.value:
+                        questionnaireView = '/task/content/nrs'
                         break
-                    case 7:
-                    case 8:
-                    case 15:
-                    case 1000:
+
+                    case RatchetConstants.ToolEnum.KOOS.value:
+                    case RatchetConstants.ToolEnum.HOOS.value:
+                    case RatchetConstants.ToolEnum.KOOS_JR.value:
+                    case RatchetConstants.ToolEnum.HOOS_JR.value:
                         questionnaireView = '/task/content/koos'
                         break
-                    case 9:
+
+                    case RatchetConstants.ToolEnum.HARRIS_HIP_SCORE.value:
                         questionnaireView = '/task/content/verticalChoice'
                         break
+
                 //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
-                    case 11:
+                    case RatchetConstants.ToolEnum.PAIN_CHART_REFERENCE_NECK.value:
                         questionnaireView = '/task/content/painChartNeck'
-
-                        if (result.draft) {
-                            draft = JSON.parse(JSON.parse(result.draft).yourData)
-                        }
                         break
-                    case 12:
+
+                    case RatchetConstants.ToolEnum.PAIN_CHART_REFERENCE_BACK.value:
                         questionnaireView = '/task/content/painChartBack'
+                        break
 
-                        if (result.draft) {
-                            draft = JSON.parse(JSON.parse(result.draft).yourData)
-                        }
-                        break
-                    case 13:
+                    case RatchetConstants.ToolEnum.NEW_PATIENT_QUESTIONNAIRE.value:
                         questionnaireView = '/task/content/newPatientQuestionnaire'
-                        if (result.draft) {
-                            draft = JSON.parse(JSON.parse(result.draft).yourData)
-                        }
                         break
+
+                    case RatchetConstants.ToolEnum.RETURN_PATIENT_QUESTIONNAIRE.value:
+                        questionnaireView = '/task/content/returnPatientQuestionnaire'
+                        break
+                }
+
+                if (result.draft) {
+                    draft = JSON.parse(JSON.parse(result.draft).yourData)
                 }
 
                 render view: questionnaireView, model: [
                         Task     : result,
                         client   : JSON.parse(session.client),
                         taskTitle: taskTitle,
-                        taskCode : code
+                        taskCode : code,
+                        Draft    : draft,
                 ]
             }
         }
