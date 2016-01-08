@@ -14,7 +14,6 @@ class TaskController extends BaseController {
         def code = params.code
         def taskTitle = params.title
         def draft = null
-
         def patientId = taskService.getPatientInfoByTaskCode(token, code).patientPK
 
         if (session["taskComplete${code}"]) {
@@ -173,35 +172,6 @@ class TaskController extends BaseController {
                 saveResultToSession(code, result)
             }
 
-                //1.DASH 2.ODI 3.NDI 4.NRS-BACK 5.NRS-NECK 6.QuickDASH 7.KOOS 8.HOOS
-                // 9.Harris Hip Score 10.Fairley Nasal Symptom
-                switch (result.type) {
-                    case RatchetConstants.ToolEnum.DASH.value:
-                    case RatchetConstants.ToolEnum.QUICK_DASH.value:
-                    case RatchetConstants.ToolEnum.FAIRLEY_NASAL_SYMPTOM.value:
-                        questionnaireView = '/task/content/dash'
-                        break
-
-                    case RatchetConstants.ToolEnum.ODI.value:
-                    case RatchetConstants.ToolEnum.NDI.value:
-                        questionnaireView = '/task/content/odi'
-                        break
-
-                    case RatchetConstants.ToolEnum.NRS_BACK.value:
-                    case RatchetConstants.ToolEnum.NRS_NECK.value:
-                        questionnaireView = '/task/content/nrs'
-                        break
-
-                    case RatchetConstants.ToolEnum.KOOS.value:
-                    case RatchetConstants.ToolEnum.HOOS.value:
-                        questionnaireView = '/task/content/koos'
-                        break
-
-                    case RatchetConstants.ToolEnum.HARRIS_HIP_SCORE.value:
-                        questionnaireView = '/task/content/verticalChoice'
-                        break
-                //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
-                }
             if (resp.status == 200 || resp.status == 207) {
 
                 render(view: '/clinicTask/tasksList', model: [
