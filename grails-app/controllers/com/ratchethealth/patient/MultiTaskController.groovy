@@ -166,9 +166,9 @@ class MultiTaskController extends TaskController {
 
     def getQuestionnaire(opts) {
         if (opts?.isInClinic) {
-            return taskService.getQuestionnaire(opts?.token, opts?.treatmentCode, opts?.code)
+            return taskService.getQuestionnaire(opts?.token, opts?.treatmentCode, opts?.taskCode)
         } else {
-            return taskService.getQuestionnaireWithCombineTaskCode(opts?.token, opts?.treatmentCode, opts?.code)
+            return taskService.getQuestionnaireWithCombineTaskCode(opts?.token, opts?.treatmentCode, opts?.taskCode)
         }
     }
 
