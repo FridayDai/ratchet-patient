@@ -440,13 +440,13 @@ class MultiTaskController extends BaseController {
                 return choices
             } else {
                 def newType = [:]
-
+    
                 choices.entrySet().each { entry ->
                     def vals = entry.value.split('\\.')
-
+    
                     newType[vals[0]] = vals[1]
                 };
-
+    
                 return newType
             }
         }
