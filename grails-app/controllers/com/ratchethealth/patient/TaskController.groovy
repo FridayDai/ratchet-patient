@@ -71,13 +71,20 @@ class TaskController extends BaseController {
                             draft = JSON.parse(JSON.parse(result.draft).yourData)
                         }
                         break
+                    case 14:
+                        questionnaireView = '/task/content/promis'
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
+                        break
                 }
 
                 render view: questionnaireView, model: [
                         Task     : result,
                         client   : JSON.parse(session.client),
                         taskTitle: taskTitle,
-                        taskCode : code
+                        taskCode : code,
+                        Draft    : draft
                 ]
             }
         }
