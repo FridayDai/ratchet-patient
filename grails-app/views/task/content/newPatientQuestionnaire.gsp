@@ -600,7 +600,7 @@
                             </div>
                             <div class="extension-question">
                                 <div class="extension-question-title">If there was a delay between the symptoms starting and your first report, please explain:</div>
-                                <textarea name="choices.9-e-6" placeholder="Describe symptoms..." maxlength="5000">${Draft?.'9-e-6'}</textarea>
+                                <textarea name="choices.9-e-6" placeholder="Explain delay..." maxlength="5000">${Draft?.'9-e-6'}</textarea>
                             </div>
                             <div class="extension-question radio-choice error-notice-field">
                                 <div class="extension-question-title">Did you suffer any other injuries when you hurt your spine?</div>

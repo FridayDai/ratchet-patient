@@ -8,6 +8,7 @@ class TaskController extends BaseController {
     def startTaskHandler(resp, opts) {
         def draft = null
 
+<<<<<<< HEAD
         if (resp.status == 200) {
             def result = JSON.parse(resp.body)
             def questionnaireView = ''
@@ -81,6 +82,58 @@ class TaskController extends BaseController {
                     ]
         } else if (resp.status == 404) {
             render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
+=======
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
+                        break
+                    case 7:
+                    case 8:
+                    case 15:
+                    case 1000:
+                        questionnaireView = '/task/content/koos'
+                        break
+                    case 9:
+                        questionnaireView = '/task/content/verticalChoice'
+                        break
+                //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
+                    case 11:
+                        questionnaireView = '/task/content/painChartNeck'
+
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
+                        break
+                    case 12:
+                        questionnaireView = '/task/content/painChartBack'
+
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
+                        break
+                    case 13:
+                        questionnaireView = '/task/content/newPatientQuestionnaire'
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
+                        break
+                    case 14:
+                        questionnaireView = '/task/content/promis'
+                        if (result.draft) {
+                            draft = JSON.parse(JSON.parse(result.draft).yourData)
+                        }
+                        break
+                }
+
+                render view: questionnaireView, model: [
+                        Task     : result,
+                        client   : JSON.parse(session.client),
+                        taskTitle: taskTitle,
+                        taskCode : code,
+                        Draft    : draft
+                ]
+            }
+>>>>>>> 84d154955c95344e43a94d6388fb3e0d8ecb25ff
         }
     }
 
