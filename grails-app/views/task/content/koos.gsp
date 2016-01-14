@@ -1,7 +1,12 @@
 <%@ page import="com.ratchethealth.patient.RatchetConstants"%>
 <%@ page import="com.ratchethealth.patient.RatchetStatusCode" %>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
-<g:set var="scriptPath" value="dist/koosLikeTool.bundle.js"/>
+<g:if test="${Task.type == 15 || Task.type == 1000}">
+    <g:set var="scriptPath" value="dist/koosJRLikeTool.bundle.js"/>
+</g:if>
+<g:else>
+    <g:set var="scriptPath" value="dist/koosLikeTool.bundle.js"/>
+</g:else>
 <g:set var="cssPath" value="task/koos"/>
 <g:if test="${!isInClinic}">
 <g:set var="hasAssistMe" value="true"/>
@@ -79,7 +84,7 @@
 
                     <div id="section-id-${section.id}" class="section-list" value="${section.id}">
 
-                        <g:if test="${section.title.startsWith("<h3>Symptoms") || section.title.startsWith("<h3>Pain")}">
+                        <g:if test="${Task.type != 15 && Task.type != 1000 && (section.title.startsWith("<h3>Symptoms") || section.title.startsWith("<h3>Pain"))}">
                             <% def splitTitle%>
                             <% splitTitle = section.title.split(/\(#\)/) %>
                             <% if (splitTitle.size() >= 2) { %>

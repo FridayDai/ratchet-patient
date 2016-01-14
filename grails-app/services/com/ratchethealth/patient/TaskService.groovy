@@ -73,7 +73,7 @@ class TaskService extends RatchetAPIService {
         }
     }
 
-    def getQuestionnaire(String token, treatmentCode, code, last4Number) {
+    def getQuestionnaire(String token, treatmentCode, code) {
         def url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
@@ -85,7 +85,6 @@ class TaskService extends RatchetAPIService {
         withGet(url) { req ->
             def resp = req
                     .queryString("treatmentCode", treatmentCode)
-                    .queryString("last4PhoneDigit", last4Number)
                     .queryString("browserName", browserName)
                     .queryString("browserVersion", browserVersion)
                     .queryString("OSName", OSName)
@@ -134,7 +133,7 @@ class TaskService extends RatchetAPIService {
         }
     }
 
-    def submitQuestionnaire(String token, code, answer) {
+    def submitQuestionnaire(String token, code, answer, accountId) {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
@@ -142,19 +141,26 @@ class TaskService extends RatchetAPIService {
         def browserVersion = userAgentIdentService.getBrowserVersion()
         def OSName = userAgentIdentService.getOperatingSystem()
 
-        String json = JsonOutput.toJson([code: code, answer: answer, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
+        String json = JsonOutput.toJson([
+            code: code,
+            answer: answer,
+            accountId: accountId,
+            browserName: browserName,
+            browserVersion: browserVersion,
+            OSName: OSName
+        ])
 
         withPost(url) { req ->
             def resp = req.body(json).asJson()
 
             if (resp.status == 200 || resp.status == 207) {
                 log.info("Submit questionnaire success, token: ${token}")
-//                def result = JSON.parse(resp.body.toString())
-//                result
+
                 return resp
             } else if (resp.status == 412) {
                 def result = JSON.parse(resp.body)
                 log.error("Task expire exception: ${result?.error?.errorMessage}, token: ${token}.")
+
                 return resp
             } else {
                 handleError(resp)

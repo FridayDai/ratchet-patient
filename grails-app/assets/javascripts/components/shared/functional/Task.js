@@ -28,17 +28,23 @@ function Task() {
         questionLabelSelector: '.question',
         questionErrorMarkerSelector: '.error-label',
         taskIdFieldSelector: '[name="taskId"]',
-        codeFieldSelector: '[name="treatmentCode"]',
+        treatmentCodeFieldSelector: '[name="treatmentCode"]',
+        taskCodeFieldSelector: '[name="code"]',
         radioHiddenFieldSelector: '.rc-choice-hidden'
     });
 
     this.initPrivates = function () {
         var $taskId = this.select('taskIdFieldSelector');
-        var $code = this.select('codeFieldSelector');
+        var $treatmentCode = this.select('treatmentCodeFieldSelector');
+        var $taskCode = this.select('taskCodeFieldSelector');
 
         this.isFormSubmit = false;
         this.taskId = $taskId.val().trim();
-        this.code = $code.val().trim();
+        this.code = $treatmentCode.val().trim();
+
+        if (!this.code) {
+            this.code = $taskCode.val().trim();
+        }
 
         this.errorQuestions = [];
     };
