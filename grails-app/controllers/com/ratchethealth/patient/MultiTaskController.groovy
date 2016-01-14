@@ -2,7 +2,7 @@ package com.ratchethealth.patient
 
 import grails.converters.JSON
 
-class MultiTaskController extends BaseController {
+class MultiTaskController extends TaskController {
 
     def multiTaskService
     def taskService
@@ -33,6 +33,7 @@ class MultiTaskController extends BaseController {
         def isInClinic = params?.isInClinic
         def serverName = request.getServerName()
         def subDomain = serverName.substring(0, serverName.indexOf('.'))
+        def client = JSON.parse(session.client)
         def resp
 
         if (isInClinic) {
@@ -49,7 +50,7 @@ class MultiTaskController extends BaseController {
             def patientId = tasksListResp.patientId
             if (tasksList) {
                 render view: '/clinicTask/tasksList', model: [
-                        client          : JSON.parse(session.client),
+                        client          : client,
                         tasksList       : tasksList,
                         treatmentCode   : treatmentCode,
                         patientFirstName: firstName,
@@ -60,18 +61,18 @@ class MultiTaskController extends BaseController {
                 ]
             } else {
                 render view: '/clinicTask/tasksList', model: [
-                        client          : JSON.parse(session.client),
+                        client          : client,
                         patientFirstName: firstName,
                         isInClinic      : isInClinic
                 ]
             }
         } else if (isInClinic) {
             if (resp.status == 404) {
-                render view: '/clinicTask/codeValidation', model: [client: JSON.parse(session.client), errorMsg: RatchetMessage.IN_CLINIC_INCORRECT_TREATMENT_CODE]
+                render view: '/clinicTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_INCORRECT_TREATMENT_CODE]
             } else if (resp.status == 412) {
-                render view: '/clinicTask/codeValidation', model: [client: JSON.parse(session.client), errorMsg: RatchetMessage.IN_CLINIC_EXPIRED_TREATMENT_CODE]
+                render view: '/clinicTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_EXPIRED_TREATMENT_CODE]
             } else {
-                render view: '/error/taskExpired', model: [client: JSON.parse(session.client)]
+                render view: '/error/taskExpired', model: [client: client]
             }
         } else {
             taskService.handleError(resp)
@@ -84,20 +85,29 @@ class MultiTaskController extends BaseController {
         def itemIndex = params?.int('itemIndex')
         def isInClinic = params?.isInClinic
         def treatmentCode = params?.treatmentCode
-        def emailStatus = params?.emailStatus
-        def patientId = params?.patientId
 
         def task = tasksList[itemIndex]
-        def taskTitle = task.title
         def taskCode = task.code
-        def resp, draft = null
 
-        if (isInClinic) {
-            resp = taskService.getQuestionnaire(token, treatmentCode, taskCode, null)
-        } else {
-            resp = taskService.getQuestionnaireWithCombineTaskCode(token, treatmentCode, taskCode)
-        }
+<<<<<<< HEAD
+        def resp = getQuestionnaire([
+            isInClinic: isInClinic,
+            token: token,
+            treatmentCode: treatmentCode,
+            taskCode: taskCode
+        ])
 
+        startTaskHandler(resp, [
+            taskCode: taskCode,
+            isInClinic: isInClinic,
+            taskTitle: task.title,
+            itemIndex: itemIndex,
+            tasksList: tasksList,
+            treatmentCode: treatmentCode,
+            patientId: params?.patientId,
+            emailStatus: params?.emailStatus
+        ])
+=======
         if (resp.status == 200) {
             def result = JSON.parse(resp.body)
             def questionnaireView = ''
@@ -176,6 +186,7 @@ class MultiTaskController extends BaseController {
         } else if (resp.status == 404) {
             render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
         }
+>>>>>>> 84d154955c95344e43a94d6388fb3e0d8ecb25ff
     }
 
     def submitTasks() {
@@ -183,16 +194,33 @@ class MultiTaskController extends BaseController {
             forward(action: "submitSpecialTask", params: [params: params])
             return
         }
-        String token = request.session.token
+
         def itemIndex = params?.itemIndex
         def tasksList = params?.tasksList
         def tasksListRecord = JSON.parse(tasksList)
-        def itemIndexRecord = params?.int('itemIndex')
+        def itemIndexRecord = itemIndex as int
         def isInClinic = params?.isInClinic
         def treatmentCode = params?.treatmentCode
         def emailStatus = params?.emailStatus
         def patientId = params?.patientId
         def taskTitle = params.taskTitle
+<<<<<<< HEAD
+
+        submitTaskHandler([
+            taskType: params.taskType,
+            code: params.code,
+            token: request.session.token,
+            itemIndex: itemIndex,
+            tasksList: tasksList,
+            isInClinic: isInClinic,
+            treatmentCode: treatmentCode,
+            emailStatus: emailStatus,
+            taskTitle: taskTitle,
+            choices: params.choices,
+            optionals: params.optionals,
+            sections: params.sections
+        ]) { resp ->
+=======
         def code = params.code
         def taskType = params.taskType as int
         def choices = params.choices
@@ -269,6 +297,7 @@ class MultiTaskController extends BaseController {
             }
             taskService.submitQuestionnaireWithoutErrorHandle(token, code, answer, null)
 
+>>>>>>> 84d154955c95344e43a94d6388fb3e0d8ecb25ff
             if (itemIndexRecord < tasksListRecord.size()) {
                 forward(action: 'startTasks', params: [
                         itemIndex    : itemIndex,
@@ -295,6 +324,19 @@ class MultiTaskController extends BaseController {
         }
     }
 
+<<<<<<< HEAD
+    def getQuestionnaire(opts) {
+        if (opts?.isInClinic) {
+            return taskService.getQuestionnaire(opts?.token, opts?.treatmentCode, opts?.taskCode)
+        } else {
+            return taskService.getQuestionnaireWithCombineTaskCode(opts?.token, opts?.treatmentCode, opts?.taskCode)
+        }
+    }
+
+    def submitQuestionnaire(opts) {
+        return taskService.submitQuestionnaireWithoutErrorHandle(opts?.token, opts?.code, opts?.answer, null)
+    }
+
     def submitSpecialTask() {
         String token = request.session.token
         def itemIndex = params?.itemIndex
@@ -303,6 +345,16 @@ class MultiTaskController extends BaseController {
         def itemIndexRecord = params?.int('itemIndex')
         def isInClinic = params?.isInClinic
 
+=======
+    def submitSpecialTask() {
+        String token = request.session.token
+        def itemIndex = params?.itemIndex
+        def tasksList = params?.tasksList
+        def tasksListRecord = JSON.parse(tasksList)
+        def itemIndexRecord = params?.int('itemIndex')
+        def isInClinic = params?.isInClinic
+
+>>>>>>> 84d154955c95344e43a94d6388fb3e0d8ecb25ff
         def treatmentCode = params?.treatmentCode
         def emailStatus = params?.emailStatus
         def choices = params.choices
@@ -338,6 +390,57 @@ class MultiTaskController extends BaseController {
         def treatmentCode = params?.treatmentCode
         def tasksListRecord = JSON.parse(tasksList)
         def isInClinic = params?.isInClinic
+<<<<<<< HEAD
+
+        render(view: '/clinicTask/tasksList', model: [
+                client        : JSON.parse(session.client),
+                tasksCompleted: true,
+                doneTaskList  : tasksListRecord,
+                treatmentCode : treatmentCode,
+                isInClinic    : isInClinic,
+                tasksLength   : tasksListRecord.size()
+        ])
+    }
+
+    def enterPatientEmail() {
+        def tasksList = params?.tasksList
+        def treatmentCode = params?.treatmentCode
+        def errorMsg = params?.errorMsg
+        def isInClinic = params?.isInClinic
+
+        render view: '/clinicTask/enterEmail', model: [
+                client       : JSON.parse(session.client),
+                treatmentCode: treatmentCode,
+                tasksList    : tasksList,
+                isInClinic   : isInClinic,
+                errorMsg     : errorMsg
+        ]
+    }
+
+    def submitPatientEmail() {
+        String token = request.session.token
+        def email = params?.email
+        def tasksList = params?.tasksList
+        def treatmentCode = params?.treatmentCode
+        def isInClinic = params?.isInClinic
+
+        def resp = patientService.updatePatient(token, treatmentCode, email)
+        if (resp.status == 400 || resp.status == 404) {
+            def result = JSON.parse(resp.body)
+
+            forward(action: 'enterPatientEmail', params: [
+                    treatmentCode: treatmentCode,
+                    tasksList    : tasksList,
+                    isInClinic   : isInClinic,
+                    errorMsg     : result?.error?.errorMessage
+            ])
+        } else {
+            forward(action: 'completeTasks', params: [
+                    treatmentCode: treatmentCode,
+                    isInClinic   : isInClinic,
+                    tasksList    : tasksList
+            ])
+=======
 
         render(view: '/clinicTask/tasksList', model: [
                 client        : JSON.parse(session.client),
@@ -429,8 +532,23 @@ class MultiTaskController extends BaseController {
                     errors[choice.key] = 1
                 }
             }
+>>>>>>> 84d154955c95344e43a94d6388fb3e0d8ecb25ff
         }
+    }
 
+<<<<<<< HEAD
+    def saveDraftAnswer() {
+        String token = request.session.token
+        def taskId = params?.taskId
+        def code = params?.code
+        def questionId = params?.questionId
+        def answerId = params?.answerId
+        def complex = params?.complex
+
+        multiTaskService.saveDraftAnswer(token, taskId, code, questionId, answerId, complex)
+
+        render status: 201
+=======
         return errors
     }
 
@@ -449,6 +567,7 @@ class MultiTaskController extends BaseController {
 
             return newType
         }
+>>>>>>> 84d154955c95344e43a94d6388fb3e0d8ecb25ff
     }
 }
 
