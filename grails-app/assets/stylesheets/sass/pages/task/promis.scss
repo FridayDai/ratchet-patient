@@ -8,6 +8,7 @@
     margin-top: 40px;
 }
 
+
 .tip-wrap {
     background-color: $base-color-lighter-gray;
     .answer-limit-tip.tip-bottom {
@@ -128,9 +129,7 @@
         }
 
         @include breakpoint('lg-desktop') {
-            padding-left: 65px;
-            padding-bottom: 20px;
-            margin-bottom: 4px;
+           padding: 30px 30px 30px 55px;
         }
 
         .question-title {

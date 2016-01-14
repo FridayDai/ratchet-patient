@@ -197,6 +197,11 @@
                 <input type="submit" name="submit" class="rc-btn task-done-btn" value="I'm Done">
             </div>
         </form>
+
+        <div class="task-copyright text-center">
+            © 2008-2012 PROMIS Health Organization and PROMIS Cooperative Group
+        </div>
+
     </div>
     </body>
     </html>
