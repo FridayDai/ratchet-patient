@@ -15,17 +15,6 @@ class UrlMappings {
 
         "/patients/check-email"(controller: "email", action: "checkPatientEmailExist")
 
-        // Task
-        name taskIndex: "/$patientName/tasks/$taskTitle/$code"(controller: "task") {
-            action = [GET: "index", POST: "phoneNumberValidate"]
-        }
-        name taskStart: "/$patientName/tasks/$taskTitle/$code/start"(controller: "task") {
-            action = [GET: "start", POST: "submit"]
-        }
-        name taskComplete: "/$patientName/tasks/$taskTitle/$code/complete"(controller: "task") {
-            action = [GET: "complete"]
-        }
-
         "/tasks/$treatmentCode"(controller: "multiTask") {
             action = [GET: "getTreatmentTasks", POST: "checkPath"]
         }
@@ -34,9 +23,9 @@ class UrlMappings {
             action = [POST: "saveDraftAnswer"]
         }
 
-        //SingleTask
-        "/$accountId/tasks/$title/$code"(controller: "task") {
-            action = [GET: "singleTask", POST: "submitSingleTask"]
+        // Direct task
+        "/$accountId/tasks/$title/$code"(controller: "directTask") {
+            action = [GET: "index", POST: "submit"]
         }
 
         // Help
@@ -48,6 +37,5 @@ class UrlMappings {
         "/announcement/close"(controller: "announcement", action: "close")
 
         "404"(view: '/error/404')
-
     }
 }
