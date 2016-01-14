@@ -89,19 +89,19 @@
 
                                     <div class="question">
                                         <g:if test="${question.order == 6}">
-                                            <span class="question-title">Global 9.</span> ${raw(question.title)}
+                                            <span class="question-title">Global 09.</span> ${raw(question.title)}
                                         </g:if>
                                         <g:elseif test="${question.order == 7}">
-                                            <span class="question-title">Global 6.</span> ${raw(question.title)}
+                                            <span class="question-title">Global 06.</span> ${raw(question.title)}
                                         </g:elseif>
                                         <g:elseif test="${question.order == 8}">
                                             <span class="question-title">Global 10.</span> ${raw(question.title)}
                                         </g:elseif>
                                         <g:elseif test="${question.order == 9}">
-                                            <span class="question-title">Global 8.</span> ${raw(question.title)}
+                                            <span class="question-title">Global 08.</span> ${raw(question.title)}
                                         </g:elseif>
                                         <g:else>
-                                        <span class="question-title">Global ${question.order}.</span> ${raw(question.title)}
+                                        <span class="question-title">Global 0${question.order}.</span> ${raw(question.title)}
                                         </g:else>
                                         <g:if test="${errors && errors["${question?.id}"]}">
                                             <span class="error-label">This question is required.</span>
@@ -134,7 +134,7 @@
                             <g:else>
                                 <div class="question-list <g:if test="${errors && errors["${question?.id}"]}">error</g:if>">
                                     <div class="question">
-                                        <span class="question-title">Global 7.</span> ${raw(question.title)}
+                                        <span class="question-title">Global 07.</span> ${raw(question.title)}
                                         <g:if test="${errors && errors["${question?.id}"]}">
                                             <span class="error-label">This question is required.</span>
                                         </g:if>
