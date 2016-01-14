@@ -89,7 +89,7 @@
 
                                     <div class="question">
                                         <g:if test="${question.order == 6}">
-                                            <span class="question-title">Global 09.</span> ${raw(question.title)}
+                                            <span class="question-title">Global 09.</span> In general, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in you community, and responsibilities as a parent, child, spouse, employee, friend, etc.)
                                         </g:if>
                                         <g:elseif test="${question.order == 7}">
                                             <span class="question-title">Global 06.</span> ${raw(question.title)}
