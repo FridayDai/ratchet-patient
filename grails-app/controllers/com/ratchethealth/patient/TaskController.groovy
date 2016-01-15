@@ -39,6 +39,9 @@ class TaskController extends BaseController {
                 case RatchetConstants.ToolEnum.HARRIS_HIP_SCORE.value:
                     questionnaireView = '/task/content/verticalChoice'
                     break
+                case RatchetConstants.ToolEnum.PROMIS.value:
+                    questionnaireView = '/task/content/promis'
+                    break
 
             //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
                 case RatchetConstants.ToolEnum.PAIN_CHART_REFERENCE_NECK.value:
