@@ -5,7 +5,10 @@
 }
 
 #promis {
-    margin-top: 40px;
+
+    @include breakpoint('tablet'){
+        margin-top: 70px;
+    }
 }
 
 
@@ -80,7 +83,7 @@
         font-size: 18px;
         font-weight: 500;
         display: block;
-        padding-bottom: 40px;
+        padding: 0 0 40px 20px;
     }
 
     .info {
@@ -121,7 +124,7 @@
         background-color: $base-color-white;
 
         @include breakpoint('tablet') {
-            padding: 30px 30px 20px 0;
+            padding: 30px 30px 30px 20px;
             font-size: 18px;
             margin-bottom: 4px;
         }
@@ -150,6 +153,12 @@
         .list {
             @include breakpoint('tablet') {
                 margin: 10px 0 10px -20px;
+            }
+
+            &.list-line {
+                @include breakpoint('mobile') {
+                    margin-left: -30px;
+                }
             }
         }
 
