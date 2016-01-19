@@ -3,6 +3,7 @@
 @import '../../partials/selectmenu';
 @import '../../partials/dialog';
 @import '../../partials/painChartSVG';
+@import '../../partials/mobile_iscroll';
 
 .pain-chart-neck {
 
@@ -428,11 +429,55 @@
     }
 }
 
+.mobile-dialog {
+    @include breakpoint('mobile') {
+        @include answer-vertical-list('small');
+    }
+
+    .answer {
+        border-bottom: 0;
+        color: #333;
+    }
+}
+
+.desktop-mobile-dialog {
+
+    @include answer-vertical-list('small');
+
+    .rc-checkbox {
+        width: 24px;
+        height: 24px;
+        @include breakpoint('mobile') {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .rc-choice-hidden:checked {
+        & + .rc-checkbox:before {
+            font-size: 25px;
+            left: 3px;
+
+            @include breakpoint('mobile') {
+                font-size: 20px;
+            }
+        }
+    }
+
+    .answer {
+        border-bottom: 0;
+        color: #333;
+    }
+}
 
 //for dialog
+.msg-header {
+    padding: 1.5em 2.5em;
+    font-size: 15px;
+}
+
 .msg-center {
-    max-height: 275px;
-    padding: 16px 6px 0;
+    padding: 0 1em;
 
     .one-choice {
         padding: 10px 0;

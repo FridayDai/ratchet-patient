@@ -1,11 +1,12 @@
 var flight = require('flight');
-var WithDialog = require('../../common/WithDialog');
+var WithMobileDialog = require('../../common/WithMobileDialog');
 var Utility = require('../../../utils/Utility');
 
 function SymptomDialog() {
     this.attributes({
         checkBoxGroupSelector: '.msg-center',
-        partNameSelector: '#part-name'
+        partNameSelector: '#part-name',
+        choiceItemSelector: '.answer'
     });
 
     this.options({
@@ -18,17 +19,6 @@ function SymptomDialog() {
             }
         }]
     });
-
-    this.onShow = function (e, data) {
-        this.$node.removeClass('ui-hidden');
-        this.prepareForShow(data);
-
-        if (Utility.isMobile()) {
-            this.changeWidth(320);
-        }
-
-        this.show();
-    };
 
     this.prepareForShow = function (data) {
         var checkBoxGroup = this.select('checkBoxGroupSelector');
@@ -63,7 +53,52 @@ function SymptomDialog() {
         });
         this.close();
     };
+
+    this._onShowWrapper = function () {
+        if (_.isFunction(this.onShow)) {
+            this._customOnShow = this.onShow;
+        }
+
+        this.onShow = function (e, data) {
+            var $window = $(window);
+
+            this.$node.removeClass('ui-hidden');
+
+            var height = window.innerHeight ? window.innerHeight : $(window).height();
+
+            if(Utility.isMobile()) {
+                this.changeSize({
+                    width: $window.width(),
+                    height: height
+                });
+            } else {
+                this.changeSize({
+                    height: 'auto'
+                });
+            }
+
+            this.prepareForShow(data);
+            this.show();
+        };
+    };
+
+    this.onChoiceItemClicked = function (e) {
+        var $target = $(e.target),
+            $choiceItem = $target.closest(this.attr.choiceItemSelector);
+
+        if (!$target.is('input.rc-choice-hidden')) {
+            $choiceItem
+                .find('[type="checkbox"].rc-choice-hidden')
+                .prop('checked', true);
+        }
+    };
+
+    this.after('initialize', function () {
+        this.on('click', {
+            choiceItemSelector: this.onChoiceItemClicked
+        });
+    });
 }
 
-module.exports = flight.component(WithDialog, SymptomDialog);
+module.exports = flight.component(WithMobileDialog, SymptomDialog);
 

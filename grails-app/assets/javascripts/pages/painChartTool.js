@@ -2,6 +2,7 @@ require('../components/common/initSetup');
 require('../components/layout/Main');
 
 var flight = require('flight');
+var IScroll = require('IScroll');
 var WithPage = require('../components/common/WithPage');
 var Task = require('../components/shared/functional/Task');
 var SaveComplexDraftAnswer = require('../components/shared/functional/SaveComplexDraftAnswer');
@@ -175,13 +176,28 @@ function painChartTask() {
         this.saveDraftAnswer();
     };
 
+    this.initIScrollForMobileDialog = function () {
+        /*jshint nonew: false */
+        if (Utility.isMobile()) {
+            this.iscroller = new IScroll('#main', {
+                click: true
+            });
+
+            this.iscroller.on('beforeScrollStart', function () {
+                document.activeElement.blur();
+            });
+        }
+    };
+
     this.after('initialize', function () {
         this.initDraftAnswer();
 
         this.on(document, 'symptomSelectedSuccess', this.onSymptomSelectedSuccess);
         this.on(document, 'painPercentSelectSuccess', this.onPainPercentSelectSuccess);
 
+        this.initIScrollForMobileDialog();
         Utility.hideProcessing();
+
     });
 }
 
