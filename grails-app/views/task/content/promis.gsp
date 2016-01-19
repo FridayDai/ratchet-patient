@@ -13,15 +13,6 @@
         <title>${Task.title}</title>
 
         <style type="text/css">
-        @media only screen and (max-width: 767px) {
-            .task-time {
-                color: ${ client.primaryColorHex?:'#0f137d' } !important;
-            }
-
-            .task-content .question {
-                color: ${ client.primaryColorHex?:'#0f137d' } !important;
-            }
-        }
 
         .primary-color {
             color: ${ client.primaryColorHex?:'#0f137d' } !important;
