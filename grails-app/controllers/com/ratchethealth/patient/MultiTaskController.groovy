@@ -173,7 +173,7 @@ class MultiTaskController extends TaskController {
     }
 
     def submitQuestionnaire(opts) {
-        return taskService.submitQuestionnaireWithoutErrorHandle(opts?.token, opts?.code, opts?.answer, null)
+        return taskService.submitQuestionnaireWithoutErrorHandle(opts?.token, opts?.code, opts?.answer, null, null)
     }
 
     def submitSpecialTask() {
