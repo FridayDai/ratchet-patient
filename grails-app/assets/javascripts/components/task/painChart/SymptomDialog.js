@@ -66,7 +66,7 @@ function SymptomDialog() {
 
             var height = window.innerHeight ? window.innerHeight : $(window).height();
 
-            if(Utility.isMobile()) {
+            if (Utility.isMobile()) {
                 this.changeSize({
                     width: $window.width(),
                     height: height
@@ -85,16 +85,15 @@ function SymptomDialog() {
     this.onChoiceItemClicked = function (e) {
         var $target = $(e.target),
             $choiceItem = $target.closest(this.attr.choiceItemSelector);
+        var checkBox = $choiceItem.find('[type="checkbox"].rc-choice-hidden')
+        var checked = checkBox.prop('checked');
 
-        if (!$target.is('input.rc-choice-hidden')) {
-            $choiceItem
-                .find('[type="checkbox"].rc-choice-hidden')
-                .prop('checked', true);
-        }
+        checkBox.prop('checked', !checked);
+
     };
 
     this.after('initialize', function () {
-        this.on('click', {
+        this.on(this.attr.choiceItemSelector, 'click', {
             choiceItemSelector: this.onChoiceItemClicked
         });
     });
