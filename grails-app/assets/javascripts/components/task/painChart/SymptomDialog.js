@@ -85,7 +85,7 @@ function SymptomDialog() {
     this.onChoiceItemClicked = function (e) {
         var $target = $(e.target),
             $choiceItem = $target.closest(this.attr.choiceItemSelector);
-        var checkBox = $choiceItem.find('[type="checkbox"].rc-choice-hidden')
+        var checkBox = $choiceItem.find('[type="checkbox"].rc-choice-hidden');
         var checked = checkBox.prop('checked');
 
         checkBox.prop('checked', !checked);
