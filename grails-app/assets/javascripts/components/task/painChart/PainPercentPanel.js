@@ -193,12 +193,16 @@ function PainPercentPanel() {
         }
     };
 
-    this.forPainChoiceClick = function () {
+    this.forPainChoiceClick = function (e) {
+        var $target = $(e.target);
+
         var checkBox = this.select('painToggleSelector');
         var checked = checkBox.prop('checked');
         checkBox.prop('checked', !checked);
+        if (!$target.is('input.rc-choice-hidden')) {
+            this.trigger('painActiveCheckRequest');
+        }
 
-        this.trigger('painActiveCheckRequest');
     };
 
     this.after('initialize', function () {
