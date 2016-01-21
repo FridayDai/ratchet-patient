@@ -15,11 +15,11 @@
         <style type="text/css">
         @media only screen and (max-width: 767px) {
             .task-time {
-                color: ${ client.primaryColorHex?:'#000' } !important;
+                color:#000  !important;
             }
 
             .task-content .question {
-                color: ${ client.primaryColorHex?:'#000' } !important;
+                color:#000  !important;
             }
         }
 
