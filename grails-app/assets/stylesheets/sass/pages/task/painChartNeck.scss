@@ -465,6 +465,10 @@
     .answer {
         border-bottom: 0;
         color: #333;
+
+        .choice {
+            top: 13px;
+        }
     }
 }
 
@@ -516,6 +520,10 @@
     @include breakpoint('mobile') {
         display: block;
     }
+}
+
+.inline {
+    display: inline-block;
 }
 
 

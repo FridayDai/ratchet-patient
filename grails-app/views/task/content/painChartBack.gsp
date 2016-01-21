@@ -196,13 +196,15 @@
                             </span>
                         </div>
                         <li class="answer">
-                            <div class="text">
-                                I have no back, buttock or leg pain</div>
-                            <label class="choice">
-                                <input id="no-pain-toggle" type="checkbox" name="choices.9" value="on"
-                                       class="rc-choice-hidden"/>
-                                <span class="rc-checkbox primary-radio-color pain-toggle"></span>
-                            </label>
+                            <span id="no-pain-choice" class="inline">
+                                <div class="text">
+                                    I have no back, buttock or leg pain</div>
+                                <label class="choice">
+                                    <input id="no-pain-toggle" type="checkbox" name="choices.9" value="on"
+                                           class="rc-choice-hidden"/>
+                                    <span class="rc-checkbox primary-radio-color pain-toggle"></span>
+                                </label>
+                            </span>
                         </li>
                     </div>
                 </div>

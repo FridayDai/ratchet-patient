@@ -6,7 +6,7 @@ function SymptomDialog() {
     this.attributes({
         checkBoxGroupSelector: '.msg-center',
         partNameSelector: '#part-name',
-        choiceItemSelector: '.answer'
+        choiceItemSelector: '.ui-dialog .answer'
     });
 
     this.options({

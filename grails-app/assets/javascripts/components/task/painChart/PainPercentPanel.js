@@ -5,6 +5,7 @@ var Notifications = require('../../common/Notification');
 
 function PainPercentPanel() {
     this.attributes({
+        painChoiceSelector: "#no-pain-choice",
         painToggleSelector: '#no-pain-toggle',
         selectMenuSelector: '.select-menu',
         resultNumberSelector: '#select-percent-number',
@@ -192,11 +193,20 @@ function PainPercentPanel() {
         }
     };
 
+    this.forPainChoiceClick = function () {
+        var checkBox = this.select('painToggleSelector');
+        var checked = checkBox.prop('checked');
+        checkBox.prop('checked', !checked);
+
+        this.trigger('painActiveCheckRequest');
+    };
+
     this.after('initialize', function () {
         this.initSelectMenu();
 
-        this.on('change', {
-            painToggleSelector: this.askForActiveStatus
+
+        this.on(this.attr.painChoiceSelector, 'click', {
+            painChoiceSelector: this.forPainChoiceClick
         });
 
         this.on(document, 'painActiveCheckResponse', this.togglePainChartAndSelect);
