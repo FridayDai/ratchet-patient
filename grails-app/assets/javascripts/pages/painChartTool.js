@@ -74,6 +74,56 @@ function painChartTask() {
         return true;
     };
 
+    this.iscrollerInRefresh = false;
+    this._wantIScrollRefresh = 0;
+    this.refreshIScroller = function () {
+        var me = this;
+
+        if (this._wantIScrollRefresh === 0) {
+            this._wantIScrollRefresh = 1;
+        }
+
+        if (this.iscroller && !this.iscrollerInRefresh && this._wantIScrollRefresh === 1) {
+            this.iscrollerInRefresh = true;
+            setTimeout(function () {
+                me.iscroller.refresh();
+                me._wantIScrollRefresh = 0;
+                me.iscrollerInRefresh = false;
+            }, 300);
+        }
+    };
+
+    this.scrollToTopError = function () {
+        var $firstQuestion = this.errorQuestions[0],
+            $header = this.select('headerPanelSelector'),
+            headerMovedTop = parseInt($header.css('top').replace('px', ''), 10),
+            headerHeight = $header.height(),
+            visibleHeaderTop = headerHeight + headerMovedTop,
+            top,
+            $firstError = $firstQuestion;
+
+        if ($firstQuestion.find('.sub-question').length > 0) {
+            $firstError = $firstQuestion.find('.error-field:first').closest('.sub-question');
+        }
+
+        top = $firstError.offset().top;
+
+        if (!Utility.isMobile()) {
+            // If top < 205, than header will show all of it
+            if (top - visibleHeaderTop < 205) {
+                top -= headerHeight;
+            } else {
+                top -= visibleHeaderTop;
+            }
+        }
+
+        if (this.iscroller) {
+            this.iscroller.scrollToElement($firstError.get(0), 1000);
+        } else {
+            window.scrollTo(0, top);
+        }
+    };
+
     this.formSubmit = function (e) {
         var $questionLists = this.select('formSelector').find('.question-list');
         var $specialQuestionLists = this.select('formSelector').find('.question-list-special');
@@ -104,6 +154,7 @@ function painChartTask() {
         }, this);
 
         if (!isValid) {
+            this.refreshIScroller();
             this.scrollToTopError();
             this.errorQuestions.length = 0;
 
@@ -186,6 +237,8 @@ function painChartTask() {
             this.iscroller.on('beforeScrollStart', function () {
                 document.activeElement.blur();
             });
+
+            this.refreshIScroller();
         }
     };
 
