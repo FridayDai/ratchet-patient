@@ -28,6 +28,10 @@ function MobileDatePickerDialog() {
                 maxDate: 0
             });
         }
+
+        var currentVal = this.current$elem.val();
+
+        this.$datePicker.datepicker('setDate', currentVal ? currentVal : '0');
     };
 
     this.selectCurrentDate = function () {

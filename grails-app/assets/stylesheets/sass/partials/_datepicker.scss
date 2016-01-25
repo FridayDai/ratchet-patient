@@ -15,7 +15,7 @@
     .ui-datepicker-days-cell-over {
         .ui-state-default {
             color: #fff;
-            background-color: #335d70;
+            border: none;
         }
     }
 
@@ -161,6 +161,19 @@
     .ui-state-hover {
         color: #b3b3b3;
     }
+
+    .ui-state-highlight {
+        background-color: #545454;
+    }
+
+    .ui-state-active {
+        background: #225f6f 50% top repeat-x;
+        color: #fff;
+    }
+
+    .ui-state-default {
+        border: none;
+    }
 }
 
 .ui-datepicker-multi-2 .ui-datepicker-group {
@@ -257,12 +270,6 @@
         .ui-dialog-title {
             font-weight: 700;
         }
-    }
-
-    .ui-state-highlight {
-        background: none;
-        color: #225f6f;
-        border: none;
     }
 
     .ui-state-active {
