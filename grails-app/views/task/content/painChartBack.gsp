@@ -55,6 +55,7 @@
         .modal+.ui-dialog-buttonpane button:hover,  .modal .ui-dialog-buttonpane button:focus {
             background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
+
         .task-done-btn[disabled], .task-done-btn[disabled]:hover {
             color: ${client.primaryColorHex?:'#0f137d'} !important;
             background-color: #ffffff !important;
@@ -137,17 +138,18 @@
                     </div>
 
                     <div id="svg-choice-result">
-                        <input type="hidden" id="Front-Right-Leg-hidden" name="choices.0" value="${Draft?.'0'?:''}"/>
-                        <input type="hidden" id="Front-Left-Leg-hidden" name="choices.1" value="${Draft?.'1'?:''}"/>
+                        <input type="hidden" id="Front-Right-Leg-hidden" name="choices.0" value="${Draft?.'0' ?: ''}"/>
+                        <input type="hidden" id="Front-Left-Leg-hidden" name="choices.1" value="${Draft?.'1' ?: ''}"/>
 
-                        <input type="hidden" id="Back-hidden" name="choices.2" value="${Draft?.'2'?:''}"/>
-                        <input type="hidden" id="Buttock-hidden" name="choices.3" value="${Draft?.'3'?:''}"/>
-                        <input type="hidden" id="Back-Right-Leg-hidden" name="choices.4" value="${Draft?.'4'?:''}"/>
-                        <input type="hidden" id="Back-Left-Leg-hidden" name="choices.5" value="${Draft?.'5'?:''}"/>
+                        <input type="hidden" id="Back-hidden" name="choices.2" value="${Draft?.'2' ?: ''}"/>
+                        <input type="hidden" id="Buttock-hidden" name="choices.3" value="${Draft?.'3' ?: ''}"/>
+                        <input type="hidden" id="Back-Right-Leg-hidden" name="choices.4" value="${Draft?.'4' ?: ''}"/>
+                        <input type="hidden" id="Back-Left-Leg-hidden" name="choices.5" value="${Draft?.'5' ?: ''}"/>
                     </div>
                 </div>
 
-                <div id="pain-percent-question" class="question-list-special" data-select="${true}" data-percentage-keys="[6, 7, 8]">
+                <div id="pain-percent-question" class="question-list-special" data-select="${true}"
+                     data-percentage-keys="[6, 7, 8]">
                     <div class="question">
                         <div>What percent of your pain is BACK pain vs. BUTTOCK pain vs. LEG pain?</div>
 
@@ -157,30 +159,36 @@
                     <div class="answer-list odi-style">
                         <div class="select-contain">
                             <span class="select-group">
-                                <select class="select-menu" name="choices.6" data-title="BACK PAIN" data-mobile-dialog-event="showMobileSelectMenuDialog">
+                                <select class="select-menu" name="choices.6" data-title="BACK PAIN"
+                                        data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
-                                        <option value="${j * 10}" <g:if test="${Draft?.'6' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                        <option value="${j * 10}"
+                                                <g:if test="${Draft?.'6' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Back <span>+</span></span>
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.7" data-title="BUTTOCK PAIN" data-mobile-dialog-event="showMobileSelectMenuDialog">
+                                <select class="select-menu" name="choices.7" data-title="BUTTOCK PAIN"
+                                        data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
-                                        <option value="${j * 10}" <g:if test="${Draft?.'7' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                        <option value="${j * 10}"
+                                                <g:if test="${Draft?.'7' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Buttock <span>+</span></span>
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.8" data-title="LEG PAIN" data-mobile-dialog-event="showMobileSelectMenuDialog">
+                                <select class="select-menu" name="choices.8" data-title="LEG PAIN"
+                                        data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
-                                        <option value="${j * 10}" <g:if test="${Draft?.'8' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                        <option value="${j * 10}"
+                                                <g:if test="${Draft?.'8' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
-                                <span class="select-percent">% Leg </span>
+                                <span class="select-percent">% Leg</span>
                                 <span class="select-percent-result">
                                     = <span id="select-percent-number" class="select-percent-number">
                                     <span id="select-percent-score">-</span> /100</span>
@@ -188,13 +196,15 @@
                             </span>
                         </div>
                         <li class="answer">
-                            <div class="text">
-                                I have no back, buttock or leg pain</div>
-                            <label class="choice">
-                                <input id="no-pain-toggle" type="checkbox" name="choices.9" value="on"
-                                       class="rc-choice-hidden"/>
-                                <span class="rc-checkbox primary-radio-color pain-toggle"></span>
-                            </label>
+                            <span id="no-pain-choice" class="inline">
+                                <div class="text">
+                                    I have no back, buttock or leg pain</div>
+                                <label class="choice">
+                                    <input id="no-pain-toggle" type="checkbox" name="choices.9" value="on"
+                                           class="rc-choice-hidden"/>
+                                    <span class="rc-checkbox primary-radio-color pain-toggle"></span>
+                                </label>
+                            </span>
                         </li>
                     </div>
                 </div>
@@ -244,7 +254,7 @@
                                             <label class="choice choice-number choice-number-${j}">
                                                 <input type="radio" class="rc-choice-hidden"
                                                        name="choices.${10 + 2 * i}"
-                                                    <g:if test="${Draft && Draft[(10 + 2 * i).toString()] == j.toString()}"> checked</g:if>
+                                                    <g:if test="${Draft && Draft[(10 + 2 * i).toString()] == j.toString()}">checked</g:if>
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -269,7 +279,7 @@
                                             <label class="choice">
                                                 <input type="radio" class="rc-choice-hidden"
                                                        name="choices.${10 + 2 * i + 1}"
-                                                    <g:if test="${Draft && Draft[(10 + 2 * i + 1).toString()] == j.toString()}"> checked</g:if>
+                                                    <g:if test="${Draft && Draft[(10 + 2 * i + 1).toString()] == j.toString()}">checked</g:if>
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -302,70 +312,61 @@
                 </div>
             </form>
 
-            <div id="symptom-choice-dialog" class="modal ui-hidden">
-                <div class="msg-header">Select one or more of the symptoms for your <strong id="part-name">Part</strong></div>
+            <div id="symptom-choice-dialog" class="modal ui-hidden desktop-mobile-dialog">
+                <div class="msg-header">Select one or more of the symptoms for your <strong id="part-name">Part</strong>
+                </div>
 
                 <div class="msg-center code">
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="N">
-                            Numbness
-                        </label>
-                    </div>
+                    <g:set var="symptomsArr"
+                           value="['Numbness', 'Stabbing', 'Cramping', 'Ache', 'Burning', 'Pins & Needles']"/>
+                    <g:set var="symptomsVal" value="['N', 'S', 'C', 'A', 'B', 'P']"/>
 
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="S">
-                            Stabbing
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="C">
-                            Cramping
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="A">
-                            Ache
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="B">
-                            Burning
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="P">
-                            Pins & Needles
-                        </label>
+                    <div class="answer-list" autofocus>
+                        <ul class="list">
+                            <g:each var="symptom" in="${symptomsArr}" status="index">
+                                <li class="answer">
+                                    <div class="text">${symptom}</div>
+                                    <label class="choice">
+                                        <input type="checkbox"
+                                               data-index="${index}"
+                                               class="rc-choice-hidden"
+                                               name="mobileEnterYear"
+                                               value="${symptomsVal[index]}"/>
+                                        <span class="rc-checkbox primary-radio-color"></span>
+                                    </label>
+                                </li>
+                            </g:each>
+                        </ul>
                     </div>
                 </div>
+
             </div>
-
-            <div id="number-mobile-dialog" data-title="BACK PAIN" class="modal ui-hidden">
-                <div class="msg-header">Please select a number</div>
-
-                <div class="msg-center code">
-                    <g:each var="j" in="${0..<10}">
-                        <div class="one-choice">
-                            <label>
-                                <input type="radio" name="number" value="${j * 10}">
-                                ${j * 10}
-                            </label>
-                        </div>
-                    </g:each>
-                </div>
-            </div>
-
         </div>
+
+        <div id="number-mobile-dialog" data-title="BACK PAIN" class="modal ui-hidden">
+            <div class="msg-header">Please select a number</div>
+
+            <div class="msg-center code">
+                <div class="answer-list" autofocus>
+                    <ul class="list">
+                        <g:each var="j" in="${0..<10}">
+                            <li class="answer">
+                                <div class="text">${j * 10}</div>
+                                <label class="choice">
+                                    <input type="radio"
+                                           data-index="${j}"
+                                           class="rc-choice-hidden"
+                                           name="number"
+                                           value="${j * 10}"/>
+                                    <span class="rc-radio primary-radio-color"></span>
+                                </label>
+                            </li>
+                        </g:each>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <g:render template="/shared/pageMask"></g:render>

@@ -39,6 +39,9 @@ class TaskController extends BaseController {
                 case RatchetConstants.ToolEnum.HARRIS_HIP_SCORE.value:
                     questionnaireView = '/task/content/verticalChoice'
                     break
+                case RatchetConstants.ToolEnum.PROMIS.value:
+                    questionnaireView = '/task/content/promis'
+                    break
 
             //TODO merger odi to verticalChoice template after api portal gives the same format data in all tasks.
                 case RatchetConstants.ToolEnum.PAIN_CHART_REFERENCE_NECK.value:
@@ -120,9 +123,9 @@ class TaskController extends BaseController {
 
         //validation
         if (taskType == RatchetConstants.ToolEnum.ODI.value ||
-            taskType == RatchetConstants.ToolEnum.NDI.value ||
-            taskType == RatchetConstants.ToolEnum.KOOS.value ||
-            taskType == RatchetConstants.ToolEnum.HOOS.value) {
+                taskType == RatchetConstants.ToolEnum.NDI.value ||
+                taskType == RatchetConstants.ToolEnum.KOOS.value ||
+                taskType == RatchetConstants.ToolEnum.HOOS.value) {
             errors = [];
         } else {
             errors = validateChoice(taskType, choices, optionals)
@@ -137,20 +140,20 @@ class TaskController extends BaseController {
                 def result = JSON.parse(resp.body)
 
                 render view: view,
-                    model: [
-                        client       : JSON.parse(session?.client),
-                        isInClinic   : opts?.isInClinic,
-                        Task         : result,
-                        taskTitle    : opts?.taskTitle,
-                        taskCode     : code,
-                        choices      : choices,
-                        itemIndex    : (itemIndex - 1),
-                        tasksList    : tasksListRecord,
-                        treatmentCode: opts?.treatmentCode,
-                        tasksLength  : tasksListRecord?.size(),
-                        errors       : errors,
-                        emailStatus  : opts?.emailStatus
-                    ]
+                        model: [
+                                client       : JSON.parse(session?.client),
+                                isInClinic   : opts?.isInClinic,
+                                Task         : result,
+                                taskTitle    : opts?.taskTitle,
+                                taskCode     : code,
+                                choices      : choices,
+                                itemIndex    : (itemIndex - 1),
+                                tasksList    : tasksListRecord,
+                                treatmentCode: opts?.treatmentCode,
+                                tasksLength  : tasksListRecord?.size(),
+                                errors       : errors,
+                                emailStatus  : opts?.emailStatus
+                        ]
             }
         } else {
             answer.each {
@@ -175,7 +178,7 @@ class TaskController extends BaseController {
 
     def convertChoice(type, choices) {
         if (type == RatchetConstants.ToolEnum.NRS_BACK.value ||
-            type == RatchetConstants.ToolEnum.NRS_NECK.value) {
+                type == RatchetConstants.ToolEnum.NRS_NECK.value) {
             return choices
         } else {
             def newType = [:]

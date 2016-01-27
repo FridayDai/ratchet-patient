@@ -137,20 +137,25 @@
                     </div>
 
                     <div id="svg-choice-result">
-                        <input type="hidden" id="Front-Right-Shoulder-hidden" name="choices.0" value="${Draft?.'0'?:''}"/>
-                        <input type="hidden" id="Front-Left-Shoulder-hidden" name="choices.1" value="${Draft?.'1'?:''}"/>
-                        <input type="hidden" id="Front-Right-Arm-hidden" name="choices.2" value="${Draft?.'2'?:''}"/>
-                        <input type="hidden" id="Front-Left-Arm-hidden" name="choices.3" value="${Draft?.'3'?:''}"/>
+                        <input type="hidden" id="Front-Right-Shoulder-hidden" name="choices.0"
+                               value="${Draft?.'0' ?: ''}"/>
+                        <input type="hidden" id="Front-Left-Shoulder-hidden" name="choices.1"
+                               value="${Draft?.'1' ?: ''}"/>
+                        <input type="hidden" id="Front-Right-Arm-hidden" name="choices.2" value="${Draft?.'2' ?: ''}"/>
+                        <input type="hidden" id="Front-Left-Arm-hidden" name="choices.3" value="${Draft?.'3' ?: ''}"/>
 
-                        <input type="hidden" id="Back-Left-Arm-hidden" name="choices.4" value="${Draft?.'4'?:''}"/>
-                        <input type="hidden" id="Back-Right-Arm-hidden" name="choices.5" value="${Draft?.'5'?:''}"/>
-                        <input type="hidden" id="Neck-hidden" name="choices.6" value="${Draft?.'6'?:''}"/>
-                        <input type="hidden" id="Back-Left-Shoulder-hidden" name="choices.7" value="${Draft?.'7'?:''}"/>
-                        <input type="hidden" id="Back-Right-Shoulder-hidden" name="choices.8" value="${Draft?.'8'?:''}"/>
+                        <input type="hidden" id="Back-Left-Arm-hidden" name="choices.4" value="${Draft?.'4' ?: ''}"/>
+                        <input type="hidden" id="Back-Right-Arm-hidden" name="choices.5" value="${Draft?.'5' ?: ''}"/>
+                        <input type="hidden" id="Neck-hidden" name="choices.6" value="${Draft?.'6' ?: ''}"/>
+                        <input type="hidden" id="Back-Left-Shoulder-hidden" name="choices.7"
+                               value="${Draft?.'7' ?: ''}"/>
+                        <input type="hidden" id="Back-Right-Shoulder-hidden" name="choices.8"
+                               value="${Draft?.'8' ?: ''}"/>
                     </div>
                 </div>
 
-                <div id="pain-percent-question" class="question-list-special" data-select="${true}" data-percentage-keys="[9, 10, 11]">
+                <div id="pain-percent-question" class="question-list-special" data-select="${true}"
+                     data-percentage-keys="[9, 10, 11]">
                     <div class="question">
                         <div>What percent of your pain is NECK pain vs. SHOULDER pain vs. ARM pain?</div>
 
@@ -160,9 +165,11 @@
                     <div class="answer-list odi-style">
                         <div class="select-contain">
                             <span class="select-group">
-                                <select class="select-menu" name="choices.9" data-title="NECK PAIN" data-mobile-dialog-event="showMobileSelectMenuDialog">
+                                <select class="select-menu" name="choices.9" data-title="NECK PAIN"
+                                        data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
-                                        <option value="${j * 10}" <g:if test="${Draft?.'9' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                        <option value="${j * 10}"
+                                                <g:if test="${Draft?.'9' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Neck <span>+</span></span>
@@ -170,21 +177,25 @@
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.10" data-title="SHOULDER PAIN" data-mobile-dialog-event="showMobileSelectMenuDialog">
+                                <select class="select-menu" name="choices.10" data-title="SHOULDER PAIN"
+                                        data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
-                                        <option value="${j * 10}" <g:if test="${Draft?.'10' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                        <option value="${j * 10}"
+                                                <g:if test="${Draft?.'10' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Shoulder <span>+</span></span>
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.11" data-title="ARM PAIN" data-mobile-dialog-event="showMobileSelectMenuDialog">
+                                <select class="select-menu" name="choices.11" data-title="ARM PAIN"
+                                        data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
-                                        <option value="${j * 10}" <g:if test="${Draft?.'11' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                        <option value="${j * 10}"
+                                                <g:if test="${Draft?.'11' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
-                                <span class="select-percent">% Arm </span>
+                                <span class="select-percent">% Arm</span>
                                 <span class="select-percent-result">
                                     = <span id="select-percent-number" class="select-percent-number">
                                     <span id="select-percent-score">-</span> /100</span>
@@ -192,12 +203,14 @@
                             </span>
                         </div>
                         <li class="answer">
-                            <div class="text">I have no neck, shoulder or arm pain</div>
-                            <label class="choice">
-                                <input id="no-pain-toggle" type="checkbox" name="choices.12" value="on"
-                                       class="rc-choice-hidden"/>
-                                <span class="rc-checkbox primary-radio-color pain-toggle"></span>
-                            </label>
+                            <span id="no-pain-choice" class="inline">
+                                <div class="text">I have no neck, shoulder or arm pain</div>
+                                <label class="choice">
+                                    <input id="no-pain-toggle" type="checkbox" name="choices.12" value="on"
+                                           class="rc-choice-hidden"/>
+                                    <span class="rc-checkbox primary-radio-color pain-toggle"></span>
+                                </label>
+                            </span>
                         </li>
                     </div>
                 </div>
@@ -247,7 +260,7 @@
                                             <label class="choice choice-number choice-number-${j}">
                                                 <input type="radio" class="rc-choice-hidden"
                                                        name="choices.${13 + 2 * i}"
-                                                    <g:if test="${Draft && Draft[(13 + 2 * i).toString()] == j.toString()}"> checked</g:if>
+                                                    <g:if test="${Draft && Draft[(13 + 2 * i).toString()] == j.toString()}">checked</g:if>
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -272,7 +285,7 @@
                                             <label class="choice">
                                                 <input type="radio" class="rc-choice-hidden"
                                                        name="choices.${13 + 2 * i + 1}"
-                                                    <g:if test="${Draft && Draft[(13 + 2 * i + 1).toString()] == j.toString()}"> checked</g:if>
+                                                    <g:if test="${Draft && Draft[(13 + 2 * i + 1).toString()] == j.toString()}">checked</g:if>
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -305,50 +318,33 @@
                 </div>
             </form>
 
-            <div id="symptom-choice-dialog" class="modal ui-hidden">
-                <div class="msg-header">Select one or more of the symptoms for your <strong id="part-name">Part</strong></div>
+            <div id="symptom-choice-dialog" class="modal ui-hidden desktop-mobile-dialog">
+                <div class="msg-header">Select one or more of the symptoms for your <strong id="part-name">Part</strong>
+                </div>
 
                 <div class="msg-center code">
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="N">
-                            Numbness
-                        </label>
-                    </div>
+                    <div class="msg-center code">
+                        <g:set var="symptomsArr"
+                               value="['Numbness', 'Stabbing', 'Cramping', 'Ache', 'Burning', 'Pins & Needles']"/>
+                        <g:set var="symptomsVal" value="['N', 'S', 'C', 'A', 'B', 'P']"/>
 
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="S">
-                            Stabbing
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="C">
-                            Cramping
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="A">
-                            Ache
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="B">
-                            Burning
-                        </label>
-                    </div>
-
-                    <div class="one-choice">
-                        <label>
-                            <input type="checkbox" value="P">
-                            Pins & Needles
-                        </label>
+                        <div class="answer-list" autofocus>
+                            <ul class="list">
+                                <g:each var="symptom" in="${symptomsArr}" status="index">
+                                    <li class="answer">
+                                        <div class="text">${symptom}</div>
+                                        <label class="choice">
+                                            <input type="checkbox"
+                                                   data-index="${index}"
+                                                   class="rc-choice-hidden"
+                                                   name="mobileEnterYear"
+                                                   value="${symptomsVal[index]}"/>
+                                            <span class="rc-checkbox primary-radio-color"></span>
+                                        </label>
+                                    </li>
+                                </g:each>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -357,14 +353,23 @@
                 <div class="msg-header">Please select a number</div>
 
                 <div class="msg-center code">
-                    <g:each var="j" in="${0..<10}">
-                    <div class="one-choice">
-                        <label>
-                            <input type="radio" name="number" value="${j * 10}">
-                            ${j * 10}
-                        </label>
+                    <div class="answer-list" autofocus>
+                        <ul class="list">
+                            <g:each var="j" in="${0..<10}">
+                                <li class="answer">
+                                    <div class="text">${j * 10}</div>
+                                    <label class="choice">
+                                        <input type="radio"
+                                               data-index="${j}"
+                                               class="rc-choice-hidden"
+                                               name="number"
+                                               value="${j * 10}"/>
+                                        <span class="rc-radio primary-radio-color"></span>
+                                    </label>
+                                </li>
+                            </g:each>
+                        </ul>
                     </div>
-                    </g:each>
                 </div>
             </div>
 

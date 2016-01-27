@@ -33,4 +33,28 @@
             background-color: #fff;
         }
     }
+
+    .task-copyright {
+        padding-top: 20px;
+        padding-bottom: 10px;
+        color: $base-color-middle-gray;
+
+        .inline-right {
+            display: inline-block;
+        }
+    }
+
+    .task-license {
+        padding-bottom: 70px;
+        color: $base-color-middle-gray;
+
+        .inline-right {
+            display: inline-block;
+        }
+
+//        .license-website {
+//            color: $base-color-primary;
+//        }
+    }
+
 }

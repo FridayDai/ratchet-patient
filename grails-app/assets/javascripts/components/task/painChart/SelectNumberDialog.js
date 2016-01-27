@@ -1,33 +1,20 @@
-var flight = require('flight');
-var WithDialog = require('../../common/WithDialog');
+var MobileSelectMenuDialog = require('../../shared/components/MobileSelectMenuDialog');
+var Utility = require('../../../utils/Utility');
 
 function SelectNumberDialog() {
     this.attributes({
         checkBoxGroupSelector: '.msg-center'
     });
 
-    this.options({
-        title: $('#number-mobile-dialog').data('title'),
-        width: 320,
-        buttons: [{
-            text: 'Save',
-            click: function () {
-                this.saveNumber();
-            }
-        }]
-
-    });
-
-    this.onShow = function (e, data) {
-        this.$node.removeClass('ui-hidden');
-        this.prepareForShow(data);
-        this.show();
-    };
-
     this.prepareForShow = function (data) {
         this.selectId = data.id;
-        this.changeTitle(data.title);
-        this.select('checkBoxGroupSelector').find("input:checked").prop('checked', false);
+        this.select('answerListSelector')
+            .find("[type=radio]:checked")
+            .prop('checked', false);
+        if (Utility.isMobile()) {
+            this.setTitle($('#{0}'.format(data.id)).data('title'));
+        }
+
     };
 
     this.saveNumber = function () {
@@ -41,6 +28,5 @@ function SelectNumberDialog() {
     };
 }
 
-module.exports = flight.component(WithDialog, SelectNumberDialog);
-
+module.exports = MobileSelectMenuDialog.mixin(SelectNumberDialog);
 

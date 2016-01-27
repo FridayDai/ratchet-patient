@@ -28,6 +28,7 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
         }
 
         if(text && !hasSelected) {
+            this.element[0].selectedIndex = -1;
             this.buttonText.html($(DEFAULT_TEXT_WRAP).html(text));
         }
     },

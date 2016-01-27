@@ -15,6 +15,7 @@ class RatchetConstants {
         PAIN_CHART_REFERENCE_NECK(11),
         PAIN_CHART_REFERENCE_BACK(12),
         NEW_PATIENT_QUESTIONNAIRE(13),
+        PROMIS(14),
         RETURN_PATIENT_QUESTIONNAIRE(17),
         KOOS_JR(15),
         HOOS_JR(1000)

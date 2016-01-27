@@ -3,6 +3,7 @@
 @import '../../partials/selectmenu';
 @import '../../partials/dialog';
 @import '../../partials/painChartSVG';
+@import '../../partials/mobile_iscroll';
 
 .pain-chart-neck {
 
@@ -428,27 +429,59 @@
     }
 }
 
+.mobile-dialog {
+    @include breakpoint('mobile') {
+        @include answer-vertical-list('small');
+    }
 
-//for dialog
-.msg-center {
-    max-height: 275px;
-    padding: 16px 6px 0;
+    .answer {
+        border-bottom: 0;
+        color: #333;
+    }
+}
 
-    .one-choice {
-        padding: 10px 0;
-        @include breakpoint('mobile') {
-            padding: 8px 0;
-        }
+.mobile-dialog {
+    .ui-dialog-content {
+        padding: 1em 1.5em;
+    }
+}
 
-        label {
-            display: inline-block;
-            width: 100%;
-        }
+.desktop-mobile-dialog {
 
-        input {
-            margin-right: 10px;
+    @include answer-vertical-list('small');
+
+    .rc-checkbox {
+        width: 20px;
+        height: 20px;
+    }
+
+    .rc-choice-hidden:checked {
+        & + .rc-checkbox:before {
+            font-size: 20px;
+            left: 2px;
         }
     }
+
+    .answer {
+        border-bottom: 0;
+        color: #333;
+
+        .choice {
+            top: 13px;
+        }
+    }
+}
+
+//for dialog
+.msg-header {
+    @include breakpoint('mobile') {
+        padding: 1.5em 1em;
+        font-size: 15px;
+    }
+}
+
+.msg-center {
+    padding: 1em 0;
 }
 
 .select-contain {
@@ -487,6 +520,10 @@
     @include breakpoint('mobile') {
         display: block;
     }
+}
+
+.inline {
+    display: inline-block;
 }
 
 
