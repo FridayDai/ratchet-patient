@@ -19,6 +19,9 @@
 
     </g:if>
 	</div>
+    <g:if test="${Task.type != 11 && Task.type != 12 && Task.type != 13 && Task.type != 17 }">
+    <g:render template="/shared/taskFooter"/>
+    </g:if>
 	<g:render template="/shared/googleAnalytics" />
 	<g:pageProperty name="page.GA" />
 	</body>
