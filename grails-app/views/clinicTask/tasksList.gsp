@@ -37,11 +37,11 @@
                 }
             </style>
             <script language="javascript" type="text/javascript">
-  /*              (function(){
+                (function(){
                     window.opener=null;
                     window.open('','_self');
                     window.setTimeout("window.close()",4000);
-                })();*/
+                })();
             </script>
         </g:if>
     </head>
