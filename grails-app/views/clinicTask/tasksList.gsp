@@ -23,26 +23,21 @@
         </style>
 
         <g:if test="${isInClinic}">
+        <style>.footer { position: absolute;  bottom: 0;  width: 100%; }</style>
         <script language="javascript" type="text/javascript">
             window.history.forward();
         </script>
         </g:if>
 
         <g:if test="${isSingleTask}">
-            <style>
-                .footer {
-                    position: absolute;
-                    bottom: 0;
-                    width: 100%;
-                }
-            </style>
-            <script language="javascript" type="text/javascript">
-                (function(){
-                    window.opener=null;
-                    window.open('','_self');
-                    window.setTimeout("window.close()",4000);
-                })();
-            </script>
+        <style>.footer { position: absolute;  bottom: 0;  width: 100%; }</style>
+        <script language="javascript" type="text/javascript">
+            (function(){
+                window.opener=null;
+                window.open('','_self');
+                window.setTimeout("window.close()",4000);
+            })();
+        </script>
         </g:if>
     </head>
 
@@ -138,16 +133,6 @@
                     </g:each>
                 </div>
             </g:elseif>
-
-            <g:if test="${isInClinic}">
-            <form name="completeTaskListForm" method="post">
-                <input type="hidden" name="isInClinic" value="${isInClinic}">
-                <div class="task-start-panel">
-                    <g:actionSubmit value="OK" controller="multiTask" action="index"
-                                    class="rc-btn task-start-btn"/>
-                </div>
-            </form>
-            </g:if>
         </g:elseif>
 
         <g:else>
@@ -156,16 +141,6 @@
 
                 <p>You have <strong>0</strong> tasks</p>
             </div>
-
-            <g:if test="${isInClinic}">
-            <form name="noTaskListForm" method="post">
-                <input type="hidden" name="isInClinic" value="${isInClinic}">
-                <div class="task-start-panel">
-                    <g:actionSubmit value="OK" controller="multiTask" action="index"
-                                    class="rc-btn task-start-btn"/>
-                </div>
-            </form>
-            </g:if>
         </g:else>
     </div>
     <g:render template="/shared/taskFooter"/>
