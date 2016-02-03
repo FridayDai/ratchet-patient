@@ -23,14 +23,12 @@
         </style>
 
         <g:if test="${isInClinic}">
-        <style>.footer { position: absolute;  bottom: 0;  width: 100%; }</style>
         <script language="javascript" type="text/javascript">
             window.history.forward();
         </script>
         </g:if>
 
         <g:if test="${isSingleTask}">
-        <style>.footer { position: absolute;  bottom: 0;  width: 100%; }</style>
         <script language="javascript" type="text/javascript">
             (function(){
                 window.opener=null;
