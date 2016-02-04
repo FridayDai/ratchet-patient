@@ -456,9 +456,10 @@ ul {
     text-align: center;
     color: $base-color-gray;
     font-size: 13px;
-    padding: 20px 0;
+    padding: 10px 0;
     background: $base-color-lighter-gray;
     border-top: 1px solid $base-color-gray;
+    height: 110px;
 
     @include breakpoint('mobile') {
         font-size: 12px;
