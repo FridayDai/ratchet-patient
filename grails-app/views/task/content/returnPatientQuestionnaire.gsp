@@ -562,7 +562,7 @@
                     <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
                 </div>
             </form>
-            <div id="mobile-date-picker-dialog" class="modal ui-hidden">
+            <div id="mobile-date-picker-dialog" class="modal ui-hidden" data-change-month="true" data-change-year="true">
                 <div class="inline-date-picker" autofocus></div>
             </div>
         </div>

@@ -663,3 +663,15 @@
 .ui-selectmenu-text {
     color: #333;
 }
+
+.ui-datepicker {
+    select.ui-datepicker-month,
+    select.ui-datepicker-year {
+        width: 75px;
+        font-size: 18px;
+    }
+
+    select.ui-datepicker-month {
+        margin-right: 10px;
+    }
+}
