@@ -137,7 +137,7 @@
             </div>
             <div class="task-license text-center">
                 <span>Contact information and permission to use: Mapi Research Trust, Lyon, France. </span>
-                <span class="inline-right">E-mail: <a href="http://www.PROinformation@mapi-trust.org" class="license-website">PROinformation@mapi-trust.org</a>  — Internet: <a href="http://www.proqolid.org" class="license-website">www.proqolid.org</a></span>
+                <span class="inline-right">E-mail: <a href="mailto:PROinformation@mapi-trust.org" class="license-website">PROinformation@mapi-trust.org</a>  — Internet: <a href="http://www.proqolid.org" target="_blank" class="license-website">www.proqolid.org</a></span>
             </div>
         </g:if>
 

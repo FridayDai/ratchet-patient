@@ -41,8 +41,14 @@
 
         .rc-choice-hidden:checked + .rc-radio:before,
         .rc-radio:hover:before,
+        .rc-choice-hidden:checked + .rc-checkbox,
         .rc-choice-hidden:checked + .rc-checkbox:before,
         .rc-checkbox:hover:before {
+            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+        }
+
+            .rc-choice-hidden:checked + .rc-radio:before,
+        .rc-radio:hover:before {
             background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
             width: 21px!important;
             height: 21px!important;
@@ -523,7 +529,7 @@
                                                    value="${subQuestion[1].size() + 1}"
                                                    <g:if test="${Draft?."4-${j}"?.indexOf((subQuestion[1].size() + 1).toString()) > -1}">checked</g:if>
                                             />
-                                            <span class="rc-checkbox primary-radio-color"></span>
+                                            <span class="rc-radio primary-radio-color rc-radio-last"></span>
                                         </label>
                                     </li>
                                 </ul>
@@ -562,6 +568,10 @@
         </div>
     </div>
 
+    <div class="footer" id="footer">
+        <p><span class="copy-right">© 2016 <img class="logo" src="${assetPath(src: 'Ratchet_Logo_grey.png')}"/></span><span class="vertical-line">|</span>Version RH0.1<span class="vertical-line">|</span>All Rights Reserved.</p>
+        <p>Terms of Service<span class="vertical-line">|</span>Privacy Policy</p>
+    </div>
     <g:render template="/shared/pageMask"></g:render>
 
     <script>
@@ -585,12 +595,11 @@
             var css =
                     ".rc-checkbox:hover:before {" +
                         "position: absolute;" +
-                        "top: 2px;" +
-                        "left: 2px;" +
+                        "top: 0px;" +
+                        "left: 0px;" +
                         "display: block;" +
-                        "width: 25px;" +
-                        "height: 25px;" +
-                        "border-radius: 50%;" +
+                        "width: 20px;" +
+                        "height: 20px;" +
                         "content: '';" +
                     "}" +
                     "@media only screen and (max-width: 767px) {" +
@@ -604,8 +613,8 @@
                     "}" +
                     ".rc-checkbox:hover:after {" +
                         "position: absolute;" +
-                        "top: 3px;" +
-                        "left: 6px;" +
+                        "top: 0px;" +
+                        "left: 4px;" +
                         "display: inline-block;" +
                         "content: '\\f383';" +
                         "font-family: 'Ionicons';" +

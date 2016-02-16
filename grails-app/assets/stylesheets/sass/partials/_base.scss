@@ -451,3 +451,46 @@ ul {
     font-size: 40px;
 }
 
+//task footer
+.footer {
+    text-align: center;
+    color: $base-color-gray;
+    font-size: 13px;
+    padding: 10px 0;
+    background: $base-color-lighter-gray;
+    border-top: 1px solid $base-color-gray;
+    height: 110px;
+
+    @include breakpoint('mobile') {
+        font-size: 12px;
+    }
+
+    .vertical-line {
+        margin: 10px;
+
+        &:nth-of-type(2) {
+            @include breakpoint('mobile') {
+                display: none;
+            }
+        }
+    }
+
+    .logo {
+        opacity: 0.6;
+        height: 15px;
+        vertical-align: middle;
+    }
+
+    .copy-right {
+        @include breakpoint('mobile') {
+            display: block;
+            height: 28px;
+        }
+    }
+
+    a {
+        color: $base-color-gray;
+    }
+
+}
+

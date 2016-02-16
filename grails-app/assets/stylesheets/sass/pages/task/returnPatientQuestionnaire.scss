@@ -46,14 +46,9 @@
         }
     }
 
+
     .rc-choice-hidden:checked + .rc-radio:before,
     .rc-choice-hidden:checked + .rc-checkbox:before {
-        top: 2px;
-        left: 2px;
-        width: 21px;
-        height: 21px;
-        border-radius: 50%;
-        content: '';
 
         @include breakpoint('mobile') {
             width: 20px;
@@ -62,7 +57,8 @@
     }
 
     .rc-checkbox {
-        border-radius: 50%;
+        width: 20px;
+        height: 20px;
     }
 
     .rc-choice-hidden:checked {
@@ -71,20 +67,29 @@
             box-shadow: none;
         }
 
-        & + .rc-checkbox:after {
+        & + .rc-checkbox:before {
             display: inline-block;
             position: absolute;
-            top: 3px;
-            left: 6px;
+            top: 0px;
+            left: 0px;
             content: '\f383';
             font-family: 'Ionicons';
             font-size: 18px;
             color: $base-color-white;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
 
             @include breakpoint('mobile') {
                 font-size: 17px;
             }
         }
+    }
+
+    .rc-radio-last {
+        width: 24px;
+        height: 24px;
     }
 
     .question-list {
@@ -464,7 +469,7 @@
         }
 
         .choice {
-            top: 10px;
+            top: 14px;
 
             @include breakpoint('tablet') {
                 margin-left: 0;
@@ -472,6 +477,9 @@
 
             &.disabled {
                 .rc-checkbox {
+                    background-color: #c3c3c3;
+                }
+                .rc-radio {
                     background-color: #c3c3c3;
                 }
             }

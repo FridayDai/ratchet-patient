@@ -42,7 +42,7 @@
             <div class="content-middle">
                 <div class="welcome font-color">Welcome To</div>
 
-                <div class="portal-name font-color">${client.portalName}</div>
+                <div class="portal-name font-color">Grace County Patient Portal</div>
 
                 <div class="code-div">
                     <p class="enter-code-title">Enter Treatment Code</p>
@@ -67,6 +67,7 @@
                 <span class="copy-right">
                     <span class="distance">Powered By</span>
                     <img class="logo" src="${assetPath(src: 'ratchet_logo_white.png')}"/>
+                    <span>V. RH0.1</span>
                 </span>
             </div>
 
