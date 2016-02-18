@@ -133,7 +133,7 @@ class TaskService extends RatchetAPIService {
         }
     }
 
-    def submitQuestionnaire(String token, code, answer, accountId) {
+    def submitQuestionnaire(String token, code, answer, accountId, completeDate) {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
@@ -147,7 +147,8 @@ class TaskService extends RatchetAPIService {
             accountId: accountId,
             browserName: browserName,
             browserVersion: browserVersion,
-            OSName: OSName
+            OSName: OSName,
+            completeDate: completeDate
         ])
 
         withPost(url) { req ->

@@ -35,7 +35,8 @@ class DirectTaskController extends TaskController {
             choices: params.choices,
             optionals: params.optionals,
             sections: params.sections,
-            accountId: params.accountId
+            accountId: params.accountId,
+            completeDate: params.completeDate
         ]) { resp ->
             if (resp.status == 200 || resp.status == 207) {
                 render(view: '/clinicTask/tasksList', model: [
