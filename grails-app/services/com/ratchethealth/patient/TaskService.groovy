@@ -188,7 +188,7 @@ class TaskService extends RatchetAPIService {
 
     }
 
-    def submitQuestionnaireWithoutErrorHandle(String token, code, answer, mixedResult, accountId) {
+    def submitQuestionnaireWithoutErrorHandle(String token, code, answer, mixedResult, accountId, completeDate) {
         String url = grailsApplication.config.ratchetv2.server.url.task.oneTest
 
         url = String.format(url, code)
@@ -199,7 +199,16 @@ class TaskService extends RatchetAPIService {
         if (mixedResult) {
             mixedResult = new JsonBuilder(mixedResult).toString()
         }
-        String json = JsonOutput.toJson([code: code, answer: answer, mixedResult: mixedResult, accountId: accountId, browserName: browserName, browserVersion: browserVersion, OSName: OSName])
+        String json = JsonOutput.toJson([
+            code: code,
+            answer: answer,
+            mixedResult: mixedResult,
+            accountId: accountId,
+            browserName: browserName,
+            browserVersion: browserVersion,
+            OSName: OSName,
+            completeDate: completeDate
+        ])
 
         withPost(url) { req ->
             def resp = req.body(json).asJson()

@@ -56,8 +56,9 @@ class DirectTaskController extends TaskController {
         def choices = params.choices
         def code = params.code
         def accountId = params?.accountId
+        def completeDate = params.completeDate
 
-        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, accountId)
+        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, accountId, completeDate)
 
         render(view: '/clinicTask/tasksList', model: [
             client: JSON.parse(session.client),
