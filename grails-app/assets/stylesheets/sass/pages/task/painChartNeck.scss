@@ -513,13 +513,47 @@
 }
 
 .select-percent-result {
-    display: inline-block;
+    display: inline-flex;
+    position: relative;
+    top: -12px;
     vertical-align: top;
-    margin-top: 10px;
+    align-items: center;
 
     @include breakpoint('mobile') {
-        display: block;
+        top: 12px;
     }
+}
+
+.percent-result-svg {
+    background: $base-color-disable-white;
+    border-radius: 50%;
+}
+
+.result-equal {
+    padding-right: 10px;
+}
+
+.result-circle {
+    fill: $base-color-disable-white;
+    stroke: $base-color-success;
+    stroke-width: 32;
+    stroke-dasharray: 0 201;
+}
+
+.all-result-tip {
+    padding-left: 10px;
+}
+
+.text-middle {
+    text-anchor: middle;
+}
+
+.text-start {
+    text-anchor: start;
+}
+
+.circle-error {
+    stroke: $base-color-red;
 }
 
 .inline {

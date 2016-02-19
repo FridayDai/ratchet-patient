@@ -13,51 +13,51 @@
         <style type="text/css">
         @media only screen and (max-width: 767px) {
             .task-time {
-                color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+                color: ${       client.primaryColorHex?:'#0f137d'       } !important;
             }
         }
 
         .primary-color {
-            color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            color: ${       client.primaryColorHex?:'#0f137d'       } !important;
         }
 
         .primary-border-color {
-            border-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            border-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
         }
 
         .primary-background-color {
-            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            background-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
         }
 
         .task-done-btn {
-            color: ${     client.primaryColorHex?:'#0f137d'     } !important;
-            border-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            color: ${       client.primaryColorHex?:'#0f137d'       } !important;
+            border-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
         }
 
         .task-done-btn:hover {
             color: #ffffff !important;
-            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            background-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
         }
 
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
-            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            background-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
         }
 
         .rc-choice-hidden:checked + .rc-checkbox {
             background-color: ${     client.primaryColorHex?:'#0f137d'     };
         }
 
-        .modal+.ui-dialog-buttonpane button {
+        .modal + .ui-dialog-buttonpane button {
             border-color: ${     client.primaryColorHex?:'#0f137d'     };
             color: ${     client.primaryColorHex?:'#0f137d'     };
         }
 
-        .modal+.ui-dialog-buttonpane button:hover,  .modal .ui-dialog-buttonpane button:focus {
-            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+        .modal + .ui-dialog-buttonpane button:hover, .modal .ui-dialog-buttonpane button:focus {
+            background-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
         }
 
         .task-done-btn[disabled], .task-done-btn[disabled]:hover {
-            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            color: ${  client.primaryColorHex?:'#0f137d'  } !important;
             background-color: #ffffff !important;
             cursor: default;
             opacity: 0.3;
@@ -189,10 +189,23 @@
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Leg</span>
-                                <span class="select-percent-result">
-                                    = <span id="select-percent-number" class="select-percent-number">
-                                    <span id="select-percent-score">-</span> /100</span>
+                            </span>
+
+                            <span class="select-percent-result">
+                                <span class="result-equal"> = </span>
+                                <span id="select-percent-number" class="select-percent-number">
+                                    <svg width="64" height="64" id="percent-result-svg" class="percent-result-svg">
+                                        <g transform="rotate(-90 32 32)" >
+                                            <circle r="16" cx="32" cy="32" class="result-circle" id="result-circle"/>
+                                        </g>
+                                        <text x="32" y="35" fill="#fff" class="text-middle" id="select-percent-score">0%</text>
+                                    </svg>
                                 </span>
+                                <span id="all-result-tip" class="all-result-tip">
+                                    <div id="result-tip" class="result-tip"></div>
+                                    <div id="result-sub-tip" class="result-sub-tip"></div>
+                                </span>
+
                             </span>
                         </div>
                         <li class="answer">
@@ -254,7 +267,7 @@
                                             <label class="choice choice-number choice-number-${j}">
                                                 <input type="radio" class="rc-choice-hidden"
                                                        name="choices.${10 + 2 * i}"
-                                                    <g:if test="${Draft && Draft[(10 + 2 * i).toString()] == j.toString()}">checked</g:if>
+                                                       <g:if test="${Draft && Draft[(10 + 2 * i).toString()] == j.toString()}">checked</g:if>
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -279,7 +292,7 @@
                                             <label class="choice">
                                                 <input type="radio" class="rc-choice-hidden"
                                                        name="choices.${10 + 2 * i + 1}"
-                                                    <g:if test="${Draft && Draft[(10 + 2 * i + 1).toString()] == j.toString()}">checked</g:if>
+                                                       <g:if test="${Draft && Draft[(10 + 2 * i + 1).toString()] == j.toString()}">checked</g:if>
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -368,8 +381,12 @@
         </div>
 
     </div>
+
     <div class="footer" id="footer">
-        <p><span class="copy-right">© 2016 <img class="logo" src="${assetPath(src: 'Ratchet_Logo_grey.png')}"/></span><span class="vertical-line">|</span>Version RH0.1<span class="vertical-line">|</span>All Rights Reserved.</p>
+        <p><span class="copy-right">© 2016 <img class="logo" src="${assetPath(src: 'Ratchet_Logo_grey.png')}"/>
+        </span><span class="vertical-line">|</span>Version RH0.1<span class="vertical-line">|</span>All Rights Reserved.
+        </p>
+
         <p>Terms of Service<span class="vertical-line">|</span>Privacy Policy</p>
     </div>
 
