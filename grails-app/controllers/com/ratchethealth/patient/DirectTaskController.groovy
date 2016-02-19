@@ -35,7 +35,8 @@ class DirectTaskController extends TaskController {
             choices: params.choices,
             optionals: params.optionals,
             sections: params.sections,
-            accountId: params.accountId
+            accountId: params.accountId,
+            completeDate: params.completeDate
         ]) { resp ->
             if (resp.status == 200 || resp.status == 207) {
                 render(view: '/clinicTask/tasksList', model: [
@@ -55,8 +56,9 @@ class DirectTaskController extends TaskController {
         def choices = params.choices
         def code = params.code
         def accountId = params?.accountId
+        def completeDate = params.completeDate
 
-        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, accountId)
+        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, accountId, completeDate)
 
         render(view: '/clinicTask/tasksList', model: [
             client: JSON.parse(session.client),
