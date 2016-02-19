@@ -173,7 +173,7 @@ class TaskController extends BaseController {
     }
 
     def submitQuestionnaire(opts) {
-        return taskService.submitQuestionnaire(opts?.token, opts?.code, opts?.answer, opts?.accountId)
+        return taskService.submitQuestionnaire(opts?.token, opts?.code, opts?.answer, opts?.accountId, opts?.completeDate)
     }
 
     def convertChoice(type, choices) {
