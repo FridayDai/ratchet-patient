@@ -1,6 +1,11 @@
 var flight = require('flight');
 var snap = require('snapsvg');
 
+var color = {
+    white: '#fff',
+    gray: '#e6e6e6'
+};
+
 function PainDrawingBoard() {
 
     this.attributes({
@@ -9,21 +14,7 @@ function PainDrawingBoard() {
     });
 
     this.addSymptomsBars = function (path) {
-        var s = snap(this.snapSvg);
-
-        var p = s.path("M10-5-10,15M15,0,0,15M0-5-20,15").attr({
-            fill: "none",
-            stroke: "#e82831",
-            strokeWidth: 2
-        });
-        p = p.pattern(0, 0, 10, 10);
-
-        snap(path)
-            .attr({
-                fill: p
-            })
-            .removeClass('human-part')
-            .addClass('active-part');
+        snap(path).addClass('active-part');
     };
 
     this.clearErrorStatus = function ($question) {
@@ -38,16 +29,11 @@ function PainDrawingBoard() {
     };
 
     this.removeSymptomsBars = function (path) {
-        snap(path)
-            .attr({
-                fill: 'none'
-            })
-            .addClass('human-part')
-            .removeClass('active-part');
+        snap(path).removeClass('active-part');
     };
 
     this.removeSymptomsText = function (element) {
-        $(element).find('g').remove();
+        $(element).find('g.symptoms-text').remove();
     };
 
     this.addSymptomsText = function (element, data) {
@@ -62,19 +48,19 @@ function PainDrawingBoard() {
         this.removeSymptomsText(element);
 
         for (var i = 0; i < data.length; i++) {
-            var square = snapElement.rect(0, 0, 14, 14).attr({
+            var square = snapElement.rect(0, 0, 13, 13).attr({
                 fill: "red"
             });
             var inlineText = snapElement.text(7, 11, data[i]).attr({
                 fill: "#fff",
                 "text-anchor": "middle",
-                "font-size": "13px"
+                "font-size": "12px"
             });
-            var x = gx + Math.floor(i % rowLength) * 20 + Math.floor(i / rowLength) * offset;
-            var y = gy + Math.floor(i / rowLength) * 20;
+            var x = gx + Math.floor(i % rowLength) * 16 + Math.floor(i / rowLength) * offset;
+            var y = gy + Math.floor(i / rowLength) * 18;
             snapElement.g(square, inlineText).attr({
                 transform: snap.format("tanslate({x},{y})", {x: x, y: y})
-            });
+            }).addClass('symptoms-text');
         }
     };
 
@@ -105,23 +91,24 @@ function PainDrawingBoard() {
             var s = snap(svg);
             if(toggle.checked) {
                 s.addClass('disabled');
-                _.forEach($.merge($('.body'), ($('.body-inline'))), function(ele) {
+
+                _.forEach($.merge($('.body'), ($('.part-direction'))), function(ele) {
                     snap(ele).attr({
-                        fill: '#E6E6E6'
+                        fill: color.gray
                     });
                 });
+
+                $.merge($('.stroke'), $('.indication')).hide();
             } else {
                 s.removeClass('disabled');
-                _.forEach($('.body'), function(ele) {
+
+                _.forEach($.merge($('.body'), ($('.part-direction'))), function(ele) {
                     snap(ele).attr({
-                        fill: '#DFB28B'
+                        fill: color.white
                     });
                 });
-                _.forEach($('.body-inline'), function(ele) {
-                    snap(ele).attr({
-                        fill: '#BE966E'
-                    });
-                });
+
+                $.merge($('.stroke'), $('.indication')).show();
             }
         });
 
@@ -142,9 +129,9 @@ function PainDrawingBoard() {
         e.preventDefault();
 
         var self = e.target;
-        this.snapSvg = $(self).closest('svg').get(0);
-        this.humanPart = $(self).closest('.part-group').get(0);
-        var id = this.humanPart.firstElementChild.id;
+        //this.snapSvg = $(self).closest('svg').get(0);
+        this.humanPart = $(self).closest('.part-group');
+        var id = this.humanPart.find('.human-part').get(0).id;
         var eleId = "#{0}-hidden".format(id);
         var checkedTags = this.select('svgResultGroupSelector').find(eleId).val();
 
@@ -152,7 +139,7 @@ function PainDrawingBoard() {
     };
 
     this.onSymptomSelectedSuccess = function (e, data) {
-        var path = $(this.humanPart).find('path').get(0);
+        var path = this.humanPart.find('.human-part').get(0);
         this.changeInputValue(path, data.tags);
 
         if (data.tags && data.tags.length > 0) {

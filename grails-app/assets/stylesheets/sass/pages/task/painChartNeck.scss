@@ -95,10 +95,12 @@
     .answer-list {
         @include breakpoint('tablet') {
             padding: 15px 20px;
-            background-color: #fff;
+            background-color: $base-color-white;
         }
 
         &.chart-style {
+            padding: 0;
+
             @include breakpoint('mobile') {
                 background-color: $base-color-white;
             }
@@ -354,7 +356,7 @@
 
     .draw-board {
         position: relative;
-        width: 600px;
+        width: 700px;
         margin: 0 auto;
 
         @include breakpoint('mobile') {
@@ -366,13 +368,13 @@
         display: inline-block;
         @include breakpoint('mobile') {
             display: block;
-            width: 232px;
+            width: 338px;
             margin: 0 auto;
         }
     }
 
     .chart-left {
-        margin-right: 130px;
+        margin-right: 16px;
         @include breakpoint('mobile') {
             margin: 0 auto;
         }
@@ -484,6 +486,28 @@
     padding: 1em 0;
 }
 
+.msg-title {
+    font-size: 14px;
+    color: $base-font-grey;
+}
+
+.part-area {
+    padding: 10px 0;
+}
+
+.direction-label {
+    padding: 1px 20px;
+    border-radius: 4px;
+    background-color: $base-color-blue;
+    color: $base-color-white;
+    font-size: 19px;
+}
+
+.part-name {
+    padding: 0 8px;
+    font-weight: 700;
+}
+
 .select-contain {
     padding: 22px;
 }
@@ -515,7 +539,7 @@
 .select-percent-result {
     display: inline-flex;
     position: relative;
-    top: -12px;
+    top: -14px;
     vertical-align: top;
     align-items: center;
 
@@ -524,6 +548,7 @@
     }
 }
 
+//for percent result
 .percent-result-svg {
     background: $base-color-disable-white;
     border-radius: 50%;
