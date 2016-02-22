@@ -1,9 +1,14 @@
 @import '../../partials/base';
 @import '../../partials/variable';
 
-.error-body {
-    margin-top: 138px;
+html, body {
+    height: 100%;
+    margin: 0;
     padding: 0;
+}
+
+.error-body {
+    padding: 120px 0 150px;
     color: $base-logo-color;
     text-align: center;
 
@@ -56,4 +61,17 @@
     .expire-logo {
         margin-top: 50px;
     }
+}
+
+.main-wrapper {
+    position: relative;
+    min-height: 100%;
+}
+
+#footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
 }

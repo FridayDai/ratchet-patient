@@ -13,51 +13,51 @@
         <style type="text/css">
         @media only screen and (max-width: 767px) {
             .task-time {
-                color: ${       client.primaryColorHex?:'#0f137d'       } !important;
+                color: ${     client.primaryColorHex?:'#0f137d'     } !important;
             }
         }
 
         .primary-color {
-            color: ${       client.primaryColorHex?:'#0f137d'       } !important;
+            color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
         .primary-border-color {
-            border-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
+            border-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
         .primary-background-color {
-            background-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
+            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
         .task-done-btn {
-            color: ${       client.primaryColorHex?:'#0f137d'       } !important;
-            border-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
+            color: ${     client.primaryColorHex?:'#0f137d'     } !important;
+            border-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
         .task-done-btn:hover {
             color: #ffffff !important;
-            background-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
+            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
         .rc-choice-hidden:checked + .rc-radio:before, .rc-radio:hover:before {
-            background-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
+            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
         .rc-choice-hidden:checked + .rc-checkbox {
             background-color: ${     client.primaryColorHex?:'#0f137d'     };
         }
 
-        .modal + .ui-dialog-buttonpane button {
+        .modal+.ui-dialog-buttonpane button {
             border-color: ${     client.primaryColorHex?:'#0f137d'     };
             color: ${     client.primaryColorHex?:'#0f137d'     };
         }
 
-        .modal + .ui-dialog-buttonpane button:hover, .modal .ui-dialog-buttonpane button:focus {
-            background-color: ${       client.primaryColorHex?:'#0f137d'       } !important;
+        .modal+.ui-dialog-buttonpane button:hover,  .modal .ui-dialog-buttonpane button:focus {
+            background-color: ${     client.primaryColorHex?:'#0f137d'     } !important;
         }
 
         .task-done-btn[disabled], .task-done-btn[disabled]:hover {
-            color: ${  client.primaryColorHex?:'#0f137d'  } !important;
+            color: ${client.primaryColorHex?:'#0f137d'} !important;
             background-color: #ffffff !important;
             cursor: default;
             opacity: 0.3;
@@ -362,15 +362,8 @@
 
     </div>
 
-    <div class="footer" id="footer">
-        <p><span class="copy-right">© 2016 <img class="logo" src="${assetPath(src: 'Ratchet_Logo_grey.png')}"/>
-        </span><span class="vertical-line">|</span>Version RH0.1<span class="vertical-line">|</span>All Rights Reserved.
-        </p>
-
-        <p>Terms of Service<span class="vertical-line">|</span>Privacy Policy</p>
-    </div>
-
-    <g:render template="/shared/pageMask"></g:render>
+    <g:render template="/shared/copyRight"/>
+    <g:render template="/shared/pageMask" />
     </body>
     </html>
     <content tag="GA">
