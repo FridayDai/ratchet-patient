@@ -1,5 +1,5 @@
 <g:set var="cssPath" value="error/error"/>
-<g:applyLayout name="main">
+<g:applyLayout name="error">
   <html>
   <head>
     <title>503 - Not found</title>

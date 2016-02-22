@@ -6,7 +6,7 @@
   </head>
 
   <body>
-  <g:render template="/shared/header"></g:render>
+  <g:render template="/shared/header" />
   <g:layoutBody/>
   </body>
   </html>
