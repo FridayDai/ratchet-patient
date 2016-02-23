@@ -203,7 +203,7 @@
 	C103.183,313.144,92.681,307.126,86.695,302.757z"/>
             </g>
 
-            <g class="part-group" data-parameter="[72,391]">
+            <g class="part-group" data-parameter="[72,394]">
                 <g class="stroke">
                     <g>
                         <path fill="none" stroke="#335D70" stroke-width="2" stroke-linejoin="round" d="M77.483,387.939
@@ -290,7 +290,7 @@
 	c-8.964,7.29-16.754,7.747-24.403,7.807c0.952,7.231,1.742,14.551,2.074,22.04C227.216,351.127,245.27,381.677,244.27,389.198z"/>
             </g>
 
-            <g class="part-group" data-parameter="[237,391]">
+            <g class="part-group" data-parameter="[237,394]">
                 <g class="stroke">
                     <g>
                         <path fill="none" stroke="#335D70" stroke-width="2" stroke-linejoin="round" d="M262.318,385.669

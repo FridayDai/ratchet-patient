@@ -112,7 +112,7 @@
 
                         <input type="hidden" id="Left-Back-Shoulder-hidden" name="choices.8" value="${Draft?.'8' ?: ''}"/>
                         <input type="hidden" id="Right-Back-Shoulder-hidden" name="choices.9" value="${Draft?.'9' ?: ''}"/>
-                        <input type="hidden" id="Right-Back-Neck-hidden" name="choices.10" value="${Draft?.'10' ?: ''}"/>
+                        <input type="hidden" id="Middle-Back-Neck-hidden" name="choices.10" value="${Draft?.'10' ?: ''}"/>
                         <input type="hidden" id="Right-Back-Upperarm-hidden" name="choices.11" value="${Draft?.'11' ?: ''}"/>
                         <input type="hidden" id="Right-Back-Forearm-hidden" name="choices.12" value="${Draft?.'12' ?: ''}"/>
                         <input type="hidden" id="Right-Back-Hand-hidden" name="choices.13" value="${Draft?.'13' ?: ''}"/>
