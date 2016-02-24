@@ -43,7 +43,9 @@ function SymptomDialog() {
             if(direction === 'Middle') {
                 this.select('partDirectionSelector').hide();
             } else {
-                this.select('partDirectionSelector').show().text(direction);
+                this.select('partDirectionSelector').show()
+                    .removeClass('Left').removeClass('Right')
+                    .addClass(direction).text(direction);
             }
 
             this.select('partNameSelector').text(bodyName.replace(/(?:\w+)-(\w+)-?(\w*)/, "$1 $2"));

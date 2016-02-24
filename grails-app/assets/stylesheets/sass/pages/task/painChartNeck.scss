@@ -501,6 +501,13 @@
     background-color: $base-color-blue;
     color: $base-color-white;
     font-size: 19px;
+
+    &.Left{
+        background-color: $base-color-orange;
+    }
+    &.Right {
+        background-color: $base-color-blue;
+    }
 }
 
 .part-name {
@@ -570,7 +577,7 @@
 
 .result-circle {
     fill: $base-color-disable-white;
-    stroke: $base-color-success;
+//    stroke: $base-color-success;
     stroke-width: 32;
     stroke-dasharray: 0 201;
 }
@@ -592,9 +599,14 @@
     stroke: $base-color-red;
 }
 
+.circle-doing {
+    stroke: $base-color-success
+}
+
 .inline {
     display: inline-block;
 }
+
 
 
 
