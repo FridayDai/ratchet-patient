@@ -543,9 +543,19 @@
     vertical-align: top;
     align-items: center;
 
+    //> = ie 10
+    display: -ms-inline-flexbox;
+    -ms-flex-direction: row;
+    -ms-flex-align: center;
+    -ms-flex-wrap: wrap;
+
     @include breakpoint('mobile') {
         top: 12px;
     }
+}
+
+.select-percent-number {
+    display: inline-block;
 }
 
 //for percent result
@@ -566,6 +576,7 @@
 }
 
 .all-result-tip {
+    display: inline-block;
     padding-left: 10px;
 }
 

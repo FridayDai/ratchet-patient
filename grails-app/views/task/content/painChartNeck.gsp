@@ -164,23 +164,23 @@
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Arm</span>
+                            </span>
 
-                                <span class="select-percent-result">
-                                    <span class="result-equal"> = </span>
-                                    <span id="select-percent-number" class="select-percent-number">
-                                        <svg width="64" height="64" id="percent-result-svg" class="percent-result-svg">
-                                            <g transform="rotate(-90 32 32)" >
-                                                <circle r="16" cx="32" cy="32" class="result-circle" id="result-circle"/>
-                                            </g>
-                                            <text x="32" y="37" fill="#fff" class="text-middle" id="select-percent-score">0%</text>
-                                        </svg>
-                                    </span>
-                                    <span id="all-result-tip" class="all-result-tip">
-                                        <div id="result-tip" class="result-tip"></div>
-                                        <div id="result-sub-tip" class="result-sub-tip"></div>
-                                    </span>
-
+                            <span class="select-percent-result">
+                                <span class="result-equal"> = </span>
+                                <span id="select-percent-number" class="select-percent-number">
+                                    <svg width="64" height="64" id="percent-result-svg" class="percent-result-svg">
+                                        <g transform="rotate(-90 32 32)" >
+                                            <circle r="16" cx="32" cy="32" class="result-circle" id="result-circle"/>
+                                        </g>
+                                        <text x="32" y="37" fill="#fff" class="text-middle" id="select-percent-score">0%</text>
+                                    </svg>
                                 </span>
+                                <span id="all-result-tip" class="all-result-tip">
+                                    <div id="result-tip" class="result-tip"></div>
+                                    <div id="result-sub-tip" class="result-sub-tip"></div>
+                                </span>
+
                             </span>
                         </div>
                         <li class="answer">
