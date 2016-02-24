@@ -131,7 +131,7 @@ function PainDrawingBoard() {
         var self = e.target;
         //this.snapSvg = $(self).closest('svg').get(0);
         this.humanPart = $(self).closest('.part-group');
-        var id = this.humanPart.find('.human-part').get(0).id;
+        var id = this.humanPart.find('[class^=human-part]').get(0).id;
         var eleId = "#{0}-hidden".format(id);
         var checkedTags = this.select('svgResultGroupSelector').find(eleId).val();
 
@@ -139,7 +139,7 @@ function PainDrawingBoard() {
     };
 
     this.onSymptomSelectedSuccess = function (e, data) {
-        var path = this.humanPart.find('.human-part').get(0);
+        var path = this.humanPart.find('[class^=human-part]').get(0);
         this.changeInputValue(path, data.tags);
 
         if (data.tags && data.tags.length > 0) {
