@@ -4,6 +4,7 @@
     padding: 0;
     border: 1px solid $base-color-dark-grey;
     background: $base-color-white;
+    z-index: 100!important;
 
     .ui-datepicker-header {
         position: relative;
