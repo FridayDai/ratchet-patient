@@ -62,6 +62,10 @@
             cursor: default;
             opacity: 0.3;
         }
+
+        .select-percent {
+            color: ${     client.primaryColorHex?:'#4d4d4d'     };
+        }
         </style>
 
         <g:if test="${isInClinic}">

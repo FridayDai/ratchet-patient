@@ -62,6 +62,10 @@
             cursor: default;
             opacity: 0.3;
         }
+
+        .select-percent {
+            color: ${     client.primaryColorHex?:'#4d4d4d'     };
+        }
         </style>
 
         <g:if test="${isInClinic}">
@@ -309,29 +313,30 @@
                 </div>
 
                 <div class="msg-center code">
-                    <div class="msg-center code">
-                        <g:set var="symptomsArr"
-                               value="['Numbness', 'Stabbing', 'Cramping', 'Ache', 'Burning', 'Pins & Needles']"/>
-                        <g:set var="symptomsVal" value="['N', 'S', 'C', 'A', 'B', 'P']"/>
 
-                        <div class="answer-list" autofocus>
-                            <ul class="list">
-                                <g:each var="symptom" in="${symptomsArr}" status="index">
-                                    <li class="answer">
-                                        <div class="text">${symptom}</div>
-                                        <label class="choice">
-                                            <input type="checkbox"
-                                                   data-index="${index}"
-                                                   class="rc-choice-hidden"
-                                                   name="mobileEnterYear"
-                                                   value="${symptomsVal[index]}"/>
-                                            <span class="rc-checkbox primary-radio-color"></span>
-                                        </label>
-                                    </li>
-                                </g:each>
-                            </ul>
-                        </div>
+                    <g:set var="symptomsArr"
+                           value="['Numbness', 'Stabbing', 'Cramping', 'Ache', 'Burning', 'Pins & Needles']"/>
+                    <g:set var="symptomsVal" value="['N', 'S', 'C', 'A', 'B', 'P']"/>
+
+                    <div>Select one or more of the symptoms</div>
+                    <div class="answer-list" autofocus>
+                        <ul class="list">
+                            <g:each var="symptom" in="${symptomsArr}" status="index">
+                                <li class="answer">
+                                    <div class="text">${symptom}</div>
+                                    <label class="choice">
+                                        <input type="checkbox"
+                                               data-index="${index}"
+                                               class="rc-choice-hidden"
+                                               name="mobileEnterYear"
+                                               value="${symptomsVal[index]}"/>
+                                        <span class="rc-checkbox primary-radio-color"></span>
+                                    </label>
+                                </li>
+                            </g:each>
+                        </ul>
                     </div>
+
                 </div>
             </div>
 

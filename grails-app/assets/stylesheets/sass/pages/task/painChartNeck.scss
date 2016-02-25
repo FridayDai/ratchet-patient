@@ -476,14 +476,24 @@
 
 //for dialog
 .msg-header {
+    padding-left: 1em;
+
     @include breakpoint('mobile') {
-        padding: 1.5em 1em;
+        padding: 1.5em 0.5em;
         font-size: 15px;
     }
 }
 
 .msg-center {
-    padding: 1em 0;
+    padding: 1em;
+
+    @include breakpoint('mobile') {
+        padding: 1em 0.5em;
+    }
+
+    .answer-list {
+        margin-left: -18px;
+    }
 }
 
 .msg-title {
