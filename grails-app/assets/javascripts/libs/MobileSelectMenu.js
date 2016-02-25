@@ -83,6 +83,7 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
 
         if (key === "defaultButtonText") {
             this.element[0].selectedIndex = -1;
+            this.focusIndex = null;
 
             value = value || this.element.data('defaultText') || this.options.defaultButtonText;
             this.buttonText.html($(DEFAULT_TEXT_WRAP).html(value));
