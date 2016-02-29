@@ -39,6 +39,7 @@ npm-debug.log
 .DS_Store
 
 dist/
+.slcache
 
 .sass-cache/
 grails-app/assets/stylesheets/css

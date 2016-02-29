@@ -67,7 +67,7 @@ function painChartTask() {
             this.setErrorStatus($question);
             return false;
         }
-        if( $question.data('select') === true && +$question.find('#select-percent-score').text().trim() !== 100){
+        if( $question.data('select') === true && $question.find('#select-percent-score').text().trim() !== "100%") {
             this.setSelectErrorStatus($question);
             return false;
         }

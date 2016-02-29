@@ -141,7 +141,7 @@
             </div>
         </g:else>
     </div>
-    <g:render template="/shared/taskFooter"/>
+    <g:render template="/shared/copyRight" />
     </body>
     </html>
 </g:applyLayout>

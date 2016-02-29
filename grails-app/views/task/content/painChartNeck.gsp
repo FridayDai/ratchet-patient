@@ -62,6 +62,10 @@
             cursor: default;
             opacity: 0.3;
         }
+
+        .select-percent {
+            color: ${     client.primaryColorHex?:'#4d4d4d'     };
+        }
         </style>
 
         <g:if test="${isInClinic}">
@@ -75,7 +79,7 @@
     <div class="pain-chart-neck task-content">
         <div class="task-list-wrapper container">
 
-            <form action="" method="post" data-draft="${Draft}" data-no-pain-control="[0, 12]">
+            <form action="" method="post" data-draft="${Draft}" data-no-pain-control="[0, 20]">
                 <input type="hidden" name="code" value="${taskCode}"/>
                 <input type="hidden" name="taskId" value="${Task.taskId}"/>
                 <input type="hidden" name="taskType" value="${Task?.type}"/>
@@ -90,72 +94,40 @@
                     <div class="answer-list chart-style">
                         <div id="draw-board" class="draw-board">
                             <span class="chart-content chart-left">
-                                <div class="chart-title">Front</div>
                                 <g:render template="/task/content/template/neckFront"></g:render>
                             </span>
 
                             <span class="chart-content">
-                                <div class="chart-title">Back</div>
                                 <g:render template="/task/content/template/neckBack"></g:render>
                             </span>
 
-                            <div class="chart-direction">
-                                <div>Symptoms:</div>
-
-                                <div class="group-direction">
-                                    <span class="icon-direction">N</span>
-                                    <label>Numbness</label>
-                                </div>
-
-                                <div class="group-direction">
-                                    <span class="icon-direction">A</span>
-                                    <label>Ache</label>
-                                </div>
-
-                                <div class="group-direction">
-                                    <span class="icon-direction">S</span>
-                                    <label>Stabbing</label>
-                                </div>
-
-                                <div class="group-direction">
-                                    <span class="icon-direction">B</span>
-                                    <label>Burning</label>
-                                </div>
-
-                                <div class="group-direction">
-                                    <span class="icon-direction">C</span>
-                                    <label>Cramping</label>
-                                </div>
-
-                                <div class="group-direction">
-                                    <span class="icon-direction">P</span>
-                                    <label>Pins & Needles</label>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
 
                     <div id="svg-choice-result">
-                        <input type="hidden" id="Front-Right-Shoulder-hidden" name="choices.0"
-                               value="${Draft?.'0' ?: ''}"/>
-                        <input type="hidden" id="Front-Left-Shoulder-hidden" name="choices.1"
-                               value="${Draft?.'1' ?: ''}"/>
-                        <input type="hidden" id="Front-Right-Arm-hidden" name="choices.2" value="${Draft?.'2' ?: ''}"/>
-                        <input type="hidden" id="Front-Left-Arm-hidden" name="choices.3" value="${Draft?.'3' ?: ''}"/>
+                        <input type="hidden" id="Right-Front-Shoulder-hidden" name="choices.0" value="${Draft?.'0' ?: ''}"/>
+                        <input type="hidden" id="Left-Front-Shoulder-hidden" name="choices.1" value="${Draft?.'1' ?: ''}"/>
+                        <input type="hidden" id="Right-Front-Upperarm-hidden" name="choices.2" value="${Draft?.'2' ?: ''}"/>
+                        <input type="hidden" id="Right-Front-Forearm-hidden" name="choices.3" value="${Draft?.'3' ?: ''}"/>
+                        <input type="hidden" id="Right-Front-Hand-hidden" name="choices.4" value="${Draft?.'4' ?: ''}"/>
+                        <input type="hidden" id="Left-Front-Upperarm-hidden" name="choices.5" value="${Draft?.'5' ?: ''}"/>
+                        <input type="hidden" id="Left-Front-Forearm-hidden" name="choices.6" value="${Draft?.'6' ?: ''}"/>
+                        <input type="hidden" id="Left-Front-Hand-hidden" name="choices.7" value="${Draft?.'7' ?: ''}"/>
 
-                        <input type="hidden" id="Back-Left-Arm-hidden" name="choices.4" value="${Draft?.'4' ?: ''}"/>
-                        <input type="hidden" id="Back-Right-Arm-hidden" name="choices.5" value="${Draft?.'5' ?: ''}"/>
-                        <input type="hidden" id="Neck-hidden" name="choices.6" value="${Draft?.'6' ?: ''}"/>
-                        <input type="hidden" id="Back-Left-Shoulder-hidden" name="choices.7"
-                               value="${Draft?.'7' ?: ''}"/>
-                        <input type="hidden" id="Back-Right-Shoulder-hidden" name="choices.8"
-                               value="${Draft?.'8' ?: ''}"/>
+                        <input type="hidden" id="Left-Back-Shoulder-hidden" name="choices.8" value="${Draft?.'8' ?: ''}"/>
+                        <input type="hidden" id="Right-Back-Shoulder-hidden" name="choices.9" value="${Draft?.'9' ?: ''}"/>
+                        <input type="hidden" id="Middle-Back-Neck-hidden" name="choices.10" value="${Draft?.'10' ?: ''}"/>
+                        <input type="hidden" id="Right-Back-Upperarm-hidden" name="choices.11" value="${Draft?.'11' ?: ''}"/>
+                        <input type="hidden" id="Right-Back-Forearm-hidden" name="choices.12" value="${Draft?.'12' ?: ''}"/>
+                        <input type="hidden" id="Right-Back-Hand-hidden" name="choices.13" value="${Draft?.'13' ?: ''}"/>
+                        <input type="hidden" id="Left-Back-Upperarm-hidden" name="choices.14" value="${Draft?.'14' ?: ''}"/>
+                        <input type="hidden" id="Left-Back-Forearm-hidden" name="choices.15" value="${Draft?.'15' ?: ''}"/>
+                        <input type="hidden" id="Left-Back-Hand-hidden" name="choices.16" value="${Draft?.'16' ?: ''}"/>
                     </div>
                 </div>
 
                 <div id="pain-percent-question" class="question-list-special" data-select="${true}"
-                     data-percentage-keys="[9, 10, 11]">
+                     data-percentage-keys="[17, 18, 19]">
                     <div class="question">
                         <div>What percent of your pain is NECK pain vs. SHOULDER pain vs. ARM pain?</div>
 
@@ -165,11 +137,11 @@
                     <div class="answer-list odi-style">
                         <div class="select-contain">
                             <span class="select-group">
-                                <select class="select-menu" name="choices.9" data-title="NECK PAIN"
+                                <select class="select-menu" name="choices.17" data-title="NECK PAIN"
                                         data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}"
-                                                <g:if test="${Draft?.'9' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                                <g:if test="${Draft?.'17' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Neck <span>+</span></span>
@@ -177,36 +149,49 @@
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.10" data-title="SHOULDER PAIN"
+                                <select class="select-menu" name="choices.18" data-title="SHOULDER PAIN"
                                         data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}"
-                                                <g:if test="${Draft?.'10' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                                <g:if test="${Draft?.'18' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Shoulder <span>+</span></span>
                             </span>
 
                             <span class="select-group">
-                                <select class="select-menu" name="choices.11" data-title="ARM PAIN"
+                                <select class="select-menu" name="choices.19" data-title="ARM PAIN"
                                         data-mobile-dialog-event="showMobileSelectMenuDialog">
                                     <g:each var="j" in="${(0..<10)}">
                                         <option value="${j * 10}"
-                                                <g:if test="${Draft?.'11' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
+                                                <g:if test="${Draft?.'19' == (j * 10).toString()}">selected</g:if>>${j * 10}</option>
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Arm</span>
-                                <span class="select-percent-result">
-                                    = <span id="select-percent-number" class="select-percent-number">
-                                    <span id="select-percent-score">-</span> /100</span>
+                            </span>
+
+                            <span class="select-percent-result">
+                                <span class="result-equal"> = </span>
+                                <span id="select-percent-number" class="select-percent-number">
+                                    <svg width="64" height="64" id="percent-result-svg" class="percent-result-svg">
+                                        <g transform="rotate(-90 32 32)" >
+                                            <circle r="16" cx="32" cy="32" class="result-circle" id="result-circle"/>
+                                        </g>
+                                        <text x="32" y="37" fill="#fff" class="text-middle" id="select-percent-score">0%</text>
+                                    </svg>
                                 </span>
+                                <span id="all-result-tip" class="all-result-tip">
+                                    <div id="result-tip" class="result-tip"></div>
+                                    <div id="result-sub-tip" class="result-sub-tip"></div>
+                                </span>
+
                             </span>
                         </div>
                         <li class="answer">
                             <span id="no-pain-choice" class="inline">
                                 <div class="text">I have no neck, shoulder or arm pain</div>
                                 <label class="choice">
-                                    <input id="no-pain-toggle" type="checkbox" name="choices.12" value="on"
+                                    <input id="no-pain-toggle" type="checkbox" name="choices.20" value="on"
                                            class="rc-choice-hidden"/>
                                     <span class="rc-checkbox primary-radio-color pain-toggle"></span>
                                 </label>
@@ -259,8 +244,8 @@
                                             </div>
                                             <label class="choice choice-number choice-number-${j}">
                                                 <input type="radio" class="rc-choice-hidden"
-                                                       name="choices.${13 + 2 * i}"
-                                                    <g:if test="${Draft && Draft[(13 + 2 * i).toString()] == j.toString()}">checked</g:if>
+                                                       name="choices.${21 + 2 * i}"
+                                                    <g:if test="${Draft && Draft[(21 + 2 * i).toString()] == j.toString()}">checked</g:if>
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -284,8 +269,8 @@
                                             <div class="text">${choice[j]}</div>
                                             <label class="choice">
                                                 <input type="radio" class="rc-choice-hidden"
-                                                       name="choices.${13 + 2 * i + 1}"
-                                                    <g:if test="${Draft && Draft[(13 + 2 * i + 1).toString()] == j.toString()}">checked</g:if>
+                                                       name="choices.${21 + 2 * i + 1}"
+                                                    <g:if test="${Draft && Draft[(21 + 2 * i + 1).toString()] == j.toString()}">checked</g:if>
                                                        value="${j}"/>
                                                 <span class="rc-radio"></span>
                                             </label>
@@ -319,33 +304,39 @@
             </form>
 
             <div id="symptom-choice-dialog" class="modal ui-hidden desktop-mobile-dialog">
-                <div class="msg-header">Select one or more of the symptoms for your <strong id="part-name">Part</strong>
+                <div class="msg-header">
+                    <div class="msg-title">YOU JUST SELECTED:</div>
+                    <div class="part-area">
+                        <span id="part-direction" class="direction-label">RIGHT</span>
+                        <span id="part-name" class="part-name">PART</span>
+                    </div>
                 </div>
 
                 <div class="msg-center code">
-                    <div class="msg-center code">
-                        <g:set var="symptomsArr"
-                               value="['Numbness', 'Stabbing', 'Cramping', 'Ache', 'Burning', 'Pins & Needles']"/>
-                        <g:set var="symptomsVal" value="['N', 'S', 'C', 'A', 'B', 'P']"/>
 
-                        <div class="answer-list" autofocus>
-                            <ul class="list">
-                                <g:each var="symptom" in="${symptomsArr}" status="index">
-                                    <li class="answer">
-                                        <div class="text">${symptom}</div>
-                                        <label class="choice">
-                                            <input type="checkbox"
-                                                   data-index="${index}"
-                                                   class="rc-choice-hidden"
-                                                   name="mobileEnterYear"
-                                                   value="${symptomsVal[index]}"/>
-                                            <span class="rc-checkbox primary-radio-color"></span>
-                                        </label>
-                                    </li>
-                                </g:each>
-                            </ul>
-                        </div>
+                    <g:set var="symptomsArr"
+                           value="['Numbness', 'Stabbing', 'Cramping', 'Ache', 'Burning', 'Pins & Needles']"/>
+                    <g:set var="symptomsVal" value="['N', 'S', 'C', 'A', 'B', 'P']"/>
+
+                    <div>Select one or more of the symptoms</div>
+                    <div class="answer-list" autofocus>
+                        <ul class="list">
+                            <g:each var="symptom" in="${symptomsArr}" status="index">
+                                <li class="answer">
+                                    <div class="text">${symptom}</div>
+                                    <label class="choice">
+                                        <input type="checkbox"
+                                               data-index="${index}"
+                                               class="rc-choice-hidden"
+                                               name="mobileEnterYear"
+                                               value="${symptomsVal[index]}"/>
+                                        <span class="rc-checkbox primary-radio-color"></span>
+                                    </label>
+                                </li>
+                            </g:each>
+                        </ul>
                     </div>
+
                 </div>
             </div>
 
@@ -375,12 +366,9 @@
 
         </div>
     </div>
-    <div class="footer" id="footer">
-        <p><span class="copy-right">© 2016 <img class="logo" src="${assetPath(src: 'Ratchet_Logo_grey.png')}"/></span><span class="vertical-line">|</span>Version RH0.1<span class="vertical-line">|</span>All Rights Reserved.</p>
-        <p>Terms of Service<span class="vertical-line">|</span>Privacy Policy</p>
-    </div>
 
-    <g:render template="/shared/pageMask"></g:render>
+    <g:render template="/shared/copyRight" />
+    <g:render template="/shared/pageMask" />
     </body>
     </html>
     <content tag="GA">

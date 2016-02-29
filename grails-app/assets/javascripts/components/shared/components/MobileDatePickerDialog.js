@@ -25,7 +25,9 @@ function MobileDatePickerDialog() {
         if (!this.$datePicker) {
             this.$datePicker = this.$node.find('.inline-date-picker').datepicker({
                 dateFormat: 'MM d, yy',
-                maxDate: 0
+                maxDate: 0,
+                changeMonth: this.$node.data('changeMonth'),
+                changeYear: this.$node.data('changeYear')
             });
         }
 

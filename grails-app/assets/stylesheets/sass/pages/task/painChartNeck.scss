@@ -95,10 +95,12 @@
     .answer-list {
         @include breakpoint('tablet') {
             padding: 15px 20px;
-            background-color: #fff;
+            background-color: $base-color-white;
         }
 
         &.chart-style {
+            padding: 0;
+
             @include breakpoint('mobile') {
                 background-color: $base-color-white;
             }
@@ -354,7 +356,7 @@
 
     .draw-board {
         position: relative;
-        width: 600px;
+        width: 700px;
         margin: 0 auto;
 
         @include breakpoint('mobile') {
@@ -366,13 +368,13 @@
         display: inline-block;
         @include breakpoint('mobile') {
             display: block;
-            width: 232px;
+            width: 338px;
             margin: 0 auto;
         }
     }
 
     .chart-left {
-        margin-right: 130px;
+        margin-right: 16px;
         @include breakpoint('mobile') {
             margin: 0 auto;
         }
@@ -474,14 +476,53 @@
 
 //for dialog
 .msg-header {
+    padding-left: 1em;
+
     @include breakpoint('mobile') {
-        padding: 1.5em 1em;
+        padding: 1.5em 0.5em;
         font-size: 15px;
     }
 }
 
 .msg-center {
-    padding: 1em 0;
+    padding: 1em;
+
+    @include breakpoint('mobile') {
+        padding: 1em 0.5em;
+    }
+
+    .answer-list {
+        margin-left: -18px;
+    }
+}
+
+.msg-title {
+    font-size: 14px;
+    color: $base-font-grey;
+}
+
+.part-area {
+    padding: 10px 0;
+}
+
+.direction-label {
+    padding: 1px 20px;
+    border-radius: 4px;
+    background-color: $base-color-blue;
+    color: $base-color-white;
+    font-size: 19px;
+
+    &.Left{
+        background-color: $base-color-orange;
+    }
+    &.Right {
+        background-color: $base-color-blue;
+    }
+}
+
+.part-name {
+    padding: 0 8px;
+    font-weight: 700;
 }
 
 .select-contain {
@@ -513,18 +554,69 @@
 }
 
 .select-percent-result {
-    display: inline-block;
+    display: inline-flex;
+    position: relative;
+    top: -14px;
     vertical-align: top;
-    margin-top: 10px;
+    align-items: center;
+
+    //> = ie 10
+    display: -ms-inline-flexbox;
+    -ms-flex-direction: row;
+    -ms-flex-align: center;
+    -ms-flex-wrap: wrap;
 
     @include breakpoint('mobile') {
-        display: block;
+        top: 12px;
     }
+}
+
+.select-percent-number {
+    display: inline-block;
+}
+
+//for percent result
+.percent-result-svg {
+    background: $base-color-disable-white;
+    border-radius: 50%;
+}
+
+.result-equal {
+    padding-right: 10px;
+}
+
+.result-circle {
+    fill: $base-color-disable-white;
+//    stroke: $base-color-success;
+    stroke-width: 32;
+    stroke-dasharray: 0 201;
+}
+
+.all-result-tip {
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.text-middle {
+    text-anchor: middle;
+}
+
+.text-start {
+    text-anchor: start;
+}
+
+.circle-error {
+    stroke: $base-color-red;
+}
+
+.circle-doing {
+    stroke: $base-color-success
 }
 
 .inline {
     display: inline-block;
 }
+
 
 
 

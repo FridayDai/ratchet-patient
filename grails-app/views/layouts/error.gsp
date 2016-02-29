@@ -19,7 +19,10 @@
 </head>
 
 <body>
+<div class="main-wrapper">
 <g:layoutBody/>
+<g:render template="/shared/copyRight"/>
+</div>
 <g:if test="${scriptPath}">
   <asset:javascript src="bundles/${scriptPath}"/>
 </g:if>

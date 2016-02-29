@@ -39,7 +39,9 @@ function PatientQuestionnaireTool() {
         datePickerSelector: {
             child: DatePicker,
             attributes: {
-                maxDate: 0
+                maxDate: 0,
+                changeMonth: true,
+                changeYear: true
             }
         }
     });

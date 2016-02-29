@@ -6,6 +6,7 @@ function SymptomDialog() {
     this.attributes({
         checkBoxGroupSelector: '.msg-center',
         partNameSelector: '#part-name',
+        partDirectionSelector: '#part-direction',
         choiceItemSelector: '.ui-dialog .answer'
     });
 
@@ -25,6 +26,7 @@ function SymptomDialog() {
         checkBoxGroup.find("input:checked").prop('checked', false);
         var resultValue = data.tags;
         var bodyName = this.bodyName = data.bodyName;
+        var direction;
 
         if (resultValue) {
             var symptomTags = resultValue.split(',');
@@ -35,7 +37,18 @@ function SymptomDialog() {
         }
 
         if (bodyName) {
-            this.select('partNameSelector').text(bodyName.replace(/-/g, ' '));
+            direction = bodyName.match(/^\w+/);
+            direction = direction ? direction[0] : '';
+
+            if(direction === 'Middle') {
+                this.select('partDirectionSelector').hide();
+            } else {
+                this.select('partDirectionSelector').show()
+                    .removeClass('Left').removeClass('Right')
+                    .addClass(direction).text(direction);
+            }
+
+            this.select('partNameSelector').text(bodyName.replace(/(?:\w+)-(\w+)-?(\w*)/, "$1 $2"));
         }
     };
 

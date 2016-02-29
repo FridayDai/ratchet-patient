@@ -1,6 +1,7 @@
 require('../../../libs/MobileSelectMenu');
 
 var flight = require('flight');
+var snap = require('snapsvg');
 var Notifications = require('../../common/Notification');
 
 function PainPercentPanel() {
@@ -8,8 +9,11 @@ function PainPercentPanel() {
         painChoiceSelector: "#no-pain-choice",
         painToggleSelector: '#no-pain-toggle',
         selectMenuSelector: '.select-menu',
-        resultNumberSelector: '#select-percent-number',
-        resultScoreSelector: '#select-percent-score'
+        resultNumberSelector: '#all-result-tip',
+        resultScoreSelector: '#select-percent-score',
+        resultCircle: '#result-circle',
+        resultTip: '#result-tip',
+        resultSubTip: '#result-sub-tip'
     });
 
     this.clearAllErrorStatus = function () {
@@ -25,12 +29,12 @@ function PainPercentPanel() {
 
     this.clearErrorStatus = function () {
         var question = $('#pain-percent-question');
-            if ($(question).hasClass('error')) {
-                $(question)
-                    .removeClass('error')
-                    .find('.error-label')
-                    .remove();
-            }
+        if ($(question).hasClass('error')) {
+            $(question)
+                .removeClass('error')
+                .find('.error-label')
+                .remove();
+        }
     };
 
     this.initSelectMenuButtonText = function () {
@@ -38,22 +42,65 @@ function PainPercentPanel() {
     };
 
     this.initResult = function () {
-        var $question = this.select('resultNumberSelector');
-        $question.removeClass('error success');
-        $question.find('span').text('-');
-    };
+        var resultScore = snap(this.attr.resultScoreSelector);
+        var resultCircle = snap(this.attr.resultCircle);
 
-    this.clearResultError = function () {
-        var $question = this.select('resultNumberSelector');
-        if ($question.hasClass('error')) {
-            $question.removeClass('error').addClass('success');
+        this.clearResultError();
+
+        resultCircle.removeClass('circle-error');
+        resultCircle.attr({
+            strokeDasharray: 0 + ' ' + 100
+        });
+
+        resultScore.attr({text: '0%'});
+        if (resultScore.hasClass('text-start')) {
+            resultScore.removeClass('text-start').addClass('text-middle');
         }
     };
 
-    this.addResultError = function () {
+    this.resultSuccess = function () {
+        var $question = this.select('resultNumberSelector');
+        $question.removeClass('error').addClass('success');
+
+        this.select('resultTip').text('Great!');
+        snap(this.attr.resultCircle).removeClass('circle-error').addClass('circle-doing');
+
+        //fixed for ie.
+        snap(this.attr.resultCircle).attr({
+            strokeDasharray: 101 + ' ' + 100
+        });
+    };
+
+    this.clearResultError = function () {
+        this.select('resultNumberSelector').removeClass('error success');
+        snap(this.attr.resultCircle).removeClass('circle-error circle-doing');
+        this.select('resultTip').text('');
+        this.select('resultSubTip').text('');
+    };
+
+    this.addResultError = function (score) {
+
         var $question = this.select('resultNumberSelector');
         if (!$question.hasClass('error')) {
             $question.removeClass('success').addClass('error');
+        }
+
+        if (score === 0) {
+            snap(this.attr.resultCircle).removeClass('circle-error circle-doing');
+            return;
+        }
+
+        if (score > 100) {
+            snap(this.attr.resultCircle).removeClass('circle-doing').addClass('circle-error');
+            this.select('resultTip').text('Too much!');
+            this.select('resultSubTip').text('Please take out ' + (score - 100) + '%.');
+            return;
+        }
+
+        if(score > 0 && score < 100) {
+            snap(this.attr.resultCircle).removeClass('circle-error').addClass('circle-doing');
+            this.select('resultTip').text('Add more!');
+            this.select('resultSubTip').text('');
         }
     };
 
@@ -162,19 +209,35 @@ function PainPercentPanel() {
 
     this.sumScore = function () {
         var score = 0;
+        var result = snap(this.attr.resultScoreSelector);
 
         _.forEach(this.select('selectMenuSelector'), function (element) {
             score = score + Number($(element).val());
         });
 
+        //sum the score
+        result.attr({text: score + '%'});
+        snap(this.attr.resultCircle).attr({
+            strokeDasharray: score + ' ' + 100
+        });
 
-        this.select('resultScoreSelector').text(score);
+        //adjust the text
+        if (score > 0 && score < 100) {
+            if (result.hasClass('text-middle')) {
+                result.removeClass('text-middle').addClass('text-start');
+            }
+        } else if (result.hasClass('text-start')) {
+            result.removeClass('text-start').addClass('text-middle');
+        }
 
+        //turn to state error or success
         if (score === 100) {
-            this.clearResultError();
             this.clearErrorStatus();
+
+            this.clearResultError();
+            this.resultSuccess();
         } else {
-            this.addResultError();
+            this.addResultError(score);
         }
     };
 
@@ -207,7 +270,6 @@ function PainPercentPanel() {
 
     this.after('initialize', function () {
         this.initSelectMenu();
-
 
         this.on(this.attr.painChoiceSelector, 'click', {
             painChoiceSelector: this.forPainChoiceClick
