@@ -63,29 +63,44 @@ function PainPercentPanel() {
         $question.removeClass('error').addClass('success');
 
         this.select('resultTip').text('Great!');
-        snap(this.attr.resultCircle).removeClass('circle-error');
+        snap(this.attr.resultCircle).removeClass('circle-error').addClass('circle-doing');
+
+        //fixed for ie.
+        snap(this.attr.resultCircle).attr({
+            strokeDasharray: 101 + ' ' + 100
+        });
     };
 
     this.clearResultError = function () {
         this.select('resultNumberSelector').removeClass('error success');
+        snap(this.attr.resultCircle).removeClass('circle-error circle-doing');
         this.select('resultTip').text('');
         this.select('resultSubTip').text('');
     };
 
     this.addResultError = function (score) {
-        if (score > 100) {
-            snap(this.attr.resultCircle).addClass('circle-error');
-            this.select('resultTip').text('Too much!');
-            this.select('resultSubTip').text('Please take out ' + (score - 100) + '%.');
-        } else {
-            snap(this.attr.resultCircle).removeClass('circle-error');
-            this.select('resultTip').text('Add more!');
-            this.select('resultSubTip').text('');
-        }
 
         var $question = this.select('resultNumberSelector');
         if (!$question.hasClass('error')) {
             $question.removeClass('success').addClass('error');
+        }
+
+        if (score === 0) {
+            snap(this.attr.resultCircle).removeClass('circle-error circle-doing');
+            return;
+        }
+
+        if (score > 100) {
+            snap(this.attr.resultCircle).removeClass('circle-doing').addClass('circle-error');
+            this.select('resultTip').text('Too much!');
+            this.select('resultSubTip').text('Please take out ' + (score - 100) + '%.');
+            return;
+        }
+
+        if(score > 0 && score < 100) {
+            snap(this.attr.resultCircle).removeClass('circle-error').addClass('circle-doing');
+            this.select('resultTip').text('Add more!');
+            this.select('resultSubTip').text('');
         }
     };
 

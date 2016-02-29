@@ -62,6 +62,10 @@
             cursor: default;
             opacity: 0.3;
         }
+
+        .select-percent {
+            color: ${     client.primaryColorHex?:'#4d4d4d'     };
+        }
         </style>
 
         <g:if test="${isInClinic}">
@@ -112,7 +116,7 @@
 
                         <input type="hidden" id="Left-Back-Shoulder-hidden" name="choices.8" value="${Draft?.'8' ?: ''}"/>
                         <input type="hidden" id="Right-Back-Shoulder-hidden" name="choices.9" value="${Draft?.'9' ?: ''}"/>
-                        <input type="hidden" id="Right-Back-Neck-hidden" name="choices.10" value="${Draft?.'10' ?: ''}"/>
+                        <input type="hidden" id="Middle-Back-Neck-hidden" name="choices.10" value="${Draft?.'10' ?: ''}"/>
                         <input type="hidden" id="Right-Back-Upperarm-hidden" name="choices.11" value="${Draft?.'11' ?: ''}"/>
                         <input type="hidden" id="Right-Back-Forearm-hidden" name="choices.12" value="${Draft?.'12' ?: ''}"/>
                         <input type="hidden" id="Right-Back-Hand-hidden" name="choices.13" value="${Draft?.'13' ?: ''}"/>
@@ -164,23 +168,23 @@
                                     </g:each>
                                 </select>
                                 <span class="select-percent">% Arm</span>
+                            </span>
 
-                                <span class="select-percent-result">
-                                    <span class="result-equal"> = </span>
-                                    <span id="select-percent-number" class="select-percent-number">
-                                        <svg width="64" height="64" id="percent-result-svg" class="percent-result-svg">
-                                            <g transform="rotate(-90 32 32)" >
-                                                <circle r="16" cx="32" cy="32" class="result-circle" id="result-circle"/>
-                                            </g>
-                                            <text x="32" y="37" fill="#fff" class="text-middle" id="select-percent-score">0%</text>
-                                        </svg>
-                                    </span>
-                                    <span id="all-result-tip" class="all-result-tip">
-                                        <div id="result-tip" class="result-tip"></div>
-                                        <div id="result-sub-tip" class="result-sub-tip"></div>
-                                    </span>
-
+                            <span class="select-percent-result">
+                                <span class="result-equal"> = </span>
+                                <span id="select-percent-number" class="select-percent-number">
+                                    <svg width="64" height="64" id="percent-result-svg" class="percent-result-svg">
+                                        <g transform="rotate(-90 32 32)" >
+                                            <circle r="16" cx="32" cy="32" class="result-circle" id="result-circle"/>
+                                        </g>
+                                        <text x="32" y="37" fill="#fff" class="text-middle" id="select-percent-score">0%</text>
+                                    </svg>
                                 </span>
+                                <span id="all-result-tip" class="all-result-tip">
+                                    <div id="result-tip" class="result-tip"></div>
+                                    <div id="result-sub-tip" class="result-sub-tip"></div>
+                                </span>
+
                             </span>
                         </div>
                         <li class="answer">
@@ -309,29 +313,30 @@
                 </div>
 
                 <div class="msg-center code">
-                    <div class="msg-center code">
-                        <g:set var="symptomsArr"
-                               value="['Numbness', 'Stabbing', 'Cramping', 'Ache', 'Burning', 'Pins & Needles']"/>
-                        <g:set var="symptomsVal" value="['N', 'S', 'C', 'A', 'B', 'P']"/>
 
-                        <div class="answer-list" autofocus>
-                            <ul class="list">
-                                <g:each var="symptom" in="${symptomsArr}" status="index">
-                                    <li class="answer">
-                                        <div class="text">${symptom}</div>
-                                        <label class="choice">
-                                            <input type="checkbox"
-                                                   data-index="${index}"
-                                                   class="rc-choice-hidden"
-                                                   name="mobileEnterYear"
-                                                   value="${symptomsVal[index]}"/>
-                                            <span class="rc-checkbox primary-radio-color"></span>
-                                        </label>
-                                    </li>
-                                </g:each>
-                            </ul>
-                        </div>
+                    <g:set var="symptomsArr"
+                           value="['Numbness', 'Stabbing', 'Cramping', 'Ache', 'Burning', 'Pins & Needles']"/>
+                    <g:set var="symptomsVal" value="['N', 'S', 'C', 'A', 'B', 'P']"/>
+
+                    <div>Select one or more of the symptoms</div>
+                    <div class="answer-list" autofocus>
+                        <ul class="list">
+                            <g:each var="symptom" in="${symptomsArr}" status="index">
+                                <li class="answer">
+                                    <div class="text">${symptom}</div>
+                                    <label class="choice">
+                                        <input type="checkbox"
+                                               data-index="${index}"
+                                               class="rc-choice-hidden"
+                                               name="mobileEnterYear"
+                                               value="${symptomsVal[index]}"/>
+                                        <span class="rc-checkbox primary-radio-color"></span>
+                                    </label>
+                                </li>
+                            </g:each>
+                        </ul>
                     </div>
+
                 </div>
             </div>
 

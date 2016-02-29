@@ -39,7 +39,15 @@ function SymptomDialog() {
         if (bodyName) {
             direction = bodyName.match(/^\w+/);
             direction = direction ? direction[0] : '';
-            this.select('partDirectionSelector').text(direction);
+
+            if(direction === 'Middle') {
+                this.select('partDirectionSelector').hide();
+            } else {
+                this.select('partDirectionSelector').show()
+                    .removeClass('Left').removeClass('Right')
+                    .addClass(direction).text(direction);
+            }
+
             this.select('partNameSelector').text(bodyName.replace(/(?:\w+)-(\w+)-?(\w*)/, "$1 $2"));
         }
     };

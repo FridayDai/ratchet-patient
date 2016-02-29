@@ -62,6 +62,10 @@
             cursor: default;
             opacity: 0.3;
         }
+
+        .select-percent {
+            color: ${     client.primaryColorHex?:'#4d4d4d'     };
+        }
         </style>
 
         <g:if test="${isInClinic}">
@@ -109,8 +113,8 @@
                         <input type="hidden" id="Left-Front-Calf-hidden" name="choices.4" value="${Draft?.'4' ?: ''}"/>
                         <input type="hidden" id="Left-Front-Feet-hidden" name="choices.5" value="${Draft?.'5' ?: ''}"/>
 
-                        <input type="hidden" id="Left-Back-hidden" name="choices.6" value="${Draft?.'6' ?: ''}"/>
-                        <input type="hidden" id="Left-Lower-Back-hidden" name="choices.7" value="${Draft?.'7' ?: ''}"/>
+                        <input type="hidden" id="Middle-Back-hidden" name="choices.6" value="${Draft?.'6' ?: ''}"/>
+                        <input type="hidden" id="Middle-Lower-Back-hidden" name="choices.7" value="${Draft?.'7' ?: ''}"/>
                         <input type="hidden" id="Left-Buttock-hidden" name="choices.8" value="${Draft?.'8' ?: ''}"/>
                         <input type="hidden" id="Right-Buttock-hidden" name="choices.9" value="${Draft?.'9' ?: ''}"/>
                         <input type="hidden" id="Left-Back-Feet-hidden" name="choices.10" value="${Draft?.'10' ?: ''}"/>
