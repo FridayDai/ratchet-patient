@@ -212,43 +212,43 @@ ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvV
 ratchetv2 {
     server {
         url {
-            base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com/api/v1"
+            base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com"
 
             // Client
             client {
-                subDomain = "${ratchetv2.server.url.base}/clients/domain?subDomain=%s"
+                subDomain = "${ratchetv2.server.url.base}/api/v1/clients/domain?subDomain=%s"
             }
 
             //patient
             patient {
-                update = "${ratchetv2.server.url.base}/tests/collect/email"
+                update = "${ratchetv2.server.url.base}/api/v1/tests/collect/email"
             }
 
             // Email
             email {
-                patientConfirmation = "${ratchetv2.server.url.base}/patient/confirm"
-                emergencyContactConfirmation = "${ratchetv2.server.url.base}/caregiver/confirm"
-                checkPhoneNumber = "${ratchetv2.server.url.base}/patients/%d/check_phone_number"
-                subscribe = "${ratchetv2.server.url.base}/patients/%d/subscribe"
-                checkPatientEmail = "${ratchetv2.server.url.base}/patients/check_email"
+                patientConfirmation = "${ratchetv2.server.url.base}/api/v1/patient/confirm"
+                emergencyContactConfirmation = "${ratchetv2.server.url.base}/api/v1/caregiver/confirm"
+                checkPhoneNumber = "${ratchetv2.server.url.base}/api/v1/patients/%d/check_phone_number"
+                subscribe = "${ratchetv2.server.url.base}/api/v1/patients/%d/subscribe"
+                checkPatientEmail = "${ratchetv2.server.url.base}/api/v1/patients/check_email"
             }
 
             // Task
             task {
-                getPatientInfo = "${ratchetv2.server.url.base}/tests/assist/%s"
-                oneTest = "${ratchetv2.server.url.base}/tests/%s"
-                tests = "${ratchetv2.server.url.base}/tests"
-                recordBehaviour = "${ratchetv2.server.url.base}/tests/%s/link/clicked"
-                recordTaskStart = "${ratchetv2.server.url.base}/tests/%s/link/started"
-                testResult = "${ratchetv2.server.url.base}/test/result"
-                getTreatmentTests = "${ratchetv2.server.url.base}/tests/treatment"
-                saveDraftAnswer = "${ratchetv2.server.url.base}/test/answer"
+                getPatientInfo = "${ratchetv2.server.url.base}/api/v1/tests/assist/%s"
+                oneTest = "${ratchetv2.server.url.base}/api/v1/tests/%s"
+                tests = "${ratchetv2.server.url.base}/api/v1/tests"
+                recordBehaviour = "${ratchetv2.server.url.base}/api/v1/tests/%s/link/clicked"
+                recordTaskStart = "${ratchetv2.server.url.base}/api/v1/tests/%s/link/started"
+                testResult = "${ratchetv2.server.url.base}/api/v1/test/result"
+                getTreatmentTests = "${ratchetv2.server.url.base}/api/v1/tests/treatment"
+                saveDraftAnswer = "${ratchetv2.server.url.base}/api/v1/test/answer"
             }
 
-            addAssist = "${ratchetv2.server.url.base}/assist"
+            addAssist = "${ratchetv2.server.url.base}/api/v1/assist"
 
             // Announcement
-            announcements = "${ratchetv2.server.url.base}/announcements"
+            announcements = "${ratchetv2.server.url.base}/api/v1/announcements"
         }
     }
 
