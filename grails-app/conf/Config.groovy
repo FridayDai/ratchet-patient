@@ -165,6 +165,8 @@ grails.plugin.cookiesession.enabled = true
 grails.plugin.cookiesession.cookiename = "ratchet-session"
 grails.plugin.cookiesession.sessiontimeout = 900
 grails.plugin.cookiesession.secret = "uNo[^ELgm87pjBkEsV8Bwvt[P".bytes.encodeBase64(false).toString()
+grails.plugin.cookiesession.httponly = true
+grails.plugin.cookiesession.setsecure = !System.getProperty("NOT_SUPPORT_HTTPS")?.toBoolean()
 
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
