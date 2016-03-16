@@ -186,31 +186,35 @@
     </g>
 
     <rect x="10.713" y="17.774" fill="none" width="143.581" height="20.666"/>
-    <text transform="matrix(1 0 0 1 53.5005 34.8143)" fill="#FFFFFF" font-family="'Lato-Heavy'" font-size="24" letter-spacing="1">Right</text>
+    <text transform="matrix(1 0 0 1 53.5005 34.8143)" fill="#FFFFFF"  font-size="21" letter-spacing="1">Right</text>
     <g>
         <rect x="183.3" y="17.774" fill="none" width="143.581" height="20.666"/>
-        <text transform="matrix(1 0 0 1 234.1384 34.8143)" fill="#FFFFFF" font-family="'Lato-Heavy'" font-size="24" letter-spacing="1">Left</text>
+        <text transform="matrix(1 0 0 1 234.1384 34.8143)" fill="#FFFFFF"  font-size="21" letter-spacing="1">Left</text>
     </g>
     <g>
         <circle class="part-direction" fill="#FFFFFF" cx="255.09" cy="90.743" r="24.943"/>
         <rect x="242.701" y="75.308" fill="none" width="24.779" height="30.87"/>
-        <text transform="matrix(1 0 0 1 246.594 100.8673)" fill="#FDBC24" font-family="'Lato-Heavy'" font-size="36" letter-spacing="1">L</text>
+        <text transform="matrix(1 0 0 1 246.594 100.8673)" fill="#FDBC24"  font-size="30" letter-spacing="1">L</text>
     </g>
     <g>
         <circle class="part-direction" fill="#FFFFFF" cx="82.503" cy="90.743" r="24.943"/>
         <rect x="70.114" y="75.308" fill="none" width="24.779" height="30.87"/>
-        <text transform="matrix(1 0 0 1 72.8198 100.8673)" fill="#0095E0" font-family="'Lato-Heavy'" font-size="36" letter-spacing="1">R</text>
+        <text transform="matrix(1 0 0 1 72.8198 100.8673)" fill="#0095E0"  font-size="30" letter-spacing="1">R</text>
     </g>
-    <text class="indication" id="XMLID_609_" transform="matrix(1 0 0 1 249.3236 485.792)" fill="#333333" font-family="'Lato-Bold'" font-size="11">Left Thigh</text>
-    <line class="indication" fill="none" stroke="#333333" stroke-miterlimit="10" x1="247.273" y1="484.079" x2="212.961" y2="506.726"/>
-    <text class="indication" id="XMLID_608_" transform="matrix(1 0 0 1 249.3236 571.5728)" fill="#333333" font-family="'Lato-Bold'" font-size="11">Left Calf</text>
-    <line class="indication" fill="none" stroke="#333333" stroke-miterlimit="10" x1="247.273" y1="568.488" x2="212.961" y2="573.978"/>
-    <text class="indication" id="XMLID_607_" transform="matrix(1 0 0 1 249.3236 669.7061)" fill="#333333" font-family="'Lato-Bold'" font-size="11">Left Feet</text>
-    <line class="indication" fill="none" stroke="#333333" stroke-miterlimit="10" x1="247.273" y1="666.621" x2="212.961" y2="672.111"/>
-    <text class="indication" id="XMLID_606_" transform="matrix(1 0 0 1 29.9554 485.792)" fill="#333333" font-family="'Lato-Bold'" font-size="11">Right Thigh</text>
-    <line class="indication" fill="none" stroke="#333333" stroke-miterlimit="10" x1="87.539" y1="484.079" x2="121.852" y2="506.726"/>
-    <text class="indication" id="XMLID_605_" transform="matrix(1 0 0 1 33.7356 571.5728)" fill="#333333" font-family="'Lato-Bold'" font-size="11">Right Calf</text>
-    <line class="indication" fill="none" stroke="#333333" stroke-miterlimit="10" x1="84.366" y1="568.488" x2="118.678" y2="573.978"/>
-    <text class="indication" id="XMLID_604_" transform="matrix(1 0 0 1 30.2103 669.7061)" fill="#333333" font-family="'Lato-Bold'" font-size="11">Right Feet</text>
-    <line class="indication" fill="none" stroke="#333333" stroke-miterlimit="10" x1="83.573" y1="666.621" x2="117.885" y2="672.111"/>
+    
+    <g class="indication">
+        <text  id="XMLID_609_" transform="matrix(1 0 0 1 249.3236 485.792) scale(0.83)" fill="#333333"  font-size="12">Left Thigh</text>
+        <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="247.273" y1="484.079" x2="212.961" y2="506.726"/>
+        <text  id="XMLID_608_" transform="matrix(1 0 0 1 249.3236 571.5728) scale(0.83)" fill="#333333"  font-size="12">Left Calf</text>
+        <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="247.273" y1="568.488" x2="212.961" y2="573.978"/>
+        <text  id="XMLID_607_" transform="matrix(1 0 0 1 249.3236 669.7061) scale(0.83)" fill="#333333"  font-size="12">Left Feet</text>
+        <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="247.273" y1="666.621" x2="212.961" y2="672.111"/>
+        <text  id="XMLID_606_" transform="matrix(1 0 0 1 29.9554 485.792) scale(0.83)" fill="#333333"  font-size="12">Right Thigh</text>
+        <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="87.539" y1="484.079" x2="121.852" y2="506.726"/>
+        <text  id="XMLID_605_" transform="matrix(1 0 0 1 33.7356 571.5728) scale(0.83)" fill="#333333"  font-size="12">Right Calf</text>
+        <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="84.366" y1="568.488" x2="118.678" y2="573.978"/>
+        <text  id="XMLID_604_" transform="matrix(1 0 0 1 30.2103 669.7061) scale(0.83)" fill="#333333"  font-size="12">Right Feet</text>
+        <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="83.573" y1="666.621" x2="117.885" y2="672.111"/>
+    </g>
+    
 </svg>

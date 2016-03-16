@@ -66,13 +66,18 @@
     &:focus {
         text-decoration: underline;
     }
+
+    margin-bottom: 40px;
 }
 
 .footer {
     background:$base-color-white;
-    position: absolute;
-    bottom: 0;
     width: 100%;
+
+    @include breakpoint('tablet') {
+        position: absolute;
+        bottom: 0;
+    }
 }
 
 

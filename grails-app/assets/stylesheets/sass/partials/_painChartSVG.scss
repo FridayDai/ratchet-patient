@@ -1,5 +1,6 @@
 .human {
     pointer-events:all;
+    overflow: visible;
 
     &.disabled {
         pointer-events: none;

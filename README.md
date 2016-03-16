@@ -55,6 +55,8 @@ ratchet-v2-user-desktop
 
 	```
         grails run-app
+        //If running on localhost should add NOT_SUPPORT_HTTPS ENV variable to true, as:
+        grails run-app -DNOT_SUPPORT_HTTPS=true
     ```
     
     ```
@@ -75,3 +77,4 @@ ratchet-v2-user-desktop
 - GA_TRACKING_ID
 - CDN_ENABLE    // true | false | not define
 - CDN_ASSET_DOMAIN_PATIENT    // just cloudfront url domain like: ```https://d1gdqclzwn7f9.cloudfront.net```
+- NOT_SUPPORT_HTTPS    # true | false | not define
