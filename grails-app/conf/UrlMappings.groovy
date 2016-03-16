@@ -37,5 +37,8 @@ class UrlMappings {
         "/announcement/close"(controller: "announcement", action: "close")
 
         "404"(view: '/error/404')
+
+        "/robots.txt" (view: "/robots")
+        "/sitemap.xml" (view: "/sitemap")
     }
 }
