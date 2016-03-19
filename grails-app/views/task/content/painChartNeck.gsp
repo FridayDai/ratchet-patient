@@ -86,7 +86,7 @@
 
                 <div id="pain-drawing-board" class="question-list-special pain-draw" data-chart="${'true'.toBoolean()}">
                     <div class="question">
-                        <h3>Pain Drawing</h3>
+                        <h3>Pain Diagram</h3>
 
                         <p>Click on the area where you feel pain and select the type of symptom(s) you feel in that area.</p>
                     </div>
@@ -315,7 +315,7 @@
                 <div class="msg-center code">
 
                     <g:set var="symptomsArr"
-                           value="['Numbness', 'Stabbing', 'Cramping', 'Ache', 'Burning', 'Pins & Needles']"/>
+                           value="['Numbness', 'Stabbing', 'Cramping', 'Aching', 'Burning', 'Pins & Needles']"/>
                     <g:set var="symptomsVal" value="['N', 'S', 'C', 'A', 'B', 'P']"/>
 
                     <div>Select one or more of the symptoms</div>

@@ -86,7 +86,7 @@
 
                 <div id="pain-drawing-board" class="question-list-special pain-draw" data-chart="${'true'.toBoolean()}">
                     <div class="question">
-                        <h3>Pain Drawing</h3>
+                        <h3>Pain Diagram</h3>
 
                         <p>Click on the area where you feel pain and select the type of symptom(s) you feel in that area.</p>
                     </div>
@@ -108,21 +108,21 @@
                     <div id="svg-choice-result">
                         <input type="hidden" id="Right-Front-Thigh-hidden" name="choices.0" value="${Draft?.'0' ?: ''}"/>
                         <input type="hidden" id="Right-Front-Calf-hidden" name="choices.1" value="${Draft?.'1' ?: ''}"/>
-                        <input type="hidden" id="Right-Front-Feet-hidden" name="choices.2" value="${Draft?.'2' ?: ''}"/>
+                        <input type="hidden" id="Right-Front-Foot-hidden" name="choices.2" value="${Draft?.'2' ?: ''}"/>
                         <input type="hidden" id="Left-Front-Thigh-hidden" name="choices.3" value="${Draft?.'3' ?: ''}"/>
                         <input type="hidden" id="Left-Front-Calf-hidden" name="choices.4" value="${Draft?.'4' ?: ''}"/>
-                        <input type="hidden" id="Left-Front-Feet-hidden" name="choices.5" value="${Draft?.'5' ?: ''}"/>
+                        <input type="hidden" id="Left-Front-Foot-hidden" name="choices.5" value="${Draft?.'5' ?: ''}"/>
 
                         <input type="hidden" id="Middle-Back-hidden" name="choices.6" value="${Draft?.'6' ?: ''}"/>
                         <input type="hidden" id="Middle-Lower-Back-hidden" name="choices.7" value="${Draft?.'7' ?: ''}"/>
                         <input type="hidden" id="Left-Buttock-hidden" name="choices.8" value="${Draft?.'8' ?: ''}"/>
                         <input type="hidden" id="Right-Buttock-hidden" name="choices.9" value="${Draft?.'9' ?: ''}"/>
-                        <input type="hidden" id="Left-Back-Feet-hidden" name="choices.10" value="${Draft?.'10' ?: ''}"/>
+                        <input type="hidden" id="Left-Back-Foot-hidden" name="choices.10" value="${Draft?.'10' ?: ''}"/>
                         <input type="hidden" id="Left-Back-Calf-hidden" name="choices.11" value="${Draft?.'11' ?: ''}"/>
                         <input type="hidden" id="Left-Back-Thigh-hidden" name="choices.12" value="${Draft?.'12' ?: ''}"/>
                         <input type="hidden" id="Right-Back-Thigh-hidden" name="choices.13" value="${Draft?.'13' ?: ''}"/>
                         <input type="hidden" id="Right-Back-Calf-hidden" name="choices.14" value="${Draft?.'14' ?: ''}"/>
-                        <input type="hidden" id="Right-Back-Feet-hidden" name="choices.15" value="${Draft?.'15' ?: ''}"/>
+                        <input type="hidden" id="Right-Back-Foot-hidden" name="choices.15" value="${Draft?.'15' ?: ''}"/>
                     </div>
                 </div>
 
@@ -314,7 +314,7 @@
 
                 <div class="msg-center code">
                     <g:set var="symptomsArr"
-                           value="['Numbness', 'Stabbing', 'Cramping', 'Ache', 'Burning', 'Pins & Needles']"/>
+                           value="['Numbness', 'Stabbing', 'Cramping', 'Aching', 'Burning', 'Pins & Needles']"/>
                     <g:set var="symptomsVal" value="['N', 'S', 'C', 'A', 'B', 'P']"/>
 
                     <div>Select one or more of the symptoms</div>

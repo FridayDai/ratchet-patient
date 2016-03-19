@@ -103,13 +103,7 @@
                             <li class="answer"
                                 data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Review injection results <span class="explain-part">(</span>
-                                    <span class="specify-part">
-                                        <span class="label">Injection date:</span>
-                                        <input type="text" name="choices.1-2s" class="date-picker" readonly <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 2.toString()}">disabled</g:if> value="${Draft?.'1-2s'}"/>
-                                    </span>
-                                    <span class="explain-part">)</span>
-                                </div>
+                                <div class="text">Review injection results</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -137,13 +131,7 @@
                             <li class="answer"
                                 data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Post-operative follow-up <span class="explain-part">(</span>
-                                    <span class="specify-part">
-                                        <span class="label">Surgery date:</span>
-                                        <input type="text" name="choices.1-4s" class="date-picker" readonly <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 4.toString()}">disabled</g:if> value="${Draft?.'1-4s'}"/>
-                                    </span>
-                                    <span class="explain-part">)</span>
-                                </div>
+                                <div class="text">Post-operative follow-up</div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"

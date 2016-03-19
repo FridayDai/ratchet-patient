@@ -14,9 +14,32 @@ var DATE_ITEM_TEMP = [
 
 var ADD_DATE_TEMP = [
     '<span class="multi-date-picker-add">',
-        '<input type="text" class="multi-date-picker-add-input"/>',
         '<span class="multi-date-picker-add-button">+ Add Date</span>',
     '</span>'
+].join('');
+
+function getOptions(items) {
+    return _.map(items, function(item) {
+        return '<option value="' + item + '">' + item + '</option>';
+    });
+}
+
+var MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var currentYear = new Date().getFullYear();
+var YEAR_ARRAY = _.range(currentYear, currentYear - 3, -1);
+var MONTH_OPTIONS = getOptions(MONTH_SHORT);
+var YEAR_OPTIONS = getOptions(YEAR_ARRAY);
+
+var ADD_DATE_POPUP = [
+    '<div class="multi-date-picker-add-pop">',
+        '<select class="month-picker">',
+            MONTH_OPTIONS.join(''),
+        '</select>',
+        '<select class="year-picker">',
+            YEAR_OPTIONS.join(''),
+        '</select>',
+        '<span class="add-button">+</span>',
+    '</div>'
 ].join('');
 
 function MultipleDatePicker() {
@@ -24,7 +47,7 @@ function MultipleDatePicker() {
         disabled: false
     });
 
-    this.initComponent = function (options) {
+    this.initComponent = function () {
         this.data = [];
 
         this.$node
@@ -33,29 +56,37 @@ function MultipleDatePicker() {
 
         var me = this;
 
-        $(ADD_DATE_TEMP)
-            .find('input')
-            .datepicker(_.assign({
-                dateFormat: 'MM d, yy',
-                onSelect: function (dateText) {
-                    this.fixFocusIE = true;
-
-                    me.addDate(dateText, true);
-                }
-            }, options))
-            .end()
+        var $addDate = $(ADD_DATE_TEMP)
             .click(function () {
                 if (!me.attr.disabled) {
                     if (Utility.isMobile()) {
-                        me.trigger('rc.showMobileDatePickerDialog', {
-                            $elem: me.$node
+                        me.trigger('showMultipleDateMobileDialog', {
+                            $elem: me.$node,
+                            content: {
+                                monthOptions: MONTH_OPTIONS,
+                                yearOptions: YEAR_OPTIONS
+                            }
                         });
                     } else {
-                        $(this).find('input').datepicker('show');
+                        me.showAddDatePopup();
                     }
                 }
             })
             .appendTo(this.$node.find('ul'));
+
+        this.$addDatePopup =
+            $(ADD_DATE_POPUP)
+                .find('select')
+                .selectmenu()
+                .end()
+                .hide()
+                .appendTo($addDate);
+
+        var $selectMenuButton = this.$addDatePopup.find('.ui-selectmenu-button');
+        $selectMenuButton.first().addClass('month-picker-selectmenu');
+        $selectMenuButton.last().addClass('year-picker-selectmenu');
+
+        this.$addDatePopup.find('.add-button').click(_.bind(this.onPopupAddButtonClicked, this));
 
         var init = this.$node.data('init');
 
@@ -68,6 +99,44 @@ function MultipleDatePicker() {
         if (this.$node.data('disable')) {
             this.disable();
         }
+    };
+
+    this._documentClick = function (e) {
+        e.stopPropagation();
+        if (!this.$addDatePopup.is(':visible')) {
+            return;
+        }
+
+        if (!$(e.target).closest(".multi-date-picker-add-pop").length &&
+            !$(e.target).closest(".ui-selectmenu-menu").length
+        ) {
+            this.closeAddDatePopup();
+        }
+    };
+
+    this.closeAddDatePopup = function () {
+        this.$addDatePopup.hide();
+
+        $(document).off('mousedown', this._documentClickBind);
+    };
+
+    this.showAddDatePopup = function () {
+        this.$addDatePopup.show();
+
+        this._documentClickBind = _.bind(this._documentClick, this);
+        $(document).on('mousedown', this._documentClickBind);
+    };
+
+    this.onPopupAddButtonClicked = function(e) {
+        e.stopPropagation();
+        var $target = $(e.target);
+
+        var month = $target.siblings('.month-picker').val();
+        var year = $target.siblings('.year-picker').val();
+
+        this.addDate('{0}, {1}'.format(month, year), true);
+
+        this.closeAddDatePopup();
     };
 
     this.addDate = function (dateText, isTriggerAddEvent) {
@@ -161,7 +230,7 @@ function MultipleDatePicker() {
 
         this.on(document, 'rc.mkeMultipleDatePickerDisable', this.onDisable);
         this.on(document, 'rc.mkeMultipleDatePickerEnable', this.onEnable);
-        this.on(document, 'rc.returnMobileDatePickerValue', this.onMobileDateReturned);
+        this.on(document, 'returnMobileMultipleDatePickerValue', this.onMobileDateReturned);
     });
 
     this.before('teardown', function () {

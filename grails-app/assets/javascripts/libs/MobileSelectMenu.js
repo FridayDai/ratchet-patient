@@ -108,7 +108,7 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
         },
 
         click: function( event ) {
-            if(Utility.isMobile()) {
+            if(Utility.isMobile() && !this.element.data('noTriggerDialog')) {
                 this.element.trigger(this.element.data('mobileDialogEvent'), {id: this.ids.element});
                 this.close(event);
             } else {
