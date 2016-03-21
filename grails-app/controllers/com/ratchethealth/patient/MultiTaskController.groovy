@@ -279,8 +279,9 @@ class MultiTaskController extends TaskController {
         def questionId = params?.questionId
         def answerId = params?.answerId
         def complex = params?.complex
+        def sendTime = params?.sendTime
 
-        multiTaskService.saveDraftAnswer(token, taskId, code, questionId, answerId, complex)
+        multiTaskService.saveDraftAnswer(token, taskId, code, questionId, answerId, complex, sendTime)
 
         render status: 201
     }

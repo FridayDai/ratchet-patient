@@ -91,7 +91,7 @@ class MultiTaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.saveDraftAnswer('token', 1, 'code', 2, 3, 'data')
+        def result = service.saveDraftAnswer('token', 1, 'code', 2, 3, 'data', 1)
 
         then:
         result == true
@@ -112,7 +112,7 @@ class MultiTaskServiceSpec extends Specification {
         }
 
         when:
-        def result = service.saveDraftAnswer('token', 1, 'code', 2, 3, 'data')
+        def result = service.saveDraftAnswer('token', 1, 'code', 2, 3, 'data', 1)
 
         then:
         result == false

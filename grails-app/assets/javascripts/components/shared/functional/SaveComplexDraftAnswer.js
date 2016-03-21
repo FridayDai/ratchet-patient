@@ -7,7 +7,8 @@ function SaveComplexDraftAnswer() {
             type: 'POST',
             data: {
                 code: this.code,
-                complex: JSON.stringify(this.draftAnswer)
+                complex: JSON.stringify(this.draftAnswer),
+                sendTime: Date.now()
             }
         });
     };
