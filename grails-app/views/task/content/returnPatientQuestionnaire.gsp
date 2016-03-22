@@ -157,7 +157,7 @@
                                 </label>
                             </li>
                             <li class="answer"
-                                data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
+                                data-trigger='{"#question1 [type=text]" : "enable"}'
                             >
                                 <div class="text">Other <input type="text" name="choices.1-6s" class="specify-input" placeholder="Specify" maxlength="255" value="${Draft?.'1-6s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 6.toString()}">disabled</g:if> /></div>
                                 <label class="choice">
