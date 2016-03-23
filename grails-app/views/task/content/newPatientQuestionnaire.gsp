@@ -651,7 +651,7 @@
                                 <div class="sub-question-time">
                                     <div class="sub-question-time-title">AFTER HOW LONG?<span class="optional">(Optional)</span></div>
                                     <select class="select-menu" name="choices.12-${j}-s" id="question12Sub${j}Select"
-                                        data-default-text="Pick Time" data-mobile-dialog-event="showPickTimeMobileDialog"
+                                        data-default-text="Pick Time" data-default-text-mobile="Pick Time (Optional)" data-mobile-dialog-event="showPickTimeMobileDialog"
                                             <g:if test="${Draft?."12-${j}-c" == 1.toString()}">disabled</g:if>
                                     >
                                         <g:each var="time" in="${subQuestion12Time}" status="h">
