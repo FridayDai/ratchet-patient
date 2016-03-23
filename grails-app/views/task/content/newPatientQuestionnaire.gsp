@@ -123,7 +123,7 @@
                             <li class="answer"
                                 data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Physician</div>
+                                <div class="text">Physician <input type="text" name="choices.1-4s" class="specify-input" placeholder="Specify" maxlength="255" value="${Draft?.'1-4s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 4.toString()}">disabled</g:if> /></div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -651,7 +651,7 @@
                                 <div class="sub-question-time">
                                     <div class="sub-question-time-title">AFTER HOW LONG?<span class="optional">(Optional)</span></div>
                                     <select class="select-menu" name="choices.12-${j}-s" id="question12Sub${j}Select"
-                                        data-default-text="Pick Time" data-mobile-dialog-event="showPickTimeMobileDialog"
+                                        data-default-text="Pick Time" data-default-text-mobile="Pick Time (Optional)" data-mobile-dialog-event="showPickTimeMobileDialog"
                                             <g:if test="${Draft?."12-${j}-c" == 1.toString()}">disabled</g:if>
                                     >
                                         <g:each var="time" in="${subQuestion12Time}" status="h">
