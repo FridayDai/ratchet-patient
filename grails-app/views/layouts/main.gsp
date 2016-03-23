@@ -10,8 +10,8 @@
     <title><g:layoutTitle default="Ratchet Health Patient Portal"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="${client?.favIcon ?: assetPath(src: 'favicon.ico')}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon-white.png')}">
-    <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina-white.png')}">
+    <link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon-new.png')}">
+    <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina-new.png')}">
     <g:if test="${cssPath}">
         <asset:stylesheet src="css/pages/${cssPath}"/>
     </g:if>
