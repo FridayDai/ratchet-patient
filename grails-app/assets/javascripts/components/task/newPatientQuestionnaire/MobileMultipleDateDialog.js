@@ -1,10 +1,10 @@
 var flight = require('flight');
 var WithMobileDialog = require('../../common/WithMobileDialog');
+var MonthYearPicker = require('../../shared/components/MonthYearPicker');
 
 function MobileMultipleDateDialog() {
     this.attributes({
-        monthSelectSelector: '.month-picker',
-        yearSelectSelector: '.year-picker'
+        monthYearPickerSelector: '.picker-container'
     });
 
     this.setOptions = function () {
@@ -28,32 +28,24 @@ function MobileMultipleDateDialog() {
     this.isInited = false;
     this.prepareForShow = function (data) {
         if (!this.isInited) {
-            this.select('monthSelectSelector')
-                .append(data.content.monthOptions)
-                .selectmenu();
-
-            this.select('yearSelectSelector')
-                .append(data.content.yearOptions)
-                .selectmenu();
-
-            var $selectMenuButton = this.$node.find('.ui-selectmenu-button');
-            $selectMenuButton.first().addClass('month-picker-selectmenu');
-            $selectMenuButton.last().addClass('year-picker-selectmenu');
+            this.monthYearPicker = MonthYearPicker.attachTo(this.attr.monthYearPickerSelector);
 
             this.isInited = true;
         }
-
         this.current$elem = data.$elem;
     };
 
     this.saveDate = function () {
         this.trigger('returnMobileMultipleDatePickerValue', {
             $elem: this.current$elem,
-            value: '{0}, {1}'.format(this.select('monthSelectSelector').val(), this.select('yearSelectSelector').val())
+            value: this.monthYearPicker.val()
         });
 
         this.close();
     };
 }
 
-module.exports = flight.component(WithMobileDialog, MobileMultipleDateDialog);
+module.exports = flight.component(
+    WithMobileDialog,
+    MobileMultipleDateDialog
+);

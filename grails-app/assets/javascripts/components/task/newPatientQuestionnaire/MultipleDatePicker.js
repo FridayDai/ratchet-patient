@@ -2,6 +2,7 @@ require('../../common/WithDatepicker');
 
 var flight = require('flight');
 var Utility = require('../../../utils/Utility');
+var MonthYearPicker = require('../../shared/components/MonthYearPicker');
 
 var DATE_CONTAINER_TEMP = '<ul class="multi-date-picker-list"></ul>';
 
@@ -18,26 +19,9 @@ var ADD_DATE_TEMP = [
     '</span>'
 ].join('');
 
-function getOptions(items) {
-    return _.map(items, function(item) {
-        return '<option value="' + item + '">' + item + '</option>';
-    });
-}
-
-var MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-var currentYear = new Date().getFullYear();
-var YEAR_ARRAY = _.range(currentYear, currentYear - 3, -1);
-var MONTH_OPTIONS = getOptions(MONTH_SHORT);
-var YEAR_OPTIONS = getOptions(YEAR_ARRAY);
-
 var ADD_DATE_POPUP = [
     '<div class="multi-date-picker-add-pop">',
-        '<select class="month-picker">',
-            MONTH_OPTIONS.join(''),
-        '</select>',
-        '<select class="year-picker">',
-            YEAR_OPTIONS.join(''),
-        '</select>',
+        '<div class="month-year-picker"></div>',
         '<span class="add-button">+</span>',
     '</div>'
 ].join('');
@@ -61,11 +45,7 @@ function MultipleDatePicker() {
                 if (!me.attr.disabled) {
                     if (Utility.isMobile()) {
                         me.trigger('showMultipleDateMobileDialog', {
-                            $elem: me.$node,
-                            content: {
-                                monthOptions: MONTH_OPTIONS,
-                                yearOptions: YEAR_OPTIONS
-                            }
+                            $elem: me.$node
                         });
                     } else {
                         me.showAddDatePopup();
@@ -76,15 +56,10 @@ function MultipleDatePicker() {
 
         this.$addDatePopup =
             $(ADD_DATE_POPUP)
-                .find('select')
-                .selectmenu()
-                .end()
                 .hide()
                 .appendTo($addDate);
 
-        var $selectMenuButton = this.$addDatePopup.find('.ui-selectmenu-button');
-        $selectMenuButton.first().addClass('month-picker-selectmenu');
-        $selectMenuButton.last().addClass('year-picker-selectmenu');
+        this.monthYearPicker = MonthYearPicker.attachTo(this.$addDatePopup.find('.month-year-picker')[0]);
 
         this.$addDatePopup.find('.add-button').click(_.bind(this.onPopupAddButtonClicked, this));
 
@@ -129,12 +104,8 @@ function MultipleDatePicker() {
 
     this.onPopupAddButtonClicked = function(e) {
         e.stopPropagation();
-        var $target = $(e.target);
 
-        var month = $target.siblings('.month-picker').val();
-        var year = $target.siblings('.year-picker').val();
-
-        this.addDate('{0}, {1}'.format(month, year), true);
+        this.addDate(this.monthYearPicker.val(), true);
 
         this.closeAddDatePopup();
     };
@@ -231,14 +202,6 @@ function MultipleDatePicker() {
         this.on(document, 'rc.mkeMultipleDatePickerDisable', this.onDisable);
         this.on(document, 'rc.mkeMultipleDatePickerEnable', this.onEnable);
         this.on(document, 'returnMobileMultipleDatePickerValue', this.onMobileDateReturned);
-    });
-
-    this.before('teardown', function () {
-        this.$node
-            .find('.multi-date-picker-add')
-            .off('click')
-            .find('input')
-            .datepicker('destroy');
     });
 }
 

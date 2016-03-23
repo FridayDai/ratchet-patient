@@ -1153,8 +1153,6 @@
             </div>
             <div id="mobile-multiple-date-dialog" class="modal ui-hidden" data-title="Add Date">
                 <div class="picker-container" autofocus>
-                    <select class="month-picker" data-no-trigger-dialog="true"></select>
-                    <select class="year-picker" data-no-trigger-dialog="true"></select>
                 </div>
             </div>
             <div id="mobile-pick-time-dialog" class="modal ui-hidden" data-title="Select a length of time">
