@@ -56,8 +56,7 @@
     <div class="main-container">
         <g:if test="${tasksList}">
             <div class="task-list-header">
-                <span>Welcome ${patientFirstName}!</span>
-
+                <span>Welcome!</span>
                 <span>
                     You have
                     <g:if test="${tasksLength == 1}">
