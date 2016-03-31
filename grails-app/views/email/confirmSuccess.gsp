@@ -4,13 +4,12 @@
 <g:applyLayout name="clientHeaderLayout">
     <html>
     <head>
-        <title>Email Confirmation</title>
-
+        <title>Email Confirmation Success</title>
     </head>
 
     <body>
     <div class="main container">
-        <p class="message">Email already confirmed. Thank you!</p>
+        <p class="message">Email confirmed. Thank you!</p>
     </div>
 
     </body>
