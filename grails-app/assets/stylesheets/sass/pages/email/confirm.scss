@@ -11,6 +11,10 @@
     }
 }
 
+.message {
+    font-size: 16px;
+}
+
 .link {
     &:hover {
         text-decoration: underline;
@@ -40,6 +44,7 @@
 
     .agree-text {
         font-size: 16px;
+        color: #333;
     }
 
     .choice {
@@ -50,6 +55,7 @@
     }
 
     .error-tip {
+        visibility: hidden;
         padding: 12px 0;
         font-size: 12px;
     }
@@ -59,6 +65,7 @@
             border: 2px solid $base-color-red;
         }
         .error-tip {
+            visibility: visible;
             color: $base-color-red;
         }
     }

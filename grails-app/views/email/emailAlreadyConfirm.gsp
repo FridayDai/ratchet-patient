@@ -1,4 +1,5 @@
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/emailConfirm.bundle.js"/>
 <g:set var="cssPath" value="email/confirm"/>
 <g:applyLayout name="clientHeaderLayout">
     <html>
@@ -8,8 +9,8 @@
     </head>
 
     <body>
-    <div class="content container">
-        <p class="message">E-mail already confirmed. Thank you!</p>
+    <div class="main container">
+        <p class="message">Email already confirmed. Thank you!</p>
     </div>
 
     </body>

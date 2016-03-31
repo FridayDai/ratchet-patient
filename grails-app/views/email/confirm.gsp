@@ -32,10 +32,10 @@
     <div class="main container">
         <p class="title">One more step to confirm your email...</p>
 
-        <g:form action="" method="post" class="confirm-form" id="confirm-form">
-            <div class="content">
+        <form action="" method="post" class="confirm-form">
+            <div class="content" id="form-content">
                 <label class="choice">
-                    <input id="no-pain-toggle" type="checkbox" name="agree" value="true"
+                    <input id="agree-toggle" type="checkbox" name="agree" value="true"
                            class="rc-choice-hidden"/>
                     <span class="rc-checkbox  agree-toggle"></span>
                 </label>
@@ -55,7 +55,7 @@
             <div class="form-footer">
                 <button type="submit" class="btn btn-submit" id='confirm-email'>Confirm Email</button>
             </div>
-        </g:form>
+        </form>
     </div>
 
     </body>
