@@ -28,6 +28,7 @@ var VALIDATION = {
         depends: {
             'radio:[name="choices.1-c"][value=1]': 'text:[name="choices.1-1s"]',
             'radio:[name="choices.1-c"][value=3]': 'text:[name="choices.1-3s"]',
+            'radio:[name="choices.1-c"][value=4]': 'text:[name="choices.1-4s"]',
             'radio:[name="choices.1-c"][value=5]': 'text:[name="choices.1-5s"]'
         }
     },
