@@ -5,12 +5,13 @@ import grails.converters.JSON
 class EmailService extends RatchetAPIService {
     def grailsApplication
 
-    def confirmPatientEmail(String token, code, emailUpdate) {
+    def confirmPatientEmail(String token, code, agree, emailUpdate) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
 
         withPost(emailUrl) { req ->
             def resp = req
                     .field("code", code)
+                    .field("agreedPolicy", agree)
                     .field("email_update", emailUpdate)
                     .asString()
 
@@ -28,12 +29,13 @@ class EmailService extends RatchetAPIService {
         }
     }
 
-    def confirmEmergencyContactEmail(String token, code) {
+    def confirmEmergencyContactEmail(String token, code, agree) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.emergencyContactConfirmation
 
         withPost(emailUrl) { req ->
             def resp = req
                     .field("code", code)
+                    .field("agreedPolicy", agree)
                     .field("hasProfile", true)
                     .asString()
 

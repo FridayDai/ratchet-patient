@@ -10,8 +10,13 @@ class UrlMappings {
         "/healthcheck"(controller: "healthCheck", action: "index")
 
         // Email
-        "/patient/email/confirmation/$code"(controller: "email", action: "confirmPatientEmail")
-        "/emergency_contact/email/confirmation/$code"(controller: "email", action: "confirmEmergencyContactEmail")
+        "/patient/email/confirmation/$code"(controller: "email") {
+            action = [GET: "confirmPatientEmail", POST: "agreePolicyAndConfirmPatient"]
+        }
+
+        "/emergency_contact/email/confirmation/$code"(controller: "email") {
+            action = [GET: "confirmCareGiverEmail", POST: "agreePolicyAndConfirmCareGiver"]
+        }
 
         "/patients/check-email"(controller: "email", action: "checkPatientEmailExist")
 
