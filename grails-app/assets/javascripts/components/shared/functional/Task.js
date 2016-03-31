@@ -241,7 +241,8 @@ function Task() {
             data: {
                 code: this.code,
                 questionId: questionId,
-                answerId: answerId
+                answerId: answerId,
+                sendTime: Date.now()
             }
         });
     };

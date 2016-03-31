@@ -81,7 +81,7 @@
                             <li class="answer"
                                 data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Patient of us <input type="text" name="choices.1-1s" class="specify-input" placeholder="Specify" maxlength="255" value="${Draft?.'1-1s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 1.toString()}">disabled</g:if> /></div>
+                                <div class="text">Patient of ProOrtho <input type="text" name="choices.1-1s" class="specify-input" placeholder="Specify" maxlength="255" value="${Draft?.'1-1s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 1.toString()}">disabled</g:if> /></div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -123,7 +123,7 @@
                             <li class="answer"
                                 data-trigger='{"#question1 [type=text]" : "disableOtherInputs"}'
                             >
-                                <div class="text">Physician</div>
+                                <div class="text">Physician <input type="text" name="choices.1-4s" class="specify-input" placeholder="Specify" maxlength="255" value="${Draft?.'1-4s'}" <g:if test="${Draft?.'1-c' && Draft?.'1-c' != 4.toString()}">disabled</g:if> /></div>
                                 <label class="choice">
                                     <input type="radio"
                                            class="rc-choice-hidden"
@@ -151,64 +151,8 @@
                         </ul>
                     </div>
                 </div>
-                <div class="question-list" id="question2">
-                    <div class="question">2. What is the primary reason for your visit?</div>
-
-                    <div class="answer-list">
-                        <ul class="list">
-                            <li class="answer">
-                                <div class="text">Evaluation / diagnosis / treatment</div>
-                                <label class="choice">
-                                    <input type="radio"
-                                           class="rc-choice-hidden"
-                                           name="choices.2"
-                                           value="1"
-                                           <g:if test="${Draft?.'2' == 1.toString()}">checked</g:if>
-                                    />
-                                    <span class="rc-radio primary-radio-color"></span>
-                                </label>
-                            </li>
-                            <li class="answer">
-                                <div class="text">Second opinion</div>
-                                <label class="choice">
-                                    <input type="radio"
-                                           class="rc-choice-hidden"
-                                           name="choices.2"
-                                           value="2"
-                                           <g:if test="${Draft?.'2' == 2.toString()}">checked</g:if>
-                                    />
-                                    <span class="rc-radio primary-radio-color"></span>
-                                </label>
-                            </li>
-                            <li class="answer">
-                                <div class="text">Education / information</div>
-                                <label class="choice">
-                                    <input type="radio"
-                                           class="rc-choice-hidden"
-                                           name="choices.2"
-                                           value="3"
-                                           <g:if test="${Draft?.'2' == 3.toString()}">checked</g:if>
-                                    />
-                                    <span class="rc-radio primary-radio-color"></span>
-                                </label>
-                            </li>
-                            <li class="answer">
-                                <div class="text">Surgical planning</div>
-                                <label class="choice">
-                                    <input type="radio"
-                                           class="rc-choice-hidden"
-                                           name="choices.2"
-                                           value="4"
-                                           <g:if test="${Draft?.'2' == 4.toString()}">checked</g:if>
-                                    />
-                                    <span class="rc-radio primary-radio-color"></span>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="question-list question-3" id="question3">
-                    <div class="question">3. How long ago did your current symptoms begin?</div>
+                    <div class="question">2. How long ago did your current symptoms begin?</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -312,14 +256,14 @@
                     </div>
                 </div>
                 <div class="question-list" id="question4">
-                    <div class="question">4. Please describe your current problem / symptoms?</div>
+                    <div class="question">3. Please describe your current problem / symptoms?</div>
 
                     <div class="answer-list textarea">
                         <textarea name="choices.4" placeholder="Describe symptoms..." maxlength="5000">${Draft?.'4'}</textarea>
                     </div>
                 </div>
                 <div class="question-list" id="question5">
-                    <div class="question">5. What is your current work status?</div>
+                    <div class="question">4. What is your current work status?</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -363,7 +307,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question6">
-                    <div class="question">6. Is this a work-related injury?</div>
+                    <div class="question">5. Is this a work-related injury?</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -395,7 +339,7 @@
                     </div>
                 </div>
                 <div class="question-list question-7" id="question7">
-                    <div class="question">7. Have you filed a Worker's Compensation claim for your back / neck symptoms?</div>
+                    <div class="question">6. Have you filed a Worker's Compensation claim for your back / neck symptoms?</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -436,7 +380,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question8">
-                    <div class="question">8. Have you worked with a lawyer as a result of your injury?</div>
+                    <div class="question">7. Have you worked with a lawyer as a result of your injury?</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -468,7 +412,7 @@
                     </div>
                 </div>
                 <div class="question-list question-9" id="question9">
-                    <div class="question">9. Did your pain begin after a car accident?</div>
+                    <div class="question">8. Did your symptoms begin after a car accident?</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -502,9 +446,14 @@
                             </li>
                         </ul>
                         <div class="extension-question-list <g:if test="${Draft?.'9-c' != 1.toString()}">hide</g:if>" id="question9-extension">
-                            <div class="description">If you were injured in a car accident please carefully fill out the questions below.</div>
+                            <div class="description">
+                                If you were injured in a car accident please carefully fill out the questions below.
+                                <div class="require-statement mobile">
+                                    <span>* Required field</span>
+                                </div>
+                            </div>
                             <div class="extension-question error-notice-field">
-                                <div class="extension-question-title">Date of accident:</div>
+                                <div class="extension-question-title">Date of accident:<span class="require-mark">*</span></div>
                                 <div><input type="text" name="choices.9-e-1" placeholder="Pick Date" class="date-picker" readonly value="${Draft?.'9-e-1'}"/></div>
                             </div>
                             <div class="extension-question error-notice-field">
@@ -516,7 +465,7 @@
                                 <textarea name="choices.9-e-3" placeholder="Describe symptoms..." maxlength="5000">${Draft?.'9-e-3'}</textarea>
                             </div>
                             <div class="extension-question radio-group error-notice-field">
-                                <div class="extension-question-title">When did you first notice symptoms?</div>
+                                <div class="extension-question-title">When did you first notice symptoms?<span class="require-mark">*</span></div>
                                 <ul class="half-list">
                                     <li class="answer half-list-answer">
                                         <div class="text">Immediately</div>
@@ -603,7 +552,7 @@
                                 <textarea name="choices.9-e-6" placeholder="Explain delay..." maxlength="5000">${Draft?.'9-e-6'}</textarea>
                             </div>
                             <div class="extension-question radio-choice error-notice-field">
-                                <div class="extension-question-title">Did you suffer any other injuries when you hurt your spine?</div>
+                                <div class="extension-question-title">Did you suffer any other injuries when you hurt your spine?<span class="require-mark">*</span></div>
                                 <div>
                                     <ul class="list">
                                         <li class="answer" id="question9-extension7-yes"
@@ -637,175 +586,14 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="question-list question-10" id="question10">
-                    <div class="question">10. Have you ever been involved in a previous car accident?</div>
-
-                    <div class="answer-list">
-                        <ul class="list">
-                            <li class="answer" id="question10-yes"
-                                data-trigger='{"#question10-extension" : "show", "#question10-yes [type=text]": "enable"}'
-                            >
-                                <div class="text text-yes">Yes
-                                    <span class="specify-part">
-                                        <span class="label">Approximate Date:</span>
-                                        <input type="text" name="choices.10-1s" class="date-picker" readonly value="${Draft?.'10-1s'}" <g:if test="${Draft?.'10-c' == 2.toString()}">disabled</g:if>/>
-                                    </span>
-                                </div>
-                                <label class="choice">
-                                    <input type="radio"
-                                           class="rc-choice-hidden"
-                                           name="choices.10-c"
-                                           value="1"
-                                           <g:if test="${Draft?.'10-c' == 1.toString()}">checked</g:if>
-                                    />
-                                    <span class="rc-radio primary-radio-color"></span>
-                                </label>
-                            </li>
-                            <li class="answer answer-extension-trigger-no need-clear-inputs"
-                                data-trigger='{"#question10-extension,#question10-extension-2,#accidentInjuryQuestion" : "hide|reset", "#question10-yes [type=text]": "disable"}'
-                            >
-                                <div class="text">No</div>
-                                <label class="choice">
-                                    <input type="radio"
-                                           class="rc-choice-hidden"
-                                           name="choices.10-c"
-                                           value="2"
-                                           <g:if test="${Draft?.'10-c' == 2.toString()}">checked</g:if>
-                                    />
-                                    <span class="rc-radio primary-radio-color"></span>
-                                </label>
-                            </li>
-                        </ul>
-                        <div class="extension-question-list <g:if test="${Draft?.'10-c' != 1.toString()}">hide</g:if>" id="question10-extension">
-                            <div class="extension-question radio-choice error-notice-field">
-                                <div class="extension-question-title">Was your back or neck injured?</div>
-                                <div>
-                                    <ul class="list">
-                                        <li class="answer" id="question10-extension1-yes"
-                                            data-trigger='{"#question10-extension-2" : "show", "#question10-extension1-yes [type=text]": "disable"}'
-                                        >
-                                            <div class="text">Yes</div>
-                                            <label class="choice">
-                                                <input type="radio"
-                                                       class="rc-choice-hidden"
-                                                       name="choices.10-e-1-c"
-                                                       value="1"
-                                                       <g:if test="${Draft?.'10-e-1-c' == 1.toString()}">checked</g:if>
-                                                />
-                                                <span class="rc-radio primary-radio-color"></span>
-                                            </label>
-                                        </li>
-                                        <li class="answer need-clear-inputs"
-                                            data-trigger='{"#question10-extension-2,#accidentInjuryQuestion" : "hide|reset", "#question10-extension1-yes [type=text]": "disable"}'
-                                        >
-                                            <div class="text">No</div>
-                                            <label class="choice">
-                                                <input type="radio"
-                                                       class="rc-choice-hidden"
-                                                       name="choices.10-e-1-c"
-                                                       value="2"
-                                                       <g:if test="${Draft?.'10-e-1-c' == 2.toString()}">checked</g:if>
-                                                />
-                                                <span class="rc-radio primary-radio-color"></span>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="extension-question radio-choice error-notice-field <g:if test="${Draft?.'10-e-1-c' != 1.toString()}">hide</g:if>" id="question10-extension-2">
-                                <div class="extension-question-title">If yes, did the injury resolved?</div>
-                                <div>
-                                    <ul class="list">
-                                        <li class="answer" id="accidentInjuryYes"
-                                            data-trigger='{"#accidentInjuryQuestion" : "hide|reset"}'
-                                        >
-                                            <div class="text">Yes</div>
-                                            <label class="choice">
-                                                <input type="radio"
-                                                       class="rc-choice-hidden"
-                                                       name="choices.10-e-2-c"
-                                                       value="1"
-                                                       <g:if test="${Draft?.'10-e-2-c' == 1.toString()}">checked</g:if>
-                                                />
-                                                <span class="rc-radio primary-radio-color"></span>
-                                            </label>
-                                        </li>
-                                        <li class="answer need-clear-inputs" id="accidentInjuryNo"
-                                            data-trigger='{"#accidentInjuryQuestion" : "show"}'
-                                        >
-                                            <div class="text">No</div>
-                                            <label class="choice">
-                                                <input type="radio"
-                                                       class="rc-choice-hidden"
-                                                       name="choices.10-e-2-c"
-                                                       value="2"
-                                                       <g:if test="${Draft?.'10-e-2-c' == 2.toString()}">checked</g:if>
-                                                />
-                                                <span class="rc-radio primary-radio-color"></span>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="extension-question error-notice-field <g:if test="${Draft?.'10-e-2-c' != 2.toString()}">hide</g:if>" id="accidentInjuryQuestion">
-                                <div class="extension-question-title">If that injury did <strong>NOT</strong> resolve, what treatment(s), if any, did you require on an ongoing basis?</div>
-                                <textarea name="choices.10-e-3" placeholder="Describe treatment..." maxlength="5000">${Draft?.'10-e-3'}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="question-list question-11" id="question11">
-                    <div class="question">11. Is your pain due to an injury not covered in the questions above?</div>
-
-                    <div class="answer-list">
-                        <ul class="list">
-                            <li class="answer answer-extension-trigger-yes"
-                                data-trigger='{"#question11-extension" : "show", "#question11 [type=text]": "enable"}'
-                            >
-                                <div class="text">Yes
-                                    <span class="specify-part">
-                                        <span class="label">Date of injury:</span>
-                                        <input name="choices.11-1s" type="text" class="date-picker" readonly value="${Draft?.'11-1s'}" <g:if test="${Draft?.'11-c' == 2.toString()}">disabled</g:if>/>
-                                    </span>
-                                </div>
-                                <label class="choice">
-                                    <input type="radio"
-                                           class="rc-choice-hidden"
-                                           name="choices.11-c"
-                                           value="1"
-                                           <g:if test="${Draft?.'11-c' == 1.toString()}">checked</g:if>
-                                    />
-                                    <span class="rc-radio primary-radio-color"></span>
-                                </label>
-                            </li>
-                            <li class="answer answer-extension-trigger-no need-clear-inputs"
-                                data-trigger='{"#question11-extension" : "hide|reset", "#question11 [type=text]": "disable"}'
-                            >
-                                <div class="text">No</div>
-                                <label class="choice">
-                                    <input type="radio"
-                                           class="rc-choice-hidden"
-                                           name="choices.11-c"
-                                           value="2"
-                                           <g:if test="${Draft?.'11-c' == 2.toString()}">checked</g:if>
-                                    />
-                                    <span class="rc-radio primary-radio-color"></span>
-                                </label>
-                            </li>
-                        </ul>
-                        <div class="extension-question-list <g:if test="${Draft?.'11-c' != 1.toString()}">hide</g:if>" id="question11-extension">
-                            <div class="extension-question error-notice-field">
-                                <div class="extension-question-title">Describe the injury</div>
-                                <textarea name="choices.11-e-1" placeholder="Describe injury..." maxlength="5000">${Draft?.'11-e-1'}</textarea>
+                            <div class="require-statement tablet">
+                                <span>* Required field</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="question-list question-12" id="question12">
-                    <div class="question">12. How do each of the following activities affect your pain?</div>
+                    <div class="question">9. How do each of the following activities affect your pain?</div>
 
                     <div class="sub-question-list">
                         <g:set var="subQuestion12" value="['Sitting', 'Walking', 'Standing', 'Lying down',
@@ -860,10 +648,10 @@
                                         </label>
                                     </li>
                                 </ul>
-                                <div class="sub-question-time error-notice-field">
-                                    <div class="sub-question-time-title">AFTER HOW LONG?</div>
+                                <div class="sub-question-time">
+                                    <div class="sub-question-time-title">AFTER HOW LONG?<span class="optional">(Optional)</span></div>
                                     <select class="select-menu" name="choices.12-${j}-s" id="question12Sub${j}Select"
-                                        data-default-text="Pick Time" data-mobile-dialog-event="showPickTimeMobileDialog"
+                                        data-default-text="Pick Time" data-default-text-mobile="Pick Time (Optional)" data-mobile-dialog-event="showPickTimeMobileDialog"
                                             <g:if test="${Draft?."12-${j}-c" == 1.toString()}">disabled</g:if>
                                     >
                                         <g:each var="time" in="${subQuestion12Time}" status="h">
@@ -876,21 +664,21 @@
                     </div>
                 </div>
                 <div class="question-list" id="question13">
-                    <div class="question">13. What other activities, motions, or positions affect your symptoms?</div>
+                    <div class="question">10. What other activities, motions, or positions affect your symptoms?</div>
 
                     <div class="answer-list textarea">
                         <textarea name="choices.13" placeholder="Describe activities..." maxlength="5000">${Draft?.'13'}</textarea>
                     </div>
                 </div>
                 <div class="question-list" id="question14">
-                    <div class="question">14. What do you do to relieve your pain?</div>
+                    <div class="question">11. What do you do to relieve your pain?</div>
 
                     <div class="answer-list textarea">
                         <textarea name="choices.14" placeholder="Describe methods..." maxlength="5000">${Draft?.'14'}</textarea>
                     </div>
                 </div>
                 <div class="question-list" id="question15">
-                    <div class="question">15. Bladder function</div>
+                    <div class="question">12. Bladder function</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -958,7 +746,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question16">
-                    <div class="question">16. Bowel function</div>
+                    <div class="question">13. Bowel function</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -1002,7 +790,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question17">
-                    <div class="question">17. Problem with sexual function:</div>
+                    <div class="question">14. Problem with sexual function:</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -1046,7 +834,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question18">
-                    <div class="question">18. Loss of sensation around the groin, genitals, or buttocks?</div>
+                    <div class="question">15. Loss of sensation around the groin, genitals, or buttocks?</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -1078,7 +866,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question19">
-                    <div class="question">19. Weakness in the leg / foot</div>
+                    <div class="question">16. Weakness in the leg / foot</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -1134,7 +922,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question20">
-                    <div class="question">20. Weakness in the arm / hand</div>
+                    <div class="question">17. Weakness in the arm / hand</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -1190,7 +978,7 @@
                     </div>
                 </div>
                 <div class="question-list" id="question21">
-                    <div class="question">21. Does your pain interfere with your sleep?</div>
+                    <div class="question">18. Does your pain interfere with your sleep?</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -1222,7 +1010,7 @@
                     </div>
                 </div>
                 <div class="question-list question-22" id="question22">
-                    <div class="question">22. Which of the following treatments have you had and what was the outcome?</div>
+                    <div class="question">19. Which of the following treatments have you had and what was the outcome?</div>
 
                     <div class="sub-question-list">
                         <g:set var="subQuestion22" value="['Massage', 'Physical Therapy', 'Chiropractic Therapy', 'Spinal Injections']"/>
@@ -1284,7 +1072,7 @@
                     </div>
                 </div>
                 <div class="question-list question-23" data-optional="true" id="question23">
-                    <div class="question">23. Please list the dates of any of the following tests you have had for your current condition in the last 2 years</div>
+                    <div class="question">20. Please list the dates of any of the following tests you have had for your current condition in the last 2 years</div>
 
                     <div class="answer-list">
                         <ul class="list">
@@ -1361,6 +1149,10 @@
                             </li>
                         </g:each>
                     </ul>
+                </div>
+            </div>
+            <div id="mobile-multiple-date-dialog" class="modal ui-hidden" data-title="Add Date">
+                <div class="picker-container" autofocus>
                 </div>
             </div>
             <div id="mobile-pick-time-dialog" class="modal ui-hidden" data-title="Select a length of time">

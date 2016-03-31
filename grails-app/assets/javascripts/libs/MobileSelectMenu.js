@@ -18,7 +18,16 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
     },
     _drawButton: function() {
         this._super();
-        var text = this.element.data('defaultText') || this.options.defaultButtonText;
+        var text = '';
+
+        if (Utility.isMobile()) {
+            text = this.element.data('defaultTextMobile') ||
+                this.element.data('defaultText') ||
+                this.options.defaultButtonText;
+        } else {
+            text = this.element.data('defaultText') || this.options.defaultButtonText;
+        }
+
         var hasSelected  = this.element.find('option').filter('[selected]').length !== 0;
 
         if (hasSelected) {
@@ -85,7 +94,14 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
             this.element[0].selectedIndex = -1;
             this.focusIndex = null;
 
-            value = value || this.element.data('defaultText') || this.options.defaultButtonText;
+            if (Utility.isMobile()) {
+                value = value ||
+                    this.element.data('defaultTextMobile') ||
+                    this.element.data('defaultText') ||
+                    this.options.defaultButtonText;
+            } else {
+                value = value || this.element.data('defaultText') || this.options.defaultButtonText;
+            }
             this.buttonText.html($(DEFAULT_TEXT_WRAP).html(value));
         }
     },
@@ -108,7 +124,7 @@ $.widget( "ui.selectmenu", $.ui.selectmenu, {
         },
 
         click: function( event ) {
-            if(Utility.isMobile()) {
+            if(Utility.isMobile() && !this.element.data('noTriggerDialog')) {
                 this.element.trigger(this.element.data('mobileDialogEvent'), {id: this.ids.element});
                 this.close(event);
             } else {

@@ -177,7 +177,7 @@
             </g>
         </g>
 
-        <path id="Left-Back-Feet" class="human-part" fill="none" opacity="0.3" d="M155.031,657.779c-6.732,2.475-13.017,0.545-18.485-2.203c0.01,0.302,0.016,0.559,0.016,0.728
+        <path id="Left-Back-Foot" class="human-part" fill="none" opacity="0.3" d="M155.031,657.779c-6.732,2.475-13.017,0.545-18.485-2.203c0.01,0.302,0.016,0.559,0.016,0.728
 	c0,3.41-4.426,8.905-7.222,14.287c-1.615,3.107,0.256,7.612,1.679,9.375c2.333,2.892,2.479,13.248,14.814,13.127
 	c12.449-0.122,9.688-3.8,12.449-11.257c1.731-4.676,0.308-11.152-1.597-15.952C155.715,663.436,155.287,660.28,155.031,657.779z"/>
     </g>
@@ -271,7 +271,7 @@
 	c-2.131,4.496-2,10.088-0.25,14.082c1.325,3.026,0.476,10.125,5.25,11.006c4.774,0.881,13.092,1.474,17-1.75
 	c1.885-1.555,2.799-6.636,4-10.684C210.904,676.266,214.337,667.338,209.805,666.375z"/>
 
-        <path id="Right-Back-Feet" class="human-part" fill="none" opacity="0.3" d="M209.805,666.375c-2.399-0.51-4.405-4.949-5.826-9.205
+        <path id="Right-Back-Foot" class="human-part" fill="none" opacity="0.3" d="M209.805,666.375c-2.399-0.51-4.405-4.949-5.826-9.205
 	c-7.606,3.457-13.025,2.492-19.116,0.782c0.603,2.576,0.675,5.078-0.558,7.68c-2.131,4.496-2,10.088-0.25,14.082
 	c1.325,3.026,0.476,10.125,5.25,11.006c4.774,0.881,13.092,1.474,17-1.75c1.885-1.555,2.799-6.636,4-10.684
 	C210.904,676.266,214.337,667.338,209.805,666.375z"/>
@@ -298,7 +298,7 @@
     <g class="indication">
         <text  id="XMLID_619_" transform="matrix(1 0 0 1 35.3931 512.9378) scale(0.83)" fill="#333333"  font-size="12">Left Thigh</text>
         <text  id="XMLID_618_" transform="matrix(1 0 0 1 45.3931 576.7185) scale(0.83)" fill="#333333"  font-size="12">Left Calf</text>
-        <text  id="XMLID_617_" transform="matrix(1 0 0 1 46.7266 674.8521) scale(0.83)" fill="#333333"  font-size="12">Left Feet</text>
+        <text  id="XMLID_617_" transform="matrix(1 0 0 1 46.7266 674.8521) scale(0.83)" fill="#333333"  font-size="12">Left Foot</text>
         <text  id="XMLID_616_" transform="matrix(1 0 0 1 256.7261 512.9378) scale(0.83)" fill="#333333"  font-size="12">Right Thigh</text>
         <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="253.814" y1="509.946" x2="215.647" y2="510.946"/>
         <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="121.035" y1="329.068" x2="63.783" y2="327.749"/>
@@ -310,7 +310,7 @@
         <text  id="XMLID_612_" transform="matrix(1 0 0 1 27.3936 464.7185) scale(0.83)" fill="#333333"  font-size="12">Left Buttock</text>
         <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="253.647" y1="457.612" x2="229.697" y2="395.79"/>
         <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="89.647" y1="455.612" x2="108.263" y2="395.79"/>
-        <text  id="XMLID_611_" transform="matrix(1 0 0 1 256.7261 674.8521) scale(0.83)" fill="#333333"  font-size="12">Right Feet</text>
+        <text  id="XMLID_611_" transform="matrix(1 0 0 1 256.7261 674.8521) scale(0.83)" fill="#333333"  font-size="12">Right Foot</text>
         <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="254.676" y1="671.767" x2="216.314" y2="676.946"/>
         <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="87.814" y1="507.946" x2="121.255" y2="511.871"/>
         <line  fill="none" stroke="#333333" stroke-miterlimit="10" x1="88.435" y1="573.634" x2="122.748" y2="579.124"/>

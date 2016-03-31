@@ -44,12 +44,13 @@ class MultiTaskService extends RatchetAPIService {
         }
     }
 
-    def saveDraftAnswer(String token, taskId, code, questionId, answerId, data) {
+    def saveDraftAnswer(String token, taskId, code, questionId, answerId, data, sendTime) {
         def url = grailsApplication.config.ratchetv2.server.url.task.saveDraftAnswer
 
         def json = [
                 taskId: taskId as long,
-                code: code
+                code: code,
+                sendTime: sendTime
         ]
 
         if (questionId != null && answerId != null) {

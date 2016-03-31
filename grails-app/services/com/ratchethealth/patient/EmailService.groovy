@@ -4,7 +4,6 @@ import grails.converters.JSON
 
 class EmailService extends RatchetAPIService {
     def grailsApplication
-    def userAgentIdentService
 
     def confirmPatientEmail(String token, code, emailUpdate) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
@@ -19,7 +18,7 @@ class EmailService extends RatchetAPIService {
                 log.info("Confirm patient email success, token: ${token}")
 
                 JSON.parse(resp.body)
-            } else if (resp.status == 400 || resp.status == 412) {
+            } else if (resp.status == 404 || resp.status == 412) {
                 log.info("Invitation link is expired or already confirmed,token:${token}.")
 
                 JSON.parse(resp.body)

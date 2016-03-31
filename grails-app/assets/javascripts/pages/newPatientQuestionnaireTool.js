@@ -1,17 +1,17 @@
 require('../libs/MobileSelectMenu');
 
 var flight = require('flight');
-var MultipleDatePicker = require('../components/shared/components/MultipleDatePicker');
+var MultipleDatePicker = require('../components/task/newPatientQuestionnaire/MultipleDatePicker');
 var PatientQuestionnaireTool = require('../components/task/patientQuestionnaire/PatientQuestionnaireTool');
 var MobileSelectMenuDialog = require('../components/shared/components/MobileSelectMenuDialog');
 var MobileEnterYearDialog = require('../components/task/newPatientQuestionnaire/MobileEnterYearDialog');
+var MobileMultipleDateDialog = require('../components/task/newPatientQuestionnaire/MobileMultipleDateDialog');
 var Utility = require('../utils/Utility');
 
 var QUESTION_12_VALIDATION = {};
 for (var i = 0; i < 9; i++) {
     QUESTION_12_VALIDATION['group:{0}'.format(i)] = [
-        'radio:[name="choices.12-{0}-c"]'.format(i),
-        'select:[name="choices.12-{0}-s"]'.format(i)
+        'radio:[name="choices.12-{0}-c"]'.format(i)
     ];
 }
 
@@ -28,11 +28,9 @@ var VALIDATION = {
         depends: {
             'radio:[name="choices.1-c"][value=1]': 'text:[name="choices.1-1s"]',
             'radio:[name="choices.1-c"][value=3]': 'text:[name="choices.1-3s"]',
+            'radio:[name="choices.1-c"][value=4]': 'text:[name="choices.1-4s"]',
             'radio:[name="choices.1-c"][value=5]': 'text:[name="choices.1-5s"]'
         }
-    },
-    '#question2': {
-        required: 'radio:[name="choices.2"]'
     },
     '#question3': {
         required: 'radio:[name="choices.3-c"]',
@@ -64,35 +62,8 @@ var VALIDATION = {
             'radio:[name="choices.9-e-7-c"][value=1]': 'text:[name="choices.9-e-7-1s"]',
             'radio:[name="choices.9-c"][value=1]': [
                 'text:[name="choices.9-e-1"]',
-                'textarea:[name="choices.9-e-2"]',
-                'textarea:[name="choices.9-e-3"]',
                 'radio:[name="choices.9-e-4"]',
-                'text:[name="choices.9-e-5"]',
                 'radio:[name="choices.9-e-7-c"]'
-            ]
-        }
-    },
-    '#question10': {
-        required: 'radio:[name="choices.10-c"]',
-        depends: {
-            'radio:[name="choices.10-e-2-c"][value=2]': [
-                'text:[name="choices.10-e-3"]'
-            ],
-            'radio:[name="choices.10-e-1-c"][value=1]': [
-                'radio:[name="choices.10-e-2-c"]'
-            ],
-            'radio:[name="choices.10-c"][value=1]': [
-                'text:[name="choices.10-1s"]',
-                'radio:[name="choices.10-e-1-c"]'
-            ]
-        }
-    },
-    '#question11': {
-        required: 'radio:[name="choices.11-c"]',
-        depends: {
-            'radio:[name="choices.11-c"][value=1]': [
-                'text:[name="choices.11-1s"]',
-                'textarea:[name="choices.11-e-1"]'
             ]
         }
     },
@@ -137,6 +108,7 @@ function newPatientQuestionnaireTool() {
         multipleDatePickerSelector: '.multi-date-container',
         mobileEnterYearDialogSelector: '#mobile-enter-year-dialog',
         mobilePickTimeDialogSelector: '#mobile-pick-time-dialog',
+        mobileMultipleDateDialogSelector: '#mobile-multiple-date-dialog',
         question12ChoiceSelector: '.question-12 .sub-question-answer'
     });
 
@@ -158,6 +130,10 @@ function newPatientQuestionnaireTool() {
             selector: 'mobilePickTimeDialogSelector',
             event: 'showPickTimeMobileDialog',
             dialog: MobileSelectMenuDialog
+        }, {
+            selector: 'mobileMultipleDateDialogSelector',
+            event: 'showMultipleDateMobileDialog',
+            dialog: MobileMultipleDateDialog
         }
     ]);
 
