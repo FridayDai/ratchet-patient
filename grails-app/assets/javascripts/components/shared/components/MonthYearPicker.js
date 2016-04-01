@@ -42,7 +42,11 @@ function MonthYearPicker() {
         this.$yearSelect = $(YEAR_SELECT)
             .appendTo(this.$node)
             .hide()
-            .selectmenu();
+            .selectmenu({
+                select: function () {
+                    me._checkMonthInYear(me.$yearSelect.val(), me.$monthSelect.val())
+                }
+            });
 
         this.$monthSelect
             .selectmenu('widget')
@@ -66,6 +70,14 @@ function MonthYearPicker() {
             _.each(items, function(item) {
                 $(item).removeClass('ui-state-disabled');
             });
+        }
+    };
+
+    this._checkMonthInYear = function (year, month) {
+        if (year === currentYear + '' && MONTH_SHORT.indexOf(month) > currentMonth) {
+            this.$monthSelect
+                .val(MONTH_SHORT[0])
+                .selectmenu('refresh');
         }
     };
 
