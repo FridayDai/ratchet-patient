@@ -115,4 +115,48 @@ class EmailService extends RatchetAPIService {
             }
         }
     }
+
+    def checkPatientEmailStatus(String token, code) {
+        String emailUrl = grailsApplication.config.ratchetv2.server.url.email.checkPatientEmailStatus
+
+        withPost(emailUrl) { req ->
+            def resp = req
+                    .field("code", code)
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("Patient hasn't confirm yet, token: ${token}")
+
+                JSON.parse(resp.body)
+            } else if (resp.status == 404) {
+                log.info("Patient already confirm or code is incorrect,token:${token}.")
+
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
+        }
+    }
+
+    def checkCareGiverEmailStatus(String token, code) {
+        String emailUrl = grailsApplication.config.ratchetv2.server.url.email.checkCareGiverEmailStatus
+
+        withPost(emailUrl) { req ->
+            def resp = req
+                    .field("code", code)
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("Caregiver hasn't confirm yet, token: ${token}")
+
+                JSON.parse(resp.body)
+            } else if (resp.status == 404) {
+                log.info("Caregiver already confirm or code is incorrect,token:${token}.")
+
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
+        }
+    }
 }

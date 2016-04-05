@@ -8,7 +8,16 @@ class EmailController extends BaseController {
     def messageSource
 
     def confirmPatientEmail() {
-        render view: 'confirm', model: [client: JSON.parse(session.client)]
+        String token = request.session.token
+        def code = params.code;
+
+        def client = emailService.checkPatientEmailStatus(token, code)
+
+        if (client.error?.errorId == 404) {
+            render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
+        } else {
+            render view: 'confirm', model: [client: JSON.parse(session.client)]
+        }
     }
 
     def agreePolicyAndConfirmPatient() {
@@ -31,7 +40,16 @@ class EmailController extends BaseController {
     }
 
     def confirmCareGiverEmail() {
-        render view: 'confirm', model: [client: JSON.parse(session.client)]
+        String token = request.session.token
+        def code = params.code;
+
+        def client = emailService.checkCareGiverEmailStatus(token, code)
+
+        if (client.error?.errorId == 404) {
+            render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
+        } else {
+            render view: 'confirm', model: [client: JSON.parse(session.client)]
+        }
     }
 
     def agreePolicyAndConfirmCareGiver() {

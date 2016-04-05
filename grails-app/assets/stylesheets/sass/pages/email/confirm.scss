@@ -12,7 +12,7 @@
 }
 
 .message {
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .link {
@@ -21,18 +21,27 @@
     }
 }
 
-.rc-choice-hidden:checked + .rc-checkbox:before {
-    top: 5px;
+.rc-checkbox {
+    width: 25px;
+    height: 25px;
+}
+
+.rc-choice-hidden:checked {
+
+    & + .rc-checkbox:before {
+        top: 3px;
+        font-size: 24px;
+    }
 }
 
 .title {
     margin: 30px 0 60px;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
 }
 
 .confirm-form {
-    max-width: 400px;
+    max-width: 418px;
     margin: 0 auto;
     padding-top: 50px;
 }
@@ -50,8 +59,8 @@
     .choice {
         display: inline-block;
         position: absolute;
-        left: -5px;
-        top: -5px;
+        left: 6px;
+        top: -6px;
     }
 
     .error-tip {
@@ -72,10 +81,10 @@
 }
 
 .form-footer {
-    margin: 28px 0;
+    margin: 36px 0;
 }
 
 .btn-submit {
     font-size: 18px;
-    padding: 8px 28px;
+    padding: 14px 30px;
 }

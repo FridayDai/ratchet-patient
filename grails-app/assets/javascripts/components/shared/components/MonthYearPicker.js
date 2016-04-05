@@ -44,7 +44,7 @@ function MonthYearPicker() {
             .hide()
             .selectmenu({
                 select: function () {
-                    me._checkMonthInYear(me.$yearSelect.val(), me.$monthSelect.val())
+                    me._checkMonthInYear(me.$yearSelect.val(), me.$monthSelect.val());
                 }
             });
 
