@@ -4,6 +4,7 @@
     color: #333;
     line-height: 20px;
     text-align: center;
+    margin-top: 100px;
 
     @include breakpoint('tablet') {
         margin-top: 120px;
@@ -38,12 +39,21 @@
     margin: 30px 0 60px;
     font-size: 24px;
     font-weight: 700;
+
+    @include breakpoint('mobile') {
+        margin: 0 20px 60px;
+        font-size: 19px;
+    }
 }
 
 .confirm-form {
     max-width: 418px;
     margin: 0 auto;
     padding-top: 50px;
+
+    @include breakpoint('mobile') {
+        padding: 20px 30px;
+    }
 }
 
 .content {
