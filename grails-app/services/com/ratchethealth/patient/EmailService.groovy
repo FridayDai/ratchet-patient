@@ -5,12 +5,13 @@ import grails.converters.JSON
 class EmailService extends RatchetAPIService {
     def grailsApplication
 
-    def confirmPatientEmail(String token, code, emailUpdate) {
+    def confirmPatientEmail(String token, code, agree, emailUpdate) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
 
         withPost(emailUrl) { req ->
             def resp = req
                     .field("code", code)
+                    .field("agreedPolicy", agree)
                     .field("email_update", emailUpdate)
                     .asString()
 
@@ -28,12 +29,13 @@ class EmailService extends RatchetAPIService {
         }
     }
 
-    def confirmEmergencyContactEmail(String token, code) {
+    def confirmEmergencyContactEmail(String token, code, agree) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.emergencyContactConfirmation
 
         withPost(emailUrl) { req ->
             def resp = req
                     .field("code", code)
+                    .field("agreedPolicy", agree)
                     .field("hasProfile", true)
                     .asString()
 
@@ -108,6 +110,50 @@ class EmailService extends RatchetAPIService {
             } else if (resp.status == 404) {
                 log.info("this patient email doesn't exist, token: ${token}")
                 return true
+            } else {
+                handleError(resp)
+            }
+        }
+    }
+
+    def checkPatientEmailStatus(String token, code) {
+        String emailUrl = grailsApplication.config.ratchetv2.server.url.email.checkPatientEmailStatus
+
+        withPost(emailUrl) { req ->
+            def resp = req
+                    .field("code", code)
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("Patient hasn't confirm yet, token: ${token}")
+
+                JSON.parse(resp.body)
+            } else if (resp.status == 404) {
+                log.info("Patient already confirm or code is incorrect,token:${token}.")
+
+                JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
+        }
+    }
+
+    def checkCareGiverEmailStatus(String token, code) {
+        String emailUrl = grailsApplication.config.ratchetv2.server.url.email.checkCareGiverEmailStatus
+
+        withPost(emailUrl) { req ->
+            def resp = req
+                    .field("code", code)
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("Caregiver hasn't confirm yet, token: ${token}")
+
+                JSON.parse(resp.body)
+            } else if (resp.status == 404) {
+                log.info("Caregiver already confirm or code is incorrect,token:${token}.")
+
+                JSON.parse(resp.body)
             } else {
                 handleError(resp)
             }
