@@ -1,5 +1,5 @@
 <g:set var="cssPath" value="clinicTask/tasksList"/>
-<g:applyLayout name="main">
+<g:applyLayout name="clientHeaderLayout">
     <html>
     <head>
         <style type="text/css">
@@ -37,43 +37,35 @@
             })();
         </script>
         </g:if>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     </head>
 
     <body>
-    <div class="main-header primary-border-color clear">
-        <a class="nav-info" href="/">
-            <img src="${client.logo}" alt="" class="client-logo primary-border-color"/>
 
-            <p class="primary-color">${client.portalName}</p>
-        </a>
-        <span class="copy-right">
-            <span class="distance">Powered By</span>
-            <img class="logo" src="${assetPath(src: 'Ratchet_Logo_grey.png')}"/>
-            <span class="rc-version">V. RH0.1</span>
-        </span>
-    </div>
-
-    <div class="main-container">
+    <div class="main container">
         <g:if test="${tasksList}">
-            <div class="task-list-header">
-                <span>Welcome!</span>
-                <span>
-                    You have
-                    <g:if test="${tasksLength == 1}">
-                        <strong>${tasksLength}</strong> task
-                    </g:if>
-                    <g:else>
-                        <strong>${tasksLength}</strong> tasks
-                    </g:else>
-                    to complete. Click <span class="task-start-font">Start!</span> to begin.
-                </span>
-            </div>
+            %{--<div class="task-list-header">--}%
+                %{--<span>Welcome!</span>--}%
+                %{--<span>--}%
+                    %{--You have--}%
+                    %{--<g:if test="${tasksLength == 1}">--}%
+                        %{--<strong>${tasksLength}</strong> task--}%
+                    %{--</g:if>--}%
+                    %{--<g:else>--}%
+                        %{--<strong>${tasksLength}</strong> tasks--}%
+                    %{--</g:else>--}%
+                    %{--to complete. Click <span class="task-start-font">Start!</span> to begin.--}%
+                %{--</span>--}%
+            %{--</div>--}%
 
-            <div class="task-list-container">
-            <g:each in="${tasksList}" var="${task}" status="i">
-                    <p class="task-title-tip"><span class="task-index">${i+1}.</span>${task.title}</p>
-            </g:each>
-            </div>
+            %{--<div>--}%
+            %{--<g:each in="${tasksList}" var="${task}" status="i">--}%
+                    %{--<p class="task-title-tip"><span class="task-index">${i+1}.</span>${task.title}</p>--}%
+            %{--</g:each>--}%
+            %{--</div>--}%
+
+            <g:render template="/clinicTask/template/taskUL"/>
 
             <form name="tasksListForm" method="post">
                 <input type="hidden" name="tasksList" value="${tasksList}">

@@ -5,15 +5,19 @@ html, body {
     height: 100%;
 }
 
+.header {
+    position: static;
+}
+
 #main {
     min-height: 100%;
     position: relative;
     height: auto;
 }
 
-.main-container {
-    padding-bottom: 110px;
-}
+//.main-container {
+//    padding-bottom: 110px;
+//}
 
 
 
@@ -34,18 +38,18 @@ html, body {
     }
 }
 
-.task-list-container {
-    width: 700px;
-    margin: 60px auto;
-    border: 1px solid #f69b95;
-    padding: 20px 30px;
-    position: relative;
-
-    @include breakpoint('mobile') {
-        width: 95%;
-        padding: 0;
-    }
-}
+//.task-list-container {
+//    width: 700px;
+//    margin: 60px auto;
+//    border: 1px solid #f69b95;
+//    padding: 20px 30px;
+//    position: relative;
+//
+//    @include breakpoint('mobile') {
+//        width: 95%;
+//        padding: 0;
+//    }
+//}
 
 .task-start-font {
     color: $base-color-error-font-red;
@@ -154,5 +158,29 @@ html, body {
     bottom: 0;
     left: 0;
     width: 100%;
+}
+
+//new in task list
+
+//task-ul
+
+.top-line {
+    border-bottom: 1px solid $base-color-active;
+}
+
+
+//task-item
+.task-item {
+    width: 100%;
+    padding: 16px 0;
+    border-bottom: 1px solid $base-color-active;
+}
+
+.item-left {
+    width: 80%;
+}
+
+.item-right {
+    width: 20%;
 }
 
