@@ -35,7 +35,7 @@
         <form action="" method="post" class="confirm-form">
             <div class="content" id="form-content">
 
-                <g:if test="${patientConfirm}">
+                <g:if test="${patientConfirm && hasBirthday}">
                     <div class="content-birth">
 
                         <div class="label-birth">

@@ -25,4 +25,26 @@ class PatientService extends RatchetAPIService {
             }
         }
     }
+
+    def checkPatientBirthday(String token, code) {
+        String url = grailsApplication.config.ratchetv2.server.url.patient.checkBirthday
+
+        withPost(url) { req ->
+            def resp = req
+                    .field("code", code)
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("patient has birthday yet, token: ${token}")
+
+                return true
+            } else if (resp.status == 400) {
+                log.info("patient hasn't birthday,token:${token}.")
+
+               return false
+            } else {
+                handleError(resp)
+            }
+        }
+    }
 }
