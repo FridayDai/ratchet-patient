@@ -164,4 +164,24 @@ class EmailService extends RatchetAPIService {
             }
         }
     }
+
+    def unsubscribeEmail(String token, code, patientId) {
+        String unsubscribeUrl = grailsApplication.config.ratchetv2.server.url.email.unsubscribeEmail
+
+        def url = String.format(unsubscribeUrl, patientId)
+
+        withGet(url) { req ->
+            def resp = req
+                    .queryString("subscribe", false)
+                    .queryString("code",code)
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("unsubscribe email success, token: ${token}")
+                return resp
+            } else {
+                handleError(resp)
+            }
+        }
+    }
 }
