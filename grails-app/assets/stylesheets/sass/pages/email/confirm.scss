@@ -49,7 +49,6 @@
 .confirm-form {
     max-width: 418px;
     margin: 0 auto;
-    padding-top: 50px;
 
     @include breakpoint('mobile') {
         padding: 20px 30px;
@@ -57,11 +56,38 @@
 }
 
 .content {
-    position: relative;
-    padding-left: 50px;
-    text-align: left;
+    padding-top: 18px;
 
-    .agree-text {
+    .content-birth {
+        min-height: 180px;
+        font-size: 15px;
+        color: #333;
+    }
+
+    .label-birth {
+        padding: 16px 0 26px;
+    }
+
+    .input-birth {
+        font-size: 15px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 5px 30px;
+        color: $base-color-middle-gray;
+        border: 1px solid $base-color-gray;
+
+        &.rc-error-label{
+            border-color: $base-color-error;
+        }
+    }
+
+    .agree-group {
+        position: relative;
+        padding-left: 50px;
+        text-align: left;
+    }
+
+    .input-context {
         font-size: 16px;
         color: #333;
     }
@@ -88,6 +114,16 @@
             color: $base-color-red;
         }
     }
+}
+
+.input-group {
+    display: inline-block;
+    width: 228px;
+}
+
+.error-container {
+    text-align: left;
+    font-size: 13px;
 }
 
 .form-footer {
