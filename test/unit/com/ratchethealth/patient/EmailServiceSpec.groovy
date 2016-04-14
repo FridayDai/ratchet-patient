@@ -24,7 +24,7 @@ class EmailServiceSpec extends Specification {
         }
 
         when:
-        def result = service.confirmPatientEmail('token', 1, true, true)
+        def result = service.confirmPatientEmail('token', 1, true, true, true)
 
         then:
         result.confirmation == true
@@ -45,7 +45,7 @@ class EmailServiceSpec extends Specification {
         }
 
         when:
-        def result = service.confirmPatientEmail('token', 1, true, true)
+        def result = service.confirmPatientEmail('token', 1, true, true, true)
 
         then:
         result.expired == true
@@ -61,7 +61,7 @@ class EmailServiceSpec extends Specification {
         }
 
         when:
-        service.confirmPatientEmail('token', 1, true, true)
+        service.confirmPatientEmail('token', 1, true, true, true)
 
         then:
         ServerException e = thrown()

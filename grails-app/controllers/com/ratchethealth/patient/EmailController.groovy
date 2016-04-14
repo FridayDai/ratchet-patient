@@ -16,20 +16,25 @@ class EmailController extends BaseController {
         if (client.error?.errorId == 404) {
             render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
         } else {
-            render view: 'confirm', model: [client: JSON.parse(session.client)]
+            render view: 'confirm', model: [client: JSON.parse(session.client) , errorMsg: flash?.errorMsg, patientConfirm: 'true']
         }
     }
 
     def agreePolicyAndConfirmPatient() {
         String token = request.session.token
         def code = params.code;
+        def birthday = params.birthday;
         def emailUpdate = params.email_update == 'true'
         def agree = params.agree == 'true'
 
-        def client = emailService.confirmPatientEmail(token, code, agree, emailUpdate)
+        def client = emailService.confirmPatientEmail(token, code, agree, birthday, emailUpdate)
 
         if (client) {
-            if (client.error?.errorId == 412) {
+            if(client.error?.errorId == 400) {
+                flash.errorMsg = client.error?.errorMessage
+                forward(action: 'confirmPatientEmail')
+            }
+            else if (client.error?.errorId == 412) {
                 render view: '/error/invitationExpired', model: [client: JSON.parse(session.client)]
             } else if (client.error?.errorId == 404) {
                 render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]

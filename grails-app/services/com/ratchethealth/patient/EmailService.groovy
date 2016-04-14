@@ -5,18 +5,23 @@ import grails.converters.JSON
 class EmailService extends RatchetAPIService {
     def grailsApplication
 
-    def confirmPatientEmail(String token, code, agree, emailUpdate) {
+    def confirmPatientEmail(String token, code, agree, birthday, emailUpdate) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
 
         withPost(emailUrl) { req ->
             def resp = req
                     .field("code", code)
                     .field("agreedPolicy", agree)
+                    .field("birthday", birthday)
                     .field("email_update", emailUpdate)
                     .asString()
 
             if (resp.status == 200) {
                 log.info("Confirm patient email success, token: ${token}")
+
+                JSON.parse(resp.body)
+            } else if(resp.status == 400) {
+                log.info("Invitation birthday,token:${token}.")
 
                 JSON.parse(resp.body)
             } else if (resp.status == 404 || resp.status == 412) {

@@ -8,5 +8,8 @@ module.exports = {
 
     //task optional choices
     SECTION_ERROR_STRING: "Please answer {0} more questions from the following.",
-    SECTION_SUCCESS_STRING : "Great! You’ve completed the minimum required questions for this section."
+    SECTION_SUCCESS_STRING : "Great! You’ve completed the minimum required questions for this section.",
+
+    //year valid
+    YEAR_REQUIRED: "This field is required to verify your identity."
 };
