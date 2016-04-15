@@ -224,6 +224,7 @@ ratchetv2 {
             //patient
             patient {
                 update = "${ratchetv2.server.url.base}/api/v1/tests/collect/email"
+                checkBirthday = "${ratchetv2.server.url.base}/api/v1/patient/check/birthday"
             }
 
             // Email
@@ -235,6 +236,7 @@ ratchetv2 {
                 checkPatientEmail = "${ratchetv2.server.url.base}/api/v1/patients/check_email"
                 checkPatientEmailStatus = "${ratchetv2.server.url.base}/api/v1/patient/check/status"
                 checkCareGiverEmailStatus = "${ratchetv2.server.url.base}/api/v1/caregiver/check/status"
+                unsubscribeEmail = "${ratchetv2.server.url.base}/api/v1/patients/%s/subscribe"
             }
 
             // Task

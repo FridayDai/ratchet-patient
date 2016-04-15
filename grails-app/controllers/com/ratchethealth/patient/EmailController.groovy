@@ -5,6 +5,7 @@ import grails.converters.JSON
 class EmailController extends BaseController {
 
     def emailService
+    def patientService
     def messageSource
 
     def confirmPatientEmail() {
@@ -12,11 +13,16 @@ class EmailController extends BaseController {
         def code = params.code;
 
         def client = emailService.checkPatientEmailStatus(token, code)
+        def hasBirthday = patientService.checkPatientBirthday(token, code)
 
         if (client.error?.errorId == 404) {
             render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
         } else {
-            render view: 'confirm', model: [client: JSON.parse(session.client) , errorMsg: flash?.errorMsg, patientConfirm: 'true']
+            render view: 'confirm', model: [client        : JSON.parse(session.client),
+                                            errorMsg      : flash?.errorMsg,
+                                            patientConfirm: 'true',
+                                            hasBirthday   : hasBirthday
+            ]
         }
     }
 
@@ -30,11 +36,10 @@ class EmailController extends BaseController {
         def client = emailService.confirmPatientEmail(token, code, agree, birthday, emailUpdate)
 
         if (client) {
-            if(client.error?.errorId == 400) {
+            if (client.error?.errorId == 400) {
                 flash.errorMsg = client.error?.errorMessage
                 forward(action: 'confirmPatientEmail')
-            }
-            else if (client.error?.errorId == 412) {
+            } else if (client.error?.errorId == 412) {
                 render view: '/error/invitationExpired', model: [client: JSON.parse(session.client)]
             } else if (client.error?.errorId == 404) {
                 render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
@@ -80,5 +85,13 @@ class EmailController extends BaseController {
         def email = params?.email
         def data = emailService.checkPatientEmail(token, clientId, email)
         render data as String
+    }
+
+    def unsubscribeEmail() {
+        String token = request.session.token
+        def patientId = params.patientId
+        def code = params.code
+        emailService.unsubscribeEmail(token, code, patientId)
+        render view: 'unsubscribe', model: [client: JSON.parse(session.client)]
     }
 }
