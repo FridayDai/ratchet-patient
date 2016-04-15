@@ -9,7 +9,7 @@
 
     <body>
     <div class="main container">
-        <p class="message">You are no longer subscribed.</p>
+        <p class="message sub-title">You are no longer subscribed.</p>
     </div>
 
     </body>

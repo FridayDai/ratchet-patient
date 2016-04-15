@@ -170,10 +170,10 @@ class EmailService extends RatchetAPIService {
 
         def url = String.format(unsubscribeUrl, patientId)
 
-        withGet(url) { req ->
+        withPost(url) { req ->
             def resp = req
-                    .queryString("subscribe", false)
-                    .queryString("code",code)
+                    .field("subscribe", false)
+                    .field("code", code)
                     .asString()
 
             if (resp.status == 200) {

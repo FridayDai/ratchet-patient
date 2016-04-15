@@ -28,7 +28,7 @@ class UrlMappings {
             action = [POST: "saveDraftAnswer"]
         }
 
-        "/patients/$patientId/unsubscribe/$code"(controller: "email", action: "unsubscribeEmail")
+        "/patient/$patientId/unsubscribe/$code"(controller: "email", action: "unsubscribeEmail")
 
         // Direct task
         "/$accountId/tasks/$title/$code"(controller: "directTask") {

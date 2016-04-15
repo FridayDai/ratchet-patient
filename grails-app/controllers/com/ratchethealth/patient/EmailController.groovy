@@ -87,6 +87,6 @@ class EmailController extends BaseController {
         def patientId = params.patientId
         def code = params.code
         emailService.unsubscribeEmail(token, code, patientId)
-        render view: 'unsubscribe'
+        render view: 'unsubscribe', model: [client: JSON.parse(session.client)]
     }
 }
