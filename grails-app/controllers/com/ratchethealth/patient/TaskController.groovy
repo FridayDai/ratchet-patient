@@ -80,7 +80,8 @@ class TaskController extends BaseController {
                             treatmentCode: opts?.treatmentCode,
                             tasksLength: opts?.tasksList?.size(),
                             patientId  : opts?.patientId,
-                            emailStatus: opts?.emailStatus
+                            emailStatus: opts?.emailStatus,
+                            taskRoute: opts?.taskRoute
                     ]
         } else if (resp.status == 404) {
             render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
