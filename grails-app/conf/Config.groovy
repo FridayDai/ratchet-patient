@@ -99,6 +99,7 @@ grails.assets.excludes = [
 ]
 
 grails.assets.plugin."resources".excludes = ["**"]
+markdown.hardwraps = true
 
 environments {
     development {

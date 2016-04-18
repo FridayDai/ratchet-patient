@@ -145,18 +145,19 @@ class MultiTaskController extends TaskController {
         def taskRoute = params?.taskRoute
 
         submitTaskHandler([
-                taskType     : params.taskType,
-                code         : params.code,
-                token        : request.session.token,
-                itemIndex    : itemIndex,
-                tasksList    : tasksList,
-                isInClinic   : isInClinic,
-                treatmentCode: treatmentCode,
-                emailStatus  : emailStatus,
-                taskTitle    : taskTitle,
-                choices      : params.choices,
-                optionals    : params.optionals,
-                sections     : params.sections
+            taskType: params.taskType,
+            baseToolType: params.baseToolType,
+            code: params.code,
+            token: request.session.token,
+            itemIndex: itemIndex,
+            tasksList: tasksList,
+            isInClinic: isInClinic,
+            treatmentCode: treatmentCode,
+            emailStatus: emailStatus,
+            taskTitle: taskTitle,
+            choices: params.choices,
+            optionals: params.optionals,
+            sections: params.sections
         ]) { resp ->
 
             if(taskRoute == "pickTask") {
