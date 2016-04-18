@@ -1,5 +1,7 @@
 <g:set var="cssPath" value="clinicTask/tasksList"/>
-<g:applyLayout name="main">
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/tasksList.bundle.js"/>
+<g:applyLayout name="clientHeaderLayout">
     <html>
     <head>
         <style type="text/css">
@@ -37,42 +39,21 @@
             })();
         </script>
         </g:if>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     </head>
 
     <body>
-    <div class="main-header primary-border-color clear">
-        <a class="nav-info" href="/">
-            <img src="${client.logo}" alt="" class="client-logo primary-border-color"/>
 
-            <p class="primary-color">${client.portalName}</p>
-        </a>
-        <span class="copy-right">
-            <span class="distance">Powered By</span>
-            <img class="logo" src="${assetPath(src: 'Ratchet_Logo_grey.png')}"/>
-            <span class="rc-version">V. RH0.1</span>
-        </span>
-    </div>
-
-    <div class="main-container">
+    <div class="main container">
         <g:if test="${tasksList}">
-            <div class="task-list-header">
-                <span>Welcome!</span>
-                <span>
-                    You have
-                    <g:if test="${tasksLength == 1}">
-                        <strong>${tasksLength}</strong> task
-                    </g:if>
-                    <g:else>
-                        <strong>${tasksLength}</strong> tasks
-                    </g:else>
-                    to complete. Click <span class="task-start-font">Start!</span> to begin.
-                </span>
+
+            <div id="task-list-active">
+                <g:render template="/multiTask/template/taskUL" model="[tasksList: tasksList, treatmentCode: treatmentCode, isInClinic: isInClinic]"/>
             </div>
 
-            <div class="task-list-container">
-            <g:each in="${tasksList}" var="${task}" status="i">
-                    <p class="task-title-tip"><span class="task-index">${i+1}.</span>${task.title}</p>
-            </g:each>
+            <div id="task-list-all" class="hide">
+                <g:render template="/multiTask/template/taskUL" model="[allTasks: allTaskList, treatmentCode: treatmentCode, isInClinic:isInClinic]"/>
             </div>
 
             <form name="tasksListForm" method="post">
@@ -87,8 +68,11 @@
                 <input type="hidden" name="isInClinic" value="${isInClinic}">
 
                 <div class="task-start-panel">
-                    <span class="arrow-tip"></span>
-                    <input type="submit" class="rc-btn task-start-btn" value="Start !">
+                    <input type="submit" class="rc-btn task-start-btn" value="Start All">
+                    <div id="quick-filter-task" class="filter-link">
+                        <span id="quick-filter-all">Show completed and future tasks</span>
+                        <span id="quick-filter-active" class="hide">Show active tasks only</span>
+                    </div>
                 </div>
 
             </form>
@@ -96,7 +80,7 @@
 
         <g:elseif test="${tasksCompleted}">
             <div class="task-list-header">
-                <span>Congratulations!</span>
+                <div class="top-title">Congratulations!</div>
 
                 <span>
                     You have completed
@@ -118,27 +102,25 @@
             <g:elseif test="${doneTaskList}">
             <div class="task-list-container">
                 <g:each in="${doneTaskList}" var="${completeTask}" status="i">
-                    <p class="task-title-tip"><span class="task-done"></span><span class="task-index">${i+1}.</span>${completeTask.title}</p>
+                    <p class="task-title-tip"><span class="task-done"></span><span class="task-index"></span>${completeTask.title}</p>
                 </g:each>
+
+                <form name="taskItemForm" method="post">
+
+                    <input type="hidden" name="pathRoute" value="codeValidation">
+                    <input type="hidden" name="treatmentCode" value="${treatmentCode}">
+                    <input type="hidden" name="isInClinic" value="${isInClinic}">
+
+                    <div class="task-start-panel">
+                        <input type="submit" class="rc-btn task-start-btn" value="Ok">
+                    </div>
+                </form>
+
             </div>
             </g:elseif>
 
-            <g:elseif test="${uncompleteTasksList}">
-                <div class="task-list-container">
-                    <g:each in="${uncompleteTasksList}" var="${uncompleteTasksList}" status="i">
-                        <p class="task-title-tip"><span class="task-index">${i+1}.</span>${uncompleteTasksList.title}</p>
-                    </g:each>
-                </div>
-            </g:elseif>
         </g:elseif>
 
-        <g:else>
-            <div class="task-list-header">
-                <P>Hi ${patientFirstName},</P>
-
-                <p>You have <strong>0</strong> tasks</p>
-            </div>
-        </g:else>
     </div>
     <g:render template="/shared/copyRight" />
     </body>

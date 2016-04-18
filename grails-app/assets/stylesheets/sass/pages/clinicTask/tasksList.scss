@@ -5,45 +5,44 @@ html, body {
     height: 100%;
 }
 
+.header {
+    position: static;
+}
+
 #main {
     min-height: 100%;
     position: relative;
     height: auto;
 }
 
-.main-container {
-    padding-bottom: 110px;
+.container {
+    padding-top: 60px;
+    @include breakpoint('mobile') {
+        padding-top: 10px;
+    }
 }
-
-
 
 .rc-version {
     margin-left: 5px;
 }
 
 .task-list-header {
-    margin-top: 30px;
+    margin: 36px 0 80px;
     text-align: center;
     font-weight: normal;
     font-size: 20px;
     color: $base-color-mid-gray;
 
     @include breakpoint('mobile') {
+        margin: 36px 0 50px;
         font-size: 17px;
         line-height: 1.6;
     }
-}
 
-.task-list-container {
-    width: 700px;
-    margin: 60px auto;
-    border: 1px solid #f69b95;
-    padding: 20px 30px;
-    position: relative;
-
-    @include breakpoint('mobile') {
-        width: 95%;
-        padding: 0;
+    .top-title {
+        padding-bottom: 20px;
+        font-width: 600;
+        color: $base-color-success;
     }
 }
 
@@ -55,19 +54,19 @@ html, body {
 
 .task-index {
     font-style: italic;
-    margin-right: 20px;
     font-weight: 500;
     padding-left: 30px;
 
-    @include breakpoint('mobile') {
-        padding-left: 10px;
-    }
+//    @include breakpoint('mobile') {
+//        padding-left: 10px;
+//    }
 }
 
 .task-title-tip {
     font-weight: 600;
     font-size: 19px;
     position: relative;
+    text-align: center;
     color: $base-color-mid-gray;
 
     @include breakpoint('mobile') {
@@ -78,74 +77,12 @@ html, body {
     .task-done:before {
         content: '\f121';
         position: absolute;
-        left: 6px;
         top: 2px;
         font-family: 'Ionicons';
         color: $base-color-success;
         font-size: 17px;
-
-        @include breakpoint('mobile') {
-            display: none;
-        }
     }
 
-}
-
-.task-start-panel {
-    padding-bottom: 150px;
-    width: 250px;
-    margin: 0 auto;
-    position: relative;
-    padding-top: 50px;
-
-    @include breakpoint('mobile') {
-        padding-bottom: 100px;
-        width: 95%;
-        top: -25px;
-    }
-
-    .task-start-btn {
-        display: block;
-        width: 250px;
-        padding: 20px 15px;
-        color: $base-color-white;
-        font-style: italic;
-        background-color: $base-color-error-font-red;
-        font-size: 30px;
-        border: none;
-
-        @include breakpoint('mobile') {
-            width: 100%;
-            padding: 15px;
-            font-size: 25px;
-        }
-    }
-
-    .arrow-tip {
-        content: '';
-        position: absolute;
-        display: inline-block;
-        left: 115px;
-        top: 0px;
-        width: 0;
-        height: 0;
-        border-top: 16px solid $base-color-error-font-red;
-        border-right: 9px solid transparent;
-        border-left: 9px solid transparent;
-
-        @include breakpoint('mobile') {
-            left: 50%;
-            transform: translateX(-50%);
-        }
-    }
-}
-
-
-@include breakpoint('mobile') {
-    .task-title {
-        width: 91%;
-        margin-left: 37px;
-    }
 }
 
 .footer {
@@ -155,4 +92,165 @@ html, body {
     left: 0;
     width: 100%;
 }
+
+
+//new in task list
+.fa {
+    width: 14px;
+}
+
+.fa-check {
+    color: $base-color-check;
+}
+
+.fa-lock {
+    color: $base-color-gray-light;
+}
+
+.fa-unlock {
+    color: $base-color-dark-gray;
+}
+
+.fa.fa-flag-checkered {
+    width: 100%;
+    font-size: 102px;
+}
+
+.rc-btn{
+    &.task-start-btn {
+        border: 0;
+        border-radius: 4px;
+        background-color: $base-color-success;
+        color: $base-color-white;
+    }
+    &.task-view-btn {
+        border: 1px solid $base-font-grey;
+        border-radius: 4px;
+        padding: 6px 22px;
+        background-color: $base-color-white;
+        color: $base-font-grey;
+    }
+}
+
+
+
+.filter-link {
+    padding: 14px 0;
+    color:  $base-font-light-gray;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.no-task-list {
+    padding: 62px 0;
+    text-align: center;
+    color:  $base-color-gray-light;
+    font-size: 19px;
+}
+
+//task-panel
+.task-start-panel {
+    padding-bottom: 150px;
+    width: 250px;
+    margin: 0 auto;
+    padding-top: 78px;
+    text-align: center;
+
+    .task-start-btn {
+        padding: 12px 48px;
+    }
+}
+
+//task-ul
+.top-line {
+    border-bottom: 1px solid $base-color-active;
+    @include breakpoint('mobile') {
+        display: none;
+    }
+}
+
+.more-text {
+    text-align: right;
+    padding-top: 12px;
+    color: $base-color-gray-light;
+    @include breakpoint('mobile') {
+        display: none;
+    }
+}
+
+//task-item
+.task-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    display: -ms-flexbox;
+    -ms-flex-align: center;
+
+    padding: 16px 0;
+    border-bottom: 1px solid $base-color-active;
+
+    @include breakpoint('mobile') {
+        padding: 16px;
+        padding-left: 20px;
+    }
+}
+
+.task-complete {
+
+}
+
+.task-active {
+    font-weight: 600;
+    .task-start-btn {
+        padding: 6px 22px;
+    }
+}
+
+.task-schedule {
+    color: $base-color-gray-light;
+    .task-date {
+        color: $base-color-gray-light;
+    }
+}
+
+.item-left {
+    float: left;
+    width: 80%;
+    @include breakpoint('mobile') {
+        width: 72%;
+    }
+}
+
+.item-right {
+    float: left;
+    width: 20%;
+}
+
+.btn-panel {
+    text-align: center;
+}
+
+.task-date {
+    float: right;
+    color: $base-font-grey;
+    @include breakpoint('mobile') {
+        float: none;
+        display: block;
+        font-size: 13px;
+        padding-top: 3px;
+    }
+}
+
+.task-title {
+    margin-left: 12px;
+    @include breakpoint('mobile') {
+        margin-left: 5px;
+    }
+}
+
+
+
+
+
+
 

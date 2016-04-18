@@ -39,7 +39,7 @@ class DirectTaskController extends TaskController {
             completeDate: params.completeDate
         ]) { resp ->
             if (resp.status == 200 || resp.status == 207) {
-                render(view: '/clinicTask/tasksList', model: [
+                render(view: '/multiTask/tasksList', model: [
                     client: JSON.parse(session.client),
                     tasksCompleted: true,
                     tasksLength   : 1,
@@ -60,7 +60,7 @@ class DirectTaskController extends TaskController {
 
         taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, accountId, completeDate)
 
-        render(view: '/clinicTask/tasksList', model: [
+        render(view: '/multiTask/tasksList', model: [
             client: JSON.parse(session.client),
             tasksCompleted: true,
             tasksLength   : 1,

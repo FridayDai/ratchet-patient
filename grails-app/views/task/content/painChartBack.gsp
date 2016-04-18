@@ -295,6 +295,7 @@
                 <input type="hidden" name="treatmentCode" value="${treatmentCode}">
                 <input type="hidden" name="isInClinic" value="${isInClinic}">
                 <input type="hidden" name="pathRoute" value="todoTask">
+                <input type="hidden" name="taskRoute" value="${taskRoute}">
                 <input type="hidden" name="emailStatus" value="${emailStatus}">
                 <input type="hidden" name="hardcodeTask" value="true">
 

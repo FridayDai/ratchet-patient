@@ -18,4 +18,8 @@ class RatchetStatusCode {
 
     //patient email status
     public static final String[] emailStatus = ['UNDEFINED', 'UNINVITED', 'INVITED', 'VERIFIED', 'NO_EMAIL', 'BOUNCED']
+
+    //task status
+    public static final String[] TASK_STATUS =
+            ["undefined", "new", "overdue", "schedule", "pending", "complete", "expired"]
 }
