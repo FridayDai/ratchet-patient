@@ -26,13 +26,14 @@ class MultiTaskService extends RatchetAPIService {
         }
     }
 
-    def getTreatmentTasksWithCombinedTasksCode(String token, combinedTasksCode, completedTasksOnly, subDomain) {
+    def getTreatmentTasksWithCombinedTasksCode(String token, combinedTasksCode, completedTasksOnly, allTasks, subDomain) {
         def url = grailsApplication.config.ratchetv2.server.url.task.getTreatmentTests
 
         withGet(url) { req ->
             def resp = req
                     .queryString("combinedTasksCode", combinedTasksCode)
                     .queryString("completedTasksOnly",completedTasksOnly)
+                    .queryString("all", allTasks)
                     .queryString("subDomain",subDomain)
                     .asString()
 

@@ -1,4 +1,6 @@
 <g:set var="cssPath" value="clinicTask/tasksList"/>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/tasksList.bundle.js"/>
 <g:applyLayout name="clientHeaderLayout">
     <html>
     <head>
@@ -26,15 +28,22 @@
     <div class="main container">
         <g:if test="${allTaskList}">
 
+            <div id="task-list-active">
+                <div class="no-task-list">
+                    <i class="fa fa-flag-checkered" aria-hidden="true"></i>
+                    <div>There’s no active tasks</div>
+                </div>
+            </div>
+
             <div id="task-list-all" class="hide">
                 <g:render template="/multiTask/template/taskUL"
                           model="[allTasks: allTaskList, treatmentCode: treatmentCode, isInClinic: isInClinic]"/>
             </div>
 
             <div class="task-start-panel">
-                <div id="quick-filter-task">
-                    <span id="quick-filter-active">Show completed and future tasks</span>
-                    <span id="quick-filter-all" class="hide">Show active tasks only</span>
+                <div id="quick-filter-task" class="filter-link">
+                    <span id="quick-filter-all">Show completed and future tasks</span>
+                    <span id="quick-filter-active" class="hide">Show active tasks only</span>
                 </div>
             </div>
 

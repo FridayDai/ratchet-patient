@@ -1,4 +1,6 @@
 <g:set var="cssPath" value="clinicTask/tasksList"/>
+<g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/tasksList.bundle.js"/>
 <g:applyLayout name="clientHeaderLayout">
     <html>
     <head>
@@ -45,25 +47,6 @@
 
     <div class="main container">
         <g:if test="${tasksList}">
-            %{--<div class="task-list-header">--}%
-                %{--<span>Welcome!</span>--}%
-                %{--<span>--}%
-                    %{--You have--}%
-                    %{--<g:if test="${tasksLength == 1}">--}%
-                        %{--<strong>${tasksLength}</strong> task--}%
-                    %{--</g:if>--}%
-                    %{--<g:else>--}%
-                        %{--<strong>${tasksLength}</strong> tasks--}%
-                    %{--</g:else>--}%
-                    %{--to complete. Click <span class="task-start-font">Start!</span> to begin.--}%
-                %{--</span>--}%
-            %{--</div>--}%
-
-            %{--<div>--}%
-            %{--<g:each in="${tasksList}" var="${task}" status="i">--}%
-                    %{--<p class="task-title-tip"><span class="task-index">${i+1}.</span>${task.title}</p>--}%
-            %{--</g:each>--}%
-            %{--</div>--}%
 
             <div id="task-list-active">
                 <g:render template="/multiTask/template/taskUL" model="[tasksList: tasksList, treatmentCode: treatmentCode, isInClinic: isInClinic]"/>
@@ -85,11 +68,10 @@
                 <input type="hidden" name="isInClinic" value="${isInClinic}">
 
                 <div class="task-start-panel">
-                    %{--<span class="arrow-tip"></span>--}%
                     <input type="submit" class="rc-btn task-start-btn" value="Start All">
-                    <div id="quick-filter-task">
-                        <span id="quick-filter-active">Show completed and future tasks</span>
-                        <span id="quick-filter-all" class="hide">Show active tasks only</span>
+                    <div id="quick-filter-task" class="filter-link">
+                        <span id="quick-filter-all">Show completed and future tasks</span>
+                        <span id="quick-filter-active" class="hide">Show active tasks only</span>
                     </div>
                 </div>
 
@@ -98,7 +80,7 @@
 
         <g:elseif test="${tasksCompleted}">
             <div class="task-list-header">
-                <span>Congratulations!</span>
+                <div class="top-title">Congratulations!</div>
 
                 <span>
                     You have completed
@@ -120,7 +102,7 @@
             <g:elseif test="${doneTaskList}">
             <div class="task-list-container">
                 <g:each in="${doneTaskList}" var="${completeTask}" status="i">
-                    <p class="task-title-tip"><span class="task-done"></span><span class="task-index">${i+1}.</span>${completeTask.title}</p>
+                    <p class="task-title-tip"><span class="task-done"></span><span class="task-index"></span>${completeTask.title}</p>
                 </g:each>
 
                 <form name="taskItemForm" method="post">
@@ -137,13 +119,6 @@
             </div>
             </g:elseif>
 
-            %{--<g:elseif test="${uncompleteTasksList}">--}%
-                %{--<div class="task-list-container">--}%
-                    %{--<g:each in="${uncompleteTasksList}" var="${uncompleteTasksList}" status="i">--}%
-                        %{--<p class="task-title-tip"><span class="task-index">${i+1}.</span>${uncompleteTasksList.title}</p>--}%
-                    %{--</g:each>--}%
-                %{--</div>--}%
-            %{--</g:elseif>--}%
         </g:elseif>
 
     </div>

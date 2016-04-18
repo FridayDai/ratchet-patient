@@ -40,14 +40,15 @@ class MultiTaskController extends TaskController {
             resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null, null, subDomain)
             allResp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null, true, subDomain)
         } else {
-            resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, null, subDomain)
+            resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, null, null, subDomain)
+            allResp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, null, true, subDomain)
         }
 
         if (resp.status == 200) {
             def tasksListResp = JSON.parse(resp.body)
             def allTasksListResp = JSON.parse(allResp.body)
 
-            def allTaskList = allTasksListResp.tests
+            def allTaskList = limitFutureTask(allTasksListResp.tests)
             def tasksList = tasksListResp.tests
             def firstName = tasksListResp.firstName
             def emailStatus = tasksListResp.emailStatus
@@ -313,6 +314,20 @@ class MultiTaskController extends TaskController {
         multiTaskService.saveDraftAnswer(token, taskId, code, questionId, answerId, complex, sendTime)
 
         render status: 201
+    }
+
+    static private limitFutureTask(allTaskList) {
+        def limitNumber = 3
+        def limitAccount = 1
+        def taskList = []
+
+        for(task in allTaskList) {
+            if(RatchetStatusCode.TASK_STATUS[task?.taskStatus] == 'schedule' && limitAccount++ > limitNumber) {
+                break
+            }
+            taskList.add(task)
+        }
+        return taskList;
     }
 
 }
