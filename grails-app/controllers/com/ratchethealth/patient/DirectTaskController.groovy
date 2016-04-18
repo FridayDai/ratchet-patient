@@ -32,6 +32,7 @@ class DirectTaskController extends TaskController {
             taskTitle: params.title,
             code: params.code,
             taskType: params.taskType,
+            baseToolType: params.baseToolType,
             choices: params.choices,
             optionals: params.optionals,
             sections: params.sections,

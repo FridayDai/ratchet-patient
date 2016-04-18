@@ -126,6 +126,7 @@ class MultiTaskController extends TaskController {
 
         submitTaskHandler([
             taskType: params.taskType,
+            baseToolType: params.baseToolType,
             code: params.code,
             token: request.session.token,
             itemIndex: itemIndex,
