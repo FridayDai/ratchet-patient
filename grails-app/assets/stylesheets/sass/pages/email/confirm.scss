@@ -47,10 +47,15 @@
 }
 
 .sub-title {
-    padding-top: 80px;
+    padding: 80px 16px;
     font-size: 24px;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 40px;
+
     @include breakpoint('mobile') {
         font-size: 19px;
+        max-width: 312px;
     }
 
 }

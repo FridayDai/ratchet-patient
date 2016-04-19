@@ -4,12 +4,12 @@
 <g:applyLayout name="clientHeaderLayout">
     <html>
     <head>
-        <title>Email Confirmation Success</title>
+        <title>Email unsubscribed</title>
     </head>
 
     <body>
     <div class="main container">
-        <p class="message sub-title">You are no longer subscribed.</p>
+        <p class="message sub-title">You are no longer subscribed and will not receive any more emails from us.</p>
     </div>
 
     </body>
