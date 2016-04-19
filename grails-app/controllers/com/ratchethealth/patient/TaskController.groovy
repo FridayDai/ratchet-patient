@@ -7,8 +7,13 @@ class TaskController extends BaseController {
 
     def startTaskHandler(resp, opts) {
         def draft = null
+        def alreadyComplete = null
 
-        if (resp.status == 200) {
+        if(resp.status == 207) {
+            alreadyComplete = true
+        }
+
+        if (resp.status == 200 || resp.status == 207) {
             def result = JSON.parse(resp.body)
             def questionnaireView = ''
 
@@ -79,6 +84,7 @@ class TaskController extends BaseController {
                             baseToolType    : result.baseToolType,
                             Task            : result,
                             Draft           : draft,
+                            alreadyComplete : alreadyComplete,
                             taskTitle       : opts?.taskTitle,
                             taskCode        : opts?.taskCode,
                             itemIndex       : opts?.itemIndex,
@@ -88,6 +94,7 @@ class TaskController extends BaseController {
                             patientId       : opts?.patientId,
                             emailStatus     : opts?.emailStatus,
                             taskRoute       : opts?.taskRoute
+
                     ]
         } else if (resp.status == 404) {
             render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404

@@ -86,7 +86,9 @@
             <input type="hidden" name="emailStatus" value="${emailStatus}">
 
             <div class="task-done-panel">
-                <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
+                <g:if test="${!alreadyComplete}">
+                    <input type="submit" class="rc-btn task-done-btn" value="I'm Done">
+                </g:if>
             </div>
         </form>
 
