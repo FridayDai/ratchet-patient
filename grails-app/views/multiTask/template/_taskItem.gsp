@@ -15,8 +15,22 @@
         </div>
 
         <div class="item-right">
-            <g:if test="${task.isBaseTool}">
-                <a class="rc-btn task-view-btn" target="_blank" href="${task?.code}">View</a>
+            <g:if test="${task?.isBaseTool}">
+                <div class="btn-panel">
+                    %{--<a class="rc-btn task-view-btn" target="_blank" href="${task?.code}?pathRoute=tasksList">View</a>--}%
+                    <form name="taskItemForm" method="post" target="_blank">
+
+                        <input type="hidden" name="pathRoute" value="tasksList">
+                        <input type="hidden" name="taskRoute" value="pickTask">
+                        <input type="hidden" name="treatmentCode" value="${treatmentCode}">
+                        <input type="hidden" name="task" value="${task}">
+                        <input type="hidden" name="isInClinic" value="${isInClinic}">
+
+                        <div class="btn-panel">
+                            <input type="submit" class="rc-btn task-view-btn" target="_blank" value="view">
+                        </div>
+                    </form>
+                </div>
             </g:if>
         </div>
 

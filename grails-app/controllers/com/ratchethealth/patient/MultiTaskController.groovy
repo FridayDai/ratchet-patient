@@ -64,7 +64,7 @@ class MultiTaskController extends TaskController {
                         emailStatus     : emailStatus,
                         patientId       : patientId,
                         isInClinic      : isInClinic,
-                        tasksLength     : tasksList.size()
+                        tasksLength     : tasksList?.size()
                 ]
             } else {
                 render view: '/multiTask/noActiveTask', model: [
@@ -163,7 +163,7 @@ class MultiTaskController extends TaskController {
             if(taskRoute == "pickTask") {
                 forward(action: "getTreatmentTasks", params: [params: params])
             }
-            else if (itemIndexRecord < tasksListRecord.size()) {
+            else if (itemIndexRecord < tasksListRecord?.size()) {
                 forward(action: 'startTasks', params: [
                         itemIndex    : itemIndex,
                         treatmentCode: treatmentCode,
@@ -221,7 +221,7 @@ class MultiTaskController extends TaskController {
         if(taskRoute == "pickTask") {
             forward(action: "getTreatmentTasks", params: [params: params])
         }
-        else if (itemIndexRecord < tasksListRecord.size()) {
+        else if (itemIndexRecord < tasksListRecord?.size()) {
             forward(action: 'startTasks', params: [
                     itemIndex    : itemIndex,
                     treatmentCode: treatmentCode,
@@ -257,7 +257,7 @@ class MultiTaskController extends TaskController {
                 doneTaskList  : tasksListRecord,
                 treatmentCode : treatmentCode,
                 isInClinic    : isInClinic,
-                tasksLength   : tasksListRecord.size()
+                tasksLength   : tasksListRecord?.size()
         ])
     }
 
