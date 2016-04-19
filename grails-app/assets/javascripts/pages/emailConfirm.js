@@ -11,7 +11,8 @@ function EmailConfirm() {
         formSelector: 'form',
         contentSelector: '#form-content',
         agreeButtonSelector: '#agree-toggle',
-        birthdayInputSelector: '#birthday'
+        birthdayInputSelector: '#birthday',
+        gspErrorMsgSelector: '.gsp-error'
     });
 
 
@@ -73,8 +74,16 @@ function EmailConfirm() {
         });
     };
 
+    this.checkErrorMsg = function () {
+        var self = this;
+        $(this.attr.birthdayInputSelector).one("input", function () {
+            self.select('gspErrorMsgSelector').remove();
+        });
+    };
+
     this.after('initialize', function () {
         this.initValidation();
+        this.checkErrorMsg();
         this.on('submit', this.onSubmitButtonClicked);
     });
 }

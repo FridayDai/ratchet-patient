@@ -8,21 +8,21 @@
 
         <style type="text/css">
         .primary-color {
-            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .btn-submit {
-            color: ${client.primaryColorHex?:'#0f137d'} !important;
-            border-color: ${client.primaryColorHex?:'#0f137d'} !important;;
+            color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;;
         }
 
-        .btn-submit:hover {
+        .btn-submit:hover, .btn-submit:focus {
             color: #ffffff !important;
-            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .rc-choice-hidden:checked + .rc-checkbox {
-            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         </style>
@@ -62,9 +62,11 @@
 
                     <div class="input-context">
                         I agree to the system’s
-                        <a class="primary-color link" href="http://www.ratchethealth.com/terms-of-service/" target="_blank">Terms of Service </a>
+                        <a class="primary-color link" href="http://www.ratchethealth.com/terms-of-service/"
+                           target="_blank">Terms of Service</a>
                         and the
-                        <a class="primary-color link" href="http://www.ratchethealth.com/privacy-policy/" target="_blank">Privacy Policy</a>
+                        <a class="primary-color link" href="http://www.ratchethealth.com/privacy-policy/"
+                           target="_blank">Privacy Policy</a>
                     </div>
 
                     <div class="error-tip">
