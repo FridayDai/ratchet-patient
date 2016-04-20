@@ -42,7 +42,7 @@
 
             <div class="task-start-panel">
                 <div id="quick-filter-task" class="filter-link">
-                    <span id="quick-filter-all">Show completed and future tasks</span>
+                    <span id="quick-filter-all">Show all tasks</span>
                     <span id="quick-filter-active" class="hide">Show active tasks only</span>
                 </div>
             </div>
