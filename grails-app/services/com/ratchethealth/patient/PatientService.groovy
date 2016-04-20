@@ -42,6 +42,10 @@ class PatientService extends RatchetAPIService {
                 log.info("patient hasn't birthday,token:${token}.")
 
                return false
+            } else if (resp.status == 404){
+                log.info("patient no exist,token:${token}.")
+
+                return false
             } else {
                 handleError(resp)
             }
