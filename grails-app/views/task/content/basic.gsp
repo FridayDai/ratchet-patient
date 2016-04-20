@@ -1,5 +1,6 @@
 <%@ page import="com.ratchethealth.patient.RatchetConstants"%>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
+<g:set var="scriptPath" value="dist/basicTool.bundle.js"/>
 <g:set var="cssPath" value="task/basic"/>
 <g:if test="${!isInClinic}">
     <g:set var="hasAssistMe" value="true"/>
