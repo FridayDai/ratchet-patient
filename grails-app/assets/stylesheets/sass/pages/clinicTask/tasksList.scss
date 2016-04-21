@@ -46,6 +46,15 @@ html, body {
     }
 }
 
+.task-list-container {
+    text-align: center;
+}
+
+.task-complete-list {
+    display: inline-block;
+    text-align: left;
+}
+
 .task-start-font {
     color: $base-color-error-font-red;
     font-weight: bold;
@@ -66,7 +75,7 @@ html, body {
     font-weight: 600;
     font-size: 19px;
     position: relative;
-    text-align: center;
+    text-align: left;
     color: $base-color-mid-gray;
 
     @include breakpoint('mobile') {

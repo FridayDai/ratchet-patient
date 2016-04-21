@@ -101,10 +101,13 @@
 
             <g:elseif test="${doneTaskList}">
             <div class="task-list-container">
-                <g:each in="${doneTaskList}" var="${completeTask}" status="i">
-                    <p class="task-title-tip"><span class="task-done"></span><span class="task-index"></span>${completeTask.title}</p>
-                </g:each>
+                <span class="task-complete-list">
 
+                    <g:each in="${doneTaskList}" var="${completeTask}" status="i">
+                        <p class="task-title-tip"><span class="task-done"></span><span class="task-index"></span>${completeTask.title}</p>
+                    </g:each>
+                </span>
+            </div>
                 <form name="taskItemForm" method="post">
 
                     <input type="hidden" name="pathRoute" value="codeValidation">
@@ -115,8 +118,6 @@
                         <input type="submit" class="rc-btn task-start-btn" value="Ok">
                     </div>
                 </form>
-
-            </div>
             </g:elseif>
 
         </g:elseif>
