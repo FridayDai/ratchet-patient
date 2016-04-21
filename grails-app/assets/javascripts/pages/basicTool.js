@@ -89,8 +89,19 @@ function BasicTool() {
         }
     };
 
+    this.initLink = function () {
+        $('.basic-markdown-content a').click(function (e) {
+            e.preventDefault();
+
+            var $target = $(e.target);
+
+            window.open($target.attr('href'), '_blank');
+        });
+    };
+
     this.after('initialize', function () {
         this.initWindowResize();
+        this.initLink();
     });
 }
 
