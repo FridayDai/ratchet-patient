@@ -80,6 +80,7 @@
             </g:else>
 
             <input type="hidden" name="pathRoute" value="todoTask">
+            <input type="hidden" name="taskRoute" value="${taskRoute}">
             <input type="hidden" name="tasksList" value="${tasksList}">
             <input type="hidden" name="treatmentCode" value="${treatmentCode}">
             <input type="hidden" name="isInClinic" value="${isInClinic}">

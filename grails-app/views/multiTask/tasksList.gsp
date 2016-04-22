@@ -95,7 +95,9 @@
 
             <g:if test="${isSingleTask}">
             <div class="task-list-container">
-                <p class="task-title-tip"><span class="task-done"></span><span class="task-index"></span>${taskTitle}</p>
+                <span class="task-complete-list">
+                    <p class="task-title-tip"><span class="task-done"></span><span class="task-index"></span>${taskTitle}</p>
+                </span>
             </div>
             </g:if>
 
