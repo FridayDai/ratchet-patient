@@ -24,7 +24,6 @@
         .rc-choice-hidden:checked + .rc-checkbox {
             background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
-
         </style>
     </head>
 
