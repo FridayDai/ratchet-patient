@@ -20,9 +20,9 @@ class EmailController extends BaseController {
             render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
         } else {
             render view: 'confirm', model: [client        : JSON.parse(session.client),
-                                            errorMsg      : errMsg,
                                             patientConfirm: 'true',
-                                            hasBirthday   : hasBirthday
+                                            hasBirthday   : hasBirthday,
+                                            errorMsg      : errMsg
             ]
         }
     }
