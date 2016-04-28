@@ -1,6 +1,11 @@
 @import '../../partials/base';
+@import "error";
 
 html, body {
+    height: 100%;
+}
+
+.main-wrapper {
     height: 100%;
 }
 

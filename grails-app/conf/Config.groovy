@@ -99,6 +99,7 @@ grails.assets.excludes = [
 ]
 
 grails.assets.plugin."resources".excludes = ["**"]
+markdown.hardwraps = true
 
 environments {
     development {
@@ -115,12 +116,12 @@ log4j.main = {
     // Example of changing the log pattern for the default console appender:
     //
     //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+    //    console name:'stdout', layout:pattern(conversionPattern: '%d %c{2} %m%n')
     //}
 
     if (System.getProperty("ELK_TCP_ADDR")) {
         appenders {
-            console name: 'stdout', layout: pattern(conversionPattern: '%c{2} %m%n')
+            console name: 'stdout', layout: pattern(conversionPattern: '%d %level %c{2} %m%n')
             appender new biz.paluch.logging.gelf.log4j.GelfLogAppender(name: 'central',
                     host: System.getProperty("ELK_TCP_ADDR"), port: 12201, additionalFields: "app_type= patient")
         }
@@ -224,6 +225,7 @@ ratchetv2 {
             //patient
             patient {
                 update = "${ratchetv2.server.url.base}/api/v1/tests/collect/email"
+                checkBirthday = "${ratchetv2.server.url.base}/api/v1/patient/check/birthday"
             }
 
             // Email
@@ -235,6 +237,7 @@ ratchetv2 {
                 checkPatientEmail = "${ratchetv2.server.url.base}/api/v1/patients/check_email"
                 checkPatientEmailStatus = "${ratchetv2.server.url.base}/api/v1/patient/check/status"
                 checkCareGiverEmailStatus = "${ratchetv2.server.url.base}/api/v1/caregiver/check/status"
+                unsubscribeEmail = "${ratchetv2.server.url.base}/api/v1/patients/%s/subscribe"
             }
 
             // Task

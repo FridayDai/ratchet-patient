@@ -1,0 +1,272 @@
+@import '../../partials/common';
+@import "../../partials/headroom";
+@import "../../partials/assistMeButton";
+
+.task-content {
+    background-color: $base-color-lighter-gray;
+
+    @include breakpoint('tablet') {
+        padding-top: 180px;
+    }
+
+    .info {
+        color: #333;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 19px;
+
+        @include breakpoint('tablet') {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        @include breakpoint('mobile') {
+            padding: 30px 20px;
+        }
+    }
+
+    .question {
+        padding-right: 20px;
+        padding-left: 20px;
+        font-size: 16px;
+
+        @include breakpoint('mobile') {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: $base-color-primary;
+            background-color: #fff;
+        }
+
+        @include breakpoint('tablet') {
+            margin-bottom: 30px;
+        }
+    }
+
+    .answer {
+        color: $base-color-medium-gray;
+        font-size: 14px;
+    }
+}
+
+.task-done-panel {
+    padding-top: 50px;
+    padding-bottom: 150px;
+
+    @include breakpoint('mobile') {
+        padding-bottom: 80px;
+    }
+
+    .task-done-btn {
+        display: block;
+        width: 300px;
+        margin: 0 auto;
+        padding: 15px;
+
+        @include breakpoint('mobile') {
+            width: 200px;
+        }
+    }
+}
+
+.task-copyright {
+    padding-top: 20px;
+    padding-bottom: 60px;
+    color: $base-color-middle-gray;
+
+    .inline-right {
+        display: inline-block;
+    }
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.basic-markdown-content {
+    p, ol, ul, a, blockquote, thead {
+        font-family: Georgia, Verdana, Arial, "Lucida Grande", sans-serif;
+    }
+
+    a {
+        color: #3b65b0;
+    }
+
+    ul {
+        list-style: initial;
+        margin: 20px 0;
+    }
+
+    ul, ol {
+        padding-left: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #b2b3b6;
+        border-collapse: collapse;
+    }
+
+    table {
+        background-color: #f5f5f5;
+
+        thead {
+            background-color: #ebebec;
+        }
+
+        tbody {
+            td {
+                font-family: Verdana, Arial, "Lucida Grande", sans-serif;
+            }
+        }
+    }
+
+    @include breakpoint('tablet') {
+        width: 760px;
+        margin: auto;
+
+        h1 {
+            font-size: 66pt;
+        }
+
+        h2 {
+            font-size: 48pt;
+        }
+
+        h3 {
+            font-size: 36pt;
+        }
+
+        h4 {
+            font-size: 28pt;
+        }
+
+        p {
+            font-size: 21pt;
+        }
+
+        hr {
+            font-size: 0.5pt;
+        }
+
+        ol, ul {
+            font-size: 21pt;
+        }
+
+        a {
+            font-size: 21pt;
+        }
+
+        blockquote {
+            width: 85%;
+            margin: auto;
+        }
+
+        table {
+            thead {
+                font-size: 21pt;
+            }
+
+            tbody {
+                td {
+                    font-size: 14pt;
+                }
+            }
+
+            td {
+                padding: 10px 20px;
+            }
+        }
+
+        img {
+            float: left;
+            margin-right: 50px;
+        }
+
+        iframe {
+            display: block;
+            margin: auto;
+        }
+    }
+
+    @include breakpoint('desktop') {
+        width: 960px;
+    }
+
+    @include breakpoint('mobile') {
+        padding-top: 5px;
+        min-width: 270px;
+        width: 80%;
+        margin: auto;
+
+        h1, h2, h3, h4, p,
+        hr, ol, ul, img, table,
+        blockquote, iframe {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 40pt;
+        }
+
+        h2 {
+            font-size: 32pt;
+        }
+
+        h3 {
+            font-size: 24pt;
+        }
+
+        h4 {
+            font-size: 18pt;
+        }
+
+        p {
+            font-size: 15pt;
+        }
+
+        hr {
+            font-size: 0.5pt;
+        }
+
+        ol, ul {
+            font-size: 15pt;
+        }
+
+        a {
+            font-size: 15pt;
+        }
+
+        img {
+            float: none;
+            width: 100%;
+        }
+
+        blockquote {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        iframe {
+            width: 100%;
+        }
+
+        table {
+            display: none;
+
+            thead {
+                font-size: 15pt;
+            }
+
+            tbody {
+                td {
+                    font-size: 14pt;
+                    width: 100%;
+                }
+            }
+
+            td {
+                padding: 10px 20px;
+            }
+        }
+    }
+}

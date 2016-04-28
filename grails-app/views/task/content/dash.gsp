@@ -70,6 +70,7 @@
 			<input type="hidden" name="code" value="${taskCode}"/>
 			<input type="hidden" name="taskId" value="${Task.taskId}"/>
 			<input type="hidden" name="taskType" value="${Task.type}"/>
+			<input type="hidden" name="baseToolType" value="${baseToolType}"/>
 
 			<div class="task-list-wrapper container">
 				<g:each var="section" in="${Task.sections}">
@@ -121,7 +122,8 @@
 			</g:else>
 
 			<input type="hidden" name="pathRoute" value="todoTask">
-			<input type="hidden" name="tasksList" value="${tasksList}">
+            <input type="hidden" name="taskRoute" value="${taskRoute}">
+            <input type="hidden" name="tasksList" value="${tasksList}">
 			<input type="hidden" name="treatmentCode" value="${treatmentCode}">
 			<input type="hidden" name="isInClinic" value="${isInClinic}">
 			<input type="hidden" name="patientId" value="${patientId}">

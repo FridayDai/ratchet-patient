@@ -8,21 +8,21 @@
 
         <style type="text/css">
         .primary-color {
-            color: ${client.primaryColorHex?:'#0f137d'} !important;
+            color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .btn-submit {
-            color: ${client.primaryColorHex?:'#0f137d'} !important;
-            border-color: ${client.primaryColorHex?:'#0f137d'} !important;;
+            color: ${ client.primaryColorHex?:'#0f137d' } !important;
+            border-color: ${ client.primaryColorHex?:'#0f137d' } !important;;
         }
 
-        .btn-submit:hover {
+        .btn-submit:hover, .btn-submit:focus {
             color: #ffffff !important;
-            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         .rc-choice-hidden:checked + .rc-checkbox {
-            background-color: ${client.primaryColorHex?:'#0f137d'} !important;
+            background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
         </style>
@@ -34,22 +34,46 @@
 
         <form action="" method="post" class="confirm-form">
             <div class="content" id="form-content">
-                <label class="choice">
-                    <input id="agree-toggle" type="checkbox" name="agree" value="true"
-                           class="rc-choice-hidden"/>
-                    <span class="rc-checkbox  agree-toggle"></span>
-                </label>
 
-                <div class="agree-text">
-                    I agree to the system’s
-                    <a class="primary-color link" href="http://www.ratchethealth.com/terms-of-service/" target="_blank">Terms of Service </a>
-                    and the
-                    <a class="primary-color link" href="http://www.ratchethealth.com/privacy-policy/" target="_blank">Privacy Policy</a>
+                <g:if test="${patientConfirm && hasBirthday}">
+                    <div class="content-birth">
+
+                        <div class="label-birth">
+                            Please enter your <strong>year</strong> of birth.
+                        </div>
+
+                        <span class="input-group">
+                            <input id="birthday" name="birthday" class="form-control input-birth" maxlength="4" placeholder="YYYY"/>
+                            <g:if test="${errorMsg}">
+                                <div class="error-container gsp-error">
+                                    <div class="rc-error-label">${errorMsg}</div>
+                                </div>
+                            </g:if>
+                        </span>
+                    </div>
+                </g:if>
+
+                <div class="agree-group">
+                    <label class="choice">
+                        <input id="agree-toggle" type="checkbox" name="agree" value="true"
+                               class="rc-choice-hidden"/>
+                        <span class="rc-checkbox  agree-toggle"></span>
+                    </label>
+
+                    <div class="input-context">
+                        I agree to the system’s
+                        <a class="primary-color link" href="http://www.ratchethealth.com/terms-of-service/"
+                           target="_blank">Terms of Service</a>
+                        and the
+                        <a class="primary-color link" href="http://www.ratchethealth.com/privacy-policy/"
+                           target="_blank">Privacy Policy</a>
+                    </div>
+
+                    <div class="error-tip">
+                        In order to use our services, you must agree to the Terms of Service and the Privacy Policy. Without it, we won’t be able to communicate important treatment information with you via email.
+                    </div>
                 </div>
 
-                <div class="error-tip">
-                    In order to use our services, you must agree to the Terms of Service and the Privacy Policy. Without it, we won’t be able to communicate important treatment information with you via email.
-                </div>
             </div>
 
             <div class="form-footer">

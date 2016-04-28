@@ -5,18 +5,23 @@ import grails.converters.JSON
 class EmailService extends RatchetAPIService {
     def grailsApplication
 
-    def confirmPatientEmail(String token, code, agree, emailUpdate) {
+    def confirmPatientEmail(String token, code, agree, birthday, emailUpdate) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.patientConfirmation
 
         withPost(emailUrl) { req ->
             def resp = req
                     .field("code", code)
                     .field("agreedPolicy", agree)
+                    .field("birthday", birthday)
                     .field("email_update", emailUpdate)
                     .asString()
 
             if (resp.status == 200) {
                 log.info("Confirm patient email success, token: ${token}")
+
+                JSON.parse(resp.body)
+            } else if(resp.status == 400) {
+                log.info("Invitation birthday,token:${token}.")
 
                 JSON.parse(resp.body)
             } else if (resp.status == 404 || resp.status == 412) {
@@ -154,6 +159,26 @@ class EmailService extends RatchetAPIService {
                 log.info("Caregiver already confirm or code is incorrect,token:${token}.")
 
                 JSON.parse(resp.body)
+            } else {
+                handleError(resp)
+            }
+        }
+    }
+
+    def unsubscribeEmail(String token, code, patientId) {
+        String unsubscribeUrl = grailsApplication.config.ratchetv2.server.url.email.unsubscribeEmail
+
+        def url = String.format(unsubscribeUrl, patientId)
+
+        withPost(url) { req ->
+            def resp = req
+                    .field("subscribe", false)
+                    .field("code", code)
+                    .asString()
+
+            if (resp.status == 200) {
+                log.info("unsubscribe email success, token: ${token}")
+                return resp
             } else {
                 handleError(resp)
             }

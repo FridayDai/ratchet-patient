@@ -83,6 +83,7 @@
                 <input type="hidden" name="code" value="${taskCode}"/>
                 <input type="hidden" name="taskId" value="${Task.taskId}"/>
                 <input type="hidden" name="taskType" value="${Task?.type}"/>
+                <input type="hidden" name="baseToolType" value="${baseToolType}"/>
 
                 <div id="pain-drawing-board" class="question-list-special pain-draw" data-chart="${'true'.toBoolean()}">
                     <div class="question">
@@ -295,6 +296,7 @@
                 <input type="hidden" name="treatmentCode" value="${treatmentCode}">
                 <input type="hidden" name="isInClinic" value="${isInClinic}">
                 <input type="hidden" name="pathRoute" value="todoTask">
+                <input type="hidden" name="taskRoute" value="${taskRoute}">
                 <input type="hidden" name="emailStatus" value="${emailStatus}">
                 <input type="hidden" name="hardcodeTask" value="true">
 

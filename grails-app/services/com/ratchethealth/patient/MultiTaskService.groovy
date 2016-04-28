@@ -6,13 +6,14 @@ class MultiTaskService extends RatchetAPIService {
 
     def grailsApplication
 
-    def getTreatmentTasksWithTreatmentCode(String token, treatmentCode, completedTasksOnly, subDomain) {
+    def getTreatmentTasksWithTreatmentCode(String token, treatmentCode, completedTasksOnly, allTasks, subDomain) {
         def url = grailsApplication.config.ratchetv2.server.url.task.getTreatmentTests
 
         withGet(url) { req ->
             def resp = req
                     .queryString("code", treatmentCode)
                     .queryString("completedTasksOnly", completedTasksOnly)
+                    .queryString("all", allTasks)
                     .queryString("subDomain", subDomain)
                     .asString()
 
@@ -25,13 +26,14 @@ class MultiTaskService extends RatchetAPIService {
         }
     }
 
-    def getTreatmentTasksWithCombinedTasksCode(String token, combinedTasksCode, completedTasksOnly, subDomain) {
+    def getTreatmentTasksWithCombinedTasksCode(String token, combinedTasksCode, completedTasksOnly, allTasks, subDomain) {
         def url = grailsApplication.config.ratchetv2.server.url.task.getTreatmentTests
 
         withGet(url) { req ->
             def resp = req
                     .queryString("combinedTasksCode", combinedTasksCode)
                     .queryString("completedTasksOnly",completedTasksOnly)
+                    .queryString("all", allTasks)
                     .queryString("subDomain",subDomain)
                     .asString()
 
