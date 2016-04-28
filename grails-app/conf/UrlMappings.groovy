@@ -20,8 +20,8 @@ class UrlMappings {
 
         "/patients/check-email"(controller: "email", action: "checkPatientEmailExist")
 
-        "/tasks/$treatmentCode"(controller: "multiTask") {
-            action = [GET: "getTreatmentTasks", POST: "checkPath"]
+        "/tasks/$combinedTasksCode"(controller: "multiTask") {
+            action = [GET: "getTasksByEmail", POST: "checkPath"]
         }
 
         "/tasks/$taskId/save-draft-answer"(controller: "multiTask") {

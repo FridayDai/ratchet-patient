@@ -26,7 +26,10 @@
     <body>
 
     <div class="main container">
-        <g:if test="${allTaskList}">
+        <g:if test="${isInClinic}">
+            <p class="message">Welcome! You have 0  tasks.</p>
+        </g:if>
+        <g:elseif test="${allTaskList}">
 
             <div id="task-list-active">
                 <div class="no-task-list">
@@ -47,7 +50,7 @@
                 </div>
             </div>
 
-        </g:if>
+        </g:elseif>
     </div>
     <g:render template="/shared/copyRight"/>
     </body>

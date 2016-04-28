@@ -9,7 +9,8 @@ function tasksListPage() {
         activeTaskSelector: '#quick-filter-active',
         allTaskSelector: '#quick-filter-all',
         activeTaskListSelector: '#task-list-active',
-        allTaskListSelector: '#task-list-all'
+        allTaskListSelector: '#task-list-all',
+        logoLinkSelector: '#logo-link'
     });
 
     this.onAllTaskClick = function () {
@@ -29,7 +30,13 @@ function tasksListPage() {
 
     };
 
+    this.initLogoLink = function () {
+        $(this.attr.logoLinkSelector).attr('href', window.location.href);
+    };
+
     this.after('initialize', function () {
+        this.initLogoLink();
+
         this.on('click', {
             activeTaskSelector: this.onActiveTaskClick,
             allTaskSelector: this.onAllTaskClick
