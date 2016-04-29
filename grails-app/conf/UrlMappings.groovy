@@ -14,7 +14,7 @@ class UrlMappings {
             action = [GET: "confirmPatientEmail", POST: "agreePolicyAndConfirmPatient"]
         }
 
-        "/emergency_contact/email/confirmation/$code"(controller: "email") {
+        "/caregiver/email/confirmation/$code"(controller: "email") {
             action = [GET: "confirmCareGiverEmail", POST: "agreePolicyAndConfirmCareGiver"]
         }
 
@@ -37,7 +37,7 @@ class UrlMappings {
 
         // Help
         "/patient/assist/$patientId"(controller: "assist", action: "index")
-        "/care-giver/assist/$careGiverId"(controller: "assist", action: "assistCareGiver")
+        "/caregiver/assist/$careGiverId"(controller: "assist", action: "assistCareGiver")
         "/addAssist"(controller: "assist", action: "addAssist")
 
         // Announcement

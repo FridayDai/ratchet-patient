@@ -10,7 +10,7 @@ class PatientService extends RatchetAPIService {
         log.info("Call backend service to update single patient with clientId and patient info, token: ${token}.")
         withPost(token, url) { req ->
             def resp = req
-                    .field("code", treatmentCode)
+                    .field("inClinicCode", treatmentCode)
                     .field("email", email)
                     .asString()
 

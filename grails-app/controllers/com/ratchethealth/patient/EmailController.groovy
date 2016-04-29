@@ -68,7 +68,7 @@ class EmailController extends BaseController {
         def code = params.code;
         def agree = params.agree == 'true'
 
-        def client = emailService.confirmEmergencyContactEmail(token, code, agree)
+        def client = emailService.confirmCaregiverEmail(token, code, agree)
 
         if (client) {
             if (client.error?.errorId == 412) {
