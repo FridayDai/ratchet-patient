@@ -84,7 +84,7 @@ class TaskService extends RatchetAPIService {
 
         withGet(url) { req ->
             def resp = req
-                    .queryString("treatmentCode", treatmentCode)
+                    .queryString("inClinicCode", treatmentCode)
                     .queryString("browserName", browserName)
                     .queryString("browserVersion", browserVersion)
                     .queryString("OSName", OSName)
@@ -114,7 +114,7 @@ class TaskService extends RatchetAPIService {
 
         withGet(url) { req ->
             def resp = req
-                    .queryString("combinedTasksCode", combinedTasksCode)
+                    .queryString("combinedEventsEmailCode", combinedTasksCode)
                     .queryString("browserName", browserName)
                     .queryString("browserVersion", browserVersion)
                     .queryString("OSName", OSName)

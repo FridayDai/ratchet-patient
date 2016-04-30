@@ -121,7 +121,7 @@ log4j.main = {
 
     if (System.getProperty("ELK_TCP_ADDR")) {
         appenders {
-            console name: 'stdout', layout: pattern(conversionPattern: '%d %c{2} %m%n')
+            console name: 'stdout', layout: pattern(conversionPattern: '%d %level %c{2} %m%n')
             appender new biz.paluch.logging.gelf.log4j.GelfLogAppender(name: 'central',
                     host: System.getProperty("ELK_TCP_ADDR"), port: 12201, additionalFields: "app_type= patient")
         }
@@ -231,7 +231,7 @@ ratchetv2 {
             // Email
             email {
                 patientConfirmation = "${ratchetv2.server.url.base}/api/v1/patient/confirm"
-                emergencyContactConfirmation = "${ratchetv2.server.url.base}/api/v1/caregiver/confirm"
+                caregiverConfirmation = "${ratchetv2.server.url.base}/api/v1/caregiver/confirm"
                 checkPhoneNumber = "${ratchetv2.server.url.base}/api/v1/patients/%d/check_phone_number"
                 subscribe = "${ratchetv2.server.url.base}/api/v1/patients/%d/subscribe"
                 checkPatientEmail = "${ratchetv2.server.url.base}/api/v1/patients/check_email"
@@ -243,12 +243,12 @@ ratchetv2 {
             // Task
             task {
                 getPatientInfo = "${ratchetv2.server.url.base}/api/v1/tests/assist/%s"
-                oneTest = "${ratchetv2.server.url.base}/api/v1/tests/%s"
+                oneTest = "${ratchetv2.server.url.base}/api/v1/events/%s"
                 tests = "${ratchetv2.server.url.base}/api/v1/tests"
                 recordBehaviour = "${ratchetv2.server.url.base}/api/v1/tests/%s/link/clicked"
                 recordTaskStart = "${ratchetv2.server.url.base}/api/v1/tests/%s/link/started"
                 testResult = "${ratchetv2.server.url.base}/api/v1/test/result"
-                getTreatmentTests = "${ratchetv2.server.url.base}/api/v1/tests/treatment"
+                getTreatmentTests = "${ratchetv2.server.url.base}/api/v1/events"
                 saveDraftAnswer = "${ratchetv2.server.url.base}/api/v1/test/answer"
             }
 

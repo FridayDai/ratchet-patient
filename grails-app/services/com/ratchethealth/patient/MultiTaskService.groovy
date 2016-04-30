@@ -11,7 +11,7 @@ class MultiTaskService extends RatchetAPIService {
 
         withGet(url) { req ->
             def resp = req
-                    .queryString("code", treatmentCode)
+                    .queryString("inClinicCode", treatmentCode)
                     .queryString("completedTasksOnly", completedTasksOnly)
                     .queryString("all", allTasks)
                     .queryString("subDomain", subDomain)
@@ -31,7 +31,7 @@ class MultiTaskService extends RatchetAPIService {
 
         withGet(url) { req ->
             def resp = req
-                    .queryString("combinedTasksCode", combinedTasksCode)
+                    .queryString("combinedEventsEmailCode", combinedTasksCode)
                     .queryString("completedTasksOnly",completedTasksOnly)
                     .queryString("all", allTasks)
                     .queryString("subDomain",subDomain)

@@ -257,6 +257,14 @@ html, body {
     }
 }
 
+.message {
+    text-align: center;
+    font-size: 26px;
+    @include breakpoint('mobile') {
+        font-size: 18px;
+        margin-top: 150px;
+    }
+}
 
 
 

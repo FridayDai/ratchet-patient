@@ -98,7 +98,7 @@ function Task() {
         var me = this;
 
         $(window).on('beforeunload', function (event) {
-            if (!me.isFormSubmit) {
+            if (!me.isFormSubmit && me.select('submitButtonSelector').length > 0) {
                 var confirmationMessage = LEAVE_CONFIRMATION_MSG;
 
                 (event || window.event).returnValue = confirmationMessage;
