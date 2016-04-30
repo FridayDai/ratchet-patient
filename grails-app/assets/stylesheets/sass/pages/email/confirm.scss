@@ -88,6 +88,7 @@
         vertical-align: middle;
         padding: 5px 30px;
         border: 1px solid $base-color-gray;
+        input[type=text]::-ms-clear { display: none; }
 
         &.rc-error-label{
             border-color: $base-color-error;
