@@ -31,7 +31,7 @@
             <div id="task-list-active">
                 <div class="no-task-list">
                     <i class="fa fa-flag-checkered" aria-hidden="true"></i>
-                    <div>There’s no active tasks</div>
+                    <div>All tasks completed</div>
                 </div>
             </div>
 
