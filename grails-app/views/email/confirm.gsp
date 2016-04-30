@@ -8,9 +8,6 @@
 
         <style type="text/css">
 
-        input[type=text]::-ms-clear {  display: none; width : 0; height: 0; }
-        input[type=text]::-ms-reveal {  display: none; width : 0; height: 0; }
-
         .primary-color {
             color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
@@ -46,7 +43,7 @@
                         </div>
 
                         <span class="input-group">
-                            <input id="birthday" name="birthday" class="form-control input-birth" maxlength="4" placeholder="YYYY"/>
+                            <input id="birthday" type="text" name="birthday" class="form-control input-birth" maxlength="4" placeholder="YYYY"/>
                             <g:if test="${errorMsg}">
                                 <div class="error-container gsp-error">
                                     <div class="rc-error-label">${errorMsg}</div>
