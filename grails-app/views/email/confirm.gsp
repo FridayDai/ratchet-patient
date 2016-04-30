@@ -7,6 +7,10 @@
         <title>Email Confirmation</title>
 
         <style type="text/css">
+
+        input[type=text]::-ms-clear {  display: none; width : 0; height: 0; }
+        input[type=text]::-ms-reveal {  display: none; width : 0; height: 0; }
+
         .primary-color {
             color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
