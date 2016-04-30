@@ -82,13 +82,16 @@
         padding: 16px 0 26px;
     }
 
+    input[type=text]::-ms-clear { display: none; }
+
     .input-birth {
         font-size: 15px;
         text-align: center;
         vertical-align: middle;
         padding: 5px 30px;
         border: 1px solid $base-color-gray;
-        input[type=text]::-ms-clear { display: none; }
+
+        ::-ms-clear { display: none; }
 
         &.rc-error-label{
             border-color: $base-color-error;
