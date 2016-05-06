@@ -40,7 +40,7 @@
     font-weight: 700;
 
     @include breakpoint('mobile') {
-        margin: 0 20px 60px;
+        margin: 45px 0px -20px;
         font-size: 19px;
     }
 }
