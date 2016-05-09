@@ -27,7 +27,13 @@
 
     <div class="main container">
         <g:if test="${isInClinic}">
-            <p class="message">Welcome! You have 0  tasks.</p>
+            <p class="only-message">Welcome! You have 0  tasks.</p>
+
+            <form name="taskItemForm">
+                <div class="task-start-panel">
+                    <input type="submit" class="rc-btn task-start-btn" value="Ok">
+                </div>
+            </form>
         </g:if>
         <g:elseif test="${allTaskList}">
 

@@ -30,7 +30,8 @@ function Task() {
         taskIdFieldSelector: '[name="taskId"]',
         treatmentCodeFieldSelector: '[name="treatmentCode"]',
         taskCodeFieldSelector: '[name="code"]',
-        radioHiddenFieldSelector: '.rc-choice-hidden'
+        radioHiddenFieldSelector: '.rc-choice-hidden',
+        logoLinkSelector: '#logo-link'
     });
 
     this.initPrivates = function () {
@@ -262,8 +263,13 @@ function Task() {
         };
     })();
 
+    this.initLogoLink = function () {
+        $(this.attr.logoLinkSelector).attr('href', window.location.href);
+    };
+
     this.after('initialize', function () {
         this.initHeadroom();
+        this.initLogoLink();
 
         this.initPrivates();
         this.initCloseConfirmation();
