@@ -67,4 +67,24 @@ class BaseController {
             render view: '/error/invalidTask', model: [client: JSON.parse(session.client)], status: 404
         }
     }
+
+    def exceptionEmailService
+
+    def handleException(Exception e) {
+        log.error("Uncaught_Exception: ${e.message},stack trace: ${e.getStackTrace()}, token: ${session.token}.")
+
+        def sw = new StringWriter()
+        def pw = new PrintWriter(sw)
+        e.printStackTrace(pw)
+        def stackTrace = sw.toString()
+
+        def sendEmail = exceptionEmailService.sendExceptionEmail(stackTrace)
+
+        if(request.isXhr()) {
+            render status: 400, text: e.message
+        }
+        else{
+            render view: '/error/404', status: 404
+        }
+    }
 }

@@ -214,6 +214,7 @@ cors.url.pattern = '/assets/*'
 cors.headers = ['Access-Control-Allow-Origin': '*']
 
 ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvVedyg9hT\$dvkUGhNVqj"
+ratchet.api.stacktrace.email = 'ratchet-dev+'+System.getProperty("ENV")+'@xplusz.com'
 
 ratchetv2 {
     server {
@@ -230,6 +231,9 @@ ratchetv2 {
                 update = "${ratchetv2.server.url.base}/api/v1/tests/collect/email"
                 checkBirthday = "${ratchetv2.server.url.base}/api/v1/patient/check/birthday"
             }
+
+            //send Exception Email
+            exceptionEmail = "${ratchetv2.server.url.base}/api/v1/send/stacktrace/email"
 
             // Email
             email {
