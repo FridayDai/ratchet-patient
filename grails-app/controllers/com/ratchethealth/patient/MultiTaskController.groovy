@@ -28,248 +28,162 @@ class MultiTaskController extends TaskController {
     }
 
     def getTasksInClinic() {
-        try{
-            String token = request.session.token
-            def treatmentCode = params?.treatmentCode
-            def isInClinic = params?.isInClinic
-            def serverName = request.getServerName()
-            def subDomain = serverName.substring(0, serverName.indexOf('.'))
-            def client = JSON.parse(session.client)
+        String token = request.session.token
+        def treatmentCode = params?.treatmentCode
+        def isInClinic = params?.isInClinic
+        def serverName = request.getServerName()
+        def subDomain = serverName.substring(0, serverName.indexOf('.'))
+        def client = JSON.parse(session.client)
 
-            def resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null, null, subDomain)
+        def resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null, null, subDomain)
 
-            if (resp.status == 200) {
-                def tasksListResp = JSON.parse(resp.body)
-                def tasksList = tasksListResp.tests
-                def emailStatus = tasksListResp.emailStatus
-                def patientId = tasksListResp.patientId
+        if (resp.status == 200) {
+            def tasksListResp = JSON.parse(resp.body)
+            def tasksList = tasksListResp.tests
+            def emailStatus = tasksListResp.emailStatus
+            def patientId = tasksListResp.patientId
 
-                if (tasksList) {
-                    render view: '/multiTask/tasksList', model: [
-                            client       : client,
-                            tasksList    : tasksList,
-                            treatmentCode: treatmentCode,
-                            emailStatus  : emailStatus,
-                            patientId    : patientId,
-                            isInClinic   : isInClinic,
-                            tasksLength  : tasksList?.size()
-                    ]
-                } else {
-                    render view: '/multiTask/noActiveTask', model: [
-                            client    : client,
-                            isInClinic: isInClinic,
-                            tasksCompleted: true,
-
-                    ]
-                }
-            } else if (resp.status == 404) {
-                render view: '/multiTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_INCORRECT_TREATMENT_CODE]
-            } else if (resp.status == 412) {
-                render view: '/multiTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_EXPIRED_TREATMENT_CODE]
+            if (tasksList) {
+                render view: '/multiTask/tasksList', model: [
+                        client       : client,
+                        tasksList    : tasksList,
+                        treatmentCode: treatmentCode,
+                        emailStatus  : emailStatus,
+                        patientId    : patientId,
+                        isInClinic   : isInClinic,
+                        tasksLength  : tasksList?.size()
+                ]
             } else {
-                render view: '/error/taskExpired', model: [client: client]
+                render view: '/multiTask/noActiveTask', model: [
+                        client    : client,
+                        isInClinic: isInClinic,
+                        tasksCompleted: true,
+
+                ]
             }
-        }catch (e){
-            handleException(e)
+        } else if (resp.status == 404) {
+            render view: '/multiTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_INCORRECT_TREATMENT_CODE]
+        } else if (resp.status == 412) {
+            render view: '/multiTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_EXPIRED_TREATMENT_CODE]
+        } else {
+            render view: '/error/taskExpired', model: [client: client]
         }
+
     }
 
     def getTasksByEmail() {
-        try{
-            String token = request.session.token
-            def combinedTasksCode = params?.combinedTasksCode
-            def serverName = request.getServerName()
-            def subDomain = serverName.substring(0, serverName.indexOf('.'))
-            def client = JSON.parse(session.client)
+        String token = request.session.token
+        def combinedTasksCode = params?.combinedTasksCode
+        def serverName = request.getServerName()
+        def subDomain = serverName.substring(0, serverName.indexOf('.'))
+        def client = JSON.parse(session.client)
 
-            def resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, combinedTasksCode, null, null, subDomain)
-            def allResp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, combinedTasksCode, null, true, subDomain)
+        def resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, combinedTasksCode, null, null, subDomain)
+        def allResp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, combinedTasksCode, null, true, subDomain)
 
-            if (resp.status == 200) {
-                def tasksListResp = JSON.parse(resp.body)
-                def allTasksListResp = JSON.parse(allResp.body)
+        if (resp.status == 200) {
+            def tasksListResp = JSON.parse(resp.body)
+            def allTasksListResp = JSON.parse(allResp.body)
 
-                def allTaskList = limitFutureTask(allTasksListResp.tests)
-                def tasksList = tasksListResp.tests
-                def emailStatus = tasksListResp.emailStatus
-                def patientId = tasksListResp.patientId
+            def allTaskList = limitFutureTask(allTasksListResp.tests)
+            def tasksList = tasksListResp.tests
+            def emailStatus = tasksListResp.emailStatus
+            def patientId = tasksListResp.patientId
 
-                if (allTaskList && tasksList) {
-                    render view: '/multiTask/tasksList', model: [
-                            client       : client,
-                            tasksList    : tasksList,
-                            allTaskList  : allTaskList,
-                            treatmentCode: combinedTasksCode,
-                            emailStatus  : emailStatus,
-                            patientId    : patientId,
-                            tasksLength  : tasksList?.size()
-                    ]
-                } else {
-                    render view: '/multiTask/noActiveTask', model: [
-                            client     : client,
-                            allTaskList: allTaskList,
-                            tasksCompleted: true,
-                    ]
-                }
+            if (allTaskList && tasksList) {
+                render view: '/multiTask/tasksList', model: [
+                        client       : client,
+                        tasksList    : tasksList,
+                        allTaskList  : allTaskList,
+                        treatmentCode: combinedTasksCode,
+                        emailStatus  : emailStatus,
+                        patientId    : patientId,
+                        tasksLength  : tasksList?.size()
+                ]
             } else {
-                taskService.handleError(resp)
+                render view: '/multiTask/noActiveTask', model: [
+                        client     : client,
+                        allTaskList: allTaskList,
+                        tasksCompleted: true,
+                ]
             }
-        }catch (e){
-            handleException(e)
+        } else {
+            taskService.handleError(resp)
         }
     }
 
     def startTasks() {
-        try{
-            String token = request.session.token
-            def tasksList = params.tasksList ? JSON.parse(params?.tasksList) : null
-            def itemIndex = params.itemIndex ? params?.int('itemIndex') : 0
-            def isInClinic = params?.isInClinic
-            def treatmentCode = params?.treatmentCode
+        String token = request.session.token
+        def tasksList = params.tasksList ? JSON.parse(params?.tasksList) : null
+        def itemIndex = params.itemIndex ? params?.int('itemIndex') : 0
+        def isInClinic = params?.isInClinic
+        def treatmentCode = params?.treatmentCode
 
-            def taskRoute = params?.taskRoute
-            def task
+        def taskRoute = params?.taskRoute
+        def task
 
-            if (taskRoute == "pickTask") {
-                task = JSON.parse(params?.task)
-            } else {
-                task = tasksList[itemIndex]
-            }
-
-            def taskCode = task.code
-            def taskTitle = task.title
-
-            def resp = getQuestionnaire([
-                    isInClinic   : isInClinic,
-                    token        : token,
-                    treatmentCode: treatmentCode,
-                    taskCode     : taskCode
-            ])
-
-            startTaskHandler(resp, [
-                    taskCode     : taskCode,
-                    isInClinic   : isInClinic,
-                    taskTitle    : taskTitle,
-                    itemIndex    : itemIndex,
-                    tasksList    : tasksList,
-                    treatmentCode: treatmentCode,
-                    patientId    : params?.patientId,
-                    emailStatus  : params?.emailStatus,
-                    taskRoute    : params?.taskRoute
-            ])
-        } catch (e){
-            handleException(e)
+        if (taskRoute == "pickTask") {
+            task = JSON.parse(params?.task)
+        } else {
+            task = tasksList[itemIndex]
         }
+
+        def taskCode = task.code
+        def taskTitle = task.title
+
+        def resp = getQuestionnaire([
+                isInClinic   : isInClinic,
+                token        : token,
+                treatmentCode: treatmentCode,
+                taskCode     : taskCode
+        ])
+
+        startTaskHandler(resp, [
+                taskCode     : taskCode,
+                isInClinic   : isInClinic,
+                taskTitle    : taskTitle,
+                itemIndex    : itemIndex,
+                tasksList    : tasksList,
+                treatmentCode: treatmentCode,
+                patientId    : params?.patientId,
+                emailStatus  : params?.emailStatus,
+                taskRoute    : params?.taskRoute
+        ])
     }
 
     def submitTasks() {
-        try{
-            if (params.hardcodeTask) {
-                forward(action: "submitSpecialTask", params: [params: params])
-                return
-            }
-
-            def itemIndex = params?.itemIndex
-            def tasksList = params?.tasksList
-            def tasksListRecord = tasksList ? JSON.parse(tasksList) : null
-            def itemIndexRecord = itemIndex ? itemIndex as int : 0
-
-            def isInClinic = params?.isInClinic
-            def treatmentCode = params?.treatmentCode
-            def emailStatus = params?.emailStatus
-            def patientId = params?.patientId
-            def taskTitle = params.taskTitle
-            def taskRoute = params?.taskRoute
-
-            submitTaskHandler([
-                    taskType     : params.taskType,
-                    baseToolType : params.baseToolType,
-                    code         : params.code,
-                    token        : request.session.token,
-                    itemIndex    : itemIndex,
-                    tasksList    : tasksList,
-                    isInClinic   : isInClinic,
-                    treatmentCode: treatmentCode,
-                    emailStatus  : emailStatus,
-                    taskTitle    : taskTitle,
-                    choices      : params.choices,
-                    optionals    : params.optionals,
-                    sections     : params.sections
-            ]) { resp ->
-
-                if (taskRoute == "pickTask") {
-                    if (isInClinic) {
-                        forward(action: "getTasksInClinic", params: [params: params])
-                    } else {
-                        forward(action: "getTasksByEmail", params: [params: params])
-
-                    }
-                } else if (itemIndexRecord < tasksListRecord?.size()) {
-                    forward(action: 'startTasks', params: [
-                            itemIndex    : itemIndex,
-                            treatmentCode: treatmentCode,
-                            tasksList    : tasksList,
-                            isInClinic   : isInClinic
-                    ])
-                } else {
-                    if (isInClinic && RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
-                        forward(action: 'enterPatientEmail', params: [
-                                patientId    : patientId,
-                                treatmentCode: treatmentCode,
-                                tasksList    : tasksList,
-                                isInClinic   : isInClinic
-                        ])
-                    } else {
-                        forward(action: 'completeTasks', params: [
-                                treatmentCode: treatmentCode,
-                                tasksList    : tasksList,
-                                isInClinic   : isInClinic
-                        ])
-                    }
-                }
-            }
-        }catch (e) {
-            handleException(e)
+        if (params.hardcodeTask) {
+            forward(action: "submitSpecialTask", params: [params: params])
+            return
         }
-    }
 
-    def getQuestionnaire(opts) {
-        try{
-            if (opts?.isInClinic) {
-                return taskService.getQuestionnaire(opts?.token, opts?.treatmentCode, opts?.taskCode)
-            } else {
-                return taskService.getQuestionnaireWithCombineTaskCode(opts?.token, opts?.treatmentCode, opts?.taskCode)
-            }
-        }catch (e) {
-            handleException(e)
-        }
-    }
+        def itemIndex = params?.itemIndex
+        def tasksList = params?.tasksList
+        def tasksListRecord = tasksList ? JSON.parse(tasksList) : null
+        def itemIndexRecord = itemIndex ? itemIndex as int : 0
 
-    def submitQuestionnaire(opts) {
-        try{
-            return taskService.submitQuestionnaireWithoutErrorHandle(opts?.token, opts?.code, opts?.answer, null, null, '')
-        }catch (e) {
-            handleException(e)
-        }
-    }
+        def isInClinic = params?.isInClinic
+        def treatmentCode = params?.treatmentCode
+        def emailStatus = params?.emailStatus
+        def patientId = params?.patientId
+        def taskTitle = params.taskTitle
+        def taskRoute = params?.taskRoute
 
-    def submitSpecialTask() {
-        try{
-            String token = request.session.token
-            def itemIndex = params?.itemIndex
-            def tasksList = params?.tasksList
-            def tasksListRecord = tasksList ? JSON.parse(tasksList) : null
-            def itemIndexRecord = itemIndex ? itemIndex as int : 0
-
-            def isInClinic = params?.isInClinic
-            def taskRoute = params?.taskRoute
-
-            def treatmentCode = params?.treatmentCode
-            def emailStatus = params?.emailStatus
-            def choices = params.choices
-            def code = params.code
-
-            taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, null, '')
+        submitTaskHandler([
+                taskType     : params.taskType,
+                baseToolType : params.baseToolType,
+                code         : params.code,
+                token        : request.session.token,
+                itemIndex    : itemIndex,
+                tasksList    : tasksList,
+                isInClinic   : isInClinic,
+                treatmentCode: treatmentCode,
+                emailStatus  : emailStatus,
+                taskTitle    : taskTitle,
+                choices      : params.choices,
+                optionals    : params.optionals,
+                sections     : params.sections
+        ]) { resp ->
 
             if (taskRoute == "pickTask") {
                 if (isInClinic) {
@@ -288,6 +202,7 @@ class MultiTaskController extends TaskController {
             } else {
                 if (isInClinic && RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
                     forward(action: 'enterPatientEmail', params: [
+                            patientId    : patientId,
                             treatmentCode: treatmentCode,
                             tasksList    : tasksList,
                             isInClinic   : isInClinic
@@ -300,97 +215,139 @@ class MultiTaskController extends TaskController {
                     ])
                 }
             }
-        }catch (e)  {
-            handleException(e)
         }
     }
 
-    def completeTasks() {
-        try {
-            def tasksList = params?.tasksList
-            def treatmentCode = params?.treatmentCode
-            def tasksListRecord = JSON.parse(tasksList)
-            def isInClinic = params?.isInClinic
-
-            render(view: '/multiTask/tasksList', model: [
-                    client        : JSON.parse(session.client),
-                    tasksCompleted: true,
-                    doneTaskList  : tasksListRecord,
-                    treatmentCode : treatmentCode,
-                    isInClinic    : isInClinic,
-                    tasksLength   : tasksListRecord?.size()
-            ])
-        }catch (e) {
-            handleException(e)
+    def getQuestionnaire(opts) {
+        if (opts?.isInClinic) {
+            return taskService.getQuestionnaire(opts?.token, opts?.treatmentCode, opts?.taskCode)
+        } else {
+            return taskService.getQuestionnaireWithCombineTaskCode(opts?.token, opts?.treatmentCode, opts?.taskCode)
         }
     }
 
-    def enterPatientEmail() {
-        try {
-            def tasksList = params?.tasksList
-            def treatmentCode = params?.treatmentCode
-            def errorMsg = params?.errorMsg
-            def isInClinic = params?.isInClinic
+    def submitQuestionnaire(opts) {
+        return taskService.submitQuestionnaireWithoutErrorHandle(opts?.token, opts?.code, opts?.answer, null, null, '')
+    }
 
-            render view: '/multiTask/enterEmail', model: [
-                    client       : JSON.parse(session.client),
+    def submitSpecialTask() {
+        String token = request.session.token
+        def itemIndex = params?.itemIndex
+        def tasksList = params?.tasksList
+        def tasksListRecord = tasksList ? JSON.parse(tasksList) : null
+        def itemIndexRecord = itemIndex ? itemIndex as int : 0
+
+        def isInClinic = params?.isInClinic
+        def taskRoute = params?.taskRoute
+
+        def treatmentCode = params?.treatmentCode
+        def emailStatus = params?.emailStatus
+        def choices = params.choices
+        def code = params.code
+
+        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, null, '')
+
+        if (taskRoute == "pickTask") {
+            if (isInClinic) {
+                forward(action: "getTasksInClinic", params: [params: params])
+            } else {
+                forward(action: "getTasksByEmail", params: [params: params])
+
+            }
+        } else if (itemIndexRecord < tasksListRecord?.size()) {
+            forward(action: 'startTasks', params: [
+                    itemIndex    : itemIndex,
                     treatmentCode: treatmentCode,
                     tasksList    : tasksList,
-                    isInClinic   : isInClinic,
-                    errorMsg     : errorMsg
-            ]
-        }catch (e) {
-            handleException(e)
-        }
-    }
-
-    def submitPatientEmail() {
-        try {
-            String token = request.session.token
-            def email = params?.email
-            def tasksList = params?.tasksList
-            def treatmentCode = params?.treatmentCode
-            def isInClinic = params?.isInClinic
-
-            def resp = patientService.updatePatient(token, treatmentCode, email)
-            if (resp.status == 400 || resp.status == 404) {
-                def result = JSON.parse(resp.body)
-
+                    isInClinic   : isInClinic
+            ])
+        } else {
+            if (isInClinic && RatchetStatusCode.emailStatus[emailStatus.toInteger()] == 'NO_EMAIL') {
                 forward(action: 'enterPatientEmail', params: [
                         treatmentCode: treatmentCode,
                         tasksList    : tasksList,
-                        isInClinic   : isInClinic,
-                        errorMsg     : result?.error?.errorMessage
+                        isInClinic   : isInClinic
                 ])
             } else {
                 forward(action: 'completeTasks', params: [
                         treatmentCode: treatmentCode,
-                        isInClinic   : isInClinic,
-                        tasksList    : tasksList
+                        tasksList    : tasksList,
+                        isInClinic   : isInClinic
                 ])
-
             }
-        }catch (e) {
-            handleException(e)
+        }
+    }
+
+    def completeTasks() {
+        def tasksList = params?.tasksList
+        def treatmentCode = params?.treatmentCode
+        def tasksListRecord = JSON.parse(tasksList)
+        def isInClinic = params?.isInClinic
+
+        render(view: '/multiTask/tasksList', model: [
+                client        : JSON.parse(session.client),
+                tasksCompleted: true,
+                doneTaskList  : tasksListRecord,
+                treatmentCode : treatmentCode,
+                isInClinic    : isInClinic,
+                tasksLength   : tasksListRecord?.size()
+        ])
+    }
+
+    def enterPatientEmail() {
+        def tasksList = params?.tasksList
+        def treatmentCode = params?.treatmentCode
+        def errorMsg = params?.errorMsg
+        def isInClinic = params?.isInClinic
+
+        render view: '/multiTask/enterEmail', model: [
+                client       : JSON.parse(session.client),
+                treatmentCode: treatmentCode,
+                tasksList    : tasksList,
+                isInClinic   : isInClinic,
+                errorMsg     : errorMsg
+        ]
+    }
+
+    def submitPatientEmail() {
+        String token = request.session.token
+        def email = params?.email
+        def tasksList = params?.tasksList
+        def treatmentCode = params?.treatmentCode
+        def isInClinic = params?.isInClinic
+
+        def resp = patientService.updatePatient(token, treatmentCode, email)
+        if (resp.status == 400 || resp.status == 404) {
+            def result = JSON.parse(resp.body)
+
+            forward(action: 'enterPatientEmail', params: [
+                    treatmentCode: treatmentCode,
+                    tasksList    : tasksList,
+                    isInClinic   : isInClinic,
+                    errorMsg     : result?.error?.errorMessage
+            ])
+        } else {
+            forward(action: 'completeTasks', params: [
+                    treatmentCode: treatmentCode,
+                    isInClinic   : isInClinic,
+                    tasksList    : tasksList
+            ])
+
         }
     }
 
     def saveDraftAnswer() {
-        try {
-            String token = request.session.token
-            def taskId = params?.taskId
-            def code = params?.code
-            def questionId = params?.questionId
-            def answerId = params?.answerId
-            def complex = params?.complex
-            def sendTime = params?.sendTime
+        String token = request.session.token
+        def taskId = params?.taskId
+        def code = params?.code
+        def questionId = params?.questionId
+        def answerId = params?.answerId
+        def complex = params?.complex
+        def sendTime = params?.sendTime
 
-            multiTaskService.saveDraftAnswer(token, taskId, code, questionId, answerId, complex, sendTime)
+        multiTaskService.saveDraftAnswer(token, taskId, code, questionId, answerId, complex, sendTime)
 
-            render status: 201
-        }catch (e){
-            handleException(e)
-        }
+        render status: 201
     }
 
     static private limitFutureTask(allTaskList) {
@@ -406,6 +363,7 @@ class MultiTaskController extends TaskController {
         }
         return taskList;
     }
+
 }
 
 
