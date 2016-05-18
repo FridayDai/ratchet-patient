@@ -11,6 +11,5 @@
             <g:link target="_blank" class="assist-btn" controller="assist" action="index" params="[patientId: patientId]">
                 Assist Me</g:link>
         </g:if>
-        <span>V. RH0.1</span>
     </span>
 </div>
