@@ -78,4 +78,3 @@ ratchet-v2-user-desktop
 - CDN_ENABLE    // true | false | not define
 - CDN_ASSET_DOMAIN_PATIENT    // just cloudfront url domain like: ```https://d1gdqclzwn7f9.cloudfront.net```
 - NOT_SUPPORT_HTTPS    # true | false | not define
-- IS_ROOT_CONTEXT_EXTRA_PATH
