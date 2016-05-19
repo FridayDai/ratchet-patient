@@ -26,8 +26,11 @@
     <body>
 
     <div class="main container">
+        <g:if test="${!isInClinic && !allTaskList}">
+            <p class="only-message">Welcome! You have 0 tasks.</p>
+        </g:if>
         <g:if test="${isInClinic}">
-            <p class="only-message">Welcome! You have 0  tasks.</p>
+            <p class="only-message">Welcome! You have 0 tasks.</p>
 
             <form name="taskItemForm">
                 <div class="task-start-panel">
