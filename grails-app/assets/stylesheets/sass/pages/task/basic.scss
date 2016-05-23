@@ -2,6 +2,25 @@
 @import "../../partials/headroom";
 @import "../../partials/assistMeButton";
 
+html, body {
+    height: 100%;
+}
+
+#main {
+    background-color: $base-color-lighter-gray;
+    min-height: 100%;
+    position: relative;
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 110px;/*脚部的高度*/
+        background: $base-color-lighter-gray;
+        clear:both;
+    }
+}
+
 .task-content {
     background-color: $base-color-lighter-gray;
 
@@ -69,8 +88,13 @@
 }
 
 .task-copyright {
-    padding-top: 20px;
-    padding-bottom: 60px;
+
+    z-index: 999;
+    bottom: 150px;
+    height: 30px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
     color: $base-color-middle-gray;
 
     .inline-right {
