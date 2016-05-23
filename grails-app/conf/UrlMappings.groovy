@@ -14,14 +14,14 @@ class UrlMappings {
             action = [GET: "confirmPatientEmail", POST: "agreePolicyAndConfirmPatient"]
         }
 
-        "/emergency_contact/email/confirmation/$code"(controller: "email") {
+        "/caregiver/email/confirmation/$code"(controller: "email") {
             action = [GET: "confirmCareGiverEmail", POST: "agreePolicyAndConfirmCareGiver"]
         }
 
         "/patients/check-email"(controller: "email", action: "checkPatientEmailExist")
 
-        "/tasks/$treatmentCode"(controller: "multiTask") {
-            action = [GET: "getTreatmentTasks", POST: "checkPath"]
+        "/tasks/$combinedTasksCode"(controller: "multiTask") {
+            action = [GET: "getTasksByEmail", POST: "checkPath"]
         }
 
         "/tasks/$taskId/save-draft-answer"(controller: "multiTask") {
@@ -37,7 +37,7 @@ class UrlMappings {
 
         // Help
         "/patient/assist/$patientId"(controller: "assist", action: "index")
-        "/care-giver/assist/$careGiverId"(controller: "assist", action: "assistCareGiver")
+        "/caregiver/assist/$careGiverId"(controller: "assist", action: "assistCareGiver")
         "/addAssist"(controller: "assist", action: "addAssist")
 
         // Announcement

@@ -34,8 +34,8 @@ class EmailService extends RatchetAPIService {
         }
     }
 
-    def confirmEmergencyContactEmail(String token, code, agree) {
-        String emailUrl = grailsApplication.config.ratchetv2.server.url.email.emergencyContactConfirmation
+    def confirmCaregiverEmail(String token, code, agree) {
+        String emailUrl = grailsApplication.config.ratchetv2.server.url.email.caregiverConfirmation
 
         withPost(emailUrl) { req ->
             def resp = req
@@ -45,7 +45,7 @@ class EmailService extends RatchetAPIService {
                     .asString()
 
             if (resp.status == 200) {
-                log.info("Confirm emergency contact email success, token: ${token}")
+                log.info("Confirm caregiver email success, token: ${token}")
 
                 JSON.parse(resp.body)
             } else if (resp.status == 412) {

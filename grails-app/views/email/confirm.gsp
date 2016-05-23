@@ -7,6 +7,7 @@
         <title>Email Confirmation</title>
 
         <style type="text/css">
+
         .primary-color {
             color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
@@ -24,7 +25,6 @@
         .rc-choice-hidden:checked + .rc-checkbox {
             background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
-
         </style>
     </head>
 
@@ -43,7 +43,7 @@
                         </div>
 
                         <span class="input-group">
-                            <input id="birthday" name="birthday" class="form-control input-birth" maxlength="4" placeholder="YYYY"/>
+                            <input id="birthday" type="text" name="birthday" class="form-control input-birth" maxlength="4" placeholder="YYYY"/>
                             <g:if test="${errorMsg}">
                                 <div class="error-container gsp-error">
                                     <div class="rc-error-label">${errorMsg}</div>

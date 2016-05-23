@@ -4,7 +4,6 @@
     color: #333;
     line-height: 20px;
     text-align: center;
-    margin-top: 100px;
 
     @include breakpoint('tablet') {
         margin-top: 120px;
@@ -41,7 +40,7 @@
     font-weight: 700;
 
     @include breakpoint('mobile') {
-        margin: 0 20px 60px;
+        margin: 45px 0px -20px;
         font-size: 19px;
     }
 }
@@ -70,6 +69,7 @@
 }
 
 .content {
+    margin: 0 auto;
     padding-top: 18px;
 
     .content-birth {
@@ -131,7 +131,6 @@
 
 .input-group {
     display: inline-block;
-    width: 228px;
 }
 
 .error-container {
@@ -140,10 +139,13 @@
 }
 
 .form-footer {
-    margin: 36px 0;
+    margin: 0px 0;
 }
 
 .btn-submit {
     font-size: 18px;
     padding: 14px 30px;
 }
+
+input::-ms-clear {  display: none; width : 0; height: 0; }
+input::-ms-reveal {  display: none; width : 0; height: 0; }

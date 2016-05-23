@@ -26,12 +26,21 @@
     <body>
 
     <div class="main container">
-        <g:if test="${allTaskList}">
+        <g:if test="${isInClinic}">
+            <p class="only-message">Welcome! You have 0  tasks.</p>
+
+            <form name="taskItemForm">
+                <div class="task-start-panel">
+                    <input type="submit" class="rc-btn task-start-btn" value="Ok">
+                </div>
+            </form>
+        </g:if>
+        <g:elseif test="${allTaskList}">
 
             <div id="task-list-active">
                 <div class="no-task-list">
                     <i class="fa fa-flag-checkered" aria-hidden="true"></i>
-                    <div>There’s no active tasks</div>
+                    <div>All tasks completed</div>
                 </div>
             </div>
 
@@ -47,7 +56,7 @@
                 </div>
             </div>
 
-        </g:if>
+        </g:elseif>
     </div>
     <g:render template="/shared/copyRight"/>
     </body>

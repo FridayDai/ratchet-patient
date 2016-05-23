@@ -20,9 +20,9 @@ class EmailController extends BaseController {
             render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
         } else {
             render view: 'confirm', model: [client        : JSON.parse(session.client),
-                                            errorMsg      : errMsg,
                                             patientConfirm: 'true',
-                                            hasBirthday   : hasBirthday
+                                            hasBirthday   : hasBirthday,
+                                            errorMsg      : errMsg
             ]
         }
     }
@@ -68,7 +68,7 @@ class EmailController extends BaseController {
         def code = params.code;
         def agree = params.agree == 'true'
 
-        def client = emailService.confirmEmergencyContactEmail(token, code, agree)
+        def client = emailService.confirmCaregiverEmail(token, code, agree)
 
         if (client) {
             if (client.error?.errorId == 412) {

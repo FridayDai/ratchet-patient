@@ -15,7 +15,7 @@ class MultiTaskController extends TaskController {
     def checkPath() {
         def pathRoute = params?.pathRoute
         if (pathRoute == "codeValidation") {
-            forward(action: "getTreatmentTasks", params: [params: params])
+            forward(action: "getTasksInClinic", params: [params: params])
         } else if (pathRoute == "tasksList") {
             forward(action: "startTasks", params: [params: params])
         } else if (pathRoute == "todoTask") {
@@ -27,22 +27,59 @@ class MultiTaskController extends TaskController {
         }
     }
 
-    def getTreatmentTasks() {
+    def getTasksInClinic() {
         String token = request.session.token
         def treatmentCode = params?.treatmentCode
         def isInClinic = params?.isInClinic
         def serverName = request.getServerName()
         def subDomain = serverName.substring(0, serverName.indexOf('.'))
         def client = JSON.parse(session.client)
-        def resp, allResp
 
-        if (isInClinic) {
-            resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null, null, subDomain)
-            allResp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null, true, subDomain)
+        def resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null, null, subDomain)
+
+        if (resp.status == 200) {
+            def tasksListResp = JSON.parse(resp.body)
+            def tasksList = tasksListResp.tests
+            def emailStatus = tasksListResp.emailStatus
+            def patientId = tasksListResp.patientId
+
+            if (tasksList) {
+                render view: '/multiTask/tasksList', model: [
+                        client       : client,
+                        tasksList    : tasksList,
+                        treatmentCode: treatmentCode,
+                        emailStatus  : emailStatus,
+                        patientId    : patientId,
+                        isInClinic   : isInClinic,
+                        tasksLength  : tasksList?.size()
+                ]
+            } else {
+                render view: '/multiTask/noActiveTask', model: [
+                        client    : client,
+                        isInClinic: isInClinic,
+                        tasksCompleted: true,
+
+                ]
+            }
+        } else if (resp.status == 404) {
+            render view: '/multiTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_INCORRECT_TREATMENT_CODE]
+        } else if (resp.status == 412) {
+            render view: '/multiTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_EXPIRED_TREATMENT_CODE]
         } else {
-            resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, null, null, subDomain)
-            allResp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, treatmentCode, null, true, subDomain)
+            render view: '/error/taskExpired', model: [client: client]
         }
+
+    }
+
+    def getTasksByEmail() {
+        String token = request.session.token
+        def combinedTasksCode = params?.combinedTasksCode
+        def serverName = request.getServerName()
+        def subDomain = serverName.substring(0, serverName.indexOf('.'))
+        def client = JSON.parse(session.client)
+
+        def resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, combinedTasksCode, null, null, subDomain)
+        def allResp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, combinedTasksCode, null, true, subDomain)
 
         if (resp.status == 200) {
             def tasksListResp = JSON.parse(resp.body)
@@ -50,37 +87,25 @@ class MultiTaskController extends TaskController {
 
             def allTaskList = limitFutureTask(allTasksListResp.tests)
             def tasksList = tasksListResp.tests
-            def firstName = tasksListResp.firstName
             def emailStatus = tasksListResp.emailStatus
             def patientId = tasksListResp.patientId
 
             if (allTaskList && tasksList) {
                 render view: '/multiTask/tasksList', model: [
-                        client          : client,
-                        tasksList       : tasksList,
-                        allTaskList     : allTaskList,
-                        treatmentCode   : treatmentCode,
-                        patientFirstName: firstName,
-                        emailStatus     : emailStatus,
-                        patientId       : patientId,
-                        isInClinic      : isInClinic,
-                        tasksLength     : tasksList?.size()
+                        client       : client,
+                        tasksList    : tasksList,
+                        allTaskList  : allTaskList,
+                        treatmentCode: combinedTasksCode,
+                        emailStatus  : emailStatus,
+                        patientId    : patientId,
+                        tasksLength  : tasksList?.size()
                 ]
             } else {
                 render view: '/multiTask/noActiveTask', model: [
-                        client          : client,
-                        patientFirstName: firstName,
-                        allTaskList     : allTaskList,
-                        isInClinic      : isInClinic
+                        client     : client,
+                        allTaskList: allTaskList,
+                        tasksCompleted: true,
                 ]
-            }
-        } else if (isInClinic) {
-            if (resp.status == 404) {
-                render view: '/multiTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_INCORRECT_TREATMENT_CODE]
-            } else if (resp.status == 412) {
-                render view: '/multiTask/codeValidation', model: [client: client, errorMsg: RatchetMessage.IN_CLINIC_EXPIRED_TREATMENT_CODE]
-            } else {
-                render view: '/error/taskExpired', model: [client: client]
             }
         } else {
             taskService.handleError(resp)
@@ -145,25 +170,29 @@ class MultiTaskController extends TaskController {
         def taskRoute = params?.taskRoute
 
         submitTaskHandler([
-            taskType: params.taskType,
-            baseToolType: params.baseToolType,
-            code: params.code,
-            token: request.session.token,
-            itemIndex: itemIndex,
-            tasksList: tasksList,
-            isInClinic: isInClinic,
-            treatmentCode: treatmentCode,
-            emailStatus: emailStatus,
-            taskTitle: taskTitle,
-            choices: params.choices,
-            optionals: params.optionals,
-            sections: params.sections
+                taskType     : params.taskType,
+                baseToolType : params.baseToolType,
+                code         : params.code,
+                token        : request.session.token,
+                itemIndex    : itemIndex,
+                tasksList    : tasksList,
+                isInClinic   : isInClinic,
+                treatmentCode: treatmentCode,
+                emailStatus  : emailStatus,
+                taskTitle    : taskTitle,
+                choices      : params.choices,
+                optionals    : params.optionals,
+                sections     : params.sections
         ]) { resp ->
 
-            if(taskRoute == "pickTask") {
-                forward(action: "getTreatmentTasks", params: [params: params])
-            }
-            else if (itemIndexRecord < tasksListRecord?.size()) {
+            if (taskRoute == "pickTask") {
+                if (isInClinic) {
+                    forward(action: "getTasksInClinic", params: [params: params])
+                } else {
+                    forward(action: "getTasksByEmail", params: [params: params])
+
+                }
+            } else if (itemIndexRecord < tasksListRecord?.size()) {
                 forward(action: 'startTasks', params: [
                         itemIndex    : itemIndex,
                         treatmentCode: treatmentCode,
@@ -218,10 +247,14 @@ class MultiTaskController extends TaskController {
 
         taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, null, '')
 
-        if(taskRoute == "pickTask") {
-            forward(action: "getTreatmentTasks", params: [params: params])
-        }
-        else if (itemIndexRecord < tasksListRecord?.size()) {
+        if (taskRoute == "pickTask") {
+            if (isInClinic) {
+                forward(action: "getTasksInClinic", params: [params: params])
+            } else {
+                forward(action: "getTasksByEmail", params: [params: params])
+
+            }
+        } else if (itemIndexRecord < tasksListRecord?.size()) {
             forward(action: 'startTasks', params: [
                     itemIndex    : itemIndex,
                     treatmentCode: treatmentCode,
@@ -322,8 +355,8 @@ class MultiTaskController extends TaskController {
         def limitAccount = 1
         def taskList = []
 
-        for(task in allTaskList) {
-            if(RatchetStatusCode.TASK_STATUS[task?.taskStatus] == 'schedule' && limitAccount++ > limitNumber) {
+        for (task in allTaskList) {
+            if (RatchetStatusCode.TASK_STATUS[task?.taskStatus] == 'schedule' && limitAccount++ > limitNumber) {
                 break
             }
             taskList.add(task)
