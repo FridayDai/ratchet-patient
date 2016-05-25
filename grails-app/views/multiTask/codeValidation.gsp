@@ -67,7 +67,6 @@
                 <span class="copy-right">
                     <span class="distance">Powered By</span>
                     <img class="logo" src="${assetPath(src: 'ratchet_logo_white.png')}"/>
-                    <span>V. RH0.1</span>
                 </span>
             </div>
 
