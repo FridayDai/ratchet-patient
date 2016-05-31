@@ -18,6 +18,11 @@ class UrlMappings {
             action = [GET: "confirmCareGiverEmail", POST: "agreePolicyAndConfirmCareGiver"]
         }
 
+        //Todo: This should be deleted later
+        "/emergency_contact/email/confirmation/$code"(controller: "email") {
+            action = [GET: "confirmCareGiverEmail", POST: "agreePolicyAndConfirmCareGiver"]
+        }
+
         "/patients/check-email"(controller: "email", action: "checkPatientEmailExist")
 
         "/tasks/$combinedTasksCode"(controller: "multiTask") {
@@ -38,6 +43,10 @@ class UrlMappings {
         // Help
         "/patient/assist/$patientId"(controller: "assist", action: "index")
         "/caregiver/assist/$careGiverId"(controller: "assist", action: "assistCareGiver")
+
+        //Todo: This should be deleted later
+        "/care-giver/assist/$careGiverId"(controller: "assist", action: "assistCareGiver")
+
         "/addAssist"(controller: "assist", action: "addAssist")
 
         // Announcement

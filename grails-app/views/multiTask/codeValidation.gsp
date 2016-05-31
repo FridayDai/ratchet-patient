@@ -42,7 +42,7 @@
             <div class="content-middle">
                 <div class="welcome font-color">Welcome To</div>
 
-                <div class="portal-name font-color">Grace County Patient Portal</div>
+                <div class="portal-name font-color">${client.portalName}</div>
 
                 <div class="code-div">
                     <p class="enter-code-title">Enter Treatment Code</p>
