@@ -17,7 +17,7 @@ class TaskController extends BaseController {
             def result = JSON.parse(resp.body)
             def questionnaireView = ''
 
-            // 1: basic, 2: outcome
+            // 1: basic, 2: outcome 6: RAPT
             if (result.baseToolType == 2) {
                 switch (result.type) {
                     case RatchetConstants.ToolEnum.DASH.value:
@@ -67,12 +67,13 @@ class TaskController extends BaseController {
                         questionnaireView = '/task/content/returnPatientQuestionnaire'
                         break
                 }
-
                 if (result.draft) {
                     draft = JSON.parse(JSON.parse(result.draft).yourData)
                 }
             } else if (result.baseToolType == 1) {
                 questionnaireView = '/task/content/basic'
+            } else if (result.baseToolType == 6) {
+                questionnaireView = '/task/content/raq'
             }
 
             session["questionnaireView${opts?.taskCode}"] = questionnaireView
@@ -113,8 +114,8 @@ class TaskController extends BaseController {
         def tasksListRecord = tasksList ? JSON.parse(tasksList) : null
         def answer = [], errors
 
-        // 1: basic, 2: outcome
-        if (baseToolType == 2) {
+        // 1: basic, 2: outcome 6: RAPT
+        if (baseToolType == 2 || baseToolType == 6) {
             if (sections) {
                 sections.each { key, String[] value ->
                     def section = [:]
