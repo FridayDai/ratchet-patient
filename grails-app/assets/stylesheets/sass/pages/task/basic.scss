@@ -69,7 +69,7 @@ html, body {
 
 .task-done-panel {
     padding-top: 50px;
-    padding-bottom: 150px;
+    padding-bottom: 250px;
 
     @include breakpoint('mobile') {
         padding-bottom: 80px;
