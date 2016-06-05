@@ -74,8 +74,8 @@
                         <input type="hidden" name="optionals.${question.id}"
                                value="${question.optional ? '0' : '1'}"/>
 
-                        <div class="question primary-color">
-                            Section ${i + 1}: ${question.title}
+                        <div class="question">
+                            ${i + 1}: ${question.title}
                             <g:if test="${question.optional}">
                                 <span class="optional-label">This question is optional.</span>
                             </g:if>
@@ -122,8 +122,8 @@
             <input type="hidden" name="emailStatus" value="${emailStatus}">
 
             <div class="care-partner container">
-                <div class="head">
-                    <p><strong>*What is a Care Partner?</strong></p>
+                <div class="careHead">
+                    <p><strong>* What is a Care Partner?</strong></p>
                     <ul>
                         <li>• Come to your joint education class with you</li>
                         <li>• Come and visit you in the hospital to learn how to help you when you go home</li>
@@ -134,7 +134,7 @@
                         <li>• Help you with meals, buy groceries, pick up medications</li>
                     </ul>
                 </div>
-                <div class="body">
+                <div class="careBody">
                     <p>
                         Your Care Partner will not be doing any heavy lifting.
                         You will be able to walk, climb stairs, and get up and go to the bathroom when you leave the hospital.
