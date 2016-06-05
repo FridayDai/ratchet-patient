@@ -83,7 +83,7 @@ class EmailServiceSpec extends Specification {
         }
 
         when:
-        def result = service.confirmCaregiverEmail('token', 1, true)
+        def result = service.confirmCaregiverEmail('token', 1, true, true)
 
         then:
         result.confirmation == true
@@ -104,7 +104,7 @@ class EmailServiceSpec extends Specification {
         }
 
         when:
-        def result = service.confirmCaregiverEmail('token', 1, true)
+        def result = service.confirmCaregiverEmail('token', 1, true, true)
 
         then:
         result.expired == true
@@ -112,19 +112,23 @@ class EmailServiceSpec extends Specification {
 
     def "test confirmCaregiverEmail without successful result"() {
         given:
+        def jBuilder = new JsonBuilder()
+        jBuilder {
+            expired true
+        }
+
         MultipartBody.metaClass.asString = { ->
             return [
                     status: 400,
-                    body  : "body"
+                    body  : jBuilder.toString()
             ]
         }
 
         when:
-        service.confirmCaregiverEmail('token', 1, true)
+        def result = service.confirmCaregiverEmail('token', 1, true, true)
 
         then:
-        ServerException e = thrown()
-        e.getMessage() == "body"
+        result.expired == true
     }
 
     def "test emailCheck with successful result"() {
