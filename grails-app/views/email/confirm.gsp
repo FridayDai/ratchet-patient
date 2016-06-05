@@ -35,12 +35,18 @@
         <form action="" method="post" class="confirm-form">
             <div class="content" id="form-content">
 
-                <g:if test="${patientConfirm && hasBirthday}">
+                <g:if test="${(patientConfirm && hasBirthday) || careGiverConfirm}">
                     <div class="content-birth">
-
-                        <div class="label-birth">
-                            Please enter your <strong>year</strong> of birth.
-                        </div>
+                        <g:if test="${(patientConfirm)}">
+                            <div class="label-birth">
+                                Please enter your <strong>year</strong> of birth.
+                            </div>
+                        </g:if>
+                        <g:elseif test="${careGiverConfirm}">
+                            <div class="label-birth">
+                                Please enter patient's <strong>year</strong> of birth.
+                            </div>
+                        </g:elseif>
 
                         <span class="input-group">
                             <input id="birthday" type="text" name="birthday" class="form-control input-birth" maxlength="4" placeholder="YYYY"/>

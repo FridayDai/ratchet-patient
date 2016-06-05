@@ -34,7 +34,7 @@ class EmailService extends RatchetAPIService {
         }
     }
 
-    def confirmCaregiverEmail(String token, code, agree) {
+    def confirmCaregiverEmail(String token, code, agree, birthday) {
         String emailUrl = grailsApplication.config.ratchetv2.server.url.email.caregiverConfirmation
 
         withPost(emailUrl) { req ->
@@ -42,17 +42,23 @@ class EmailService extends RatchetAPIService {
                     .field("code", code)
                     .field("agreedPolicy", agree)
                     .field("hasProfile", true)
+                    .field("birthday", birthday)
                     .asString()
 
             if (resp.status == 200) {
                 log.info("Confirm caregiver email success, token: ${token}")
 
                 JSON.parse(resp.body)
-            } else if (resp.status == 412) {
-                log.info("Invitation link is expired,token:${token}.")
+            } else if (resp.status == 412 || resp.status == 404) {
+                log.info("Invitation link is expired or already confirmed, token:${token}.")
 
                 JSON.parse(resp.body)
-            } else {
+            } else if(resp.status == 400) {
+                log.info("Invitation birthday,token:${token}.")
+
+                JSON.parse(resp.body)
+            }
+            else {
                 handleError(resp)
             }
         }

@@ -53,31 +53,43 @@ class EmailController extends BaseController {
     def confirmCareGiverEmail() {
         String token = request.session.token
         def code = params.code;
+        def errMsg = params?.errorMsg
 
         def client = emailService.checkCareGiverEmailStatus(token, code)
 
         if (client.error?.errorId == 404) {
             render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
         } else {
-            render view: 'confirm', model: [client: JSON.parse(session.client)]
+            render view: 'confirm', model: [client: JSON.parse(session.client),
+                                            careGiverConfirm: 'true',
+                                            errorMsg      : errMsg
+                                            ]
         }
     }
 
     def agreePolicyAndConfirmCareGiver() {
         String token = request.session.token
         def code = params.code;
-        def agree = params.agree == 'true'
+        def agree = params.agree == 'true';
+        def birthday = params.birthday;
 
-        def client = emailService.confirmCaregiverEmail(token, code, agree)
+        def client = emailService.confirmCaregiverEmail(token, code, agree, birthday)
 
         if (client) {
-            if (client.error?.errorId == 412) {
+            if (client.error?.errorId == 400) {
+                def errorMsg = client.error?.errorMessage
+                forward(action: 'confirmCareGiverEmail', params: [errorMsg: errorMsg])
+            } else if (client.error?.errorId == 412) {
                 render view: '/error/invitationExpired', model: [client: JSON.parse(session.client)]
-            } else {
+            } else if (client.error?.errorId == 404) {
+                render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
+            }
+            else {
                 render view: "/email/confirmSuccess", model: [client: JSON.parse(session.client)]
             }
         }
     }
+
 
     def checkPatientEmailExist() {
         String token = request.session.token
