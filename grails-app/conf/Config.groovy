@@ -216,7 +216,7 @@ ratchet.api.anonymous.token = System.getProperty("ANONYMOUS_API_TOKEN") ?: "FkvV
 ratchetv2 {
     server {
         url {
-            base = System.getProperty("SERVER_URL") ?: "http://api.f1.ratchethealth.com"
+            base = System.getProperty("SERVER_URL") ?: "http://api.develop.ratchethealth.com"
 
             // Client
             client {
