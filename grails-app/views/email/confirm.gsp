@@ -30,23 +30,28 @@
 
     <body>
     <div class="main container">
-        <p class="title">One more step to confirm your email...</p>
+        <g:if test="${patientConfirm && hasBirthday}">
+            <p class="title">One more step to confirm your email...</p>
+        </g:if>
+        <g:if test="${careGiverConfirm}">
+            <p class="title">One more step to confirm as a caregiver...</p>
+        </g:if>
 
         <form action="" method="post" class="confirm-form">
             <div class="content" id="form-content">
 
                 <g:if test="${(patientConfirm && hasBirthday) || careGiverConfirm}">
                     <div class="content-birth">
-                        <g:if test="${(patientConfirm)}">
+                        <g:if test="${patientConfirm}">
                             <div class="label-birth">
                                 Please enter your <strong>year</strong> of birth.
                             </div>
                         </g:if>
-                        <g:elseif test="${careGiverConfirm}">
+                        <g:if test="${careGiverConfirm}">
                             <div class="label-birth">
                                 Please enter patient's <strong>year</strong> of birth.
                             </div>
-                        </g:elseif>
+                        </g:if>
 
                         <span class="input-group">
                             <input id="birthday" type="text" name="birthday" class="form-control input-birth" maxlength="4" placeholder="YYYY"/>

@@ -1,5 +1,6 @@
 package com.ratchethealth.patient
 
+import com.mashape.unirest.http.Unirest
 import grails.converters.JSON
 
 class EmailService extends RatchetAPIService {
@@ -191,7 +192,7 @@ class EmailService extends RatchetAPIService {
         }
     }
 
-    def unsubscribeCaregiverEmail(String token, clientId, patientId, caregiverId) {
+    def unsubscribeCaregiverEmail(String token, code, clientId, patientId, caregiverId) {
         String unsubscribeUrl = grailsApplication.config.ratchetv2.server.url.email.unsubscribeCaregiverEmail
 
         def url = String.format(unsubscribeUrl, clientId, patientId, caregiverId)
@@ -199,9 +200,10 @@ class EmailService extends RatchetAPIService {
         withPost(url) { req ->
             def resp = req
                     .field("subscribe", false)
+                    .field("code", code)
                     .asString()
 
-            if (resp.status == 200) {
+                if (resp.status == 200) {
                 log.info("unsubscribe email success, token: ${token}")
                 return resp
             } else {
