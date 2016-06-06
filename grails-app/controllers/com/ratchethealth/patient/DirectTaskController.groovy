@@ -14,7 +14,8 @@ class DirectTaskController extends TaskController {
         startTaskHandler(resp, [
             taskCode: taskCode,
             taskTitle: params.title,
-            patientId: patientId
+            patientId: patientId,
+            isInClinic: true
         ])
     }
 
@@ -37,7 +38,8 @@ class DirectTaskController extends TaskController {
             optionals: params.optionals,
             sections: params.sections,
             accountId: params.accountId,
-            completeDate: params.completeDate
+            completeDate: params.completeDate,
+            isInClinic: true
         ]) { resp ->
             if (resp.status == 200 || resp.status == 207) {
                 render(view: '/multiTask/tasksList', model: [
