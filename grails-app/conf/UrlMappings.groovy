@@ -35,6 +35,8 @@ class UrlMappings {
 
         "/patient/$patientId/unsubscribe/$code"(controller: "email", action: "unsubscribeEmail")
 
+        "/patients/$patientId/caregivers/$careGiverId/unsubscribe/$code"(controller: "email", action: "unsubscribeCaregiverEmail")
+
         // Direct task
         "/$accountId/tasks/$title/$code"(controller: "directTask") {
             action = [GET: "index", POST: "submit"]
