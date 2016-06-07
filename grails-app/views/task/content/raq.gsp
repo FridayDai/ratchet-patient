@@ -122,7 +122,7 @@
             <input type="hidden" name="emailStatus" value="${emailStatus}">
 
             <div class="care-partner container">
-                <div class="careHead">
+                <div class="care-head">
                     <p><strong>* What is a Care Partner?</strong></p>
                     <ul>
                         <li>• Come to your joint education class with you</li>
@@ -134,7 +134,7 @@
                         <li>• Help you with meals, buy groceries, pick up medications</li>
                     </ul>
                 </div>
-                <div class="careBody">
+                <div class="care-body">
                     <p>
                         Your Care Partner will not be doing any heavy lifting.
                         You will be able to walk, climb stairs, and get up and go to the bathroom when you leave the hospital.
