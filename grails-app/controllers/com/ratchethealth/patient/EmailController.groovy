@@ -10,17 +10,18 @@ class EmailController extends BaseController {
 
     def confirmPatientEmail() {
         String token = request.session.token
-        def code = params.code;
+        def code = params.code
+        def client = JSON.parse(session.client)
 
-        def client = emailService.checkPatientEmailStatus(token, code)
+        def result = emailService.checkPatientEmailStatus(token, code)
         def hasBirthday = patientService.checkPatientBirthday(token, code)
 
         def errMsg = params?.errorMsg
-        if (client.error?.errorId == 404) {
-            render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
+        if (result.error?.errorId == 404) {
+            render view: '/email/emailAlreadyConfirm', model: [client: client]
         } else {
-            render view: 'confirm', model: [client        : JSON.parse(session.client),
-                                            patientConfirm: 'true',
+            render view: 'confirm', model: [client        : client,
+                                            patientConfirm: true,
                                             hasBirthday   : hasBirthday,
                                             errorMsg      : errMsg
             ]
@@ -54,14 +55,15 @@ class EmailController extends BaseController {
         String token = request.session.token
         def code = params.code;
         def errMsg = params?.errorMsg
+        def client = JSON.parse(session.client)
 
-        def client = emailService.checkCareGiverEmailStatus(token, code)
+        def result = emailService.checkCareGiverEmailStatus(token, code)
 
-        if (client.error?.errorId == 404) {
-            render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
+        if (result.error?.errorId == 404) {
+            render view: '/email/emailAlreadyConfirm', model: [client: client]
         } else {
-            render view: 'confirm', model: [client: JSON.parse(session.client),
-                                            careGiverConfirm: 'true',
+            render view: 'confirm', model: [client: client,
+                                            careGiverConfirm: true,
                                             errorMsg      : errMsg
                                             ]
         }

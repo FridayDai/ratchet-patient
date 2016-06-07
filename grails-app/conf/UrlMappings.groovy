@@ -34,8 +34,8 @@ class UrlMappings {
         }
 
         "/patient/$patientId/unsubscribe/$code"(controller: "email", action: "unsubscribeEmail")
-        "/clients/$clientId/patients/$patientId/caregivers/$careGiverId/subscribStatus/$code"(controller: "email", action: "unsubscribeCaregiverEmail")
-        //"/patients/$patientId/caregivers/$careGiverId/unsubscribe/$code"(controller: "email", action: "unsubscribeCaregiverEmail")
+
+        "/patients/$patientId/caregivers/$careGiverId/unsubscribe/$code"(controller: "email", action: "unsubscribeCaregiverEmail")
 
         // Direct task
         "/$accountId/tasks/$title/$code"(controller: "directTask") {

@@ -206,5 +206,24 @@ class EmailServiceSpec extends Specification {
         ServerException e = thrown()
         e.getMessage() == "body"
     }
+
+    def "test unsubscribe caregiver's email"() {
+        given:
+        MultipartBody.metaClass.asString = { ->
+            return [
+                    status: 400,
+                    body  : "body"
+            ]
+        }
+
+        when:
+        service.unsubscribeCaregiverEmail('token', 1, 1, 1, 1)
+
+        then:
+        ServerException e = thrown()
+        e.getMessage() == "body"
+    }
+
+
 }
 

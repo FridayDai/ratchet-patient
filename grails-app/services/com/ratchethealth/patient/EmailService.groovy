@@ -177,6 +177,7 @@ class EmailService extends RatchetAPIService {
 
         def url = String.format(unsubscribeUrl, patientId)
 
+        log.info("Call backend service to unsubscribe patient's email, token: ${token}.")
         withPost(url) { req ->
             def resp = req
                     .field("subscribe", false)
@@ -184,8 +185,7 @@ class EmailService extends RatchetAPIService {
                     .asString()
 
             if (resp.status == 200) {
-                log.info("unsubscribe email success, token: ${token}")
-                return resp
+                log.info("unsubscribe patient's email success, token: ${token}")
             } else {
                 handleError(resp)
             }
@@ -197,7 +197,7 @@ class EmailService extends RatchetAPIService {
 
         def url = String.format(unsubscribeUrl, clientId, patientId, caregiverId, code)
 
-
+        log.info("Call backend service to unsubscribe caregiver's email, token: ${token}.")
         withPost(url) { req ->
             def resp = req
                     .field("subscribe", false)
@@ -205,7 +205,7 @@ class EmailService extends RatchetAPIService {
                     .asString()
 
                 if (resp.status == 200) {
-                log.info("unsubscribe email success, token: ${token}")
+                log.info("unsubscribe caregiver's email success, token: ${token}")
                 return resp
             } else {
                 handleError(resp)
