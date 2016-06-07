@@ -1,0 +1,60 @@
+@import '../../partials/task_content';
+@import '../../partials/headerErrorTip';
+
+.raq {
+    @include breakpoint('tablet') {
+        @include answer-vertical-list('lg');
+    }
+
+    @include breakpoint('mobile') {
+        @include answer-vertical-list('small');
+    }
+
+    .question-list {
+        @include breakpoint('tablet') {
+            margin-bottom: 40px;
+        }
+    }
+
+    .question {
+        color: black;
+        background-color: #fff;
+
+        @include breakpoint('tablet') {
+            margin-bottom: 5px;
+            padding: 30px 40px;
+            font-size: 18px;
+        }
+    }
+
+    .answer-list {
+        @include breakpoint('tablet') {
+            padding: 15px 20px;
+            background-color: #fff;
+        }
+    }
+
+    .task-copyright {
+        padding-top: 20px;
+        padding-bottom: 10px;
+        color: $base-color-middle-gray;
+
+        .inline-right {
+            display: inline-block;
+        }
+    }
+
+    .task-license {
+        padding: 0 10px 40px;
+        color: $base-color-middle-gray;
+
+        .inline-right {
+            display: inline-block;
+        }
+    }
+
+}
+
+.care-head, .care-body {
+    margin: 0 30px 0;
+}
