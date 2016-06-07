@@ -33,9 +33,11 @@
         <g:if test="${isSingleTask}">
             <script language="javascript" type="text/javascript">
                 (function () {
-                    window.opener = null;
-                    window.open('', '_self');
-                    window.setTimeout("window.close()", 4000);
+                    window.setTimeout(function(){
+                        document.domain = "ratchethealth.com";
+                        window.opener.location.reload();
+                        window.close();
+                    }, 3000);
                 })();
             </script>
         </g:if>
