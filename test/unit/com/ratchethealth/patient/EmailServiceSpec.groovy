@@ -207,7 +207,28 @@ class EmailServiceSpec extends Specification {
         e.getMessage() == "body"
     }
 
-    def "test unsubscribe caregiver's email"() {
+    def "test unsubscribe caregiver's email with successful result"() {
+        given:
+        def jBuilder = new JsonBuilder()
+        jBuilder {
+            unsubscribe true
+        }
+
+        MultipartBody.metaClass.asString = { ->
+            return [
+                    status: 200,
+                    body  : jBuilder.toString()
+            ]
+        }
+
+        when:
+        def result = service.unsubscribeCaregiverEmail('token', 1, 1, 1, 1)
+
+        then:
+        result == true
+    }
+
+    def "test unsubscribe caregiver's email without successful result"() {
         given:
         MultipartBody.metaClass.asString = { ->
             return [
@@ -223,6 +244,48 @@ class EmailServiceSpec extends Specification {
         ServerException e = thrown()
         e.getMessage() == "body"
     }
+
+
+
+
+    def "test unsubscribe patient's email with successful result"() {
+        given:
+        def jBuilder = new JsonBuilder()
+        jBuilder {
+            unsubscribe true
+        }
+
+        MultipartBody.metaClass.asString = { ->
+            return [
+                    status: 200,
+                    body  : jBuilder.toString()
+            ]
+        }
+
+        when:
+        def result = service.unsubscribeEmail('token', 1, 1)
+
+        then:
+        result == true
+    }
+
+    def "test unsubscribe patient's email without successful result"() {
+        given:
+        MultipartBody.metaClass.asString = { ->
+            return [
+                    status: 400,
+                    body  : "body"
+            ]
+        }
+
+        when:
+        service.unsubscribeEmail('token', 1, 1)
+
+        then:
+        ServerException e = thrown()
+        e.getMessage() == "body"
+    }
+
 
 
 }

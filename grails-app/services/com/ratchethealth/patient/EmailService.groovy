@@ -186,6 +186,7 @@ class EmailService extends RatchetAPIService {
 
             if (resp.status == 200) {
                 log.info("unsubscribe patient's email success, token: ${token}")
+                true
             } else {
                 handleError(resp)
             }
@@ -204,9 +205,9 @@ class EmailService extends RatchetAPIService {
                     .field("code", code)
                     .asString()
 
-                if (resp.status == 200) {
+            if (resp.status == 200) {
                 log.info("unsubscribe caregiver's email success, token: ${token}")
-                return resp
+                true
             } else {
                 handleError(resp)
             }
