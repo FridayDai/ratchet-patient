@@ -242,7 +242,7 @@ ratchetv2 {
                 checkPatientEmailStatus = "${ratchetv2.server.url.base}/api/v1/patient/check/status"
                 checkCareGiverEmailStatus = "${ratchetv2.server.url.base}/api/v1/caregiver/check/status"
                 unsubscribeEmail = "${ratchetv2.server.url.base}/api/v1/patients/%s/subscribe"
-                unsubscribeCaregiverEmail = "${ratchetv2.server.url.base}/api/v1/clients/%s/patients/%s/caregivers/%s/subscribeStatus"
+                unsubscribeCaregiverEmail = "${ratchetv2.server.url.base}/api/v1/clients/%s/patients/%s/caregivers/%s/subscribeStatus/%s"
             }
 
             // Task

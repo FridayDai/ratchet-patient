@@ -195,7 +195,8 @@ class EmailService extends RatchetAPIService {
     def unsubscribeCaregiverEmail(String token, code, clientId, patientId, caregiverId) {
         String unsubscribeUrl = grailsApplication.config.ratchetv2.server.url.email.unsubscribeCaregiverEmail
 
-        def url = String.format(unsubscribeUrl, clientId, patientId, caregiverId)
+        def url = String.format(unsubscribeUrl, clientId, patientId, caregiverId, code)
+
 
         withPost(url) { req ->
             def resp = req
