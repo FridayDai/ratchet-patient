@@ -124,6 +124,7 @@
             <div class="care-partner container">
                 <div class="care-head">
                     <p><strong>* What is a Care Partner?</strong></p>
+                    <p>A Care Partner is a loved one, family, or friend who can help you after surgery. It is best if your care partner can</p>
                     <ul>
                         <li>• Come to your joint education class with you</li>
                         <li>• Come and visit you in the hospital to learn how to help you when you go home</li>
