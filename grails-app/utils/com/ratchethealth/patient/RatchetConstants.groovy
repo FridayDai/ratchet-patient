@@ -19,7 +19,8 @@ class RatchetConstants {
         RETURN_PATIENT_QUESTIONNAIRE(17),
         KOOS_JR(15),
         HOOS_JR(1000),
-        RISK_ASSESSMENT_QUESTIONNAIRE(20)
+        RISK_ASSESSMENT_QUESTIONNAIRE(20),
+        SURGERY_FOLLOW_UP(21)
 
         int value
 

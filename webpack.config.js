@@ -24,7 +24,8 @@ module.exports = {
         painChartTool: "./pages/painChartTool.js",
         promisTool: "./pages/promisTool.js",
         tasksList: "./pages/tasksList.js",
-        basicTool: "./pages/basicTool.js"
+        basicTool: "./pages/basicTool.js",
+        followUpTool: "./pages/followUpTool.js"
     },
     output: {
         path: absoluteContext,
