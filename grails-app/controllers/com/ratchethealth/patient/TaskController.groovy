@@ -9,7 +9,7 @@ class TaskController extends BaseController {
         def draft = null
         def alreadyComplete = null
 
-        if(resp.status == 207) {
+        if (resp.status == 207) {
             alreadyComplete = true
         }
 
@@ -73,28 +73,36 @@ class TaskController extends BaseController {
             } else if (result.baseToolType == 1) {
                 questionnaireView = '/task/content/basic'
             } else if (result.baseToolType == 6) {
-                questionnaireView = '/task/content/raq'
+                if (result.type == RatchetConstants.ToolEnum.SURGERY_FOLLOW_UP.value) {
+                    questionnaireView = '/task/content/followUp'
+
+                    if (result.draft) {
+                        draft = JSON.parse(JSON.parse(result.draft).yourData)
+                    }
+                } else {
+                    questionnaireView = '/task/content/raq'
+                }
             }
 
             session["questionnaireView${opts?.taskCode}"] = questionnaireView
 
             render view: questionnaireView,
                     model: [
-                            client          : JSON.parse(session.client),
-                            isInClinic      : opts?.isInClinic,
-                            baseToolType    : result.baseToolType,
-                            Task            : result,
-                            Draft           : draft,
-                            alreadyComplete : alreadyComplete,
-                            taskTitle       : opts?.taskTitle,
-                            taskCode        : opts?.taskCode,
-                            itemIndex       : opts?.itemIndex,
-                            tasksList       : opts?.tasksList,
-                            treatmentCode   : opts?.treatmentCode,
-                            tasksLength     : opts?.tasksList?.size(),
-                            patientId       : opts?.patientId,
-                            emailStatus     : opts?.emailStatus,
-                            taskRoute       : opts?.taskRoute
+                            client         : JSON.parse(session.client),
+                            isInClinic     : opts?.isInClinic,
+                            baseToolType   : result.baseToolType,
+                            Task           : result,
+                            Draft          : draft,
+                            alreadyComplete: alreadyComplete,
+                            taskTitle      : opts?.taskTitle,
+                            taskCode       : opts?.taskCode,
+                            itemIndex      : opts?.itemIndex,
+                            tasksList      : opts?.tasksList,
+                            treatmentCode  : opts?.treatmentCode,
+                            tasksLength    : opts?.tasksList?.size(),
+                            patientId      : opts?.patientId,
+                            emailStatus    : opts?.emailStatus,
+                            taskRoute      : opts?.taskRoute
 
                     ]
         } else if (resp.status == 404) {

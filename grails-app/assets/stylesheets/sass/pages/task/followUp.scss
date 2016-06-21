@@ -1,0 +1,101 @@
+@import '../../partials/task_content';
+
+.follow-up {
+    @include breakpoint('tablet') {
+        padding-top: 250px;
+
+        @include answer-vertical-list('lg');
+
+        .answer {
+            .text {
+                min-height: 0;
+                margin: 0 0 0 58px;
+                line-height: 29px;
+            }
+
+            .choice {
+                margin-left: 28px;
+            }
+        }
+    }
+
+    @include breakpoint('mobile') {
+        @include answer-vertical-list('small');
+
+        .answer {
+            .text {
+                margin-top: 7px;
+                margin-left: 50px;
+            }
+        }
+    }
+
+    .question {
+        color: $base-color-black;
+        background-color: #fff;
+
+        @include breakpoint('tablet') {
+            margin-bottom: 5px;
+            padding: 30px 40px;
+            font-size: 18px;
+        }
+    }
+
+    .answer-list {
+        @include breakpoint('tablet') {
+            padding: 15px 20px;
+            background-color: #fff;
+        }
+    }
+
+    .textarea-container {
+        padding: 15px;
+
+        @include breakpoint('mobile') {
+            padding: 25px;
+        }
+    }
+
+    textarea {
+        height: 300px;
+        width: 100%;
+        padding: 10px 15px;
+
+        @include breakpoint('tablet') {
+            background-color: $base-color-gray-lighter;
+        }
+    }
+}
+
+.question-list {
+    @include breakpoint('tablet') {
+        margin-bottom: 40px;
+    }
+
+    &.error {
+        .error-label {
+            display: block;
+            float: right;
+        }
+
+        .rc-checkbox, textarea {
+            border-color: $base-color-error-font-red;
+        }
+
+        .question, .answer {
+            border-color: transparent;
+        }
+    }
+}
+
+.rc-checkbox {
+    width: 14px;
+    height: 14px;
+    top: 7px;
+}
+
+.rc-choice-hidden:checked + .rc-checkbox:before {
+    top: 0;
+    left: 3px;
+    font-size: 12px;
+}
