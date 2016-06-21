@@ -87,7 +87,7 @@ class EmailController extends BaseController {
                 render view: '/email/emailAlreadyConfirm', model: [client: JSON.parse(session.client)]
             }
             else {
-                render view: "/email/confirmSuccess", model: [client: JSON.parse(session.client)]
+                render view: "/email/caregiverConfirmSuccess", model: [client: JSON.parse(session.client)]
             }
         }
     }
