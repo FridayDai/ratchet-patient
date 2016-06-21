@@ -38,6 +38,10 @@
             background-color: ${ client.primaryColorHex?:'#0f137d' } !important;
         }
 
+        .rc-choice-hidden:checked + .rc-checkbox {
+            background-color: ${     client.primaryColorHex?:'#0f137d'     };
+        }
+
         .task-done-btn[disabled], .task-done-btn[disabled]:hover {
             color: ${ client.primaryColorHex?:'#0f137d' } !important;
             background-color: #ffffff !important;
@@ -84,7 +88,7 @@
                                                class="rc-choice-hidden"
                                             <g:if test="${Draft && Draft['assistance'] == 'false'}"> checked</g:if>
                                         />
-                                        <span class="rc-checkbox primary-radio-color pain-toggle"></span>
+                                        <span class="rc-checkbox pain-toggle"></span>
                                     </label>
                                 </span>
                             </li>
