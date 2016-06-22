@@ -13,7 +13,7 @@
                 %{--<span class="tip-content">Losing weight enhances your chance of recovery.</span>--}%
             %{--</div>--}%
         %{--</g:if>--}%
-		<div class="warning">&nbsp;Please answer the following questions to the best of your knowledge without compromising any existing medical condition(s) and/or doctor's advisement(s).</div>
+		<div class="warning">&nbsp;Please follow the instructions below to the best of your capability without compromising any existing medical condition(s) and/or doctor's advisement(s).</div>
 	</div>
 
 </div>
