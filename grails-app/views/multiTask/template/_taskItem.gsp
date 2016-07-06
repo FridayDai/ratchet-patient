@@ -15,7 +15,7 @@
         </div>
 
         <div class="item-right">
-            <g:if test="${task?.isBaseTool}">
+            <g:if test="${task?.isBasicTool}">
                 <div class="btn-panel">
                     %{--<a class="rc-btn task-view-btn" target="_blank" href="${task?.code}?pathRoute=tasksList">View</a>--}%
                     <form name="taskItemForm" method="post" target="_blank">

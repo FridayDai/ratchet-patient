@@ -28,4 +28,31 @@ class RatchetConstants {
             this.value = value
         }
     }
+
+    enum questionnaireTypeEnum {
+        ALL(1),
+        COMPLETED(2),
+        ACTIVE(3)
+
+        int value
+
+        questionnaireTypeEnum(int value) {
+            this.value = value
+        }
+    }
+
+    enum taskStatusEnum {
+        NEW(1),
+        OVERDUE(2),
+        SCHEDULE(3),
+        PENDING(4),
+        COMPLETE(5),
+        EXPIRED(6)
+
+        int value
+
+        taskStatusEnum(int value) {
+            this.value = value
+        }
+    }
 }
