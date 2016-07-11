@@ -226,7 +226,8 @@ class MultiTaskController extends TaskController {
     }
 
     def submitQuestionnaire(opts) {
-        return taskService.submitQuestionnaireWithoutErrorHandle(opts?.token, opts?.code, opts?.answer, null, null, '')
+        return taskService.submitQuestionnaireWithoutErrorHandle(opts?.token, opts?.code, opts?.answer, null, null, '',
+                opts?.isInClinic ? RatchetConstants.TaskSourceFromEnum.IN_CLNIC.value : RatchetConstants.TaskSourceFromEnum.EMAIL.value)
     }
 
     def submitSpecialTask() {
@@ -244,7 +245,8 @@ class MultiTaskController extends TaskController {
         def choices = params.choices
         def code = params.code
 
-        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, null, '')
+        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, null, '',
+                isInClinic ? RatchetConstants.TaskSourceFromEnum.IN_CLNIC.value : RatchetConstants.TaskSourceFromEnum.EMAIL.value)
 
         if (taskRoute == "pickTask") {
             if (isInClinic) {

@@ -55,4 +55,16 @@ class RatchetConstants {
             this.value = value
         }
     }
+
+    enum TaskSourceFromEnum {
+        IN_CLNIC(1),
+        EMAIL(2),
+        MA(3)
+
+        int value
+
+        TaskSourceFromEnum(int value) {
+            this.value = value
+        }
+    }
 }

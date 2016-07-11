@@ -204,7 +204,7 @@ class TaskController extends BaseController {
     }
 
     def submitQuestionnaire(opts) {
-        return taskService.submitQuestionnaire(opts?.token, opts?.code, opts?.answer, opts?.accountId, opts?.completeDate)
+        return taskService.submitQuestionnaire(opts?.token, opts?.code, opts?.answer, opts?.accountId, opts?.completeDate, RatchetConstants.TaskSourceFromEnum.MA.value)
     }
 
     def convertChoice(type, choices) {
