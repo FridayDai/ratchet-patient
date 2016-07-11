@@ -70,6 +70,7 @@ function WithDialog() {
 
         this.onShow = function (e, data) {
             var $window = $(window);
+            var bodyEl = $('body')[0];
 
             this.$node.removeClass('ui-hidden');
 
@@ -81,7 +82,7 @@ function WithDialog() {
                     height: height
                 });
 
-                this.__bodyScrollTop = $('body')[0].scrollTop;
+                this.__bodyScrollTop = bodyEl.scrollTop;
             } else {
                 this.changeSize({
                     height: 'auto'
@@ -93,19 +94,58 @@ function WithDialog() {
             }
 
             this.show();
+
+            bodyEl.scrollTop = this.__bodyScrollTop;
         };
     };
 
     this.initMobileTouchEndEvent = function () {
         if (Utility.isMobile()) {
-            this.__touchendWrapper = _.bind(this.onBodyTouchend, this);
-            $('body').on('touchend', this.__touchendWrapper);
+            this.__touchstartWrapper = _.bind(this.onBodyTouchStart, this);
+            this.__touchmoveWrapper = _.bind(this.onBodyTouchMove, this);
+
+            var $body = $('body');
+
+            $body.on('touchstart', this.__touchstartWrapper);
+            $body.on('touchmove', this.__touchmoveWrapper);
         }
     };
 
-    this.onBodyTouchend = function() {
-        if(this.$node.is(':visible')) {
-            $('body')[0].scrollTop = this.__bodyScrollTop;
+    this.__findDialogContent = function () {
+        var $content = this.$node.find('.ui-dialog-content');
+
+        if (!$content.length) {
+            $content = this.$node.closest('.ui-dialog-content');
+        }
+
+        return $content;
+    };
+
+    this.onBodyTouchStart = function (e) {
+        var $content = this.__findDialogContent();
+
+        if(this.$node.is(':visible') && $content.has(e.target).length) {
+            var touches = e.originalEvent.changedTouches;
+
+            this.__lastTouchY = touches[0].clientY;
+        }
+    };
+
+    this.onBodyTouchMove = function(e) {
+        var $content = this.__findDialogContent();
+
+        if(this.$node.is(':visible')){
+            e.preventDefault();
+
+            if ($content.has(e.target).length) {
+
+                var touches = e.originalEvent.changedTouches;
+
+                var delta = touches[0].clientY - this.__lastTouchY;
+                this.__lastTouchY = touches[0].clientY;
+
+                $content.get(0).scrollTop += -delta;
+            }
         }
     };
 
@@ -122,7 +162,10 @@ function WithDialog() {
         this.dialogEl = null;
 
         if (Utility.isMobile()) {
-            $('body').off('touchend', this.__touchendWrapper);
+            var $body = $('body');
+
+            $body.off('touchstart', this.__touchstartWrapper);
+            $body.off('touchmove', this.__touchmoveWrapper);
         }
     });
 }
