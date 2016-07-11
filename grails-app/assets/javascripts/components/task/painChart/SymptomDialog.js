@@ -1,6 +1,5 @@
 var flight = require('flight');
-var WithMobileDialog = require('../../common/WithMobileDialog');
-var Utility = require('../../../utils/Utility');
+var WithDialog = require('../../common/WithDialog');
 
 function SymptomDialog() {
     this.attributes({
@@ -67,32 +66,8 @@ function SymptomDialog() {
         this.close();
     };
 
-    this._onShowWrapper = function () {
-        if (_.isFunction(this.onShow)) {
-            this._customOnShow = this.onShow;
-        }
-
-        this.onShow = function (e, data) {
-            var $window = $(window);
-
-            this.$node.removeClass('ui-hidden');
-
-            var height = window.innerHeight ? window.innerHeight : $(window).height();
-
-            if (Utility.isMobile()) {
-                this.changeSize({
-                    width: $window.width(),
-                    height: height
-                });
-            } else {
-                this.changeSize({
-                    height: 'auto'
-                });
-            }
-
-            this.prepareForShow(data);
-            this.show();
-        };
+    this.onShow = function (e, data) {
+        this.prepareForShow(data);
     };
 
     this.onChoiceItemClicked = function (e) {
@@ -112,5 +87,5 @@ function SymptomDialog() {
     });
 }
 
-module.exports = flight.component(WithMobileDialog, SymptomDialog);
+module.exports = flight.component(WithDialog, SymptomDialog);
 

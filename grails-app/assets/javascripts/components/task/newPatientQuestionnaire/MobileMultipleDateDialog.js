@@ -1,5 +1,5 @@
 var flight = require('flight');
-var WithMobileDialog = require('../../common/WithMobileDialog');
+var WithDialog = require('../../common/WithDialog');
 var MonthYearPicker = require('../../shared/components/MonthYearPicker');
 
 function MobileMultipleDateDialog() {
@@ -46,6 +46,6 @@ function MobileMultipleDateDialog() {
 }
 
 module.exports = flight.component(
-    WithMobileDialog,
+    WithDialog,
     MobileMultipleDateDialog
 );

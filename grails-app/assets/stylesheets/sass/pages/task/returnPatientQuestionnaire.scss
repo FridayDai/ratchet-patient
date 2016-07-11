@@ -2,7 +2,6 @@
 @import '../../partials/theme';
 @import '../../partials/dialog';
 @import '../../partials/datepicker';
-@import '../../partials/mobile_iscroll';
 
 .return-patient-questionnaire {
     @include breakpoint('tablet') {
