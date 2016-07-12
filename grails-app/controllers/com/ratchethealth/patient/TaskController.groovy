@@ -11,9 +11,28 @@ class TaskController extends BaseController {
 
         if (resp.status == 207) {
             alreadyComplete = true
+            def result = JSON.parse(resp.body)
+
+            render view: '/task/content/taskAlreadyComplete' ,
+                    model: [
+                            client         : JSON.parse(session.client),
+                            isInClinic     : opts?.isInClinic,
+                            baseToolType   : result.baseToolType,
+                            Task           : result,
+                            Draft          : draft,
+                            taskTitle      : opts?.taskTitle,
+                            taskCode       : opts?.taskCode,
+                            itemIndex      : opts?.itemIndex,
+                            tasksList      : opts?.tasksList,
+                            treatmentCode  : opts?.treatmentCode,
+                            tasksLength    : opts?.tasksList?.size(),
+                            patientId      : opts?.patientId,
+                            emailStatus    : opts?.emailStatus,
+                            taskRoute      : opts?.taskRoute
+                    ]
         }
 
-        if (resp.status == 200 || resp.status == 207) {
+        if (resp.status == 200) {
             def result = JSON.parse(resp.body)
             def questionnaireView = ''
 
@@ -148,21 +167,14 @@ class TaskController extends BaseController {
             }
 
             //validation
-            if (taskType == RatchetConstants.ToolEnum.ODI.value ||
-                    taskType == RatchetConstants.ToolEnum.NDI.value ||
-                    taskType == RatchetConstants.ToolEnum.KOOS.value ||
-                    taskType == RatchetConstants.ToolEnum.HOOS.value) {
-                errors = [];
-            } else {
-                errors = validateChoice(taskType, choices, optionals)
-            }
+            errors = [];
 
             if (errors.size() > 0) {
                 def view = session["questionnaireView${code}"]
 
                 def resp = getQuestionnaire(opts)
 
-                if (resp.status == 200) {
+                if (resp && resp.status == 200) {
                     def result = JSON.parse(resp.body)
 
                     render view: view,
@@ -214,13 +226,17 @@ class TaskController extends BaseController {
         } else {
             def newType = [:]
 
-            choices.entrySet().each { entry ->
-                def vals = entry.value.split('\\.')
+            if(choices) {
+                choices.entrySet().each { entry ->
+                    def vals = entry.value.split('\\.')
 
-                newType[vals[0]] = vals[1]
-            };
+                    newType[vals[0]] = vals[1]
+                };
 
-            return newType
+                return newType
+            } else {
+                return newType
+            }
         }
     }
 

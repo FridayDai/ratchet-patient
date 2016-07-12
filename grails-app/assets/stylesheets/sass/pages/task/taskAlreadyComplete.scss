@@ -1,0 +1,53 @@
+@import '../../partials/task_content';
+
+html, body, #main, .main-container  {
+    height: 100%;
+}
+
+#main {
+    background-color: #f2f2f2;
+}
+
+.warning {
+    display: none;
+}
+
+.main-container {
+    background-color: #f2f2f2;
+    height: 89%;
+
+    @include breakpoint('mobile') {
+        height: 85%;
+    }
+}
+
+.task-alreadyComplete {
+    margin-bottom: 120px;
+}
+.text-complete {
+    margin-top: 35px;
+    text-align: center;
+    font-size: 22px;
+
+    @include breakpoint('mobile') {
+        font-size: 15px;
+    }
+}
+
+.header {
+    @include breakpoint('mobile') {
+        background-color: #fff;
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: #bbb;
+    font-size: 13px;
+    background: #f2f2f2;
+    border-top: 1px solid #bbb;
+    height: 110px;
+}
