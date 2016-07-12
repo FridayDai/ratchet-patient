@@ -2,7 +2,6 @@ require('../components/common/initSetup');
 require('../components/layout/Main');
 
 var flight = require('flight');
-var IScroll = require('IScroll');
 var WithPage = require('../components/common/WithPage');
 var Task = require('../components/shared/functional/Task');
 var SaveComplexDraftAnswer = require('../components/shared/functional/SaveComplexDraftAnswer');
@@ -74,25 +73,6 @@ function painChartTask() {
         return true;
     };
 
-    this.iscrollerInRefresh = false;
-    this._wantIScrollRefresh = 0;
-    this.refreshIScroller = function () {
-        var me = this;
-
-        if (this._wantIScrollRefresh === 0) {
-            this._wantIScrollRefresh = 1;
-        }
-
-        if (this.iscroller && !this.iscrollerInRefresh && this._wantIScrollRefresh === 1) {
-            this.iscrollerInRefresh = true;
-            setTimeout(function () {
-                me.iscroller.refresh();
-                me._wantIScrollRefresh = 0;
-                me.iscrollerInRefresh = false;
-            }, 300);
-        }
-    };
-
     this.scrollToTopError = function () {
         var $firstQuestion = this.errorQuestions[0],
             $header = this.select('headerPanelSelector'),
@@ -116,12 +96,8 @@ function painChartTask() {
                 top -= visibleHeaderTop;
             }
         }
-
-        if (this.iscroller) {
-            this.iscroller.scrollToElement($firstError.get(0), 1000);
-        } else {
-            window.scrollTo(0, top);
-        }
+        
+        window.scrollTo(0, top);
     };
 
     this.formSubmit = function (e) {
@@ -154,7 +130,6 @@ function painChartTask() {
         }, this);
 
         if (!isValid) {
-            this.refreshIScroller();
             this.scrollToTopError();
             this.errorQuestions.length = 0;
 
@@ -227,28 +202,12 @@ function painChartTask() {
         this.saveDraftAnswer();
     };
 
-    this.initIScrollForMobileDialog = function () {
-        /*jshint nonew: false */
-        if (Utility.isMobile()) {
-            this.iscroller = new IScroll('#main', {
-                click: true
-            });
-
-            this.iscroller.on('beforeScrollStart', function () {
-                document.activeElement.blur();
-            });
-
-            this.refreshIScroller();
-        }
-    };
-
     this.after('initialize', function () {
         this.initDraftAnswer();
 
         this.on(document, 'symptomSelectedSuccess', this.onSymptomSelectedSuccess);
         this.on(document, 'painPercentSelectSuccess', this.onPainPercentSelectSuccess);
 
-        this.initIScrollForMobileDialog();
         Utility.hideProcessing();
 
     });

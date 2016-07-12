@@ -1,7 +1,7 @@
 require('../../common/WithDatepicker');
 
 var flight = require('flight');
-var WithMobileDialog = require('../../common/WithMobileDialog');
+var WithDialog = require('../../common/WithDialog');
 
 function MobileDatePickerDialog() {
     this.$datePicker = null;
@@ -46,4 +46,4 @@ function MobileDatePickerDialog() {
     };
 }
 
-module.exports = flight.component(WithMobileDialog, MobileDatePickerDialog);
+module.exports = flight.component(WithDialog, MobileDatePickerDialog);

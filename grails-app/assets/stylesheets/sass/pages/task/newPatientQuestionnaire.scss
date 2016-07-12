@@ -4,7 +4,6 @@
 @import '../../partials/dialog';
 @import '../../partials/datepicker';
 @import '../../partials/multiple_data_picker';
-@import '../../partials/mobile_iscroll';
 
 .new-patient-questionnaire {
     @include breakpoint('tablet') {
