@@ -61,7 +61,7 @@ class DirectTaskController extends TaskController {
         def accountId = params?.accountId
         def completeDate = params.completeDate
 
-        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, accountId, completeDate)
+        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, accountId, completeDate, RatchetConstants.TaskSourceFromEnum.MA.value)
 
         render(view: '/multiTask/tasksList', model: [
             client: JSON.parse(session.client),
