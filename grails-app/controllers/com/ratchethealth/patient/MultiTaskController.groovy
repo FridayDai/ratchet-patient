@@ -35,7 +35,7 @@ class MultiTaskController extends TaskController {
         def subDomain = serverName.substring(0, serverName.indexOf('.'))
         def client = JSON.parse(session.client)
 
-        def resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, null, null, subDomain)
+        def resp = multiTaskService.getTreatmentTasksWithTreatmentCode(token, treatmentCode, RatchetConstants.questionnaireTypeEnum.ACTIVE.value, subDomain)
 
         if (resp.status == 200) {
             def tasksListResp = JSON.parse(resp.body)
@@ -55,8 +55,8 @@ class MultiTaskController extends TaskController {
                 ]
             } else {
                 render view: '/multiTask/noActiveTask', model: [
-                        client    : client,
-                        isInClinic: isInClinic,
+                        client        : client,
+                        isInClinic    : isInClinic,
                         tasksCompleted: true,
 
                 ]
@@ -78,17 +78,16 @@ class MultiTaskController extends TaskController {
         def subDomain = serverName.substring(0, serverName.indexOf('.'))
         def client = JSON.parse(session.client)
 
-        def resp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, combinedTasksCode, null, null, subDomain)
-        def allResp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, combinedTasksCode, null, true, subDomain)
-
-        if (resp.status == 200) {
-            def tasksListResp = JSON.parse(resp.body)
+        def allResp = multiTaskService.getTreatmentTasksWithCombinedTasksCode(token, combinedTasksCode, RatchetConstants.questionnaireTypeEnum.ALL.value, subDomain)
+        if (allResp.status == 200) {
             def allTasksListResp = JSON.parse(allResp.body)
-
             def allTaskList = limitFutureTask(allTasksListResp.tests)
-            def tasksList = tasksListResp.tests
-            def emailStatus = tasksListResp.emailStatus
-            def patientId = tasksListResp.patientId
+            def emailStatus = allTasksListResp.emailStatus
+            def patientId = allTasksListResp.patientId
+
+            def tasksList = allTasksListResp.tests?.findAll {
+                it.taskStatus == RatchetConstants.taskStatusEnum.PENDING.value || it.taskStatus == RatchetConstants.taskStatusEnum.OVERDUE.value
+            }
 
             if (allTaskList && tasksList) {
                 render view: '/multiTask/tasksList', model: [
@@ -102,13 +101,13 @@ class MultiTaskController extends TaskController {
                 ]
             } else {
                 render view: '/multiTask/noActiveTask', model: [
-                        client     : client,
-                        allTaskList: allTaskList,
+                        client        : client,
+                        allTaskList   : allTaskList,
                         tasksCompleted: true,
                 ]
             }
         } else {
-            taskService.handleError(resp)
+            taskService.handleError(allResp)
         }
     }
 
@@ -227,7 +226,8 @@ class MultiTaskController extends TaskController {
     }
 
     def submitQuestionnaire(opts) {
-        return taskService.submitQuestionnaireWithoutErrorHandle(opts?.token, opts?.code, opts?.answer, null, null, '')
+        return taskService.submitQuestionnaireWithoutErrorHandle(opts?.token, opts?.code, opts?.answer, null, null, '',
+                opts?.isInClinic ? RatchetConstants.TaskSourceFromEnum.IN_CLNIC.value : RatchetConstants.TaskSourceFromEnum.EMAIL.value)
     }
 
     def submitSpecialTask() {
@@ -245,7 +245,8 @@ class MultiTaskController extends TaskController {
         def choices = params.choices
         def code = params.code
 
-        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, null, '')
+        taskService.submitQuestionnaireWithoutErrorHandle(token, code, [0], choices, null, '',
+                isInClinic ? RatchetConstants.TaskSourceFromEnum.IN_CLNIC.value : RatchetConstants.TaskSourceFromEnum.EMAIL.value)
 
         if (taskRoute == "pickTask") {
             if (isInClinic) {
