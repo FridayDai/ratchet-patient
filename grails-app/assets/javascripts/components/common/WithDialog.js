@@ -95,7 +95,9 @@ function WithDialog() {
 
             this.show();
 
-            bodyEl.scrollTop = this.__bodyScrollTop;
+            if (Utility.isMobile()) {
+                bodyEl.scrollTop = this.__bodyScrollTop;
+            }
         };
     };
 
