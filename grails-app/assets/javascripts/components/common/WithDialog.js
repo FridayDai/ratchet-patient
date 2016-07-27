@@ -70,7 +70,7 @@ function WithDialog() {
 
         this.onShow = function (e, data) {
             var $window = $(window);
-            var bodyEl = $('body')[0];
+            // var bodyEl = $('body')[0];
 
             this.$node.removeClass('ui-hidden');
 
@@ -82,7 +82,7 @@ function WithDialog() {
                     height: height
                 });
 
-                this.__bodyScrollTop = bodyEl.scrollTop;
+                // this.__bodyScrollTop = bodyEl.scrollTop;
             } else {
                 this.changeSize({
                     height: 'auto'
@@ -95,67 +95,67 @@ function WithDialog() {
 
             this.show();
 
-            if (Utility.isMobile()) {
-                bodyEl.scrollTop = this.__bodyScrollTop;
-            }
+            // if (Utility.isMobile()) {
+            //     bodyEl.scrollTop = this.__bodyScrollTop;
+            // }
         };
     };
 
-    this.initMobileTouchEndEvent = function () {
-        if (Utility.isMobile()) {
-            this.__touchstartWrapper = _.bind(this.onBodyTouchStart, this);
-            this.__touchmoveWrapper = _.bind(this.onBodyTouchMove, this);
-
-            var $body = $('body');
-
-            $body.on('touchstart', this.__touchstartWrapper);
-            $body.on('touchmove', this.__touchmoveWrapper);
-        }
-    };
-
-    this.__findDialogContent = function () {
-        var $content = this.$node.find('.ui-dialog-content');
-
-        if (!$content.length) {
-            $content = this.$node.closest('.ui-dialog-content');
-        }
-
-        return $content;
-    };
-
-    this.onBodyTouchStart = function (e) {
-        var $content = this.__findDialogContent();
-
-        if(this.$node.is(':visible') && $content.has(e.target).length) {
-            var touches = e.originalEvent.changedTouches;
-
-            this.__lastTouchY = touches[0].clientY;
-        }
-    };
-
-    this.onBodyTouchMove = function(e) {
-        var $content = this.__findDialogContent();
-
-        if(this.$node.is(':visible')){
-            e.preventDefault();
-
-            if ($content.has(e.target).length) {
-
-                var touches = e.originalEvent.changedTouches;
-
-                var delta = touches[0].clientY - this.__lastTouchY;
-                this.__lastTouchY = touches[0].clientY;
-
-                $content.get(0).scrollTop += -delta;
-            }
-        }
-    };
+    // this.initMobileTouchEndEvent = function () {
+    //     if (Utility.isMobile()) {
+    //         this.__touchstartWrapper = _.bind(this.onBodyTouchStart, this);
+    //         this.__touchmoveWrapper = _.bind(this.onBodyTouchMove, this);
+    //
+    //         var $body = $('body');
+    //
+    //         $body.on('touchstart', this.__touchstartWrapper);
+    //         $body.on('touchmove', this.__touchmoveWrapper);
+    //     }
+    // };
+    //
+    // this.__findDialogContent = function () {
+    //     var $content = this.$node.find('.ui-dialog-content');
+    //
+    //     if (!$content.length) {
+    //         $content = this.$node.closest('.ui-dialog-content');
+    //     }
+    //
+    //     return $content;
+    // };
+    //
+    // this.onBodyTouchStart = function (e) {
+    //     var $content = this.__findDialogContent();
+    //
+    //     if(this.$node.is(':visible') && $content.has(e.target).length) {
+    //         var touches = e.originalEvent.changedTouches;
+    //
+    //         this.__lastTouchY = touches[0].clientY;
+    //     }
+    // };
+    //
+    // this.onBodyTouchMove = function(e) {
+    //     var $content = this.__findDialogContent();
+    //
+    //     if(this.$node.is(':visible')){
+    //         e.preventDefault();
+    //
+    //         if ($content.has(e.target).length) {
+    //
+    //             var touches = e.originalEvent.changedTouches;
+    //
+    //             var delta = touches[0].clientY - this.__lastTouchY;
+    //             this.__lastTouchY = touches[0].clientY;
+    //
+    //             $content.get(0).scrollTop += -delta;
+    //         }
+    //     }
+    // };
 
     this.after('initialize', function () {
         this._initDialog();
         this._onShowWrapper();
 
-        this.initMobileTouchEndEvent();
+        // this.initMobileTouchEndEvent();
     });
 
     this.before('teardown', function () {
@@ -163,12 +163,12 @@ function WithDialog() {
         this.$node.dialog('destroy');
         this.dialogEl = null;
 
-        if (Utility.isMobile()) {
-            var $body = $('body');
-
-            $body.off('touchstart', this.__touchstartWrapper);
-            $body.off('touchmove', this.__touchmoveWrapper);
-        }
+        // if (Utility.isMobile()) {
+        //     var $body = $('body');
+        //
+        //     $body.off('touchstart', this.__touchstartWrapper);
+        //     $body.off('touchmove', this.__touchmoveWrapper);
+        // }
     });
 }
 
