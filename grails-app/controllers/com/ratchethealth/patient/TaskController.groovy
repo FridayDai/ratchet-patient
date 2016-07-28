@@ -32,6 +32,7 @@ class TaskController extends BaseController {
                                 emailStatus    : opts?.emailStatus,
                                 taskRoute      : opts?.taskRoute
                         ]
+                return
             }
 
         }
