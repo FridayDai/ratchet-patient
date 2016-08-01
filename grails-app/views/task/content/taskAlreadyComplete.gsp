@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <g:set var="commonScriptPath" value="dist/commons.chunk.js"/>
 <g:set var="cssPath" value="task/taskAlreadyComplete"/>
+<g:set var="scriptPath" value="dist/taskAlreadyComplete.bundle.js"/>
 <g:if test="${!isInClinic}">
     <g:set var="hasAssistMe" value="true"/>
 </g:if>
@@ -86,7 +87,13 @@
                         <input type="hidden" name="isInClinic" value="${isInClinic}">
                         <input type="hidden" name="patientId" value="${patientId}">
                         <input type="hidden" name="emailStatus" value="${emailStatus}">
-                        <input type="submit" class="rc-btn task-done-btn" value="OK"/>
+
+                        %{--<g:if test="${isInClinic}">--}%
+                            %{--<input type="submit" class="rc-btn task-done-btn" value="OK"/>--}%
+                        %{--</g:if>--}%
+                        %{--<g:else>--}%
+                            <a id="ok-link" href="/" class="rc-btn task-done-btn">OK</a>
+                        %{--</g:else>--}%
                     </div>
                 </form>
             </div>
