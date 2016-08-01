@@ -12,27 +12,32 @@ class TaskController extends BaseController {
         if (resp.status == 207) {
             alreadyComplete = true
             def result = JSON.parse(resp.body)
+            // 1: basic, 2: outcome 6: RAPT
 
-            render view: '/task/content/taskAlreadyComplete' ,
-                    model: [
-                            client         : JSON.parse(session.client),
-                            isInClinic     : opts?.isInClinic,
-                            baseToolType   : result.baseToolType,
-                            Task           : result,
-                            Draft          : draft,
-                            taskTitle      : opts?.taskTitle,
-                            taskCode       : opts?.taskCode,
-                            itemIndex      : opts?.itemIndex,
-                            tasksList      : opts?.tasksList,
-                            treatmentCode  : opts?.treatmentCode,
-                            tasksLength    : opts?.tasksList?.size(),
-                            patientId      : opts?.patientId,
-                            emailStatus    : opts?.emailStatus,
-                            taskRoute      : opts?.taskRoute
-                    ]
+            if(result.baseToolType != 1) {
+                render view: '/task/content/taskAlreadyComplete' ,
+                        model: [
+                                client         : JSON.parse(session.client),
+                                isInClinic     : opts?.isInClinic,
+                                baseToolType   : result.baseToolType,
+                                Task           : result,
+                                Draft          : draft,
+                                taskTitle      : opts?.taskTitle,
+                                taskCode       : opts?.taskCode,
+                                itemIndex      : opts?.itemIndex,
+                                tasksList      : opts?.tasksList,
+                                treatmentCode  : opts?.treatmentCode,
+                                tasksLength    : opts?.tasksList?.size(),
+                                patientId      : opts?.patientId,
+                                emailStatus    : opts?.emailStatus,
+                                taskRoute      : opts?.taskRoute
+                        ]
+                return
+            }
+
         }
 
-        if (resp.status == 200) {
+        if (resp.status == 200 || resp.status == 207) {
             def result = JSON.parse(resp.body)
             def questionnaireView = ''
 
