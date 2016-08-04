@@ -100,9 +100,16 @@
                                             <div class="text">
                                                 ${choice.content} -
                                                 <g:if test="${choice.content == '0'}">No Pain</g:if>
-                                                <g:if test="${choice.content == '1' || choice.content == '2' || choice.content == '3'}">Mid Pain</g:if>
-                                                <g:if test="${choice.content == '4' || choice.content == '5' || choice.content == '6'}">Moderate Pain</g:if>
-                                                <g:if test="${choice.content == '7' || choice.content == '8' || choice.content == '9' || choice.content == '10'}">Severe Pain</g:if>
+                                                <g:if test="${choice.content == '1' ||
+                                                                choice.content == '2' ||
+                                                                    choice.content == '3'}">Mid Pain</g:if>
+                                                <g:if test="${choice.content == '4' ||
+                                                                choice.content == '5' ||
+                                                                    choice.content == '6'}">Moderate Pain</g:if>
+                                                <g:if test="${choice.content == '7' ||
+                                                                choice.content == '8' ||
+                                                                    choice.content == '9' ||
+                                                                        choice.content == '10'}">Severe Pain</g:if>
                                             </div>
                                             <label class="choice choice-number choice-number-${choice.content}">
                                                 <input type="radio"

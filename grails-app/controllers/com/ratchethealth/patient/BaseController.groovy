@@ -78,7 +78,7 @@ class BaseController {
         e.printStackTrace(pw)
         def email = session.email
 
-        //exceptionEmailService.sendExceptionEmail(sw.toString(), email)
+        exceptionEmailService.sendExceptionEmail(sw.toString(), email)
 
         if(request.isXhr()) {
             render status: 400, text: e.message
