@@ -118,10 +118,6 @@
 													<g:if test="${i == 0 && choices?.neck == j.toString()}"> checked</g:if>
 													<g:if test="${i == 1 && choices?.arm == j.toString()}"> checked</g:if>
 												</g:if>
-												<g:if test="${Task.type == RatchetConstants.ToolEnum.NRS_GENERAL.value}">
-													<g:if test="${i == 0}"> name="choices.general"</g:if>
-													<g:if test="${i == 0 && choices?.general == j.toString()}"> checked</g:if>
-											    </g:if>
 												<g:if test="${Draft && Draft[i.toString()] == j.toString()}"> checked</g:if>
 												   value="${j}"/>
 											<span class="rc-radio"></span>

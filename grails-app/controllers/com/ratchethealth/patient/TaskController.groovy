@@ -57,8 +57,11 @@ class TaskController extends BaseController {
 
                     case RatchetConstants.ToolEnum.NRS_BACK.value:
                     case RatchetConstants.ToolEnum.NRS_NECK.value:
-                    case RatchetConstants.ToolEnum.NRS_GENERAL.value:
                         questionnaireView = '/task/content/nrs'
+                        break
+
+                    case RatchetConstants.ToolEnum.NRS_GENERAL.value:
+                        questionnaireView = '/task/content/nrsGeneral'
                         break
 
                     case RatchetConstants.ToolEnum.KOOS.value:
@@ -227,8 +230,7 @@ class TaskController extends BaseController {
 
     def convertChoice(type, choices) {
         if (type == RatchetConstants.ToolEnum.NRS_BACK.value ||
-                type == RatchetConstants.ToolEnum.NRS_NECK.value ||
-                    type == RatchetConstants.ToolEnum.NRS_GENERAL.value) {
+                type == RatchetConstants.ToolEnum.NRS_NECK.value ) {
             return choices
         } else {
             def newType = [:]

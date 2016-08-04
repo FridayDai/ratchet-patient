@@ -16,6 +16,7 @@ module.exports = {
         koosLikeTool: "./pages/koosLikeTool.js",
         koosJRLikeTool: "./pages/koosJRLikeTool.js",
         nrsLikeTool: "./pages/nrsLikeTool.js",
+        nrsGeneralTool: "./pages/nrsGeneralTool.js",
         odiLikeTool: "./pages/odiLikeTool.js",
         raqTool: "./pages/raqTool.js",
         verticalChoiceTool: "./pages/verticalChoiceTool.js",
