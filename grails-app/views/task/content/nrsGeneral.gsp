@@ -16,6 +16,10 @@
             .task-time {
                 color: ${client.primaryColorHex?:'#0f137d'} !important;
             }
+
+            .assist-bottom {
+                display: none;
+            }
         }
 
         .primary-color {
