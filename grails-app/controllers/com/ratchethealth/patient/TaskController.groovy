@@ -94,6 +94,10 @@ class TaskController extends BaseController {
                     case RatchetConstants.ToolEnum.RETURN_PATIENT_QUESTIONNAIRE.value:
                         questionnaireView = '/task/content/returnPatientQuestionnaire'
                         break
+
+                    case RatchetConstants.ToolEnum.CAROLINAS_COMFORT_SCALE.value:
+                        questionnaireView = '/task/content/carolinasComfortScale'
+                        break
                 }
                 if (result.draft) {
                     draft = JSON.parse(JSON.parse(result.draft).yourData)

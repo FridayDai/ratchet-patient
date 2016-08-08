@@ -27,7 +27,8 @@ module.exports = {
         tasksList: "./pages/tasksList.js",
         taskAlreadyComplete: "./pages/taskAlreadyComplete.js",
         basicTool: "./pages/basicTool.js",
-        followUpTool: "./pages/followUpTool.js"
+        followUpTool: "./pages/followUpTool.js",
+        carolinasComfortScaleTool: "./pages/carolinasComfortScaleTool.js"
     },
     output: {
         path: absoluteContext,

@@ -22,6 +22,7 @@ class RatchetConstants {
         RISK_ASSESSMENT_QUESTIONNAIRE(20),
         SURGERY_FOLLOW_UP(21),
         NRS_GENERAL(22),
+        CAROLINAS_COMFORT_SCALE(23),
 
         int value
 

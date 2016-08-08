@@ -1,0 +1,149 @@
+@import '../../partials/task_content';
+@import '../../partials/headerErrorTip';
+
+.ccs {
+    @include breakpoint('tablet') {
+        @include answer-vertical-list('lg');
+    }
+
+    @include breakpoint('mobile') {
+        @include answer-vertical-list('small');
+    }
+
+    .section-list {
+        @include breakpoint('tablet') {
+            margin-top: 40px;
+        }
+
+        &.error {
+            .section-title {
+                background-color: $base-color-error-background-pink;
+            }
+
+            .error-label {
+                margin-top: 5px;
+                color: $base-color-error-font-red;
+                font-size: 13px;
+
+                @include breakpoint('mobile') {
+                    display: block;
+                }
+
+                @include breakpoint('tablet') {
+                    float: right;
+                }
+            }
+        }
+    }
+
+    .question-list {
+        @include breakpoint('tablet') {
+            margin-bottom: 8px;
+        }
+    }
+
+    .section-title {
+        padding: 30px 20px;
+        color: #333;
+        background-color: $base-color-white;
+        font-size: 16px;
+        margin-bottom: 8px;
+
+        @include breakpoint('mobile') {
+            padding: 20px;
+            margin-bottom: 0;
+        }
+
+        @include breakpoint('desktop') {
+            padding-left: 45px;
+        }
+
+        @include breakpoint('lg-desktop') {
+            padding-left: 65px;
+        }
+    }
+
+    .question {
+        background-color: $base-color-white;
+        color: $base-color-light-dark;
+
+        @include breakpoint('tablet') {
+            margin-bottom: 0;
+            padding: 30px 20px 0;
+            font-size: 18px;
+        }
+
+        @include breakpoint('desktop') {
+            padding-left: 45px;
+        }
+
+        @include breakpoint('lg-desktop') {
+            padding-left: 65px;
+        }
+    }
+
+    .answer-list {
+        @include breakpoint('tablet') {
+            padding: 15px 20px;
+            background-color: #fff;
+        }
+
+        .list {
+            @include breakpoint('tablet') {
+                margin: 10px 0 10px -20px;
+            }
+        }
+    }
+
+    .answer {
+        .text {
+            @include breakpoint('tablet') {
+                min-height: 23px;
+                margin-top: 5px;
+            }
+
+            @include breakpoint('desktop') {
+                padding-left: 6px;
+            }
+
+            @include breakpoint('lg-desktop') {
+                padding-left: 28px;
+            }
+        }
+
+        .choice {
+            @include breakpoint('tablet') {
+                margin-left: 54px;
+            }
+
+            @include breakpoint('desktop') {
+                margin-left: 64px;
+            }
+
+            @include breakpoint('lg-desktop') {
+                margin-left: 84px;
+            }
+        }
+
+        .choice-index {
+            padding-right: 8px;
+            font-weight: 700;
+
+            @include breakpoint('mobile') {
+                padding-right: 6px;
+            }
+        }
+    }
+
+    .rc-radio {
+        width: 24px;
+        height: 24px;
+    }
+
+    .rc-choice-hidden:checked + .rc-radio:before {
+        width: 20px;
+        height: 20px;
+
+    }
+
+}
